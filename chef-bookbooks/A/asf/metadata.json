@@ -1,0 +1,61 @@
+{
+  "name": "asf",
+  "description": "Installs/Configures ArchiSteamFarm",
+  "long_description": "# ArchiSteamFarm\n[![Build Status](https://travis-ci.org/T-Wong/asf.svg?branch=master)](https://travis-ci.org/T-Wong/asf) [![Cookbook Version](https://img.shields.io/cookbook/v/asf.svg)](https://supermarket.chef.io/cookbooks/asf)\n\nInstalls and configures [ArchiSteamFarm](https://github.com/JustArchi/ArchiSteamFarm) on a server system.\n\n## Requirements\n### Platforms\n* CentOS 7+\n* Debian 8+\n* Fedora 24+\n* openSUSE 13+\n* RHEL 7+\n* Ubuntu 12.04+\n\n## attributes\n### Source Information\n* `node[asf']['source']` - Root URL to where to download ArchiSteamFarm. By default, this points to the official GitHub releases page at https://github.com/JustArchi/ArchiSteamFarm/releases.\n* `node['asf']['version']` - Version of ArchiSteamFarm to initially download. By default, this is `2.2.0.5`. This value might change on the system if you have chosen to auto update in your ASF global configuration file.\n* `node['asf']['checksum']` - The SHA256 checksum of the `ASF.exe` for the version that you want to install.\n\n### Install and configuration Paths\n* `node['asf']['install']['path']` - Path to where to install ArchiSteamFarm. By default, this cookbook will install ArchiSteamFarm to `/opt/asf`.\n* `node['asf']['config']['path']` - Path to where to store the global and bot configuration files. By default, this cookbook will place these into `/opt/asf/config`.\n\n### Global and bot configuration\n* `node['asf']['global']` - Root level key for the global ArchiSteamFarm configuration values. Look at `attributes/default.rb` for information on what values are set by default and refer to [ArchiSteamFarm's official Wiki](https://github.com/JustArchi/ArchiSteamFarm/wiki/Configuration#global-config) on information on what each setting does.\n\n* `node['asf']['bots']`-: Root level key for all of the bot accounts that will be configured. By default, no bot account will be setup. It is necessary to set these attributes either in an environment or a wrapper/role cookbook. For information on what each value does, refer to [ArchiSteamFarm's official Wiki](https://github.com/JustArchi/ArchiSteamFarm/wiki/Configuration#bot-config). Refer to the following example attribute on how to configure a bot account called `bot_name`. It is very important that you include all of the values in the example as not setting a value will result in a broken configuration file.\n\n```ruby\nnode.default['asf']['bots'] = {\n  'bot_name' => {\n    'AcceptConfirmationsPeriod' => 0,\n    'AcceptGifts' => false,\n    'CardDropsRestricted' => true,\n    'CustomGamePlayedWhileFarming' => 'null',\n    'CustomGamePlayedWhileIdle' => 'null',\n    'DismissInventoryNotifications' => true,\n    'DistributeKeys' => false,\n    'Enabled' => false,\n    'FarmingOrder' => 0,\n    'FarmOffline' => false,\n    'ForwardKeysToOtherBots' => false,\n    'GamesPlayedWhileIdle' => [],\n    'HandleOfflineMessages' => false,\n    'IsBotAccount' => false,\n    'LootableTypes' => [1, 3, 5],\n    'PasswordFormat' => 0,\n    'Paused' => false,\n    'RedeemingPreferences' => 0,\n    'SendOnFarmingFinished' => false,\n    'SendTradePeriod' => 0,\n    'ShutdownOnFarmingFinished' => false,\n    'SteamApiKey' => 'null',\n    'SteamLogin' => 'null',\n    'SteamMasterClanID' => 0,\n    'SteamMasterID' => 0,\n    'SteamParentalPIN' => 0,\n    'SteamPassword' => 'null',\n    'SteamTradeToken' => 'null',\n    'TradingPreferences' => 1,\n  },\n}\n```\n\n## Recipes\n### default\nThe default recipe will install Mono on a target machine, install ArchiSteamFarm, place configuration files, setup a service, and then start ArchiSteamFarm.\n\n### mono\nThis recipe installs Mono on a target machine. This has only been tested on the platforms outlined above in Platforms.\n\n### service\nInstalls ArchiSteamFarm, loads all of configuration specified in the `global` and `bots` attributes. A service is also created for this and automatically started.\n\n## Usage\nPlace a dependency on the asf cookbook in your cookbook's `metadata.rb`\n\n```ruby\ndepends 'asf', '~> 1.0.0'\n```\n\nthen, in a recipe:\n\n```ruby\ninclude_recipe 'asf::default'\n```\n\nIf you would like to modify the default global configuration file or add your bots, set/override the values in `node['asf']['global']` and `node['asf']['bots']` as advised under the attributes section.\n\n## License & Authors\n- Author:: Tyler Wong ([ty-w@live.com](mailto:ty-w@live.com))\n\n```text\nCopyright 2017, Tyler Wong\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Tyler Wong",
+  "maintainer_email": "ty-w@live.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 7.0",
+    "debian": ">= 7.0",
+    "fedora": ">= 21.0",
+    "freebsd": ">= 9.0",
+    "opensuse": ">= 13.0",
+    "opensuseleap": ">= 13.0",
+    "redhat": ">= 7.0",
+    "ubuntu": ">= 12.04"
+  },
+  "dependencies": {
+    "poise-service": "~> 1.4.2",
+    "apt": "~> 5.0.1",
+    "yum": "~> 4.1.0",
+    "zypper": "~> 0.3.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/T-Wong/asf",
+  "issues_url": "https://github.com/T-Wong/asf/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

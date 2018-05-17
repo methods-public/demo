@@ -1,0 +1,5 @@
+AllCops:
+  Exclude:
+    - './Vagrantfile'
+LineLength:
+  Enabled: false

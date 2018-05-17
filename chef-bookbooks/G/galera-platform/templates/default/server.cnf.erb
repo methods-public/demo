@@ -1,0 +1,6 @@
+# Produced by Chef -- changes will be overwritten
+
+[galera]
+<% @config.each do |key, value| %>
+<%= key %><% unless value.nil? %>=<%= value %><% end %>
+<% end %>

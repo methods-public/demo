@@ -1,0 +1,57 @@
+--- # TODO: move to Docker a la https://github.com/ferrarimarco/ansible-role-virtualbox
+driver:
+  cachier: true
+  name: vagrant
+  customize:
+    cableconnected1: 'on'
+  ssh:
+    insert_key: false
+
+driver_config:
+  require_chef_omnibus: latest
+
+provisioner:
+  name: chef_zero
+  cookbook_files_glob: '**/*'
+  client_rb:
+    cookbook_path:
+      - /tmp/kitchen/cookbooks
+      - /tmp/kitchen/cookbooks/couchdb/test/cookbooks
+# Uncomment for great debug
+#  log_level: debug
+
+verifier:
+  name: inspec
+
+platforms:
+#  - name: centos-6.9
+  - name: centos-7.4
+  - name: debian-7.11
+  - name: debian-8.7
+  - name: debian-9.2
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: ubuntu-17.10
+
+suites:
+  - name: source
+    run_list:
+      - recipe[apt::default]
+      - recipe[couchdb-wrapper-test::one-node-from-source]
+    verifier:
+      inspec_tests:
+        - test/smoke/inspec
+  - name: search
+    run_list:
+      - recipe[apt::default]
+      - recipe[couchdb-wrapper-test::one-node-with-search]
+    verifier:
+      inspec_tests:
+        - test/searchsmoke/inspec
+  - name: threenodes
+    run_list:
+      - recipe[apt::default]
+      - recipe[couchdb-wrapper-test::three-nodes-from-source]
+    verifier:
+      inspec_tests:
+        - test/threesmoke/inspec

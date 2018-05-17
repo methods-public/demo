@@ -1,0 +1,82 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+
+suites:
+  - name: centos6_php53
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.3'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-7.1
+  - name: centos6_php54
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.4'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-7.1
+  - name: centos6_php55
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.5'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-7.1
+  - name: centos6_php56
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.6'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-7.1
+  - name: centos7_php54
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.4'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-6.6
+  - name: centos7_php55
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.5'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-6.6
+  - name: centos7_php56
+    run_list:
+      - recipe[as-php::default]
+    attributes:
+      php:
+        version: '5.6'
+        xdebug:
+          remote_enable: true
+    excludes:
+          - centos-6.6

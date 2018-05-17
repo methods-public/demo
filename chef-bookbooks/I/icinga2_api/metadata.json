@@ -1,0 +1,42 @@
+{
+  "name": "icinga2_api",
+  "description": "Chef LWRPs to interact with Icinga2 API",
+  "long_description": "# icinga2_api Cookbook\n\n[![Cookbook Version](https://img.shields.io/cookbook/v/icinga2_api.svg)](https://supermarket.chef.io/cookbooks/icinga2_api)\n[![Build Status](https://secure.travis-ci.org/scopenco/chef-icinga2_api.png?branch=master)](http://travis-ci.org/scopenco/chef-icinga2_api)\n[![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)\n\n   * [icinga2_api Cookbook](#icinga2_api-cookbook)\n      * [Description](#description)\n      * [Requirements](#requirements)\n         * [Cookbooks](#cookbooks)\n         * [Chef](#chef)\n         * [Platforms](#platforms)\n      * [Recipes](#recipes)\n      * [Usage](#usage)\n         * [icinga2_api_host](#icinga2_api_host)\n         * [icinga2_api_service](#icinga2_api_service)\n      * [License &amp; Authors](#license--authors)\n\nCreated by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)\n\n## Description\n\nChef cookbook with LWRPs used to interact with icinga2 API.\n\n## Requirements\n\n### Cookbooks\n\n- [build-essential](https://supermarket.chef.io/cookbooks/build-essential)\n\n### Chef\n\n* Chef 12 or higher\n\n### Platforms\n\n* Debian => 6\n* Ubuntu => 14.04\n* RHEL => 6\n\n**Notes**: This cookbook has been tested on the listed platforms. It may work on other platforms with or without modification.\n\n## Recipes\n\n* `default` - installing [icinga2](https://github.com/bodsch/ruby-icinga2/) gem for LWRPs.\n\n## Usage\n\nThe main use case is to create icinga2 objects on the node bootstrap time. Thus you don't need to create any autodiscovery tools that will describe all nodes in icinga2 setup.\nPlease refer to [integration cookbook](https://github.com/scopenco/chef-icinga2_api/blob/master/test/fixtures/cookbooks/test/recipes/default.rb) for examples.\n\n### icinga2_api_host\n\nLWRP `host` creates an icinga `Host` object.\n\n**LWRP Environment Host example**\n\n```\n# Set connection to icinga2 API\nicinga2_api = {\n    host: '127.0.0.1',\n    username: 'admin',\n    password: 'mysecret',\n    node_name: 'master',\n    cluster: true,\n    satellite: 'master',\n}\n\nicinga2_api_host 'host1' do\n  attributes 'address' => '127.0.0.1',\n\t     'templates' => ['check-host-tmpl-30s'],\n\t     'vars' => {\n\t\t'myvar' => 'mygroup',\n\t      }\n  connection icinga2_api\nend\n```\n\n**LWRP Options**\n\n- *name* (name_attribute, String)           - chef resource name and icinga2 host name.\n- *attributes* (optional, Hash)             - icinga2 host object attributes.\n- *connection* (optional, Hash)             - icinga2 API connection settings.\n- *action* (optional)                       - options: [:create, :delete], default :create.\n\n### icinga2_api_service\n\nLWRP `service` creates an icinga `Service` object.\n\n**LWRP Environment Service example**\n\n```\n# Set connection to icinga2 API\nicinga2_api = {\n    host: '127.0.0.1',\n    username: 'admin',\n    password: 'mysecret',\n    node_name: 'master',\n    cluster: true,\n    satellite: 'master',\n}\n\nicinga2_api_service 'host1_ping1' do\n  host_name 'host1'\n  attributes 'templates' => ['check-service-tmpl-30s'],\n             'display_name' => 'PING1',\n             'check_command' => 'hostalive'\n  connection icinga2_api\nend\n```\n\n**LWRP Options**\n\n- *name* (name_attribute, String)           - chef resource name and icinga2 service name. Should be unique in icinga2 setup.\n- *host_name* (required, Hash)              - icinga2 host name object attributes.\n- *attributes* (optional, Hash)             - icinga2 service object attributes.\n- *connection* (optional, Hash)             - icinga2 API connection settings.\n- *action* (optional)                       - options: [:create, :delete], default :create.\n\n## License & Authors\n- Author:: Andrei Skopenko <andrei@skopenko.net>\n\n```text\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Andrei Skopenko",
+  "maintainer_email": "andrey@skopenko.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.3",
+  "source_url": "https://github.com/scopenco/chef-icinga2_api",
+  "issues_url": "https://github.com/scopenco/chef-icinga2_api/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

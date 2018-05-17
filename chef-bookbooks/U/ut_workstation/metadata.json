@@ -1,0 +1,58 @@
+{
+  "name": "ut_workstation",
+  "description": "Unicorn Tears Workstation cookbook",
+  "long_description": "",
+  "maintainer": "Fletcher Nichol",
+  "maintainer_email": "fnichol@nichol.ca",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": "~> 2.5",
+    "ark": "~> 0.9",
+    "bashrc": "~> 2.0",
+    "chruby": "~> 0.2",
+    "homebrew": "~> 1.4",
+    "homesick": "~> 0.4",
+    "mac_os_x": "~> 1.4",
+    "ubuntu": "~> 1.1",
+    "user": "~> 0.3",
+    "ut_base": "~> 1.7",
+    "python": "~> 1.3",
+    "ruby_install": "= 1.0.4",
+    "xquartz": "~> 1.1",
+    "vagrant": "~> 0.2",
+    "virtualbox": "~> 1.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.5.0",
+  "source_url": "",
+  "issues_url": ""
+}

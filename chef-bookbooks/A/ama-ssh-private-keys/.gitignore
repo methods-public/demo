@@ -1,0 +1,27 @@
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+
+# Testing
+.kitchen/
+.kitchen.local.yml
+Dockerfile*
+test/report
+test/metadata
+
+# Chef
+Berksfile.lock
+.zero-knife.rb
+Policyfile.lock.json
+
+# IDE
+.idea

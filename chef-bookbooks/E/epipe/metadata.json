@@ -1,0 +1,130 @@
+{
+  "name": "epipe",
+  "description": "Installs/Configures a HopsFS to ElasticSearch connector",
+  "long_description": "# E-pipe Chef Cookbook\n\nThis cookbook installs ePipe, a daemon process that synchronizes metadata from HopsFS to Elasticsearch.\n",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "ndb": ">= 0.0.0",
+    "apache_hadoop": ">= 0.0.0",
+    "hops": ">= 0.0.0",
+    "elastic": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "epipe/user": {
+      "description": "User to run Epipe server as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "epipe/group": {
+      "description": "Group to run Epipe server as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "epipe/version": {
+      "description": "Version of epipe to use",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "epipe/url": {
+      "description": "Url to epipe binaries",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "epipe/dir": {
+      "description": "Parent directory to install epipe in (/srv is default)",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "epipe/pid_file": {
+      "description": "Change the location for the pid_file.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "epipe::install": "Installs Epipe Server",
+    "epipe::default": "configures Epipe Server",
+    "epipe::purge": "Deletes the Epipe Server"
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/hopshadoop/epipe-chef",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

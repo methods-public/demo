@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec 2>&1
+
+exec chpst -u<%= @options[:user] %> /usr/bin/current send -d /var/lib/current/<%= @options[:name] %> -t <%= @options[:token] %> <%= @options[:tags] %> <%= @options[:filename] %>

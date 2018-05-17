@@ -1,0 +1,13 @@
+[Unit]
+Description=Storm distributed realtime computation system - <%= @app %>
+After=network.target
+
+[Service]
+User=<%= @node['storm-platform']['user'] %>
+Group=<%= @node['storm-platform']['user'] %>
+SyslogIdentifier=storm-<%= @app %>
+Restart=on-failure
+ExecStart=<%= @node['storm-platform']['prefix_bin'] %>/storm <%= @app %>
+
+[Install]
+WantedBy=multi-user.target

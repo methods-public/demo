@@ -1,0 +1,54 @@
+{
+  "name": "iisnode",
+  "description": "Installs/Configures iisnode",
+  "long_description": "# iisnode Cookbook\n[![Build status](https://ci.appveyor.com/api/projects/status/github/AqoviaCookbooks/iisnode?branch=master&svg=true&retina=true)](https://ci.appveyor.com/project/AqoviaCookbooks/iisnode/branch/master)[![Cookbook Version](https://img.shields.io/cookbook/v/iisnode.svg)](https://supermarket.chef.io/cookbooks/iisnode)\n\n# cookbook-iisnode\nChef cookbook for installing iisnode\n\n## Attributes\n* `node['iisnode']['desktop_iis_edition']: ` Set attribute to override default IIS Express selection for desktop windows versions: `full` or `express`. Default: `express`\n",
+  "maintainer": "AqoviaCookbooks",
+  "maintainer_email": "info@aqovia.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "iis_urlrewrite": ">= 0.0.0",
+    "nodejs": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/AqoviaCookbooks/iisnode",
+  "issues_url": "https://github.com/AqoviaCookbooks/iisnode/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.6"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

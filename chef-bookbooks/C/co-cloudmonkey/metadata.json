@@ -1,0 +1,47 @@
+{
+  "name": "co-cloudmonkey",
+  "description": "Installs/Configures co-cloudmonkey",
+  "long_description": "co-cloudmonkey Cookbook\n=======================\n\nThis cookbook will install cloudmonkey and create configuration file for user root.\nIf use with cloudstack cookbook, it will add admin account <tt>api_key</tt> and <tt>secret_key</tt> in the config located in <tt>/root/.cloudmonkey/config</tt>.\n\nThe Apache CloudStack CloudMonkey is a command line interface (CLI) tool for [CloudStack](http://cloudstack.apache.org/) written in Python. cloudmonkey can be use both as an interactive shell and as a command line tool which simplifies CS configuration and management.\n\nRequirements\n------------\n- 'python::pip'\n\n\nAttributes\n----------\n\nAttributes not required in order to install cloudmonkey.\n\n- <tt>node['cloudstack']['admin']['api_key']</tt> - Cloudstack admin account <tt>api_key</tt>. Empty if not populated by co-cloudstack cookbook.\n- <tt>node['cloudstack']['admin']['secret_key']</tt> - Cloudstack admin account <tt>secret_key</tt>. Empty if not populated by co-cloudstack cookbook.\n\n\nLicense and Authors\n-------------------\n- Authors:: Pierre-Luc Dion (<pdion@cloudops.com>)\n\n```text\nCopyright:: Copyright (c) 2015 CloudOps.com\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```",
+  "maintainer": "CloudOps.com",
+  "maintainer_email": "pdion@cloudops.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "smartos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "python": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "co-cloudmonkey": "Installs cloudmonkey using Pyhton-pip"
+  },
+  "version": "0.3.1",
+  "source_url": "",
+  "issues_url": ""
+}

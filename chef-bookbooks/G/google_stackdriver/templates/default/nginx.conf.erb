@@ -1,0 +1,11 @@
+# Managed by Chef.  Local changes will be overwritten.
+LoadPlugin "nginx"
+<Plugin "nginx">
+  URL "<%= @url %>"
+  <% if @username -%>
+  User "<%= @username %>"
+  <% end -%>
+  <% if @password -%>
+  Password "<%= @password %>"
+  <% end -%>
+</Plugin>

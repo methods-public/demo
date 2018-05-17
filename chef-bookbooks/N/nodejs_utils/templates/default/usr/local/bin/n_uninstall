@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH=.:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
+
+curl -L https://raw.githubusercontent.com/mklement0/n-install/stable/bin/n-uninstall | bash

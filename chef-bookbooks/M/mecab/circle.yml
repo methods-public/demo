@@ -1,0 +1,28 @@
+machine:
+  services:
+    - docker
+  ruby:
+    version: 2.3.1
+  timezone:
+    Asia/Tokyo
+test:
+  override:
+    - bundle install
+    - bundle exec kitchen test -l info --destroy=never default:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never ipadic:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never jumandic:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never unidic:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never naistjdic:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never java:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never perl:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never python:
+        timeout: 3600
+    - bundle exec kitchen test -l info --destroy=never ruby:
+        timeout: 3600

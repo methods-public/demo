@@ -1,0 +1,42 @@
+{
+  "name": "kloudspeaker",
+  "description": "Installs and configures Kloudspeaker",
+  "long_description": "Kloudspeaker Cookbook\n=====================\nInstalls and configures [Kloudspeaker](http://www.kloudspeaker.com), the feature-rich document management and sharing platform.\n\nRequirements\n------------\nThis cookbook has been tested on:\n\n- CentOS 7\n- Chef 12.6\n\nUsage\n-----\n#### kloudspeaker::default\nInstalls Kloudspeaker, served by nginx and MariaDB. For more fine-grained control, you may pick from the recipes below instead.\n\n#### kloudspeaker::application\nDownloads the Kloudspeaker zip and installs it using the ark cookbook, under `/var/www/kloudspeaker` by default. It creates an `index.html` file based on attributes under `node['kloudspeaker']['client']`. It then creates a `configuration.php` file based on attributes under `node['kloudspeaker']['configuration']`.\n\nIf you wish to host your database on a different node then set the `db` attributes on that node instead, with the exception of `host`, which should be set on the application node. The application node will source the `db` attributes through a Chef search using the FQDN specified in `host`. You should therefore set up the database node first.\n\n#### kloudspeaker::database\nCreates a database with a dedicated user on your chosen backend. MySQL and PostgreSQL are currently supported by this recipe. A password for the user is randomly generated and saved to an attribute.\n\n#### kloudspeaker::mariadb\nInstalls the MariaDB server, as well as the Ruby gem needed to create the database and user in the database recipe above. Certain `db` attributes are also prefilled appropriately.\n\nRemember that the mariadb cookbook sets a blank root password by default so be sure to change it.\n\n#### kloudspeaker::php\nInstalls PHP-FPM, as well as some required PHP extensions, including the relevant extension for your chosen database backend. To have it select the right backend automatically, execute the mariadb recipe first. This recipe is called by the nginx recipe below.\n\n#### kloudspeaker::nginx\nInstalls and configures nginx to point to the PHP-FPM pool set up by the recipe above.\n\n#### kloudspeaker::webdav\nDownloads the Kloudspeaker WebDAV plugin zip and installs it using the ark cookbook, under `/var/www/kloudspeaker/backend/dav` by default. It creates an `index.php` file based on attributes under `node['kloudspeaker']['webdav']['configuration']`. The WebDAV URL defaults to `/backend/dav` but you can change the `BASE_URI` attribute to something more convenient like `/dav/`; don't forget the trailing slash here!\n\nTODO\n----\n- Support more of the additional downloadable plugins\n- mysql recipe (for using MySQL instead of MariaDB)\n- postgresql recipe (does Kloudspeaker really support PostgreSQL?)\n- apache recipe (for using Apache httpd instead of nginx)\n\nContributing\n------------\nYou know what to do. ;)\n\nLicense and Authors\n-------------------\n- Author:: James Le Cuirot (<james.le-cuirot@yakara.com>)\n\n```text\n# Copyright (C) 2015-2016 Yakara Ltd\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n```\n",
+  "maintainer": "James Le Cuirot",
+  "maintainer_email": "james.le-cuirot@yakara.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ark": ">= 0.0.0",
+    "database": ">= 0.0.0",
+    "mariadb": ">= 0.0.0",
+    "mysql2_chef_gem": ">= 0.0.0",
+    "chef_nginx": ">= 0.0.0",
+    "php-fpm": ">= 0.0.0",
+    "selinux_policy": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

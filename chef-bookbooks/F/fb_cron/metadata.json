@@ -1,0 +1,57 @@
+{
+  "name": "fb_cron",
+  "description": "Installs/Configures cron",
+  "long_description": "fb_cron Cookbook\n====================\nThis cookbook provides a simple data-based API for setting crons and configuring\nthe anacrontab environment.\n\nYOU SHOULD NOT BE SETTING YOUR TIER'S CRON JOBS IN THIS COOKBOOK!\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_cron']['environment'][$NAME][$VALUE]\n* node['fb_cron']['jobs'][$NAME]['command']\n* node['fb_cron']['jobs'][$NAME]['time']\n* node['fb_cron']['jobs'][$NAME]['user']\n* node['fb_cron']['jobs'][$NAME]['only_if']\n* node['fb_cron']['jobs'][$NAME]['splaysecs']\n* node['fb_cron']['jobs'][$NAME]['exclusive']\n* node['fb_cron']['anacrontab']['environment']['$SETTING']\n\nUsage\n-----\n### Adding Jobs\n`node['fb_cron']['jobs']` is a hash of crons. To add a job, simply do:\n\n```\nnode.default['fb_cron']['jobs']['do_this_thing'] = {\n  'time' => '4 5 * * *',\n  'user' => 'apache',\n  'command' => '/var/www/scripts/foo.php',\n}\n```\n\nPLEASE NAME YOUR CRONJOB AS FOLLOWS:\n* simple string\n* no spaces\n* underscores instead of dashes\n\nYou can also specify 'mailto' to direct mail for your job.\n\nSee 'Removing Jobs' for details.\n\n'user' is optional and will default to 'root', but 'time' and 'command'\nare required.\n\n#### only_if\nAny cron entry can include an `only_if` that *must* be a `proc`. It will\nbe evaluated at runtime and the job will not be included if the only_if does\nnot evaluate to true. For example:\n\n```\nnode.default['fb_cron']['jobs']['do_this_thing'] = {\n  'only_if' => proc { node['fb_bla']['enabled'] }\n  'time' => '4 5 * * *',\n  'user' => 'apache',\n  'command' => '/var/www/scripts/foo.php',\n}\n```\n\n### splaysecs\nDefaults to false/none.  Please set a splay time for your cronjob, or  \nexplicitly set this to false to indicate that your job can't tolerate a splay.\nA bunch of cronjobs kicking off at exactly the same time can impact CPU, power,\nand network resources even if each of them are very small.\n\n### exclusive\nDefaults to false/none.  Ensures that only one instance of this job is running,\nbased on a lockfile. If true, a lockfile is determined from the job name.\n\n### Removing Jobs\nTo remove a job you added, simply stop adding it to the hash.  This cookbook\nmakes cron idempotent *as a whole*, thus if you remove the lines adding a cron\njob, it'll be removed from any systems it was on.\n\nA bunch of default crons we want everywhere are set in the attributes file, if\nyou need to exempt yourself from one, you can simply remove it from the hash:\n\n```\nnode.default['fb_cron']['jobs'].delete('do_this_thing')\n```\n\nFor this reason, cron jobs should be given simple names as described above\nto make exempting systems easy.\n\nNOTE: These jobs will end up in /etc/cron.d/fb_crontab\nWARNING: This cookbook wipes out /var/spool/cron/root\n\n### Changing environment options\nIf your system supports it, you can use `node['fb_cron']['environment']` to\naffect the environment of the init script. On Redhat-like systems these\nvariables go into `/etc/sysconfig/crond`, on Debian-like systems these go to\n`/etc/default/cron`. For example:\n\n```\n# For RH\nnode.default['fb_cron']['environment']['CRONDARGS'] = \"-s\"\n# For Debian\nnode.default['fb_cron']['environment']['EXTRA_ARGS'] = \"-s\"\n```\n\n### anacrontab configuration\nAnacron provides a mechanism for configuring the environment used in anacron job\nexecution. This can be configured using the\n`node['fb_cron']['anacrontab']['environment']` attribute, as described in the\n[anacrontab](https://linux.die.net/man/5/anacrontab) documentation. For example,\nto modify the start time of anacron jobs from the default 3-22 o'clock to 6-8\no'clock (server time):\n\n```\nnode.default['fb_cron']['anacrontab']['environment']['start_hours_range'] = '6-8'\n```\n\nNOTE: This is currently only implemented on Redhat-like OSes.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

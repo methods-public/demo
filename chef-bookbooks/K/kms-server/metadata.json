@@ -1,0 +1,39 @@
+{
+  "name": "kms-server",
+  "description": "Installs/Configures kms-server",
+  "long_description": "# kms-server Cookbook\n[![Cookbook Version][cookbook_version]][supermarket_url]\n[![Build Status][build_status]][build_status]\n[![License][license]][license]\n\nInstall and configure the Microsoft KMS server role.\n\n## Requirements\n\nThis cookbook supports and requires Chef 12.6+.\n\n### Platforms\n\n* Windows Server 2012R2\n* Windows Server 2016\n\n### Cookbooks\n\nThe following cookbook is required as noted:\n\n* [windows](windows_cookbook) (> 1.36.1) to leverage the `windows_feature` resource\n\n\n## Usage\n\nConfigure your `kms host key` and tweak other attributes.\nThen just add `kms-server::default` to your runlist.\n\n## Attributes\n\nBelow attributes are available in `kms_server` root namespace.\nMost of them are adapted from https://technet.microsoft.com/library/dn502532\n\nAttribute                | Description                                       | Default value\n-------------------------|---------------------------------------------------|--------------\n`host_key`               | The *key* used to enable KMS Host service.        | **MANDATORY**\n`disable_dns_publishing` | Determine whether DNS publishing is disable.      | `false`\n`dns_publishing_domains` | List of domain used for DNS publishing.           | `[]`\n`reduce_kms_priority`    | Determine whether KMS priority should be lowered. | `false`\n`listening_port`         | KMS Tcp listening port.                           | `1688`\n`activation_interval`    | Activation interval in minutes.                   | `120`\n`renewal_interval`       | Renewal interval in minutes.                      | `10080`\n\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\n* Authors [Baptiste Courtois][annih] (<b.courtois@criteo.com>)\n\n```text\nCopyright 2017 Baptiste Courtois\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n[annih]:            https://github.com/Annih\n[repository]:       https://github.com/Annih/kms-server\n[build_status]:     https://api.travis-ci.org/Annih/kms-server.svg?branch=master\n[cookbook_version]: https://img.shields.io/cookbook/v/kms-server.svg\n[license]:          https://img.shields.io/github/license/Annih/kms-server.svg\n[supermarket_url]:  https://supermarket.chef.io/cookbooks/kms-server",
+  "maintainer": "Annih",
+  "maintainer_email": "b.courtois@criteo.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 6.3"
+  },
+  "dependencies": {
+    "windows": ">= 1.36.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.0"
+}

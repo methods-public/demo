@@ -1,0 +1,27 @@
+# Generated automatically by chef, updates will be overriden!
+#
+
+# frequency of update config in seconds
+DBforBIX.UpdateConfigTimeout=<%= node['dbforbix']['config_update_freq'] %>
+
+#### Configuration of Connection pool ###
+
+# Login Timeout
+Pool.LoginTimeOut=15
+
+### Zabbix servers ###
+# A list of Zabbix servers, change the name after first dot to add more
+
+<% @zabbix.each do |dk, dv| %>
+<%   dv.each do |k, v| %>
+ZabbixServer.<%= dk %>.<%= k %>=<%= v %>
+<%   end %>
+<% end %>
+
+### Database servers ###
+
+<% @databases.each do |dk, dv| %>
+<%   dv.each do |k, v| %>
+DB.<%= dk %>.<%= k %>=<%= v %>
+<%   end %>
+<% end %>

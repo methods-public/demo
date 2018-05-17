@@ -1,0 +1,21 @@
+#
+# This configuration file is managed by chef
+# Do not edit by hand.  Your changes will be overwritten
+#
+################################################################
+# Neo4j
+#
+# neo4j-server.properties - runtime operational settings
+#
+################################################################
+
+#***************************************************************
+# Server configuration
+#***************************************************************
+
+<% Hash[@config.sort].each do |key, value| -%>
+<% if key && !value.nil? -%>
+<%= key %>=<%= value %>
+<% end -%>
+<% end -%>
+

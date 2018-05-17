@@ -1,0 +1,25 @@
+; priority=90
+[blackfire]
+extension=blackfire.so
+blackfire.agent_socket = <%= @socket %>
+blackfire.agent_timeout = <%= @agent_timeout %>
+<% if @server_id %>
+blackfire.server_id = <%= @server_id %>
+<% else %>
+;blackfire.server_id =
+<% end %>
+<% if @server_token %>
+blackfire.server_token = <%= @server_token %>
+<% else %>
+;blackfire.server_token =
+<% end %>
+<% if @log_level %>
+blackfire.log_level = <%= @log_level %>
+<% else %>
+;blackfire.log_level = 3
+<% end %>
+<% if @log_file %>
+blackfire.log_file = <%= @log_file %>
+<% else %>
+;blackfire.log_file = /tmp/blackfire.log
+<% end %>

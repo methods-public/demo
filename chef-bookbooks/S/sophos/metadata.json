@@ -1,0 +1,53 @@
+{
+  "name": "sophos",
+  "description": "Configuration of SOPHOS UTM Appliances",
+  "long_description": "# Sophos Chef Cookbook\n\n## SG (Security Gateway - UTM 9)\n\nThe SG recipes use the UTM 9 REST API to automate provisioning of the UTM.\nPlease make sure the basic setup is performed beforehand as it creates the\nrequired admin account.\n\n**_This chef cookbook requires at least UTM 9.408 and newer_**\n\nTo find out how to configure the UTM 9 use the `confd-watch.plx -v` command.\nIt will indicate created objects (o+), changed objects (oc), changed nodes (nc)\nand deleted objects (o-). Use the output to generate the recipes for your UTM\ninstances:\n\nNote: In most cases you can omit empty values like: `Empty SCALAR`,\n`Empty ARRAY`, etc. Use `true` and `false` for `1` and `0` if it is a status\nfield.\n\n### Configuration\n\nThe following attributes can be used to configure the UTM with Chef recipes:\n\n#### URL and Authentication\n\nThe Sophos SG URL is the URL to the UTM to configure, embed the username\nand password into the URL. Be sure to use the `https` scheme, the correct\nport (`4444`) and api path (`/api`).\n\n    default['sophos']['sg']['url'] = 'https://admin:passwd@example.org:4444/api'\n\nIn case your request is executed locally on the UTM you can connect without\nauthentication using port 3002. For unauthenticated access the scheme is plain `http`.\n\n    default['sophos']['sg']['url'] = 'http://localhost:3002/api'\n\nYou are only allowed to connect to this port if your user account is either root\nor loginuser. Other sytem users trying to connect to this port are blocked by\nthe firewall.\n\n#### Fingerprint (for SSL without valid certificate chain)\n\nIn case you use the default self-signed certificate of your UTM, and you don't\nwant to install an official / or install it to your trusted ones, you can choose\nto use **Public key fingerprinting**. The fingerprint of your UTM SSL\ncertificate can be retrieved using the openssl tool:\n\n    openssl s_client -connect <your-ip-or-dns>:4444 < /dev/null 2>/dev/null |\\\n        openssl x509 -fingerprint -noout -in /dev/stdin\n\n_(If the command above doesn't return a fingerprint, your openssl might be to old)_\n\nThen use the fingerprint in your configuration:\n\n    default['sophos']['sg']['fingerprint'] = 'FF:00:80:BE:89:3E:CA:7C:A4:C3:03:AF:1F:18:99:7D:75:D2:69:01'\n\n### Examples\n\nHere are some examples that where created using the output of the\n`confd-watch.plx -v` command. If further assistance on the data-model is needed,\nconsult the REST API at `https://<your host>/api/` on your UTM and inspect\nthe different objects and nodes, the `POST` form provides good insight in\npossible values.\n\n#### WEB Filtering\n\n**Enable Application Control:**\n\n`confd-watch.plx -v` output:\n\n    s  1  caught USR1 signal(s)\n    vc 27 28  data version change detected at Fri Sep  9 07:43:30 2016\n    nc afc->status 1\n\nChef translation:\n\n    sophos_sg_node 'afc.status' do\n      value true\n    end\n\n**Enable WEB filtering:**\n\n`confd-watch.plx -v` output:\n\n    oc REF_DefaultHTTPProfile http profile status  changed\n       status = 1\n\nChef translation:\n\n    sophos_sg_object 'http/profile/REF_DefaultHTTPProfile' do\n      attributes status: true\n      action :change\n    end\n\n**Creating a domain regex (lowbird.com) to filter and start blocking\ninappropriate content:**\n\n`confd-watch.plx -v`:\n\n    o+ REF_HttDomLowbirdcom http domain_regex  created\n       restrict_regex = 1\n       include_subdomains = 1\n       domain = [ lowbird.com ]\n       comment = Empty SCALAR\n       mode = Domain\n       regexps = Empty ARRAY\n       name = lowbird.com\n    oc REF_DefaultHTTPCFFAction http cff_action sp_categories,url_blacklist  changed\n       sp_categories = [ REF_CriminalActivities, REF_Drugs, REF_ExtremisticSites, REF_GamesGambles ]\n       url_blacklist = [ REF_HttDomLowbirdcom ]\n\nChef:\n\n    sophos_sg_object 'http/domain_regex/REF_HttDomLowbirdcom' do\n      attributes restrict_regex: true,\n                 include_subdomains: true,\n                 domain: [ 'lowbird.com' ],\n                 mode: 'Domain',\n                 name: 'lowbird.com'\n      action :create\n    end\n\n    sophos_sg_object 'http/cff_action/REF_DefaultHTTPCFFAction' do\n      attributes sp_categories: [ 'REF_CriminalActivities',\n                                  'REF_Drugs',\n                                  'REF_ExtremisticSites',\n                                  'REF_GamesGambles' ],\n                 url_blacklist: [ 'REF_HttDomLowbirdcom' ]\n      action :change\n    end\n\n#### Packetfilter\n\nAllow HTTPS, SMTP and SSH from internal to mail server:\n\n    sophos_sg_object 'network/host/REF_NetHosMailseInDe' do\n      attributes name: 'Mailserver in DE',\n                 address: '5.35.240.160'\n      action :create\n    end\n\n    sophos_sg_object 'packetfilter/packetfilter/REF_AllowMailAccess' do\n      auto_insert_to_node 'packetfilter.rules'\n      attributes sources: ['REF_DefaultInternalNetwork'],\n                 services: ['REF_MeigLDviNK',\n                            'REF_SWVaJaLGTT',\n                            'REF_nUyAxjnNLV'],\n                 destinations: ['REF_NetHosMailseInDe'],\n                 name: 'HTTPS from Internal to Mail',\n                 action: 'accept',\n                 log: true,\n                 status: true\n      action :create\n    end\n\n\nAllow developer network to access internal network:\n\n    sophos_sg_object 'network/network/REF_NetDevelopers' do\n      attributes name: 'Network of the developers',\n                 address: '1.2.3.0',\n                 netmask: 24\n      action :create\n    end\n\n    sophos_sg_object 'packetfilter/packetfilter/REF_PacAllowAnyFromDevelopers' do\n      auto_insert_to_node 'packetfilter.rules'\n      attributes sources: ['REF_NetDevelopers'],\n                 services: ['REF_ServiceAny'],\n                 destinations: ['REF_DefaultInternalNetwork'],\n                 name: 'Any From Dev To UTM internal',\n                 action: 'accept',\n                 log: true,\n                 status: true\n      action :create\n    end\n\n#### Advanced Threat Protection\n\nEnable Advanced Threat Protection:\n\n    sophos_sg_node 'aptp.status' do\n      value true\n    end\n\n#### Masquerading\n\nEnable masquerading from the internal network on the wan interface:\n\n    sophos_sg_object 'packetfilter/masq/REF_MasqInternToWEB' do\n      auto_insert_to_node 'masq.rules'\n      attributes source: 'REF_DefaultInternalNetwork',\n                 name: 'from Internal (Network) to WEB',\n                 source_nat_interface: 'REF_IntEthExternaWan',\n                 status: true\n      action :create\n    end\n\n#### DNAT\n\nRedirect HTTP traffic from Any to the Public Address to the Webserver:\n\n    sophos_sg_object 'network/host/REF_NetHosWebserver' do\n      attributes name: 'Webserver',\n                 address: '10.106.194.42'\n      action :create\n    end\n\n    sophos_sg_object 'network/host/REF_NetHosPubliAddress' do\n      attributes name: 'Public Address',\n                 address: '1.2.3.4'\n      action :create\n    end\n\n    sophos_sg_object 'packetfilter/nat/REF_PacNatHttpFromAny' do\n      auto_insert_to_node 'nat.rules'\n      attributes source: 'REF_NetworkAny',\n                 service: 'REF_zbCXCkAONs',\n                 name: 'HTTP from Any to public address',\n                 source_nat_interface: 'REF_IntEthExternaWan',\n                 destination: 'REF_NetHosPubliAddress',\n                 destination_nat_address: 'REF_NetHosWebserver',\n                 auto_pfrule: true,\n                 mode: 'dnat',\n                 status: true\n      action :create\n    end\n\n#### WAF\n\nEnable webserver protection for host heise.de (only http) for domain\nfrontend.utm-chef.com:\n\n    sophos_sg_object 'network/dns_host/REF_NetDnsHeise' do\n      attributes name: 'Heise',\n                 hostname: 'heise.de'\n      action :create\n    end\n\n    sophos_sg_object 'reverse_proxy/backend/REF_RevBacHeise' do\n      attributes name: 'Heise Backend',\n                 host: 'REF_NetDnsHeise',\n                 path: '/',\n                 port: 80,\n                 status: true\n      action :create\n    end\n\n    sophos_sg_object 'reverse_proxy/location/REF_RevLoc' do\n      attributes backend: ['REF_RevBacHeise'],\n                 name: '/',\n                 stickysession_id: 'ROUTEID',\n                 path: '/',\n                 be_path: '',\n                 allowed_networks: ['REF_NetworkAny']\n      action :create\n    end\n\n    sophos_sg_object 'reverse_proxy/frontend/REF_RevFroFrontWebse' do\n      attributes htmlrewrite_cookies: true,\n                 status: true,\n                 profile: '',\n                 certificate: '',\n                 allowed_networks: ['REF_NetworkAny'],\n                 lbmethod: 'bybusyness',\n                 domain: ['frontend.utm-chef.com'],\n                 disable_compression: false,\n                 add_content_type_header: true,\n                 address: 'REF_DefaultInternalAddress',\n                 preservehost: false,\n                 locations: ['REF_RevLoc'],\n                 name: 'frontend webserver',\n                 htmlrewrite: false,\n                 port: 80,\n                 xheaders: false,\n                 type: 'http',\n                 implicitredirect: true\n      action :create\n    end\n",
+  "maintainer": "SOPHOS",
+  "maintainer_email": "sophos-iaas-oss@sophos.com",
+  "license": "MIT, SOPHOS proprietary",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "gentoo": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "solaris2": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "xcp": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "sophos::sg": "Configuration of SOPHOS UTM SG Appliances (UTM9)"
+  },
+  "version": "1.0.3",
+  "source_url": "https://github.com/sophos-iaas/chef-sophos-sg",
+  "issues_url": "https://github.com/sophos-iaas/chef-sophos-sg/issues"
+}

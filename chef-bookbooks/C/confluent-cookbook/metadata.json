@@ -1,0 +1,48 @@
+{
+  "name": "confluent-cookbook",
+  "description": "Installs/Configures confluent.io platform from rpm/deb packages",
+  "long_description": "Installs/Configures confluent.io platform from rpm/deb packages",
+  "maintainer": "Lars Pfannenschmidt",
+  "maintainer_email": "lars@mobilecologne.de",
+  "license": "Apache License Version 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.4.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

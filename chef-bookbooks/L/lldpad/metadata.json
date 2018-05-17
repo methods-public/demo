@@ -1,0 +1,56 @@
+{
+  "name": "lldpad",
+  "description": "Installs/Configures lldpad",
+  "long_description": "# lldpad Cookbook\n\nThis cookbooks contains recipes and custom resource to install and configure lldpad\n\n## Requirements\n\n### Platforms\n- `centos`     - not fully tested on centos, but should work\n- `redhat`     - not fully tested on redhat, but should work\n- `fedora`     - not fully tested on redhat, but should work\n- `scientific` - not fully tested on scientific, but should work\n- `ubuntu`     - not fully tested on ubuntu, but should work\n- `debian`     - not fully tested on debian, but should work\n\n### Chef\n\n- Chef 12.0 or later\n\n## Attributes\n\n### lldpad::default\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['install_on_vm_guest']</tt></td>\n    <td>Boolean</td>\n    <td>whether to install lldpad on virtual machines</td>\n    <td><tt>false</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['disabled_int_type']</tt></td>\n    <td>Array</td>\n    <td>Types of interfaces that should be disabled (adminStatus=disabled)</td>\n    <td><tt>%w(team bond)</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['ignored_int_type']</tt></td>\n    <td>Array</td>\n    <td>Types of interfaces that should be left unconfigured</td>\n    <td><tt>%w(docker)</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['adminStatus']</tt></td>\n    <td>Symbol</td>\n    <td>Default lldp setting for interface.\n        :rx - Receive lldp packets\n        :tx - Transmit lldp packets\n        :rxtx - Receive and transmit lldp packets\n        :disabled - lldp doesn't work on this interface</td>\n    <td><tt>:rxtx</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['sysName']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit System Name TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['sysDesc']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit System Description TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['sysCap']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit System Caption TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['portDesc']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit Port Description TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['portID']['enableTx']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit Port ID TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['portID']['subtype']</tt></td>\n    <td>Symbol</td>\n    <td>Value of Port ID TLV to be transmitted<br>\n        :PORT_ID_INTERFACE_NAME - Interface name<br>\n        :PORT_ID_MAC_ADDRESS - Mac address<br>\n        :PORT_ID_NETWORK_ADDRESS - IP address</td>\n    <td><tt>:PORT_ID_INTERFACE_NAME</tt></td>\n  </tr>\n   <tr>\n    <td><tt>['lldpad']['chassisID']['enableTx']</tt></td>\n    <td>Boolean</td>\n    <td>Whether to transmit Chassis ID TLV</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['lldpad']['chassisID']['subtype']</tt></td>\n    <td>Symbol</td>\n    <td>Value of Port ID TLV to be transmitted<br>\n        :CHASSIS_ID_INTERFACE_NAME - Interface name<br>\n        :CHASSIS_ID_MAC_ADDRESS - Mac address<br>\n        :CHASSIS_ID_NETWORK_ADDRESS - IP address</td>\n    <td><tt>:PORT_ID_MAC_ADDRESS</tt></td>\n  </tr>\n</table>\n\n## Usage\n\n### lldpad::default\n\nJust include `lldpad` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[lldpad]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: Dmitry Shestoperov\n\n",
+  "maintainer": "Dmitry Shestoperov",
+  "maintainer_email": "dmitry@shestoperov.info",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 6.0",
+    "schientific": ">= 6.0",
+    "redhat": ">= 6.0",
+    "fedora": ">= 25.0",
+    "ubuntu": ">= 12.0.4",
+    "debian": ">= 7.11"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/dimsh99/lldpad",
+  "issues_url": "https://github.com/dimsh99/lldpad/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

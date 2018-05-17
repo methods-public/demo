@@ -1,0 +1,47 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  log_file: "/tmp/kitchen/chef-client.log"
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+    - recipe[apt]
+  - name: centos-6.8
+    run_list:
+    - recipe[yum]
+  - name: centos-7.2
+    run_list:
+    - recipe[yum]
+  - name: windows-2012R2
+    driver:
+      box: mwrock/Windows2012R2
+      guest: windows
+      communicator: winrm
+      gui: false
+
+suites:
+  - name: default12
+    driver:
+      chef_version: 12.21.3
+    run_list:
+      - recipe[auditbeat::default]
+    attributes:
+      auditbeat:
+        config:
+          "output.elasticsearch":
+              hosts: ["127.0.0.1:9200"]
+
+  - name: default13
+    driver:
+      chef_version: 13.2.20
+    run_list:
+      - recipe[auditbeat::default]
+    attributes:
+      auditbeat:
+        config:
+          "output.elasticsearch":
+              hosts: ["127.0.0.1:9200"]

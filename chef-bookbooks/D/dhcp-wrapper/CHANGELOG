@@ -1,0 +1,53 @@
+Changelog
+=========
+
+1.3.0
+-----
+
+Main:
+
+- Allow clients and servers to share the same role with specific options
+  + Add an init recipe which initialize the configuration
+  + Modify default to choose between client and server recipe
+  + Call network_interface in client and server recipes
+  + client specific configurations should be in 'client-config' and
+    servers in 'server-config'.
+  + the servers should be defined with 'servers' key
+- Rename network-interface to network_interface: breaking change for users
+  using it directly (very unlikely)
+- Switch to docker_cli, use prepared docker image
+  + Switch kitchen driver from docker to docker_cli
+  + Use sbernard/centos-systemd-kitchen image instead of bare centos
+  + Remove many monkey patches
+  + No more need to have sudo access anymore: pipework is gone :)
+  + Remove privileged mode :), use --cap-add=NET_ADMIN instead
+  + create a docker network: kitchen-dhcp, which is to be controled by
+    the dhcp server
+
+Misc:
+
+- Fix and improve tests
+  + Modify test cases to test specific option behavior
+  + Latest dhcp and strengthen ip check
+- Improve doc, explain specific conf and update it
+- Fix all rubocop offenses
+
+1.2.0
+-----
+
+- Fix idempotency by removing the block hack in network-interface recipe
+- Reorganize README:
+  + Move changelog from README to CHANGELOG
+  + Move contribution guide to CONTRIBUTING.md
+  + Reorder README, fix Gemfile missing
+- Add Apache 2 license file
+
+1.1.0
+-----
+
+- Add support for static routes
+
+1.0.0
+-----
+
+- Initial version with Centos 7 support

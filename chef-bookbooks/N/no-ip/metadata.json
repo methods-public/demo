@@ -1,0 +1,69 @@
+{
+  "name": "no-ip",
+  "description": "Installs the No-IP agent on the node",
+  "long_description": "[![Build Status](https://travis-ci.org/simplare-cookbooks/no-ip.svg?branch=master)](https://travis-ci.org/simplare-cookbooks/no-ip)\n[![Chef cookbook](https://img.shields.io/cookbook/v/no-ip.svg?maxAge=2592000)](https://supermarket.chef.io/cookbooks/no-ip)\n[![Code Climate](https://codeclimate.com/github/simplare-cookbooks/no-ip/badges/gpa.svg)](https://codeclimate.com/github/simplare-cookbooks/no-ip)\n[![Test Coverage](https://codeclimate.com/github/simplare-cookbooks/no-ip/badges/coverage.svg)](https://codeclimate.com/github/simplare-cookbooks/no-ip/coverage)\n\n# No-IP Cookbook\n\nThis cookbook installs the No-IP agent on a node, allowing you to access the node using a dynamic DNS name.\n\n## Supported Platforms\n\n- CentOS 7.2\n- Ubuntu 14.04\n\n## Attributes\n\n- `interval` - *Integer* - Number of seconds between updates\n- `username` - *String* - The username at noip.com\n\n## Encrypted data bags\n- `[:credentials]['noip']['password']` - *String* - The password at noip.com\n\n## Usage\n\nInclude `no-ip::default` in your run list. You need to specify the username and password\nfor the noip.com account you want to use.\n\nCreate the password using Chef Vault:\n\n    $ knife vault create credentials noip \\\n            '{\"password\":\"my-secret-password\"}' \\\n            -A \"admin1,admin2\" \\\n            -S \"name:my-node-name\"\n\nThis would set the password to `my-secret-password`, allowing *admin1* and *admin2* to see the password and make it available to the node with the name *my-node-name*. Adjust these values to your liking.\n",
+  "maintainer": "Christoffer Reijer",
+  "maintainer_email": "ephracis at gmail",
+  "license": "GPL v3",
+  "platforms": {
+    "ubuntu": "= 14.04",
+    "centos": "= 7.2"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0",
+    "tarball": ">= 0.0.0",
+    "chef-vault": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "noip/username": {
+      "display_name": "Username at noip.com",
+      "description": "The username to use at noip.com",
+      "type": "string",
+      "require": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.3",
+  "source_url": "http://github.com/simplare-cookbooks/no-ip",
+  "issues_url": "http://github.com/simplare-cookbooks/no-ip/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "~> 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

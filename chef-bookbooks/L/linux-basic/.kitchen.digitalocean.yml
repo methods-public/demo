@@ -1,0 +1,22 @@
+---
+driver:
+  name: digitalocean
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12-04-x64
+    driver_config:
+      region: sfo1
+      size: 8gb
+      private_networking: false
+      #image: conf_iptable
+      server_name: kitchen-test-ubuntu12-04
+      ssh_key_ids: 308951
+
+suites:
+  - name: default
+    run_list:
+      - recipe[linux-basic::default]
+    attributes:

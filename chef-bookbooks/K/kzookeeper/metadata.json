@@ -1,0 +1,128 @@
+{
+  "name": "kzookeeper",
+  "description": "Installs/Configures/Runs kzookeeper",
+  "long_description": "",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "kagent": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kzookeeper/version": {
+      "description": "Version of kzookeeper",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kzookeeper/url": {
+      "description": "Url to download binaries for kzookeeper",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kzookeeper/user": {
+      "description": "Run kzookeeper as this user",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kzookeeper/group": {
+      "description": "Run kzookeeper user as this group",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "kzookeeper::install": "Installs kzookeeper binaries",
+    "kzookeeper::default": "configures zookeeper",
+    "kzookeeper::purge": "Remove and delete zookeeper"
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

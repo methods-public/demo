@@ -1,0 +1,3 @@
+<hudson.triggers.TimerTrigger>
+  <spec><%= defined?(@timer['schedule']) ? @timer['schedule'] : '@hourly' %></spec>
+</hudson.triggers.TimerTrigger>

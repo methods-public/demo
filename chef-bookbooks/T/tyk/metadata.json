@@ -1,0 +1,50 @@
+{
+  "name": "tyk",
+  "description": "Installs/Configures tyk",
+  "long_description": "tyk Cookbook\r\n============\r\n\r\nInstall and configure Tyk API gateway (https://tyk.io)\r\n\r\n## Usage\r\n\r\n- For a testing installation, just add the `tyk::default` recipe to your \r\nrunlist. It will install Redis, Mongo, Tyk Gateway, Tyk Dashboard and Tyk Pump\r\non the node. You have to bootstrap the dashboard with an initial user, as per\r\nmanual.\r\nAfter that, point your browser to your node port 3000 and the dashboard\r\nshould come up and let you login with the user you created during the\r\nbootstrap.\r\n- For production, use the provided `install_gateway`, `install_dashboard` and\r\n`install_pump` recipes. You will want to change the configuration attributes.\r\nBest solution is to create your own wrapper cookbook, where you set the\r\n`default` attributes.\r\n\r\n## Contributing\r\n\r\n1. Fork the repository on Gitlab (or Github)\r\n2. Create a named feature branch (like `add_component_x`)\r\n3. Write your change\r\n4. Write Kitchen tests for your change (if applicable)\r\n5. Run the tests, ensuring they all pass\r\n6. Submit a Pull Request using Gitlab (or Github)\r\n\r\n## License and Authors\r\n\r\nCopyright 2016 Internet Mall, a.s.\r\n\r\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0\r\n\r\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\r\n\r\n### Authors\r\n- Michal Taborsky <michal.taborsky@mall.cz>\r\n\r\n### Contributors\r\n- Gaelan D'costa <gdcosta@gmail.com>\r\n\r\n",
+  "maintainer": "Michal Taborsky",
+  "maintainer_email": "michal.taborsky@mall.cz",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "oracle": ">= 0.0.0"
+  },
+  "dependencies": {
+    "packagecloud": "~> 0.2.0",
+    "redisio": "~> 2.4.2",
+    "mongodb": "~> 0.16.2"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.1",
+  "source_url": "https://gitlab.com/nrh/tyk-cookbook",
+  "issues_url": "https://gitlab.com/nrh/tyk-cookbook/issues",
+  "privacy": false
+}

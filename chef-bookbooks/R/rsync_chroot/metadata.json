@@ -1,0 +1,44 @@
+{
+  "name": "rsync_chroot",
+  "description": "Installs/Configures rsync with chroot per ssh key",
+  "long_description": "rsync_chroot Cookbook\n=====================\nChef Cookbook to configure rsync with ssh and chroot\n\nRequirements\n------------\n### Platforms\n- Debian, Ubuntu\n- CentOS 6+, Red Hat 6+, Fedora, Amazon\n\nAttributes\n----------\n * `node['rsync_chroot']['rsync_options']` - default rsync options to use, `--server` is implied but this gives you control of some extra options\n * `node['rsync_chroot']['ssh_options']` - default ssh options to include in `authorized_keys`\n\nLWRP\n----\nThis cookbook provides a provider to install a SSH key for use with rsync for a given user.\n\nFor example, the following snippet will configure the given SSH key to be mapped to\n`/data/staging` using user `staging`:\n\n```rb\nrsync_chroot_user 'rsync_staging_data' do\n  user      \"staging\"\n  key       \"HERE_BE_SSH_PUBLIC_KEY\"\n  directory \"/data/staging\"\n  comment   \"user@org.com\"\nend\n```\n\nUsage\n-----\n#### rsync_chroot::default\nInclude `rsync_chroot` in your node's `run_list` or role's `run_list`:\n\n```json\n{\n  \"name\":\"my_name\",\n  \"run_list\": [\n    \"recipe[rsync_chroot]\"\n  ]\n}\n```\n\nUse the LWRP in recipes as desired.\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors:: Dan Fruehauf\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Dan Fruehauf",
+  "maintainer_email": "malkodan@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "rsync_chroot::default": "Installs rsync"
+  },
+  "version": "1.0.0"
+}

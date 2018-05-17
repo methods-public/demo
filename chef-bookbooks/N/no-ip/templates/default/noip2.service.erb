@@ -1,0 +1,12 @@
+[Unit]
+Description=No-IP Agent
+After=network.target
+
+[Service]
+User=root
+PIDFile=/var/run/noip2.pid
+ExecStart=/etc/init.d/noip2 start
+ExecStop=/etc/init.d/noip2 stop
+
+[Install]
+WantedBy=default.target

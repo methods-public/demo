@@ -1,0 +1,4 @@
+{
+  id: 'novpn',
+  vpn: false
+}

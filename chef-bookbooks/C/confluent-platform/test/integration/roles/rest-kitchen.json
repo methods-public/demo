@@ -1,0 +1,40 @@
+{
+  "name": "rest-kitchen",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "confluent-platform": {
+      "zookeeper": {
+        "hosts": [
+          "zookeeper-kafka.kitchen"
+        ]
+      },
+      "kafka": {
+        "role": "kafka-kitchen"
+      },
+      "registry": {
+        "role": "registry-kitchen",
+        "size": 1
+      },
+      "rest": {
+        "role": "rest-kitchen",
+        "size": 1,
+        "config": {
+          "port": "8082"
+        },
+        "log4j": {
+          "# Kitchen": "true"
+        }
+      }
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[confluent-platform::install_rest]"
+  ],
+  "env_run_lists": {
+
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "vagrant_cookbook",
+  "description": "Installs vagrant",
+  "long_description": "",
+  "maintainer": "Jude Augustine Job",
+  "maintainer_email": "judeaugustinej@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 6.0",
+    "ubuntu": ">= 12.04",
+    "redhat": ">= 6.3"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

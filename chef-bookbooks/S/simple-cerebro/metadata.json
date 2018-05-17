@@ -1,0 +1,54 @@
+{
+  "name": "simple-cerebro",
+  "description": "Installs cerebro 0.3.1",
+  "long_description": "Installs and configures cerebro 0.3.1, that is all.",
+  "maintainer": "One Model Inc.",
+  "maintainer_email": "development@onemodel.co",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "runit": ">= 0.0.0",
+    "ark": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/One-Model/simple-cerebro-cookbook",
+  "issues_url": "https://github.com/One-Model/simple-cerebro-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

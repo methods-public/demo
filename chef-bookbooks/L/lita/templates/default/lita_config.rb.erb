@@ -1,0 +1,40 @@
+Lita.configure do |config|
+  config.robot.name = <%= typecast(node['lita']['name']) %>
+  config.robot.mention_name = <%= typecast(node['lita']['mention_name']) %>
+<% unless node['lita']['alias'].nil?  -%>
+  config.robot.alias = <%= typecast(node['lita']['alias']) %>
+<% end -%>
+  config.robot.locale = <%= typecast(node['lita']['locale']) %>
+  config.robot.log_level = <%= typecast(node['lita']['log_level']) %>
+  config.robot.admins = <%= typecast(node['lita']['admin']) %>
+<% node['lita']['adapters'].each do |adapter| -%>
+  config.robot.adapter = <%= typecast(adapter) %>
+<% end -%>
+<% if node['lita']['version'].split('.')[0].to_i >= 4 -%>
+<% node['lita']['adapter_config'].each do |adapter,config| -%>
+<% node['lita']['adapter_config'][adapter].each do |k,v| -%>
+  config.adapters.<%= adapter %>.<%= k %> = <%= typecast(v) %>
+<% end -%>
+<% end -%>
+<% else -%>
+<% node['lita']['adapter_config'].each do |k,v| -%>
+  config.adapter.<%= k %> = <%= typecast(v) %>
+<% end -%>
+<% end -%>
+<% if node['lita']['version'].split('.')[0].to_i >= 4 -%>
+  config.redis[:host] = <%= typecast(node['lita']['redis_host']) %>
+  config.redis[:port] = <%= typecast(node['lita']['redis_port']) %>
+<% else -%>
+  config.redis.host = <%= typecast(node['lita']['redis_host']) %>
+  config.redis.port = <%= typecast(node['lita']['redis_port']) %>
+<% end -%>
+  config.http.host = <%= typecast(node['lita']['http_host']) %>
+  config.http.port = <%= typecast(node['lita']['http_port']) %>
+  config.http.min_threads = <%= typecast(node['lita']['http_min_threads']) %>
+  config.http.max_threads = <%= typecast(node['lita']['http_max_threads']) %>
+<% node['lita']['plugin_config'].each do |plugin,config| -%>
+<% node['lita']['plugin_config'][plugin].each do |k,v| -%>
+  config.handlers.<%= plugin %>.<%= k %> = <%= typecast(v) %>
+<% end -%>
+<% end -%>
+end

@@ -1,0 +1,5 @@
+<%
+require 'yaml'
+yaml_str = node['minio-grid']['docker-compose']['config'].to_hash.to_yaml
+-%>
+<%= yaml_str %>

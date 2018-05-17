@@ -1,0 +1,5 @@
+- name: default
+  excludes: windows-2012r2
+  run_list:
+    - recipe[grubby::default]
+  attributes:

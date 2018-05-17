@@ -1,0 +1,38 @@
+{
+  "name": "journalbeat",
+  "description": "Install and configure journalbeat daemon",
+  "long_description": "JournalBeat Cookbook\n=============\n\nDescription\n-----------\n[Journalbeat](https://github.com/mheese/journalbeat) is the Beat used for log\nshipping from systemd/journald based Linux systems.\n\nThis cookbook is designed to install and configure JournalBeat daemon.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nShould work on many *systemd* managed distribution, tested on:\n\n- RHEL Family 7, tested on Centos\n\nUsage\n-----\n\n### Test\n\nThis cookbook is fully tested through the installation of journalbeat and\nlogstash in a docker host. This uses kitchen and docker.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `user`, `install`, `config`, `systemd` recipes.\n\n### user\n\nCreate user/group used by **Journalbeat**.\n\n### install\n\nInstall **JournalBeat** by fetching official release repository.\n\n### config\n\nGenerate and deploy **JournalBeat** config : *journalbeat.yml*.\n\n### systemd\n\nCreate Systemd unit for **JournalBeat** and make sure service is started.\n\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Sylvain Arrambourg (<saye@sknss.net>)\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2017 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://gitlab.com/chef-platform/journalbeat",
+  "issues_url": "https://gitlab.com/chef-platform/journalbeat/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

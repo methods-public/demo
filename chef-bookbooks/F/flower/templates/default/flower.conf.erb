@@ -1,0 +1,5 @@
+respawn
+
+chdir <%= node['flower']['virtualenv'] %>
+
+exec su -c "<%= node['flower']['binary'] %><% unless node['flower']['broker'].nil? %> --broker=<%= node['flower']['broker'] %><% end %>" <%= node['flower']['user'] %>

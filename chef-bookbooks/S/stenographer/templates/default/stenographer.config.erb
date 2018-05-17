@@ -1,0 +1,15 @@
+{
+  "Threads": [
+  <% @threads.each_with_index do |thread, i| %>
+    { "PacketsDirectory": "<%= thread['packets_dir'] %>"
+    , "IndexDirectory": "<%= thread['index_dir'] %>"
+  }<%= ',' if i < (@threads.size - 1) %>
+  <% end %>
+  ]
+  , "StenotypePath": "/usr/bin/stenotype"
+  , "Interface": "<%= node['stenographer']['mon_interface'] %>"
+  , "Port": <%= node['stenographer']['listen_port'] %>
+  , "Host": "<%= node['stenographer']['listen_ip'] %>"
+  , "Flags": []
+  , "CertPath": "/etc/stenographer/certs"
+}

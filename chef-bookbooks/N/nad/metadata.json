@@ -1,0 +1,44 @@
+{
+  "name": "nad",
+  "description": "nad (nodejs monitoring agent)",
+  "long_description": "# nad cookbook\n\nInstall and configure nad, a nodejs-based monitoring agent.\n\nMore info on nad: https://github.com/circonus-labs/nad\n\n## Platforms\n\ncentos, ubuntu\n\nOther un*xes likely; windows unlikely.\n\n## Recipes\n\n### `nad` (`nad::default`)\n\nRuns the install and configure recipes.\n\n### `nad::install`\n\nInstalls nad by downloading tarballs from updates.circonus.com .\n\n### `nad::configure`\n\nnad doesn't have much configuration; this just sets the port, SSL options, and scripts directory.\n\n## LWRPs\n\n### `nad_script`\n\n####  Actions\n\n    :enable - Link a script into the config directory, enabling it (default)\n    :disable - Delete a link\n\n#### Attributes\n\n   name - Name of the script (if.sh, cpu.elf, etc)\n   subdir - Subdirectory within nad config directory where the actual script lives; required for :enable\n\n#### Examples\n\n   # Enable postgres replication script\n   nad_script pg_replication.sh do\n     subdir 'postgres'\n   end\n\n   # Disable vm script\n   nad_script vm.sh do\n     action :disable\n   end\n\n## Attributes\n\nDefaults are shown below.\n\n    :nad => {\n\n        #------\n        #  Cookbook Toggle\n        #------\n        # Set to false to disable the cookbook \n        # (will not disable nad if running)        \n        :enabled => true, \n\n        #------\n        #  Installation\n        #------\n        # Where to store the tarball during installation\n        :tmp_path => '/tmp',\n\n        # URL without filename\n        :download_url => 'http://updates.circonus.net/node-agent/packages',\n\n        # File to download.  nad::install will find an appropriate file if possible.\n        :download_file => \"nad-omnibus-20140630T182203Z-1.el6.x86_64.rpm\",\n\n        # You can also just override the release.  nad::install will find an appropriate release if possible.\n        :release => \"20140630T182203Z\"\n\n        #-----\n        # Daemon Config\n        #-----\n        :port => 2609,\n        :config_dir => '/opt/circonus/etc/node_agent.d',\n\n        # These are nil by default\n        # Listen on a specific interface\n        :ip => nil, \n        # Use SSL (must place na.crt and na.key in conf dir).  If ssl_port is provided, :ip and :port are not used.\n        :ssl_port => nil, \n        :ssl_ip => nil,\n    }\n\n## See Also\n\nhttps://github.com/modcloth-cookbooks/nad\n\n",
+  "maintainer": "OmniTI",
+  "maintainer_email": "sa@omniti.com",
+  "license": "Modified BSD",
+  "platforms": {
+    "ubuntu": ">= 10.0.0",
+    "centos": ">= 5.0",
+    "rhel": ">= 5.0",
+    "smartos": ">= 0.0"
+  },
+  "dependencies": {
+    "smf": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.6",
+  "source_url": "",
+  "issues_url": ""
+}

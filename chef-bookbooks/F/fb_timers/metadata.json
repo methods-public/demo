@@ -1,0 +1,53 @@
+{
+  "name": "fb_timers",
+  "description": "Installs/Configures Chef-defined Systemd Timers",
+  "long_description": "fb_timers Cookbook\n==================\nA cookbook for generating systemd timer configs.\n\nRequirements\n------------\nYou must be running systemd in order to use this cookbook.\n\nAttributes\n----------\n* node['fb_timers']['jobs'][$JOB_NAME]\n\nUsage\n-----\nThis cookbook is modeled after `fb_cron`, but designed to expose the power of\nsystemd timers natively.\n\nSpecify your timer jobs by adding a hash object under `node['fb_timers']['jobs']`\n\nFor example:\n\n```\n# Run a command every 15 minutes\nnode.default['fb_timers']['jobs']['my_custom_job'] = {\n    'calendar' => FB::Systemd::Calendar.every(15).minutes,\n    'command' => '/usr/local/bin/foobar.sh',\n}\n\n# More complex example with other fields you can set:\nnode.default['fb_timers']['jobs']['more_complex_job'] = {\n    'calendar' => FB::Systemd::Calendar.every.weekday,\n    'command' => '/usr/local/bin/foobar.sh thing1 thing2',\n    'timeout' => '1d',\n    'accuracy' => '1h',\n    'persistent' => true,\n    'splay' => '0.5h',\n}\n```\n\nSpecifying a periodic task in this way will create systemd timer and service units for your task, and configure them to run periodically based on the settings you provide.\n\n### Fields\nRequired fields:\n\n* `calendar`: A [systemd calendar spec](https://www.freedesktop.org/software/systemd/man/systemd.time.html) for when you want your job to run. Corresponds to the `OnCalendar` field of the systemd timer. See below for helpers to generate common calendar patterns.\n* `command`: The command to run. Corresponds to the `ExecStart` field of the systemd service.\n\nOptional fields:\n\n* `timeout`: How long to allow the command to run before it is stopped forcefully. A value of 0 disables the timeout and allows the command to run indefinitely. Corresponds to the `TimeoutSec` field of the systemd timer. (defaults to `0s`)\n* `accuracy`: systemd will attempt to group periodic tasks according to their calendar fields within their accuracy. Specifying a low accuracy forces systemd to run your task at the specified, giving systemd less control over when your service is run. Corresponds to the `AccuracySec` field of the systemd timer. (defaults to `1s`)\n* `persistent`: Whether or not the job should run immediately if a run is missed (e.g. due to the system being powered off) rather than waiting until the next time the `calendar` field specifies. Corresponds to the `Persistent` field of the systemd timer. (defaults to false) Note that this is different from running on startup.\n* `splay`: Maximum random time to wait before executing the task. A value of 0 disables this behavior. Corresponds to the field `RandomizedDelaySec` in (defaults to `0s`)\n* `syslog`: Whether or not to enable syslog for this service. A value of true sets `StandardOutput` to `syslog` and `SyslogIdentifier` to the name of your job.\n* `only_if`: Specify a Proc which will be evaluated at runtime and used to gate whether the timer is setup.  Especially useful if you need to gate on a chef API value.  E.g.: 'only_if' => proc { conditional }\n\nAdvanced fields:\n\n**WARNING**: These fields shouldn't be used unless you know what you're doing and have a very good reason. Come talk to the OS team if you have a legit use-case and we can figure out if we want to make a more standard option for whatever you're doing.\n\n* `service_options`: Additional options to include in the `[Service]` section of the service unit file.\n* `service_unit_options`: Additional options to include in the `[Unit]` section of the service unit file.\n* `timer_options`: Additional options to include in the timer unit file.\n* `autostart`: Setting this to false will prevent units from being enabled and started in the chef run.  This can be used for creating user units which are managed by other means. (defaults to `True`)\n\n### Common Calendar Patterns\nA helper library is provided to allow easy generation of [systemd calendar specs](https://www.freedesktop.org/software/systemd/man/systemd.time.html) with chef. It can be used by invoking `FB::Systemd::Calendar.every` in a variety of different ways:\n\n* `FB::Systemd::Calendar.every(15).minutes` - Runs every 15 minutes.\n* `FB::Systemd::Calendar.every(4).hours` - Runs every 4 hours.\n* `FB::Systemd::Calendar.every.weekday` - Runs once a day, excluding Saturday and Sunday.\n* `FB::Systemd::Calendar.every.week` - Runs once a week.\n* `FB::Systemd::Calendar.every.month` - Runs once a month.\n\nEach of these methods returns a string representation of a systemd calendar spec.\n\nFor example, this usage, which runs a shell script every 15 minutes:\n\n```\nnode.default['fb_timers']['jobs']['my_custom_job'] = {\n    'calendar' => FB::Systemd::Calendar.every(15).minutes,\n    'command' => '/usr/local/bin/foobar.sh',\n}\n```\n\nis equivalent to this config, which uses the systemd calendar spec directly:\n\n```\nnode.default['fb_timers']['jobs']['my_custom_job'] = {\n    'calendar' => '*:0/15:0',\n    'command' => '/usr/local/bin/foobar.sh',\n}\n```\n\nMore complex time specs can be defined using the [systemd calendar spec](https://www.freedesktop.org/software/systemd/man/systemd.time.html).\n\n### More Info About Systemd Timers\n\nFor more information about systemd timers read the\n[internal wiki page](https://our.intern.facebook.com/intern/wiki/OS/CentOS7/Systemd/Timers/)\nor [the public man page](https://www.freedesktop.org/software/systemd/man/systemd.timer.html)\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_systemd": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

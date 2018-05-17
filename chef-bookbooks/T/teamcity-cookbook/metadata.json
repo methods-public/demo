@@ -1,0 +1,41 @@
+{
+  "name": "teamcity-cookbook",
+  "description": "Installs and configures teamcity",
+  "long_description": "Installs and configures teamcity CI in a completely unattended manner. Test first approach using test kitchen is used to prevent regressions.",
+  "maintainer": "uldis sturms",
+  "maintainer_email": "uldis.sturms@gmail.com",
+  "license": "apache license version 2.0",
+  "platforms": {
+    "centos": "~> 7.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "teamcity-cookbook": "Installs Teamcity server"
+  },
+  "version": "0.1.2",
+  "source_url": "",
+  "issues_url": ""
+}

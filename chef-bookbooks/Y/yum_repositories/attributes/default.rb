@@ -1,0 +1,1 @@
+default['yum_repositories']['ignore_failures'] = false

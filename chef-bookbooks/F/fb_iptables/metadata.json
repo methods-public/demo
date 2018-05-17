@@ -1,0 +1,51 @@
+{
+  "name": "fb_iptables",
+  "description": "Installs/Configures iptables",
+  "long_description": "fb_iptables Cookbook\n====================\nBasic cookbook to emit iptables rules. Only supports mangle/filter/raw\ntables since those are the only one supported by fb's kernel.\n\nEvery rule is automatically added to both ipv4 and ipv6 tables unless\nyou specify so (in case you want to filter on specific ip\naddresses/block)\n\nIf you need to modify IPTables rules outside of Chef, please see `Dynamic\nChains` section.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_iptables']['enable']\n* node['fb_iptables']['manage_packages']\n* node['fb_iptables']['sysconfig'][$KEY]\n* node['fb_iptables'][$TABLE][$CHAIN]['policy']\n* node['fb_iptables'][$TABLE][$CHAIN]['rules'][$RULE_NAME]['ip']\n* node['fb_iptables'][$TABLE][$CHAIN]['rules'][$RULE_NAME]['rule']\n* node['fb_iptables'][$TABLE][$CHAIN]['rules'][$RULE_NAME]['rules']\n* node['fb_iptables']['dynamic_chains'][$TABLE][$YOUR_CHAIN]\n\nUsage\n-----\nInclude `fb_iptables` to manage iptables on a machine. By default, the cookbook\nwill manage the iptables packages; this can be opted out of by setting\n`node['fb_iptables']['manage_packages']`. The iptables service itself is\ndisabled by default; to enable it set `node['fb_iptables']['enable']` to true.\n\n### Nomenclature\nThe nomenclature for iptables is often confused, and we use the definitions used\nby the IPTables code, base which are as follows:\n\n* `tables` are `filter`, `mangle`, and `raw`.\n* `chains` are lists of rules within a table such as `INPUT`, `OUTPUT`,\n  `PREROUTING` or any custom ones you choose to make.\n\n### Default Policies\nYou can specify a default policy for a built-in chain for when no rules match\nusing `node['fb_iptables'][$TABLE][$CHAIN]['policy']`. They are a target such as\n`ACCEPT`, `DROP`, etc. See iptables documentation for details.\n\n### Rules\nThe \"name\" of a rule is arbitrary, it's simply there so it can be\nmodified/reference later in the run if you choose.\n\nEach rule has the following components:\n* `ip` - this is the IP version (4 or 6)\n* `rule` - the actual rule (such as `-s 10.1.1.1/24 -j DROP`) - note that\n  specifying the table/chain (`-t` and `-A`) is not needed (and cannot be) here.\n* `rules` - Instead of a single rule, you can specify an array to `rules`.\n\n### A warning about ordering and policies\nAs with regular iptables, ordering matters here. The rules will be\nevaluated in the orders they are set in the cookbook. Please keep that\nin mind at all time, especially when implementing a complex ruleset.\n\nAs with regular iptables, you can choose between denying everything\nusing chain policy, then add rules to allow certain packets or\nallowing everything then dropping certain packets. Any fancier usage\npattern you might want to use is at your own risk. Please also keep in\nmind this is a system-wide choice: you might want to check that this\nchoice hasn't already been made by a previous cookbook.\n\n### fb_iptables in 10 lines\nInclude the recipe in your own and update rules attributes.\n\n```ruby\ninclude_recipe 'fb_iptables'\n\nnode.default['fb_iptables']['filter']['INPUT']['policy'] = 'DROP'\nnode.default['fb_iptables']['filter']['INPUT']['rules']['rule_name'] = {\n    # Rules are ipv4/v6 by default.\n    'rule' => '-p tcp --dport 22 -j ACCEPT'\n}\nnode.default['fb_iptables']['filter']['INPUT']['rules']['ipv4_rule'] = {\n    'ip' => 4, # Make the rule ipv4 only\n    'rule' => '-p tcp -s 192.168.0.1 -j ACCEPT'\n}\n```\n\n### Dynamic Chains\n`fb_iptables` provides the functionality to shunt to custom chains which are\ncontrolled outside of Chef (e.g. by a local daemon). You must register such a\nchain and where you'd like to shunt from. For example, if you have a special\nfirewall that you configure to put all its inbound filters into `my_filters`,\nthen you could do:\n\n```ruby\nnode.default['fb_iptables']['dynamic_chains']['filter']['my_filters'] = [\n  'INPUT',\n]\n```\n\nThis will:\n* Ensure the chain `my_filters` always exists\n* Have the first rule in `INPUT` always jump to `my_filters`\n* Never erase that chain on a reload\n\n**NOTE**: If the dynamic chain has a match, control will not return to the\nprimary chain... but if no match is found, controll will return to the primary\nchain.\n\n**NOTE**: Dynamic chains are saved before reload and then restored after which\nmeans there is a slight race condition - if an update happens to it in the\nmiddle of a reload, it could be lost.\n\n### Sysconfig\nThe config files in `/etc/sysconfig/iptables` and `/etc/sysconfig/ip6tables` can\nbe configured using `node['fb_iptables']['sysconfig']`. This hash will be\ntranslated to key-value pairs in the config file. The keys will automatically be\nupper-cased and prefixed with `IPTABLES_` or `IP6TABLES_` as necessary. For\nexample:\n\n```\nnode.default['fb_iptables']['sysconfig']['modules'] = 'nat'\n```\n\nwould translate to:\n\n```\nIPTABLES_MODULES=\"nat\"\n```\n\nand:\n\n```\nIP6TABLES_MODULES=\"nat\"\n```\n\n### Reload triggers\nYou can subscribe to `execute[reload iptables]` and `execute[reload ip6tables]`\nif you need to trigger on rules reloading.\n\n### Unsupported features\nThe `nat` and `security` tables are not currently supported.\n\nUser defined table are not supported.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

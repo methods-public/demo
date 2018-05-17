@@ -1,0 +1,20 @@
+---
+driver:
+  name: vagrant
+
+transport:
+  name: winrm
+  elevated: true
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+
+platforms:
+  - name: windows-10
+  - name: windows-2012r2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[iisnode::default]

@@ -1,0 +1,111 @@
+client_max_body_size 250m;
+
+upstream unicorn {
+  server unix:/tmp/.supermarket.sock.0;
+}
+
+server {
+  listen 80 default_server;
+  server_name <%= node['supermarket']['host'] %>;
+<% if node['supermarket']['force_ssl'] -%>
+  proxy_set_header        Host            $host;
+  proxy_set_header        X-Real-IP       $remote_addr;
+  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header        X-Forwarded-Proto http;
+  proxy_pass_request_headers on;
+  proxy_connect_timeout   90;
+  proxy_send_timeout      90;
+  proxy_read_timeout      90;
+  location / {
+    if ($http_x_forwarded_proto != 'https') {
+      return 301 https://$server_name$request_uri;
+    }
+  }
+}
+
+<%   if node['supermarket']['allow_http_domain'] -%>
+<%     node['supermarket']['allow_http_domain'].each do |domain| -%>
+server {
+  listen 80;
+  server_name <%= domain %>;
+
+  location ~ /sitemap\d*.xml.gz {
+    root <%= node['supermarket']['home'] %>/current/public;
+
+    break;
+  }
+
+  location ~ ^/(assets|system)/ {
+    root <%= node['supermarket']['home'] %>/current/public;
+
+    # to serve pre-gzipped version
+    gzip_static on;
+    expires 1y;
+    add_header Cache-Control public;
+    add_header ETag "";
+    break;
+  }
+
+  location / {
+    proxy_set_header HOST $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+    proxy_pass http://unicorn;
+    proxy_redirect off;
+
+    # to serve gzipped text and json responses
+    gzip on;
+    gzip_min_length 1000;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain application/json;
+  }
+}
+<%     end -%>
+<%   end -%>
+
+server {
+  listen 443 ssl;
+<%   if node['supermarket']['ssl_crt_path'] && node['supermarket']['ssl_key_path'] -%>
+  ssl_certificate <%= node['supermarket']['ssl_crt_path'] %>;
+  ssl_certificate_key <%= node['supermarket']['ssl_key_path'] %>;
+  ssl_ciphers                   HIGH:!kEDH:!ADH:!MD5;
+  ssl_prefer_server_ciphers     on;
+  ssl_protocols                 SSLv3 TLSv1;
+  ssl_session_cache             shared:SSL:4m;
+  ssl_session_timeout           5m;
+<%   end -%>
+<% end -%>
+
+  location ~ /sitemap\d*.xml.gz {
+    root <%= node['supermarket']['home'] %>/current/public;
+
+    break;
+  }
+
+  location ~ ^/(assets|system)/ {
+    root <%= node['supermarket']['home'] %>/current/public;
+
+    # to serve pre-gzipped version
+    gzip_static on;
+    expires 1y;
+    add_header Cache-Control public;
+    add_header ETag "";
+    break;
+  }
+
+  location / {
+    proxy_set_header HOST $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_pass http://unicorn;
+    proxy_redirect off;
+
+    # to serve gzipped text and json responses
+    gzip on;
+    gzip_min_length 1000;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain application/json;
+  }
+}

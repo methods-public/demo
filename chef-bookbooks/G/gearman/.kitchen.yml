@@ -1,0 +1,62 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+  - name: debian-7.8
+  - name: debian-8.1
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[gearman::default]
+    attributes:
+      gearman-job-server:
+        parameters:
+          port: 4731
+
+  - name: libmemcached
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[memcached-helper]
+    excludes:
+      - centos-6.6
+      - centos-7.1
+      - ubuntu-12.04
+
+  - name: libpq
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[libpq-helper]
+    excludes:
+      - debian-7.8
+
+  - name: libsqlite3
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[libsqlite3-helper]
+
+  - name: libtokyocabinet
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[libtokyocabinet-helper]
+    excludes:
+      - debian-7.8
+      - debian-8.1
+      - ubuntu-14.04
+
+  - name: mysql
+    run_list:
+      - recipe[kitchen-test-helper]
+      - recipe[mysql-helper]
+    excludes:
+      - debian-7.8
+      - ubuntu-12.04

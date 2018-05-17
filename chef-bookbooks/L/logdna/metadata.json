@@ -1,0 +1,45 @@
+{
+  "name": "logdna",
+  "description": "Installs/Configures LogDNA Agent",
+  "long_description": "# Deploy LogDNA Agent with Chef\n\n## Description\n\nChef Cookbook to install and configure LogDNA Agent\n\n## Requirements\n\nChef 12.1+\n\n## Platforms Tested\n\n* CentOS 6\n* CentOS 7\n* Ubuntu 12.04 - Precise\n* Ubuntu 14.04 - Trusty\n* Ubuntu 16.04 - Xenial\n* Ubuntu 17.10 - Artful\n\n## Attributes\n\nAttributes have default values set in `attributes/default.rb`.\n\n### Task-specific Attributes\n\n* `node['logdna']['agent_install']`: Whether to install or not. Default is `true`\n* `node['logdna']['agent_configure']`: Whether to configure or not. Default is `true`\n* `node['logdna']['agent_service']`: How to manage LogDNA Agent Service. Default is `:start`. The possible values are:\n  * `:start`: in order to start\n  * `:stop`: in order to stop\n  * `:restart`: in order to restart\n\n### Configuration Attributes\n\n* `node['logdna']['conf_key']`: LogDNA API Key - LogDNA Agent won't start unless `node['logdna']['conf_key']` is set\n* `node['logdna']['conf_config']`: File Path for the LogDNA Agent configuration (defaults to `/etc/logdna.conf`)\n* `node['logdna']['conf_logdir']`: Log Directories to be added\n* `node['logdna']['conf_logfile']`: Log Files to be added\n* `node['logdna']['conf_exclude']`: Log Files or Directories to be excluded\n* `node['logdna']['conf_exclude_regex']`: Exclusion Rule for Log Lines\n* `node['logdna']['conf_hostname']`: Alternative host name to be used\n* `node['logdna']['conf_tags']`: Tags to be added\n\n## Recipes\n\nThere are different recipes for doing each process for each kind of system; you can find all in `recipes/` folder.\n\n### default\n\nThe default recipe is the main recipe calling all others depending on attributes and platform. There are the following cases:\n* if `node['logdna']['agent_install']` is `true`, it will call `install_debian` or `install_redhat` depending on node's platform\n* if `node['logdna']['agent_configure']` is set to `true`, it will call `configure` recipe\n* if `node['logdna']['conf_key']` is set or `node['logdna']['agent_service']` is set to `:stop`, it will call `service_debian` or `service_redhat` depending on node's platform\n\n### install_debian\n\nThe recipe to install LogDNA Agent onto `deb` or `apt` based systems.\n\n### install_redhat\n\nThe recipe to install LogDNA Agent onto `rpm` or `yum` based systems.\n\n### configure\n\nThe recipe to configure LogDNA Agent using `node['logdna']['conf_*']` attributes.\n\n### service_debian\n\nThe recipe to enable and manage LogDNA Agent Service on `deb` or `apt` based systems.\n\n### service_redhat\n\nThe recipe to enable and manage LogDNA Agent Service on `rpm` or `yum` based systems.\n\n## Contributing\n\nContributions are always welcome. See the [contributing guide](https://github.com/logdna/chef-logdna/blob/master/CONTRIBUTING.md) to learn how you can help.\n\n## License and Authors\n\n* Author: [Samir Musali](https://github.com/ldsamir), LogDNA\n* License: MIT\n",
+  "maintainer": "Samir Musali",
+  "maintainer_email": "samir.musali@logdna.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "logdna::default": "Main LogDNA Agent Recipe",
+    "logdna::configure": "Configuring LogDNA Agent after installation",
+    "logdna::install_debian": "Installing LogDNA Agent via APT",
+    "logdna::install_redhat": "Installing LogDNA Agent via YUM",
+    "logdna::service_debian": "Activating LogDNA Service on DEB-based systems",
+    "logdna::service_redhat": "Activating LogDNA Service on RPM-based systems"
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/logdna/chef-logdna",
+  "issues_url": "https://github.com/logdna/chef-logdna/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

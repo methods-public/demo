@@ -1,0 +1,441 @@
+---
+driver:
+  name: vagrant
+  network:
+    - ["forwarded_port", {guest: 8980, host: 8980, auto_correct: true}]
+    - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]
+  customize: 
+    memory: 1024
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.20.3
+
+platforms:
+  - name: centos-6.8
+    attributes:
+      opennms:
+        conf: 
+          start_timeout: 50
+        stable: true
+        plugin:
+          xml: true
+          nsclient: true
+suites:
+  - name: default_latest
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::default]
+  - name: adminpw_latest
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+        users:
+          admin:
+            password: superSecret
+  - name: adminpw_16
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+    attributes:
+      opennms:
+        users:
+          admin:
+            password: superSecret
+  - name: default_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::default]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: default_16
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::default]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: service_detector
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::service_detector]
+  - name: events
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::event]
+  - name: events_16
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::event]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: events_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::event]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: disco
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::disco_specific]
+      - recipe[onms_lwrp_test::disco_range]
+      - recipe[onms_lwrp_test::disco_url]
+  - name: disco_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::disco_specific]
+      - recipe[onms_lwrp_test::disco_range]
+      - recipe[onms_lwrp_test::disco_url]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: upgrade_step1
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::collection_graph_file]
+      - recipe[onms_lwrp_test::collection_graph]
+      - recipe[onms_lwrp_test::response_graph]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: upgrade_step2
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::collection_graph_file]
+      - recipe[onms_lwrp_test::collection_graph]
+      - recipe[onms_lwrp_test::response_graph]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: upgrade_step3
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::collection_graph_file]
+      - recipe[onms_lwrp_test::collection_graph]
+      - recipe[onms_lwrp_test::response_graph]
+    attributes:
+      opennms:
+        version: "18.0.4-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: upgrade_step4
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::eventconf]
+      - recipe[onms_lwrp_test::collection_graph_file]
+      - recipe[onms_lwrp_test::collection_graph]
+      - recipe[onms_lwrp_test::response_graph]
+    attributes:
+      opennms:
+        upgrade: true
+  - name: change_notif
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::destination_path]
+      - recipe[onms_lwrp_test::notification_command]
+      - recipe[onms_lwrp_test::notifd_autoack]
+      - recipe[onms_lwrp_test::notification]
+  - name: all
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::all]
+    attributes:
+      opennms:
+        upgrade: true
+  - name: all_18
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::all]
+    attributes:
+      opennms:
+        version: "18.0.4-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: all_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::all]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: all_16
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::all]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: thresholds_latest
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::threshold]
+    attributes:
+  - name: thresholds_18
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::threshold]
+    attributes:
+      opennms:
+        version: "18.0.4-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: thresholds_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::threshold]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: thresholds_16
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::nsclient]
+      - recipe[onms_lwrp_test::threshold]
+    attributes:
+      opennms:
+        version: "16.0.4-1"
+        upgrade: true
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: imports
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::foreign_source]
+      - recipe[onms_lwrp_test::policy]
+      - recipe[onms_lwrp_test::service_detector]
+      - recipe[onms_lwrp_test::import]
+      - recipe[onms_lwrp_test::import_node]
+      - recipe[onms_lwrp_test::import_node_interface]
+      - recipe[onms_lwrp_test::import_node_interface_service]
+  - name: notemplates
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+  - name: grafana_17
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::grafana]
+      - recipe[onms_lwrp_test::webopts]
+    attributes:
+      opennms:
+        version: "17.1.1-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: grafana
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::grafana]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::foreign_source]
+      - recipe[onms_lwrp_test::policy]
+      - recipe[onms_lwrp_test::service_detector]
+      - recipe[onms_lwrp_test::import]
+      - recipe[onms_lwrp_test::import_node]
+      - recipe[onms_lwrp_test::import_node_interface]
+      - recipe[onms_lwrp_test::import_node_interface_service]
+    attributes:
+      opennms:
+        users:
+          admin:
+            password: devjam
+      grafana:
+        users:
+          admin:
+            password: superSecret
+  - name: grafana_autogen
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::grafana]
+      - recipe[onms_lwrp_test::webopts]
+      - recipe[onms_lwrp_test::foreign_source]
+      - recipe[onms_lwrp_test::policy]
+      - recipe[onms_lwrp_test::service_detector]
+      - recipe[onms_lwrp_test::import]
+      - recipe[onms_lwrp_test::import_node]
+      - recipe[onms_lwrp_test::import_node_interface]
+      - recipe[onms_lwrp_test::import_node_interface_service]
+    attributes:
+      opennms:
+        secure_admin: true
+        version: "18.0.2-1"
+      yum:
+        opennms-stable-common:
+          enabled: false
+        opennms-stable-rhel6:
+          enabled: false
+  - name: rrdtool_grafana
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[opennms::rrdtool]
+      - recipe[opennms::grafana]
+    attributes:
+      opennms:
+        users:
+          admin:
+            password: devjam
+      grafana:
+        users:
+          admin:
+            password: superSecret
+  - name: jmx
+    run_list:
+      - recipe[opennms::postgres]
+      - recipe[oracle_java8::default]
+      - recipe[opennms::notemplates]
+      - recipe[onms_lwrp_test::jmx]
+    attributes:

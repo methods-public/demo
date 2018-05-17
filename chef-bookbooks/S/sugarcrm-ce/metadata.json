@@ -1,0 +1,48 @@
+{
+  "name": "sugarcrm-ce",
+  "description": "Installs/Configures SugarCRM CE",
+  "long_description": "Sugarcrm-ce Cookbook\n====================\n\nInstalls/Configures SugarCRM CE\n\nSource Code is here: https://github.com/computerlyrik/chef-sugarcrm-ce\n\n![Build-status](https://travis-ci.org/computerlyrik/chef-sugarcrm-ce.svg)\n\n\nDisclaimer\n----------\n\n**This is cloned from original sugarcrm cookbook.  \nLatest modification from users forking this cookbook have been merged.  \nAnother rework was made to the recipe.**\n\nOriginal\nhere https://github.com/wyattwalter/sugarcrm-cookbook\nand here https://supermarket.getchef.com/cookbooks/sugarcrm\n\n\nRequirements\n------------\n\n### Platform:\n\nUbuntu 14.04 works only with freshest apache2 cookbook from github.\nThe fixing commit:  https://github.com/onehealth-cookbooks/apache2/commit/7ebfcee05d9bf1891e2cb6c75a117fd31d9087b3\n\n* Ubuntu (= 12.04)\n* Debian\n* Centos\n\n### Cookbooks:\n\n* apt\n* git\n* mysql\n* database\n* php\n* apache2\n* application\n* application_php\n\nAttributes\n----------\n\n*No attributes defined*\n\nRecipes\n-------\n\n*No recipes defined*\n\nTesting\n-------\nOn kitchen testmachines, log in on localhost:4260 with admin:admin\n\nLicense and Author\n------------------\n\nAuthor:: Christian Fischer (<chef-cookbooks@computerlyrik.de>)\n\nCopyright:: 2014, Christian Fischer\n\nLicense:: Apache 2.0\n\n",
+  "maintainer": "Christian Fischer",
+  "maintainer_email": "chef-cookbooks@computerlyrik.de",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": "= 12.04",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "git": ">= 0.0.0",
+    "mysql": ">= 0.0.0",
+    "database": ">= 0.0.0",
+    "php": ">= 0.0.0",
+    "apache2": ">= 0.0.0",
+    "application": ">= 0.0.0",
+    "application_php": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.3"
+}

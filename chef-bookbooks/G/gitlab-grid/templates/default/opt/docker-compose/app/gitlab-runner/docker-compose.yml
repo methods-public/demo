@@ -1,0 +1,7 @@
+<%
+config = node['gitlab-grid']['runner-docker-compose']['config'].to_hash
+
+require 'yaml'
+yaml_str = config.to_yaml
+-%>
+<%= yaml_str %>

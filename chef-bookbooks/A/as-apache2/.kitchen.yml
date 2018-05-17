@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+
+suites:
+  - name: default
+    run_list:
+      - recipe[as-apache2::default]
+    attributes:
+      httpd:
+        DocumentRoot: '/var/www/html'
+        Alias:
+          - name: '/ts/'
+            source: '/var/www/html/sub/'

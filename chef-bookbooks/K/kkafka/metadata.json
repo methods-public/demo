@@ -1,0 +1,792 @@
+{
+  "name": "kkafka",
+  "description": "Installs/Configures/Runs kkafka. Karamelized version of https://github.com/mthssdrbrg/kafka-cookbook",
+  "long_description": "",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "kagent": ">= 0.0.0",
+    "kzookeeper": ">= 0.0.0",
+    "ndb": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kafka/ulimit": {
+      "description": "ULimit for the max number of open files allowed",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/offset_monitor/port": {
+      "description": "Port for Kafka monitor service",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/memory_mb": {
+      "description": "Kafka server memory in mbs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper_connection_timeout_ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/retention/hours": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/retention/size": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/message/max/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/num/network/threads": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/num/io/threads": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/num/recovery/threads/per/data/dir": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/num/replica/fetchers": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/queued/max/requests": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/socket/send/buffer/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/brattribute oker/socket/receive/buffer/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/sockeattribute t/request/max/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/num/partitionsattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/segment/bytesattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/roll/hoursattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/retention/hoursattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/retention/bytesattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/retention/check/interval/attribute ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/index/size/max/bytesattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/index/interval/bytesattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/flush/interval/messagesattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/flush/scheduler/interval/msattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/flush/interval/msattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/leader/imbalance/check/intervalattribute /seconds": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/leader/imbalance/per/broker/percentageattribute ": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/dir": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/flush/offset/checkpoint/interval/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/port": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/quota/consumer/default": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/quota/producer/default": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/fetch/max/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/fetch/min/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/fetch/wait/max/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/high/watermark/checkpoint/interval/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/lag/time/max/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/socket/receive/buffer/bytes": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replica/socket/timeout/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/request/timeout/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper/session/timeout/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper/set/acl": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/replication/factor": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/cleaner/enable": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/log/cleaner/io/buffer/load/factor": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/security/inter/broker/protocol": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/client/auth": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/key/password": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/keystore/location": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/keystore/password": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/truststore/location": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/truststore/password": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/authorizer/class/name": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/ssl/endpoint/identification/algorithm": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/principal/builder/class": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper/synctime/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper/connectiontimeout/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kkafka/broker/zookeeper/sessiontimeout/ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "kkafka::install": "Installs kafka binaries",
+    "kkafka::default": "Configures Kafka",
+    "kkafka::monitor": "Helper webapp to monitor performance of kafka",
+    "kkafka::client": "Kafka client installation",
+    "kkafka::purge": "Removes and deletes Kafka"
+  },
+  "version": "0.2.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

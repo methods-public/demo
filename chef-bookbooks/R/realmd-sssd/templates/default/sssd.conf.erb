@@ -1,0 +1,6 @@
+<% @config.sort_by{|k,v| k}.to_h.each do |section, section_contents| %>
+<%= "#{section}\n" -%>
+<%   section_contents.sort_by{|k,v| k}.to_h.each do |directive, directive_values| -%>
+<%= directive %> = <%= directive_values.is_a?(String) ? directive_values : directive_values.join(', ') %>
+<%   end %>
+<% end %>

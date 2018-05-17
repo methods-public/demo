@@ -1,0 +1,9 @@
+DEPENDENCIES
+  twindb-repo
+    path: .
+    metadata: true
+
+GRAPH
+  packagecloud (0.1.0)
+  twindb-repo (0.2.0)
+    packagecloud (>= 0.0.0)

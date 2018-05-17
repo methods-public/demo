@@ -1,0 +1,115 @@
+{
+    "apiVersion": "v1", 
+    "kind": "Policy", 
+    "predicates": [
+<% case @ose_major_version.split('.')[1].to_i %>
+<% when 1 %>
+        {"name": "PodFitsHostPorts"},
+        {"name": "PodFitsResources"},
+        {"name": "NoDiskConflict"},
+        {"name": "MatchNodeSelector"},
+<% when 2 %>
+        {"name": "PodFitsHostPorts"},
+        {"name": "PodFitsResources"},
+        {"name": "NoDiskConflict"},
+        {"name": "NoVolumeZoneConflict"},
+        {"name": "MatchNodeSelector"},
+        {"name": "MaxEBSVolumeCount"},
+        {"name": "MaxGCEPDVolumeCount"},
+<% when 3 %>
+        {"name": "NoDiskConflict"},
+        {"name": "NoVolumeZoneConflict"},
+        {"name": "MaxEBSVolumeCount"},
+        {"name": "MaxGCEPDVolumeCount"},
+        {"name": "GeneralPredicates"},
+        {"name": "PodToleratesNodeTaints"},
+        {"name": "CheckNodeMemoryPressure"},
+<% when 4 %>
+        {"name": "NoDiskConflict"},
+        {"name": "NoVolumeZoneConflict"},
+        {"name": "MaxEBSVolumeCount"},
+        {"name": "MaxGCEPDVolumeCount"},
+        {"name": "GeneralPredicates"},
+        {"name": "PodToleratesNodeTaints"},
+        {"name": "CheckNodeMemoryPressure"},
+        {"name": "CheckNodeDiskPressure"},
+        {"name": "MatchInterPodAffinity"},
+<% when 5,6 %>
+        {"name": "NoVolumeZoneConflict"},
+        {"name": "MaxEBSVolumeCount"},
+        {"name": "MaxGCEPDVolumeCount"},
+        {"name": "MatchInterPodAffinity"},
+        {"name": "NoDiskConflict"},
+        {"name": "GeneralPredicates"},
+        {"name": "PodToleratesNodeTaints"},
+        {"name": "CheckNodeMemoryPressure"},
+        {"name": "CheckNodeDiskPressure"},
+<% when 7 %>
+        {"name": "NoVolumeZoneConflict"},
+        {"name": "MaxEBSVolumeCount"},
+        {"name": "MaxGCEPDVolumeCount"},
+        {"name": "MaxAzureDiskVolumeCount"},
+        {"name": "MatchInterPodAffinity"},
+        {"name": "NoDiskConflict"},
+        {"name": "GeneralPredicates"},
+        {"name": "PodToleratesNodeTaints"},
+        {"name": "CheckNodeMemoryPressure"},
+        {"name": "CheckNodeDiskPressure"},
+        {"name": "NoVolumeNodeConflict"},
+<%- end -%>
+        {
+            "argument": {
+                "serviceAffinity": {
+                    "labels": [
+                        "region"
+                    ]
+                }
+            }, 
+            "name": "Region"
+        }
+    ], 
+    "priorities": [
+<% case @ose_major_version.split('.')[1].to_i %>
+<% when 1 %>
+        {"name": "LeastRequestedPriority", "weight": 1},
+        {"name": "BalancedResourceAllocation", "weight": 1},
+        {"name": "SelectorSpreadPriority", "weight": 1},
+<% when 2 %>
+        {"name": "LeastRequestedPriority", "weight": 1},
+        {"name": "BalancedResourceAllocation", "weight": 1},
+        {"name": "SelectorSpreadPriority", "weight": 1},
+        {"name": "NodeAffinityPriority", "weight": 1},
+<% when 3 %>
+        {"name": "LeastRequestedPriority", "weight": 1},
+        {"name": "BalancedResourceAllocation", "weight": 1},
+        {"name": "SelectorSpreadPriority", "weight": 1},
+        {"name": "NodeAffinityPriority", "weight": 1},
+        {"name": "TaintTolerationPriority", "weight": 1},
+<% when 4 %>
+        {"name": "LeastRequestedPriority", "weight": 1},
+        {"name": "BalancedResourceAllocation", "weight": 1},
+        {"name": "SelectorSpreadPriority", "weight": 1},
+        {"name": "NodePreferAvoidPodsPriority", "weight": 10000},
+        {"name": "NodeAffinityPriority", "weight": 1},
+        {"name": "TaintTolerationPriority", "weight": 1},
+        {"name": "InterPodAffinityPriority", "weight": 1},
+<% when 5,6,7 %>
+        {"name": "SelectorSpreadPriority", "weight": 1},
+        {"name": "InterPodAffinityPriority", "weight": 1},
+        {"name": "LeastRequestedPriority", "weight": 1},
+        {"name": "BalancedResourceAllocation", "weight": 1},
+        {"name": "NodePreferAvoidPodsPriority", "weight": 10000},
+        {"name": "NodeAffinityPriority", "weight": 1},
+        {"name": "TaintTolerationPriority", "weight": 1},
+<%- end -%>
+        {
+            "argument": {
+                "serviceAntiAffinity": {
+                    "label": "zone"
+                }
+            }, 
+            "name": "Zone", 
+            "weight": 2
+        }
+    ]
+}

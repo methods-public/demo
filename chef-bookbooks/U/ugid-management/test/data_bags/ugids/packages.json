@@ -1,0 +1,27 @@
+{
+  "id": "packages",
+  "packages": {
+    "package_name": {
+      "username": "username",
+      "user_opts": {
+        "extra_key": "extra_value"
+      }
+    },
+    "chrony": {
+      "username": "chrony"
+    },
+    "dovecot": {
+      "username": "dovenull",
+      "user_opts": {
+        "home": "/usr/libexec/dovecot",
+        "shell": "/sbin/nologin-test"
+      }
+    },
+    "docker-engine": {
+      "username": "docker",
+      "group_opts": {
+        "append": true
+      }
+    }
+  }
+}

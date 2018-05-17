@@ -1,0 +1,38 @@
+<VirtualHost *:<%= @vhost_port || node['apache']['windows']['listen_ports'].first %>>
+  ServerName <%= @server_name %>
+  <% if @server_aliases -%>
+    <% if @server_aliases.class == Array -%>
+  ServerAlias <% @server_aliases.each do |a| %><%= a %> <% end %>
+    <% elsif @server_aliases.class == String -%>
+  ServerAlias <%= @server_aliases %>
+    <% end -%>
+  <% end -%>
+  DocumentRoot <%= @docroot %>
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+    Order deny,allow
+    Deny from all
+  </Directory>
+
+  <Directory "<%= @docroot %>">
+    Options <%= @directory_options.flatten.join(' ') %>
+    AllowOverride <%= @allow_overrides.flatten.join(' ') %>
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  LogLevel <%= @loglevel %>
+  ErrorLog <%= node['apache']['windows']['log_dir'] %>/<%= @server_name %>-error.log
+  CustomLog <%= node['apache']['windows']['log_dir'] %>/<%= @server_name %>-access.log combined
+
+  <% if @directory_index -%>
+    <% if @directory_index.class == Array -%>
+  DirectoryIndex <%= @directory_index.flatten.join(' ') %>
+    <% else -%>
+  DirectoryIndex <%= @directory_index %>
+    <% end -%>
+  <% end -%>
+
+</VirtualHost>

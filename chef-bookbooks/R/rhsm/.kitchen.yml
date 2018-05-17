@@ -1,0 +1,41 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+  customize:
+    cpus: 1
+    memory: 512
+
+platforms:
+- name: rhel-6.5
+  run_list: ['recipe[yum-epel]']
+  attributes:
+    rhsm:
+      username: <%= ENV['RHSM_USERNAME'] %>
+      password: <%= ENV['RHSM_PASSWORD'] %>
+      additional_repos: ['rhel-6-server-optional-rpms']
+  driver_config:
+    box: local-rhel-6.5
+    box_url: file://<%= File.expand_path('~') %>/opscode_rhel-6.5_chef-provisionerless.box
+- name: rhel-7.0
+  run_list: ['recipe[yum-epel]']
+  attributes:
+    rhsm:
+      username: <%= ENV['RHSM_USERNAME'] %>
+      password: <%= ENV['RHSM_PASSWORD'] %>
+      additional_repos: ['rhel-7-server-optional-rpms']
+  driver_config:
+    box: local-rhel-7.0
+    box_url: file://<%= File.expand_path('~') %>/opscode_rhel-7.0_chef-provisionerless.box
+
+suites:
+- name: default
+  run_list: ['recipe[rhsm]']
+  attributes:
+    cloud:
+      provider: vagrant
+- name: unregister
+  run_list: ['recipe[rhsm::register]', 'recipe[rhsm::unregister]']
+  attributes:
+    cloud:
+      provider: vagrant

@@ -1,0 +1,35 @@
+---
+driver:
+  name: vagrant
+driver_config:
+  http_proxy: <%= ENV['http_proxy'] %>
+  https_proxy: <%= ENV['https_proxy'] %>
+
+platforms:
+  - name: ubuntu-13.04
+    driver_config:
+      box: opscode-ubuntu-13.04
+      box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-13.04_provisionerless.box
+      require_chef_omnibus: true
+  - name: centos-6.4
+    driver_config:
+      box: opscode-centos-6.4
+      box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
+      require_chef_omnibus: true
+  - name: gentoo-2013.05
+    driver_config:
+      box: lxmx-gentoo-2013.05
+      box_url: https://lxmx-vm.s3.amazonaws.com/vagrant/boxes/lxmx_gentoo-2013.05_chef-11.4.4.box
+
+suites:
+  - name: lwrp
+    run_list:
+      - recipe[git_user_test::lwrp]
+  - name: data_bag
+    run_list:
+      - recipe[user::data_bag]
+      - recipe[git_user::data_bag]
+    attributes:
+      users:
+      - joe
+      - testman

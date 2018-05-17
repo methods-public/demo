@@ -1,0 +1,39 @@
+{
+  "name": "docker-machine",
+  "description": "Installs/Configures docker-machine",
+  "long_description": "Installs/Configures docker-machine",
+  "maintainer": "byplayer",
+  "maintainer_email": "byplayer100@gmail.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/byplayer/chef-cookbook-docker-machine",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

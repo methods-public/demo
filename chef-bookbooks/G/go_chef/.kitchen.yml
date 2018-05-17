@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.1
+  - name: ubuntu-16.04
+  - name: debian-9
+
+suites:
+  - name: test
+    run_list:
+      - recipe[test::default]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:

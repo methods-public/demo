@@ -1,0 +1,43 @@
+{
+  "name": "ceph_micro",
+  "description": "Installs ceph on one node with one osd, usefull for testing.",
+  "long_description": "# ceph_micro-cookbook\n\nThis cookbook installs ceph using Loïc Dachary script described in\n[this article](http://dachary.org/?p=2374).  It adds support for multi platform\nand the development files.\n\nEventually here is the result:\n\n```bash\nvagrant@default-ubuntu-1204:/vagrant$ ceph -c  /tmp/micro-ceph/ceph.conf  -s\n    cluster e3a14890-0e60-4310-b5c5-54117d04f876\n     health HEALTH_OK\n     monmap e1: 1 mons at {0=127.0.0.1:6789/0}, election epoch 2, quorum 0 0\n     osdmap e5: 1 osds: 1 up, 1 in\n      pgmap v41: 72 pgs, 2 pools, 658 bytes data, 1 objects\n            2273 MB used, 35045 MB / 39316 MB avail\n                  72 active+clean\n```\n\nThis is not suitable for production environment, but is very convenient for\ntesting and development.\n\n## Supported Platforms\n\n* Ubuntu (12.04/14.04)\n* Debian (7.7)\n* CentOS (7.0)\n\n**Notes**: This cookbook has been tested on the listed platforms. It may work\non other platforms with or without modification. Please\n[report issues](https://github.com/sathlan/ceph_micro-cookbook/issues) for any\nadditional platforms so they can be added.\n\n## Attributes\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['ceph_micro']['version']</tt></td>\n    <td>String</td>\n    <td>Which version to use</td>\n    <td><tt>giant</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['ceph_micro']['path']</tt></td>\n    <td>String</td>\n    <td>Path in which to install ceph</td>\n    <td><tt>/tmp/micro-ceph</tt></td>\n  </tr>\n</table>\n\n## Usage\n\n### ceph_micro::default\n\nInclude `ceph_micro` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[ceph_micro]\"\n  ]\n}\n```\n\n## License and Authors\n\nAuthor:: Sofer Athlan-Guyot (<chem@sathlan.org>)\n",
+  "maintainer": "Sofer Athlan-Guyot",
+  "maintainer_email": "chem@sathlan.org",
+  "license": "GPL 3.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "python": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "apt": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1"
+}

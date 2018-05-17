@@ -1,0 +1,90 @@
+##########################################################################
+# Copyright 2017 ThoughtWorks, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
+
+---
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.4.1
+
+platforms:
+  - name: debian
+    driver:
+      name: vagrant
+    driver_config:
+      box:	'debian-7.8-bpk-chef-12.4.1'
+      customize:
+        server_name: 'kt-go'
+        flavor: 'v.c1.m2048.d5.e0'
+        server_create_timeout: 540
+        server_active_timeout: 540
+  - name: windows
+    provisioner:
+      name: chef_solo
+      require_chef_omnibus: 12.4.2
+    driver:
+      name: vagrant
+    driver_config:
+      box:	'windows-7-net45-2.0-chef-12.4.2'
+      customize:
+        flavor: 'v.c1.m2048.d20.e0'
+        server_create_timeout: 1200
+        server_active_timeout: 1200
+        server_name: 'kt-go-win'
+
+suites:
+- name: default
+  run_list:
+  - recipe[gocd]
+  - recipe[gocd_test::plugin_lwrp]
+  attributes:
+    apt:
+      compile_time_update: true
+    java:
+      jdk_version: 8
+    gocd:
+      server:
+        wait_up:
+          retries: 120
+        max_mem: '1024m'
+        min_mem: '512m'
+      agent:
+        autoregister:
+          key: 'auto-register-key'
+          environments: ['staging', 'perf']
+          resources: ['foo', 'bar', 'baz']
+          hostname: 'example-host'
+- name: golangagent
+  run_list:
+  - recipe[gocd]
+  - recipe[gocd_test::plugin_lwrp]
+  attributes:
+    apt:
+      compile_time_update: true
+    java:
+      jdk_version: 8
+    gocd:
+      server:
+        wait_up:
+          retries: 120
+        max_mem: '1024m'
+        min_mem: '512m'
+      agent:
+        type: golang
+        autoregister:
+          key: 'auto-register-key'
+          environments: ['staging', 'perf']
+          resources: ['foo', 'bar', 'baz']
+          hostname: 'example-host'

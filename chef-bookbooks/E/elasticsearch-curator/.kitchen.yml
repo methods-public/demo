@@ -1,0 +1,69 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus:  <%= ENV['CHEF_VERSION'] || 'current' %>
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt]
+  - name: centos-7.2
+    run_list:
+      - recipe[yum-epel]
+      - recipe[yum]
+  - name: centos-6.8
+    run_list:
+      - recipe[yum-epel]
+      - recipe[yum]
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default12
+    run_list:
+      - recipe[elasticsearch-curator::default]
+      - recipe[elasticsearch-curator-test::default]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
+    driver:
+      chef_version: 12.21.3
+    attributes:
+  - name: default13
+    driver:
+      chef_version: 13.2.20
+    run_list:
+      - recipe[elasticsearch-curator::default]
+      - recipe[elasticsearch-curator-test::default]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
+    attributes:
+  - name: pip_install12
+    driver:
+      chef_version: 12.21.3
+    run_list:
+      - recipe[elasticsearch-curator::default]
+      - recipe[elasticsearch-curator-test::default]
+    verifier:
+      inspec_tests:
+        - path: test/integration/pip_install
+    attributes:
+      elasticsearch-curator:
+        install_method: 'pip'
+  - name: pip_install13
+    driver:
+      chef_version: 13.2.20
+    run_list:
+      - recipe[elasticsearch-curator::default]
+      - recipe[elasticsearch-curator-test::default]
+    verifier:
+      inspec_tests:
+        - path: test/integration/pip_install
+    attributes:
+      elasticsearch-curator:
+        install_method: 'pip'

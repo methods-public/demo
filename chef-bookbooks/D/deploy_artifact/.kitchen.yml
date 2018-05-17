@@ -1,0 +1,25 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  data_bags_path: 'test/fixtures/data_bags/'
+  environments_path: 'test/fixtures/environments/'
+  encrypted_data_bag_secret_key_path: 'test/fixtures/cookbooks/deploy_artifact_test/.encrypted_data_bag_secret'
+  client_rb:
+    environment: 'staging'
+
+platforms:
+  - name: centos-6.7
+  - name: centos-7
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+
+suites:
+  - name: tarball
+    run_list:
+      - recipe[deploy_artifact_test::default]
+      - recipe[deploy_artifact_test::deploy_file]
+      - recipe[deploy_artifact_test::cache_path]
+      - recipe[deploy_artifact_test::keep_releases]

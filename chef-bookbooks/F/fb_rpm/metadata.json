@@ -1,0 +1,51 @@
+{
+  "name": "fb_rpm",
+  "description": "Installs/Configures rpm",
+  "long_description": "fb_rpm Cookbook\n====================\nThis cookbook installs and configures RPM.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_rpm']['macros']\n* node['fb_rpm']['manage_packages']\n* node['fb_rpm']['rpmbuild']\n\nUsage\n-----\nInclude the cookbook to keep RPM up to date. If you want to manage the RPM \npackages on your own, set `node['fb_rpm']['manage_packages']` to `false`.\n\n### rpm-build and rpm-sign\nSet `node['fb_rpm']['rpmbuild']` to `true` to also install RPM build tools \n(including the the `rpmbuild` and `rpmsign` commands).\n\n### Macros\nYou can set custom macros with the `node['fb_rpm']['macros']` attribute, e.g.:\n\n```\nnode.default['fb_rpm']['macros']['%foo'] = 'bar'\n```\n\nThe value can be numbers or strings with spaces, the value will not be quoted in\nthe resulting file as that's not necessary in RPM macro files.\n\nTechnically the keys can also have spaces, so if you wanted to make a key of\n`%define foo` and a value of `bar`, that would work, though the `%define` syntax\nisn't used for runtime macros.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "name": "prometheus-platform-server",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "prometheus-platform": {
+      "components": {
+        "prometheus": {
+          "install?": true,
+          "scrapers_default": {
+            "relabel_configs": [
+              {
+                "source_labels": ["__address__"],
+                "regex": "([^:]+):(.*)",
+                "replacement": "$1",
+                "target_label": "instance"
+              }
+            ]
+          },
+          "scrapers": {
+            "node_exporter": {
+              "scrape_interval": "60s",
+              "static_configs": {
+                "role": "prometheus-platform",
+                "port": "9100"
+              }
+            },
+            "statsd_exporter": {
+              "scrape_interval": "60s",
+              "static_configs": {
+                "role": "prometheus-platform",
+                "port": "9102"
+              }
+            },
+            "pushgateway": {
+              "scrape_interval": "60s",
+              "honor_labels": true,
+              "static_configs": {
+                "role": "prometheus-platform-server",
+                "port": "9091"
+              }
+            }
+          },
+          "rules": {
+            "alerting": {
+              "groups" : [{
+                "name" : "alerting",
+                "rules" : [{
+                  "alert":"Instance_Down",
+                  "expr":"up{job=\"node_exporter\"} == 0",
+                  "for":"5m",
+                  "annotations": {
+                    "description":"instance is down",
+                    "summary":"Instance {{ $labels.instance }} is down"
+                  }
+                }]
+              }]
+            }
+          }
+        },
+        "alertmanager": {
+          "install?": true,
+          "config": {
+            "global": {
+              "smtp_smarthost": "smtp.yopmail.com:25",
+              "smtp_from": "prometheus-platform@yopmail.com"
+            },
+            "route": {
+              "receiver": "default_email",
+              "group_wait": "30s",
+              "group_interval": "5m",
+              "repeat_interval": "4h"
+            },
+            "receivers": [
+              {
+                "name": "default_email",
+                "email_configs": [
+                  { "to": "prometheus-platform@yopmail.com" }
+                ]
+              }
+            ]
+          }
+        },
+        "pushgateway": {
+          "install?": true
+        }
+      }
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[prometheus-platform]"
+  ],
+  "env_run_lists": {
+
+  }
+}

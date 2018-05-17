@@ -1,0 +1,5 @@
+source 'https://supermarket.getchef.com'
+
+metadata
+
+cookbook 'pyenv', '~> 0.1.0', git: 'https://github.com/sds/chef-pyenv'

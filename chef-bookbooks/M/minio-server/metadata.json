@@ -1,0 +1,39 @@
+{
+  "name": "minio-server",
+  "description": "Installs/Configures Minio",
+  "long_description": "Installs/Configures Minio",
+  "maintainer": "Takaaki Furukawa",
+  "maintainer_email": "takaaki.frkw@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 7.0",
+    "centos": ">= 7.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/tkak/minio-server-cookbook",
+  "issues_url": "https://github.com/tkak/minio-server-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

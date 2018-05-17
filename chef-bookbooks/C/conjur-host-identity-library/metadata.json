@@ -1,0 +1,43 @@
+{
+  "name": "conjur-host-identity-library",
+  "description": "Library to obtain and install a Conjur host identity from host factory token",
+  "long_description": "conjur-host-identity-library\n====================\nconjur-host-identity-library is a library cookbook that provides a conjurize resource for use in recipes.\n\nUsage\n-----\n```ruby\nconjurize 'host-identity' do\n  account            node['conjur']['account']\n  appliance_url      node['conjur']['appliance_url']\n  host_identity      node['fqdn']\n  host_factory_token node['service-host']['host_factory_token']\n  ssl_certificate    node['conjur']['certificate']\n  ssh                true\nend\n```\n\nAttributes\n----------\n\n### conjurize\n| Attribute name  | Description                 | Required | Default |\n|-----------------|-----------------------------|----------|---------|\n| `account` | Name of the account that Conjur was configured with | Yes | |\n| `appliance_url` | URL to the Conjur appliance | Yes | |\n| `host_identity` | Name of the host to be created. If left blank, the host will be assigned a UUID. | No | Random UUID |\n| `host_factory_token` | The host factory token to be used in exchange for a Conjur identity | Yes | |\n| `appliance_url` | The contents of the SSL certificate to verify the Conjur server  __or__ the path to an existing certificate on disk | Yes | |\n| `ssh` | If true, the machine will run the [Conjur cookbook](https://github.com/conjur-cookbooks/conjur), configuring the machine for SSH and audit logging. | No | false |\n| `overwrite` | If true, any existing identity on the machine will be overwritten. | No | false |\n",
+  "maintainer": "Conjur, Inc.",
+  "maintainer_email": "kgilpin@conjur.net, dbyrne@conjur.net",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "conjur": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

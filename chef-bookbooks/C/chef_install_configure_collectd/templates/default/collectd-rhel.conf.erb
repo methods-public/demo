@@ -1,0 +1,91 @@
+# Install:
+#  You can usually install with apt-get or yum
+
+# Documentation:
+#   https://collectd.org/documentation.shtml
+
+# System modifications:
+#   None
+
+# Config file modifications:
+#   If you want to use a custom source name, change
+#   the "Hostname" paramter and set
+#
+#     FQDNLookup false
+#
+#   Make sure TypesDB points to a valid file:
+#
+#     which /usr/share/collectd/types.db
+#
+#   Create the directory managed_config and put
+#   extra config files there:
+#
+#     mkdir /etc/collectd.d/managed_config
+#
+
+TypesDB "/usr/share/collectd/types.db"
+
+<% if node['SignalFx']['collectd']['FQDNLookup'] == false -%>
+Hostname "<%= node['fqdn'] %>"
+<% end -%>
+
+FQDNLookup <%= node['SignalFx']['collectd']['FQDNLookup'] %>
+Interval <%= node['SignalFx']['collectd']['interval'] %>
+Timeout <%= node['SignalFx']['collectd']['timeout'] %>
+ReadThreads 5
+WriteQueueLimitHigh 500000
+WriteQueueLimitLow  400000
+CollectInternalStats true
+
+LoadPlugin logfile
+
+<Plugin logfile>
+        LogLevel "<%= node['SignalFx']['collectd']['logfile']['LogLevel'] %>"
+        File "<%= node['SignalFx']['collectd']['logfile']['File'] %>"
+        Timestamp true
+        PrintSeverity <%= node['SignalFx']['collectd']['logfile']['PrintSeverity'] %>
+</Plugin>
+
+LoadPlugin cpu
+LoadPlugin cpufreq
+LoadPlugin df
+
+LoadPlugin disk
+<Plugin "disk">
+  Disk "/^loop\d+$/"
+  Disk "/^dm-\d+$/"
+  IgnoreSelected "true"
+</Plugin>
+
+LoadPlugin interface
+<Plugin "interface">
+  Interface "/^lo\d*$/"
+  Interface "/^docker.*/"
+  Interface "/^t(un|ap)\d*$/"
+  Interface "/^veth.*$/"
+  IgnoreSelected "true"
+</Plugin>
+
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin protocols
+<Plugin "protocols">
+<% node['SignalFx']['collectd']['protocols']['values'].each do |value| -%>
+  Value "<%= value %>"
+<% end %>
+  IgnoreSelected false
+</Plugin>
+
+LoadPlugin vmem
+<Plugin vmem>
+  Verbose false
+</Plugin>
+
+LoadPlugin uptime
+
+# Note: You will get warnings on startup if you have no *.conf files.
+#       This is ok: CollectD will still start.
+Include "/etc/collectd.d/managed_config/*.conf"
+
+Include "/etc/collectd.d/filtering_config/*.conf"
+

@@ -1,0 +1,102 @@
+{
+  "name": "ack",
+  "description": "Installs ack, a utility for quickly performing recursive searches of directory trees of text files (such as source code).",
+  "long_description": "# Description\n\nInstalls `ack(1)`, a utility for quickly performing recursive searches of directory\ntrees of text files (such as source code).\n\nOn Debian and Ubuntu, it creates a `/usr/local/bin/ack` symlink so that you don't have to type 'ack-grep'.\n\n# Requirements\n\n## Platforms:\n\n* Debian\n* Ubuntu\n* Red Hat/CentOS/Fedora\n* ArchLinux\n* Gentoo\n\n# Attributes\n\n* `node[:ack][:symlink_as]` - What to symlink to /usr/bin/ack-grep. Debian and Ubuntu only. Default is `/usr/local/bin/ack`.\n* `node[:ack][:extensions]` - Additional extensions for ack to respect. Default is\n\n```ruby\n{\n  'js'   => %w{json coffee ejs},\n  'ruby' => %w{erb rake feature},\n  'html' => %w{eco jade jsp slim vm txt},\n  'css'  => %w{styl sass scss}\n}\n```\n\n# Changes\n\n* 1.0.2 (2014-05-03) - Added cookbook name to metadata (thanks to kisoku for the pull request)\n* 1.0.1 (unreleased) - Added some additional feature contributions\n* 1.0.0 (2011-11-11) - First release\n",
+  "maintainer": "Wes Morgan",
+  "maintainer_email": "cap10morgan@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "arch": ">= 0.0.0",
+    "gentoo": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "ack": {
+      "display_name": "ack",
+      "description": "Hash of ack attributes",
+      "type": "hash",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "ack/symlink_as": {
+      "display_name": "Symlink source path",
+      "description": "What to symlink to /usr/bin/ack-grep on Debian/Ubuntu systems",
+      "default": "/usr/local/bin/ack",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "ack/extensions": {
+      "display_name": "Extensions",
+      "description": "Additional extensions for ack to respect",
+      "default": {
+        "js": [
+          "json",
+          "coffee",
+          "ejs"
+        ],
+        "ruby": [
+          "erb",
+          "rake",
+          "feature"
+        ],
+        "html": [
+          "eco",
+          "jade",
+          "jsp",
+          "slim",
+          "vm",
+          "txt"
+        ],
+        "css": [
+          "styl",
+          "sass",
+          "scss"
+        ]
+      },
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "default": "Installs and configures ack"
+  },
+  "version": "1.0.2"
+}

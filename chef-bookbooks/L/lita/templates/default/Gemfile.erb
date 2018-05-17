@@ -1,0 +1,25 @@
+source "<%= node['lita']['gem_primary_source'] %>"
+
+gem "lita"<% if node['lita']['version'] -%>, "<%= node['lita']['version_constraint'] -%> <%= node['lita']['version'] %>"<% end -%>
+
+<% node['lita']['adapters'].each do |adapter| -%>
+<% if adapter != :shell && adapter != 'shell' -%>
+gem "lita-<%= stringify(adapter) %>"<% if node['lita']['adapter_versions'][adapter] -%>, "<%= node['lita']['adapter_versions'][adapter] %>"<% end -%>
+<% end -%>
+<% end -%>
+
+<% node['lita']['plugins'].each do |plugin| -%>
+<% if plugin.is_a?(Hash) -%>
+gem "lita-<%= plugin.keys.first %>", <%= plugin[plugin.keys.first] %>
+<% else -%>
+gem "lita-<%= plugin %>"
+<% end -%>
+<% end -%>
+
+<% node['lita']['gems'].each do |gem| -%>
+<% if gem.is_a?(Hash) -%>
+gem "<%= gem.keys.first %>", <%= gem[gem.keys.first] %>
+<% else -%>
+gem "<%= gem %>"
+<% end -%>
+<% end -%>

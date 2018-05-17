@@ -1,0 +1,5 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'test-openvpn-platform', path: 'test/cookbooks/test-openvpn-platform'
+
+metadata

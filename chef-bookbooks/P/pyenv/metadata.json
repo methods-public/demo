@@ -1,0 +1,63 @@
+{
+  "name": "pyenv",
+  "description": "Manages pyenv and its installed Python versions.",
+  "long_description": "# pyenv Chef Cookbook\n\n[![Build Status](https://travis-ci.org/darwin67/chef-pyenv.svg?branch=master)](https://travis-ci.org/darwin67/chef-pyenv)\n[![Chef Version](https://img.shields.io/cookbook/v/pyenv.svg?style=flat-square)](https://supermarket.chef.io/cookbooks/pyenv)\n\n\n## Description\nManages [pyenv][pyenv] and its installed Pythons.\n\nSeveral custom resources are defined to facilitate this.\n\n**WARNING** As of `v1.0.0`, this cookbook no longer provide any recipes. Custom resources are provided instead.\n\n\n## Requirements\n\n### Chef\nThis cookbook requires Chef 12.9+.\n\n### Platform\n* Debian derivatives\n* Fedora\n* RHEL derivatives (RHEL, CentOS, Amazon Linux, Oracle, Scientific Linux)\n* openSUSE and openSUSE leap\n\n# Usage\n__Please read__\n\nExamples installtions are provided in `test/fixtures/cookbooks/test/recipes`\n\nA `pyenv_system_install` or `pyenv_user_install` is required to be set so that pyenv knows which version you want to use, and is installed on the system.\n\n## Pip\nUsed to install a Python package into the selected pyenv environment.\n```ruby\npyenv_pip 'requests' do\n  version # Optional: if passed, the version the python package to install\n  user    # Optional: if passed, the user to install the python module for\nend\n```\n\n## Global\n```ruby\npyenv_global '3.6.1' do\n  user # Optional: if passed sets the users global version. Do not set, to set the systems global version\nend\n```\nIf a user is passed in to this resource it sets the global version for the user, under the users root_path (usually `~/.pyenv/version`), otherwise it sets the system global version.\n\n## Plugin\nInstalls a pyenv plugin.\n```ruby\npyenv_plugin 'virtualenv' do\n  git_url # Git URL of the plugin\n  git_ref # Git reference of the plugin\n  user    # Optional: if passed installs to the users pyenv. Do not set, to set installs to the system pyenv.\nend\n```\n\n## Rehash\n```ruby\npyenv_rehash 'rehash' do\n  user # Optional: if passed rehashes the user pyenv otherwise rehashes the system pyenv\nend\n```\n\n## Python\n```ruby\npyenv_python '3.6.1' do\n  user         # Optional: if passed, the user pyenv to install to\n  pyenv_action # Optional: the action to perform, install, remove etc\nend\n```\nShorter example `pyenv_python '3.6.1'.`\n\n## Script\nRuns a pyenv aware script.\n```ruby\npyenv_script 'foo' do\n  code          # Script code to run\n  pyenv_version # pyenv version to run the script against\n  environment   # Optional: Environment to setup to run the script\n  user          # Optional: User to run as\n  group         # Optional: Group to run as\n  path          # Optional: User to run as\n  returns       # Optional: Expected return code\nend\n```\n\n## System install\nInstalls pyenv to the system location, by default `/usr/local/pyenv`\n```ruby\npyenv_system_install 'foo' do\n  git_url      # URL of the plugin repo you want to checkout\n  git_ref      # Optional: Git reference to checkout\n  update_pyenv # Optional: Keeps the git repo up to date\nend\n```\n\n## User install\nInstalls pyenv to the user path, making pyenv available to that user only.\n```ruby\npyenv_user_install 'vagrant' do\n  git_url # Optional: Git URL to checkout pyenv from.\n  git_ref # Optional: Git reference to checkout e.g. 'master'\n  user    # Which user to install pyenv to (also specified in the resources name above)\nend\n```\n\n\n## System-Wide Mac Installation Note\n\nThis cookbook takes advantage of managing profile fragments in an\n`/etc/profile.d` directory, common on most Unix-flavored platforms.\nUnfortunately, Mac OS X does not support this idiom out of the box,\nso you may need to [modify][mac_profile_d] your user profile.\n\n## Development\n\n- Source hosted at [GitHub][repo]\n- Report issues/Questions/Feature requests on [GitHub Issues][issues]\n\nPull requests are very welcome! Make sure your patches are well tested.\n\n## License and Author\n\n- [Shane da Silva][sds]\n- [Darwin D. Wu][darwin]\n\nCopyright 2014, Shane da Silva\nCopyright 2017, Darwin D. Wu\n```\nhttp://www.apache.org/licenses/LICENSE-2.0\n```\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n\n[pyenv]: https://github.com/yyuu/pyenv\n[mac_profile_d]: http://hints.macworld.com/article.php?story=20011221192012445\n[repo]: https://github.com/darwin67/chef-pyenv\n[issues]: https://github.com/darwin67/chef-pyenv/issues\n[sds]: https://github.com/sds\n[darwin]: https://github.com/darwin67\n",
+  "maintainer": "Darwin D. Wu",
+  "maintainer_email": "darwinwu67@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "linuxmint": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "opensuse": ">= 0.0.0",
+    "opensuseleap": ">= 0.0.0",
+    "oracle": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/darwin67/chef-pyenv",
+  "issues_url": "https://github.com/darwin67/chef-pyenv/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.9"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

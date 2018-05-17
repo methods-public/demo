@@ -1,0 +1,59 @@
+# This configuration is managed by Chef.
+# Do not edit manually! Local changes will be overwritten!
+
+[/settings/default]
+allowed hosts = 127.0.0.1/32,<%= node['nscp']['config']['allowed_hosts'].join(',') %>
+cache allowed hosts = <%= node['nscp']['config']['cache_allowed_hosts'] ? '1' : '0' %>
+timeout = <%= node['nscp']['config']['timeout'] %>
+
+[/settings/NRPE/server]
+allow arguments = <%= node['nscp']['config']['allow_arguments'] ? '1' : '0' %>
+use ssl = <%= node['nscp']['config']['use_ssl'] ? '1' : '0' %>
+
+[/modules]
+CheckExternalScripts = 1
+CheckEventLog = 1
+CheckDisk = 1
+CheckSystem = 1
+NRPEServer = 1
+
+[/settings/external scripts]
+allow arguments = <%= node['nscp']['config']['allow_arguments'] ? '1' : '0' %>
+
+[/settings/external scripts/wrappings]
+<% node['nscp']['config']['scripts_wrappings'].each do |ext, command| %>
+<%= ext %> = <%= command %>
+<% end %>
+
+[/settings/external scripts/scripts]
+
+[/settings/external scripts/alias]
+alias_cpu = checkCPU warn=80 crit=90 time=5m time=1m time=30s
+alias_mem = checkMem MaxWarn=80% MaxCrit=90% ShowAll=long type=physical type=virtual type=paged type=page
+alias_uptime = checkUpTime MinWarn=12h MinCrit=1h
+alias_disk = CheckDriveSize MinWarn=10% MinCrit=5% CheckAll FilterType=FIXED
+alias_updates = check_updates -warning 0 -critical 0
+
+[/settings/external scripts/wrapped scripts]
+check_updates = check_updates.vbs $ARG1$ $ARG2$
+
+[/settings/log]
+; Available levels are error,warning,info,debug,trace
+level = <%= node['nscp']['config']['log_level'] %>
+; Set this to none to disable log to file.
+file name = ${exe-path}/nsclient.log
+date format = %Y-%m-%d %H:%M:%S
+
+; Section for configuring the crash handler.
+[/settings/crash]
+submit = <%= node['nscp']['config']['crash_submit'] ? '1' : '0' %>
+archive = <%= node['nscp']['config']['crash_archive'] ? '1' : '0' %>
+restart target = NSCP
+restart = <%= node['nscp']['config']['crash_restart'] ? '1' : '0' %>
+
+[/settings/system/windows]
+; Used to define the default interval for range buffer checks (ie. CPU).
+default buffer length = <%= node['nscp']['config']['default_buffer_length'] %>
+
+[/includes]
+scripts = ini:// ${exe-path}/nsclient_scripts.ini

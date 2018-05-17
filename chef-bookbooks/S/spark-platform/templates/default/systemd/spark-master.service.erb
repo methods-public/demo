@@ -1,0 +1,13 @@
+[Unit]
+Description=Spark Master
+After=network.target
+
+[Service]
+Type=forking
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart="<%= @prefix_root %>/spark/sbin/start-master.sh"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

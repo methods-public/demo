@@ -1,0 +1,42 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 11.18
+
+platforms:
+  - name: centos-7.1
+    driver:
+      network:
+      - ["forwarded_port", {guest: 4444, host: 4454}]
+      - ["forwarded_port", {guest: 8910, host: 8920}]
+  - name: ubuntu-14.04
+    driver:
+      network:
+      - ["forwarded_port", {guest: 4444, host: 4455}]
+      - ["forwarded_port", {guest: 8910, host: 8922}]
+  - name: windows-2012r2
+    driver:
+      box: dhoer/windows-2012r2
+      network:
+      - ["forwarded_port", {guest: 4444, host: 4456}]
+      - ["forwarded_port", {guest: 8910, host: 8924}]
+    attributes:
+      java:
+        windows:
+          # export WIN_JDK_URL=http://example.com/path/to/jdk-8u51-windows-i586.exe; kitchen dia
+          url: <%= ENV['WIN_JDK_URL'] %>
+      selenium:
+        windows:
+          java: C:\\Program Files (x86)\\Java\\jdk1.8.0_51\\bin\\java.exe
+
+suites:
+  - name: default
+    run_list:
+      - java_se
+      - ghostdriver_test::selenium
+      - ghostdriver_test::standalone
+    attributes:
+

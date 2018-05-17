@@ -1,0 +1,14 @@
+Berksfile.lock
+Gemfile.lock
+.bundle
+.coverage
+.kitchen
+.kitchen.local.yml
+
+files/dynatrace-agents.jar
+files/dynatrace-analysisserver.jar
+files/dynatrace-client.jar
+files/dynatrace-collector.jar
+files/dynatrace-license.lic
+files/dynatrace-server.jar
+files/dynatrace-wsagent.tar

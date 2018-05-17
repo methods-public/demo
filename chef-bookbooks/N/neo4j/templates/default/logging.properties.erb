@@ -1,0 +1,17 @@
+#
+# This configuration file is managed by chef
+# Do not edit by hand.  Your changes will be overwritten
+#
+################################################################
+# Neo4j
+#
+# logging.properties - neo4j logging properties file
+#
+################################################################
+
+<% Hash[@config.sort].each do |key, value| -%>
+<% if key && !value.nil? -%>
+<%= key %>=<%= value %>
+<% end -%>
+<% end -%>
+

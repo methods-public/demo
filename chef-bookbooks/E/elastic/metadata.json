@@ -1,0 +1,167 @@
+{
+  "name": "elastic",
+  "description": "Installs/Configures/Runs elasticsearch",
+  "long_description": "",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "kagent": ">= 0.0.0",
+    "java": ">= 0.0.0",
+    "elasticsearch": ">= 0.0.0",
+    "ulimit2": ">= 0.0.0",
+    "ndb": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/port": {
+      "description": "Port for elasticsearch service (default: 9200)",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/ulimit_files": {
+      "description": "Number of files to set ulimit to.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/ulimit_memlock": {
+      "description": "Memlock size for ulimit",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/dir": {
+      "description": "Base directory to install elastic search into.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/memory": {
+      "description": "Amount of memory for Elasticsearch.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/version": {
+      "description": "Elasticsearch version, .e.g, '2.1.2'",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "elastic/checksum": {
+      "description": "Sha-1 checksum for the elasticsearch .tar.gz file",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "elastic::install": "Experiment setup for elasticsearch",
+    "elastic::default": "Configures and starts an elasticsearch server",
+    "elastic::purge": "Deletes an elasticsearch server"
+  },
+  "version": "0.1.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

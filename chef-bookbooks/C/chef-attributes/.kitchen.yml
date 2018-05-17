@@ -1,0 +1,28 @@
+---
+driver:
+  name: docker
+  provision_command: curl -L https://www.chef.io/chef/install.sh | bash
+  use_sudo: false
+
+provisioner:
+  name: chef_solo
+  environments_path: test/environments
+  solo_rb:
+    environment: kitchen
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[chef-attributes::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

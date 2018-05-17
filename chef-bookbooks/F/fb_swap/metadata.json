@@ -1,0 +1,55 @@
+{
+  "name": "fb_swap",
+  "description": "Controls swap enable/disable",
+  "long_description": "fb_swap Cookbook\n====================\nThis cookbook enables or disables swap.\n\nRequirements\n------------\nThis cookbook assumes the machine will have either zero or one swap partition\ndefined in `/etc/fstab`. It does not support swap files and more than one swap \npartition. \n\nAttributes\n----------\n* node['fb_swap']['enabled']\n* node['fb_swap']['size']\n* node['fb_swap']['enable_encryption']\n\nUsage\n-----\nYou can disable swap with:\n\n    node.default['fb_swap']['enabled'] = false\n\nor you can enable swap if its off like this:\n\n    node.default['fb_swap']['enabled'] = true\n\nThe default is `true`. You can also optionally define the size in kb of the\nswap device to use with `node['fb_swap']['size']`. This defaults to `nil`,\nwhich disables the resizing logic. The Chef run will fail if it's set to a value\nsmaller than 1024 (i.e. 1 MB), which is assumed to be a typo (if you really\nwant a swap device this small consider disabling swap altogether). Note that\nthe value set is passed directly to `mkswap`, and should be no larger than the\nsize of the actual block device; to prevent accidental destruction of data we\nonly allow reducing the size of a swap device, not making it larger. The resize\noperation triggers a swap disable / enable, which could potentially trigger the\nOOM killer if the machine is under memory pressure.\n\n\nYou can enable encrypted swap with:\n\n    node.default['fb_swap']['enable_encryption'] = true\n\nor you can turn it off like this:\n\n    node.default['fb_swap']['enable_encryption'] = false\n\nThe default is `false`. We use dm-crypt/LUKS for the encryption. For details see\ncryptsetup(8).\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_dracut": ">= 0.0.0",
+    "fb_helpers": ">= 0.0.0",
+    "fb_systemd": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

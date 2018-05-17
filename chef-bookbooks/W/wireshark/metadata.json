@@ -1,0 +1,52 @@
+{
+  "name": "wireshark",
+  "description": "Installs WinPcap and Wireshark",
+  "long_description": "",
+  "maintainer": "Ellert van der Vecht",
+  "maintainer_email": "evandervecht@schubergphilis.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "ubuntu": ">= 16.04"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "wireshark::default": "WinPcap and Wireshark install"
+  },
+  "version": "2.0.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

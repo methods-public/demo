@@ -1,0 +1,37 @@
+{
+  "name": "esri-iis",
+  "description": "Enables IIS features required by ArcGIS Web Adaptor (IIS) and configures HTTPS binding.",
+  "long_description": "# esri-iis Cookbook\n\nThis cookbook enables IIS, installs features required by ArcGIS Web Adaptor (IIS), configures HTTPS, and starts IIS.\n\nRequirements\n------------\n\n### Platforms\n* Windows 7\n* Windows 8 (8.1)\n  - 8.1 requires .Net Framework 3.5 (See ms_dotnet cookbook README)\n* Windows 10\n  - requires .Net Framework 3.5 (See ms_dotnet cookbook README)\n* Windows Server 2008 (R2)\n* Windows Server 2012 (R2)\n\n### Dependencies\nThe following cookbooks are required:\n* openssl\n* windows\n\n## Attributes\n\n* `node['arcgis']['iis']['domain_name']` = Domain name used for generating self-signed SSL certificate. By default, `<node FQDN>` is used.\n* `node['arcgis']['iis']['keystore_file']` = Path to PKSC12 keystore file (.pfx) with server SSL certificate for IIS. Default value is `nil`.\n* `node['arcgis']['iis']['keystore_password']` = Password for keystore file with server SSL certificate for IIS. Default value is `nil`.\n* `node['arcgis']['iis']['web_site']` = IIS web site to configure. Dafault value is `Default Web Site`.\n* `node['arcgis']['iis']['replace_https_binding']` = If false, the current HTTPS binding is not changed if it is already configured. Default value is `false`.\n* `node['arcgis']['iis']['features']` = An array of windows features to be installed with IIS. Default value depends on Windows version.\n\n## Usage\n\nInclude `esri-iis` in your node's `run_list`:\n\n```json\n{\n  \"arcgis\": {\n    \"iis\": {\n      \"domain_name\": \"domain.com\",\n      \"keystore_file\" : \"C:\\\\domain_com.pfx\",\n      \"keystore_password\": \"test\",\n      \"web_site\": \"Default Web Site\",\n      \"replace_https_binding\": false\n    }\n  },\n  \"run_list\": [\n    \"recipe[arcgis-iis]\"\n  ]\n}\n```\n\nSee [wiki](https://github.com/Esri/arcgis-cookbook/wiki) pages for more information about using ArcGIS cookbooks.\n\n## Issues\n\nFind a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/Esri/arcgis-cookbook/issues).\n\n## Contributing\n\nEsri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).\n\nLicensing\n---------\n\nCopyright 2017 Esri\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nA copy of the license is available in the repository's [License.txt](https://github.com/Esri/arcgis-cookbook/blob/master/License.txt?raw=true) file.\n\n[](Esri Tags: ArcGIS Web Adaptor IIS Chef Cookbook)\n[](Esri Language: Ruby)",
+  "maintainer": "Esri",
+  "maintainer_email": "contracts@esri.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0",
+    "openssl": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "esri-iis::default": "Enables IIS features required by ArcGIS Web Adaptor (IIS) and configures HTTPS binding."
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/Esri/arcgis-cookbook",
+  "issues_url": "https://github.com/Esri/arcgis-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

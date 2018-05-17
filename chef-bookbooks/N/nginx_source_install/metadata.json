@@ -1,0 +1,56 @@
+{
+  "name": "nginx_source_install",
+  "description": "Installs/Configures Nginx from source",
+  "long_description": "# nginx_source_install Cookbook\n\nThis cookbook installs Nginx using my [installer script](https://github.com/MelonSmasher/NginxInstaller) with HTTP2 and ALPN.\n\n## Requirements\n\n### Platforms\n\n- Debian\n- Ubuntu\n- RedHat\n- CentOS\n\n### Chef\n\n- Chef 12.0 or later\n\n## Usage\n\n### nginx_source_install::default\n\nTo install the most recent stable version of Nginx:\n\nJust include `nginx_source_install` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[nginx_source_install]\"\n  ]\n}\n```\n\n### Mainline:\n\nInstall the experimental version of NGINX.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['mainline'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"mainline\": true\n  }\n}\n```\n\n### Force:\n\nForce the installation even if the version is the same as the one that is installed.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['force'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"force\": true\n  }\n}\n```\n\n### Ignore Failure:\n\nChef will continue it's run even if this script fails.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['ignore_failure'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"ignore_failure\": true\n  }\n}\n```\n\n### ALPN Support:\n\nCompile NGINX with ALPN support for http2 ssl support.\n\nDefault Value: \n\n- `true`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['alpn'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"alpn\": true\n    }\n  }\n}\n```\n\n### Mail Module:\n\nCompile NGINX with the mail module.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['mail'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"mail\": true\n    }\n  }\n}\n```\n\n### VTS Module:\n\nCompile NGINX with the [VTS module](https://github.com/vozlt/nginx-module-vts).\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['vts'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"vts\": true\n    }\n  }\n}\n```\n\n### GeoIP Module:\n\nCompile NGINX with the geoip module.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['geoip'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"geoip\": true\n    }\n  }\n}\n```\n\n### PageSpeed Module:\n\nCompile NGINX with Google's [PageSpeed module](https://developers.google.com/speed/pagespeed/).\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['pagespeed'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"pagespeed\": true\n    }\n  }\n}\n```\n\n### Cache Purge Module:\n\nCompile NGINX with the [cache purge module](https://github.com/FRiCKLE/ngx_cache_purge).\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['cache_purge'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"cache_purge\": true\n    }\n  }\n}\n```\n\n### LDAP Auth Module:\n\nCompile NGINX with the [LDAP authentication module](https://github.com/kvspb/nginx-auth-ldap).\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['nginx']['features']['ldap_auth'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"nginx\": {\n    \"features\": {\n      \"ldap_auth\": true\n    }\n  }\n}\n```\n\n## License and Authors\n\nAuthors: Alex Markessinis\n\nLicense: [MIT](https://opensource.org/licenses/MIT)\n\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/MelonSmasher/chef_nginx_source_install",
+  "issues_url": "https://github.com/MelonSmasher/chef_nginx_source_install/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

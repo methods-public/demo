@@ -1,0 +1,56 @@
+{
+  "name": "alphard-chef-s3cmd",
+  "description": "Installs/Configures alphard-chef-s3cmd",
+  "long_description": "[![Cookbook Version](https://img.shields.io/cookbook/v/alphard-chef-s3cmd.svg)](https://supermarket.chef.io/cookbooks/alphard-chef-s3cmd)\n[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Build Status](https://travis-ci.org/hydra-technologies/alphard-chef-s3cmd.svg?branch=master)](https://travis-ci.org/hydra-technologies/alphard-chef-s3cmd)\n[![Coverage Status](https://coveralls.io/repos/github/hydra-technologies/alphard-chef-s3cmd/badge.svg?branch=master)](https://coveralls.io/github/hydra-technologies/alphard-chef-s3cmd?branch=master)\n\n# Cookbook 'alphard-chef-s3cmd'\n\nTODO: Enter the cookbook description here.\n\ne.g.\nThis cookbook makes your favorite breakfast sandwich.\n\n## Requirements\n\nTODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.\n\ne.g.\n### Platforms\n\n- SandwichOS\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `toaster` - alphard-chef-s3cmd needs toaster to brown your bagel.\n\n## Attributes\n\nTODO: List your cookbook attributes here.\n\ne.g.\n### alphard-chef-s3cmd::default\n\n- `['\"alphard-chef-s3cmd\"']['attribute_1']` - comment for attribute 1\n- `['\"alphard-chef-s3cmd\"']['attribute_2']` - comment for attribute 2\n- `['\"alphard-chef-s3cmd\"']['attribute_3']` - comment for attribute 3\n- `['\"alphard-chef-s3cmd\"']['attribute_4']` - comment for attribute 4\n\n## Usage\n\n### alphard-chef-s3cmd::default\n\nTODO: Write usage instructions for each cookbook.\n\ne.g.\nJust include `alphard-chef-s3cmd` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[alphard-chef-s3cmd]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License\n\nCopyright 2009-2016, Hydra Technologies, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n## Authors\n\n- John Doe - john@doe.com\n",
+  "maintainer": "Hydra Technologies, Inc",
+  "maintainer_email": "chef@hydra-technologies.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "poise-python": ">= 1.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.1",
+  "source_url": "https://github.com/hydra-technologies/alphard-chef-s3cmd",
+  "issues_url": "https://github.com/hydra-technologies/alphard-chef-s3cmd/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - '.kitchen/*'
+
+LineLength:
+  Max: 120
+
+BlockLength:
+  Enabled: false

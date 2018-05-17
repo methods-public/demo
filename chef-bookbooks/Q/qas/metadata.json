@@ -1,0 +1,49 @@
+{
+  "name": "qas",
+  "description": "Installs/Configures qas",
+  "long_description": "qas Cookbook\n========================\nRudimentary implementation of QAS - configures a directory services client with Quest Authentication Service\n\nRequirements\n------------ \n#### packages\n- `ntp` - NTP is necessary to maintain kerberos ticket validity\n- 'vasd-selinux' - files are included from the https://github.com/dell-oss/vasd-selinux.git repository\n\nUsage\n-----\nInclude `qas` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[qas]\"\n  ]\n}\n```\n\nAn example of calling the provider:\n\n```ruby\nvastool 'join' do\n  user 'provisioning_user'\n  pass 'P4ssword!'\n  baseou 'OU=Servers,DC=example,DC=com'\n  domain 'example.com'\n  fqdn node['fqdn']\n  action :join\n  notifies :restart, 'service[sshd]', :immediately\n  notifies :restart, 'service[vasd]', :immediately\nend\n```\n\nOptionally, setting node['qas']['configure_kerberos'] to true will instruct the resource to configure Kerberos for single sign-on\n\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n",
+  "maintainer": "Zach Morgan (zmorgan)",
+  "maintainer_email": "zmorgan@secureworks.com",
+  "license": "Apache License, Version 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "selinux_policy": "~> 0.6",
+    "ohai": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.0.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ]
+}

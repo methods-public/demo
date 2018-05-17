@@ -1,0 +1,38 @@
+<% if @config.docker_sock -%>
+DOCKER_HOST="<%= @config.docker_sock %>" 
+<% else %>
+DOCKER_HOST="unix:///var/run/docker.sock" 
+<% end %>
+<% if @config.backend -%>
+REGISTRATOR_BACKEND="<%= @config.backend %>"
+<% end -%>
+<% if @config.cleanup -%>
+REGISTRATOR_CLEANUP="<%= @config.cleanup %>"
+<% end -%>
+<% if @config.deregister -%>
+REGISTRATOR_DEREGISTER="<%= @config.deregister %>"
+<% end -%>
+<% if @config.internal -%>
+REGISTRATOR_INTERNAL="<%= @config.internal %>"
+<% end -%>
+<% if @config.ip -%>
+REGISTRATOR_IP="<%= @config.ip %>"
+<% end -%>
+<% if @config.resync -%>
+REGISTRATOR_RESYNC="<%= @config.resync %>"
+<% end -%>
+<% if @config.retry_attempts -%>
+REGISTRATOR_RETRY_ATTEMPTS="<%= @config.retry_attempts %>"
+<% end -%>
+<% if @config.retry_interval -%>
+REGISTRATOR_RETRY_INTERVAL="<%= @config.retry_interval %>"
+<% end -%>
+<% if @config.tags -%>
+REGISTRATOR_TAGS="<%= @config.tags %>"
+<% end -%>
+<% if @config.ttl -%>
+REGISTRATOR_TTL="<%= @config.ttl %>"
+<% end -%>
+<% if @config.ttl_refresh -%>
+REGISTRATOR_TTL_REFRESH="<%= @config.ttl_refresh %>"
+<% end -%>

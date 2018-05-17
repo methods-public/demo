@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- http://wiki.openrepose.org/display/REPOSE/Distributed+Datastore -->
+<% if !@version.nil? && @version.split('.')[0].to_i < 7 %>
+<distributed-datastore xmlns='http://openrepose.org/repose/distributed-datastore/v1.0'>
+<% else %>
+<distributed-datastore xmlns='http://docs.openrepose.org/repose/distributed-datastore/v1.0'>
+<% end %>
+    <% if @allow_all %>
+    <allowed-hosts allow-all="true" />
+    <% else %>
+    <allowed-hosts allow-all="false">
+        <% @allowed_hosts.sort.each do |host| %>
+        <allow host="<%= host %>" />
+        <% end %>
+    </allowed-hosts>
+    <% end %>
+    <% unless @port.nil? %>
+    <port-config>
+        <% @cluster_ids.each.with_index do |cluster_id, i| %>
+        <port port="<%= i + @port.to_i %>" cluster="<%= cluster_id %>"/>
+        <% end %>
+    </port-config>
+    <% end %>
+</distributed-datastore>

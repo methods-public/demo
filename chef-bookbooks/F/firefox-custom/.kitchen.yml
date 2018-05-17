@@ -1,0 +1,25 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu1404-desktop
+    driver:
+      box: boxcutter/ubuntu1404-desktop
+  - name: centos71-desktop
+    driver:
+      box: boxcutter/centos71-desktop
+  - name: windows
+    transport:
+      name: winrm
+
+suites:
+  - name: default
+    run_list:
+      - recipe[firefox-custom::default]
+    attributes:

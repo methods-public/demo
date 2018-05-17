@@ -1,0 +1,54 @@
+{
+  "name": "fb_dnsmasq",
+  "description": "Installs/Configures fb_dnsmasq",
+  "long_description": "fb_dnsmasq Cookbook\n====================\nThis cookbook installs and configures dnsmasq, a small caching DNS proxy and\nDHCP/TFTP server.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_dnsmasq']['config']\n* node['fb_dnsmasq']['enable']\n\nUsage\n-----\nInclude `fb_dnsmasq` in your runlist to install dnsmasq. By default we enable\nthe daemon, set `node['fb_dnsmasq']['enable']` to `false` to disable it.\nConfiguration can be customized using `node['fb_dnsmasq']['config']` according\nto the [upstream documentation](http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html). Example:\n\n    node.default['fb_dnsmasq']['config'] = {\n      'dhcp-authoritative' => nil,\n      'dhcp-range' => [\n        '192.168.1.100,192.168.1.200,12h',\n        '::1,constructor:eth0,ra-stateless,ra-names',\n       ],\n      'enable-ra' => nil,\n      'server' => [\n        '8.8.8.8',\n        '8.8.4.4',\n       ],\n      'no-resolv' => nil,\n      'read-ethers' => nil,\n    }\n\nUnless the `no-hosts` config option is set, dnsmasq will read hostname to IP\nmappings from `/etc/hosts`. This can be customized using the API provided by\nthe `fb_hosts` cookbook.\n\nIf the `read-ethers` config option is set, dnsmasq will read mac address to \nhostname mappings from `/etc/ethers`. This can be customized using the API\nprovided by the `fb_ethers` cookbook.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_ethers": ">= 0.0.0",
+    "fb_hosts": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

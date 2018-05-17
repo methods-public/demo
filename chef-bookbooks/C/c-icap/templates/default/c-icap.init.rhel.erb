@@ -1,0 +1,168 @@
+#!/bin/bash
+#
+#       /etc/rc.d/init.d/c-icap
+#
+# Starts the c-icap daemon
+#
+# chkconfig: - 90 25
+# description: c-icap Server
+# processname: c-icap
+# pidfile: /var/run/c-icap/c-icap.pid
+# config: /etc/c-icap/c-icap.conf
+#
+### BEGIN INIT INFO
+# Provides: c-icap
+# Short-Description: starting and stopping c-icap server
+# Description: c-icap is an implementation of an ICAP server. It can be used \
+#       with HTTP proxies that support the ICAP protocol to implement content \
+#       adaptation and filtering services.
+#       Most of the commercial HTTP proxies must support the ICAP protocol. \
+#       The open source Squid 3.x proxy server supports it.
+### END INIT INFO
+
+PATH=/usr/bin:/sbin:/bin:/usr/sbin
+export PATH
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+if [ -f /etc/sysconfig/c-icap ]; then
+  . /etc/sysconfig/c-icap
+fi
+
+ICAP_SHUTDOWN_TIMEOUT=20
+exec="/usr/bin/c-icap"
+config="/etc/c-icap/c-icap.conf"
+pidfile="/var/run/c-icap/c-icap.pid"
+lockfile="/var/lock/subsys/c-icap"
+
+# determine the name of the c-icap binary
+#[ -f '$exec' ] && CICAP=c-icap
+
+#prog="$CICAP"
+prog="c-icap"
+
+RETVAL=0
+
+probe() {
+  # Check that networking is up.
+  [ ${NETWORKING} = "no" ] && exit 1
+
+  [ `id -u` -ne 0 ] && exit 4
+
+  # check if the squid conf file is present
+  [ -f $config ] || exit 6
+}
+
+start() {
+  probe
+  echo -n $"Starting $prog: "
+  $exec -f $config
+  RETVAL=$?
+  [ $RETVAL -eq 0 ] && touch $lockfile
+  [ $RETVAL -eq 0 ] && echo_success
+  [ $RETVAL -ne 0 ] && echo_failure
+  return $RETVAL
+}
+
+stop() {
+  echo -n $"Stopping $prog: "
+  if [ -f "$pidfile" ]; then
+    /usr/bin/killall $exec
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    [ $RETVAL -ne 0 ] && rm -f $pidfile
+    timeout=0
+    while : ; do
+      [ -f "$pidfile" ] || break
+      if [ $timeout -ge $ICAP_SHUTDOWN_TIMEOUT ]; then
+        return 1
+      fi
+      sleep 2 && echo -n "."
+      timeout=$((timeout+2))
+    done
+    echo_success
+  else
+    /usr/bin/killall $exec 2> /dev/null
+    RETVAL=$?
+    [ $RETVAL -ne 0 ] && rm -f $pidfile
+    echo_success
+    echo c-icap is NOT running
+    return $RETVAL
+  fi
+}
+
+reload() {
+  echo -n $"Reloading $prog: "
+  echo -n "reconfigure" > /var/run/c-icap/c-icap.ctl
+}
+
+restart() {
+  stop
+  start
+}
+
+condrestart() {
+  stop
+  start
+}
+
+rhstatus() {
+
+  # Short
+  #/usr/bin/c-icap-client
+  # Long
+  pidof c-icap > /dev/null
+
+  RETVAL=$?
+  if [ $RETVAL -eq 0 ] ; then
+    /usr/bin/c-icap-client -s "info?view=text" -req use-any-url
+    echo c-icap is running
+  fi
+  if [ $RETVAL -eq 1 ] ; then
+    echo c-icap is NOT running
+    exit 1
+  fi
+
+
+}
+
+
+case "$1" in
+start)
+  start
+  ;;
+
+stop)
+  stop
+  ;;
+
+reload|force-reload)
+  reload
+  ;;
+
+restart)
+  restart
+  ;;
+
+condrestart|try-restart)
+  condrestart
+  ;;
+
+status)
+  rhstatus
+  ;;
+
+probe)
+  probe
+  ;;
+
+*)
+  echo $"Usage: $0 {start|stop|status|reload|force-reload|restart|try-restart|probe}"
+  exit 2
+esac
+
+exit $?

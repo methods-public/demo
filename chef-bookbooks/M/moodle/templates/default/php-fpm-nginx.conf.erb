@@ -1,0 +1,9 @@
+location ~ \.php(\/.*)?$ {
+    fastcgi_pass   unix:/var/run/php-fpm-<%= @fastcgi_pass %>.sock;
+    include        fastcgi_params;
+}
+
+location = /status {
+    fastcgi_pass   unix:/var/run/php-fpm-<%= @fastcgi_pass %>.sock;
+    include        fastcgi_params;
+}

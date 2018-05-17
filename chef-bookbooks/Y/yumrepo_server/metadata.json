@@ -1,0 +1,50 @@
+{
+  "name": "yumrepo_server",
+  "description": "Installs/Configures Yum repository server",
+  "long_description": "yumrepo_server Cookbook\n========================\nThis cookbook configures a Yum repository to be served from your system. It will automatically install and configure the Apache web server (as it's the only server that's available without requiring the EPEL yum repo).  It also install the createrepo package for the utilities needed to setup a directory as a yum source.\n\nRequirements\n------------\nRuby 1.9 or later\n\n#### cookbooks\n- `apache2`\n- `logrotate`\n\n#### packages\n- `httpd` - needed to serve the packages in the repository\n- `createrepo` - needed to setup the repository\n- `logrotate` - needed by the httpd package to configure log file management\n\n#### platforms\nAny system that uses Yum and has the required pakcages\n\nAttributes\n----------\n\n#### yumrepo_server::default\n\n*  **['yum']['server']['repo\\_base\\_dir']**  \n    _Type:_ String  \n    _Description:_ The base directory where the repositories will be configured.  Will be used as Apache's DocumentRoot  \n    _Default:_ /var/lib/yum-repo  \n\n*  **['yum']['server']['http\\_aliases']**  \n    _Type:_ Array  \n    _Description:_ An array of server name aliases to plug in to the httpd config  \n    _Default:_ [] (empty array)  \n\n*  **['yum']['server']['http\\_port']**  \n    _Type:_ Integer  \n    _Description:_ The server port to plug in to the httpd config  \n    _Default:_ 80  \n\n*  **['apache']['include\\_logrotate']**  \n    _Type:_ Boolean  \n    _Description:_ Flag to determine if logrotate will be configured for Apache logs  \n    _Default:_ true\n\nUsage\n-----\n### Recipes\n\n#### yumrepo_server::default\n\nJust include `yumrepo_server` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[yumrepo_server]\"\n  ]\n}\n```\n\n### LWRPs\n\n#### yumrepo_server\n\n##### :create action\n\nCreate a yum repository inside of the relative path given (will be rooted at node['yum']['server']['repo_base_dir'])\n\n_With implied directory_\n\n```ruby\nyumrepo_server 'relative/yum/repo/path' do\n  action :create\n  options \"-v --quiet\"  # An optional string of options to pass to the createrepo command\n  remote_source \"http://upstream.com/path\" # An optional URL string used as a base to retrieve packages from\n  packages %w(pkg1.rpm pkg2.rpm pkg3.rpm)  # An optional array of package names to be configured in the repo (default is all packages). Required with the :remote_source attribute to specify which packages to retrieve.\nend\n```\n\n_With explicit directory_\n\n```ruby\nyumrepo_server 'creates my yum repo' do\n  action :create\n  dir 'relative/yum/repo/path' # Required relative path to create repo at (this value will be appended to the value of node['yum']['server']['repo_base_dir'])\n  options \"-v --quiet\"  # An optional string of options to pass to the createrepo command\n  remote_source \"http://upstream.com/path\" # An optional URL string used as a base to retrieve packages from\n  packages %w(pkg1.rpm pkg2.rpm pkg3.rpm)  # An optional array of package names to be configured in the repo (default is all packages). Required with the :remote_source attribute to specify which packages to retrieve.\nend\n```\n\n##### :update action\n\nUpdate the the yum repository at the path given\n\n```ruby\nyumrepo_server 'relative/yum/repo/path' do\n  action :update\n  options \"-v --quiet\"  # An optional string of options to pass to the createrepo command\nend\n```\n\n##### :delete action\n\nDeletes the repository at the given path (basically delete the directory)\n\n```ruby\nyumrepo_server 'relative/yum/repo/path' do\n  action :delete\nend\n```\n\nLicense and Authors\n-------------------\n\nAuthors: Michael Morris  \nLicense: 3-clause BSD\n",
+  "maintainer": "Michael Morris",
+  "maintainer_email": "michael.m.morris@gmail.com",
+  "license": "3-clause BSD",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apache2": "~> 3.2.0",
+    "logrotate": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ]
+}

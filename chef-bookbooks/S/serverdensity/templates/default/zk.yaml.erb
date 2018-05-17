@@ -1,0 +1,10 @@
+init_config:
+  min_collection_interval: <%= @zk_collection_interval %>
+instances:
+  - host: <%= @zk_host %>
+<% if @pzk_port %>
+    port: <%= @zk_port %>
+<% end %>
+<% if @zk_timeout %>
+    timeout: <%= @zk_timeout %>
+<% end %>

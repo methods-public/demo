@@ -1,0 +1,34 @@
+{
+  "name": "yum-updatesd",
+  "description": "Installs/Configures yum-updatesd",
+  "long_description": "Description\n===========\nyum-updatesd provides notification of updates which are available to be applied to your system. This notification can be done either via syslog, email or over dbus.\n\nRequirements\n------------\n* Chef 11 or higher\n* Ruby 1.9 (preferably from the Chef full-stack installer)\n* RHEL5, RHEL6, or other platforms within the family\n\nAttributes\n----------\nThe following attributes are set by default\n\n```\n#Main\n# Number of seconds to wait between checks for available updates. \ndefault['yum-updatesd']['run_interval'] = 3600\n# Minimum number of seconds between update information refreshes to avoid hitting the server too often. \ndefault['yum-updatesd']['updaterefresh'] = 600\n# List of ways to emit update notification. Valid values are 'email', 'dbus' and 'syslog'. \ndefault['yum-updatesd']['emit_via'] = syslog\n# Boolean option to decide whether or not updates should be automatically applied. Defaults to False. \ndefault['yum-updatesd']['do_update'] = False\n# Boolean option to decide whether or not updates should be automatically downloaded. Defaults to False. \ndefault['yum-updatesd']['do_download'] = False\n# Boolean option to automatically download dependencies of packages which need updating as well. Defaults to False. \ndefault['yum-updatesd']['do_download_deps'] = False\n# Boolen option to listen via dbus to give out update information/check for new updates\ndefault['dbus_listener']['do_download_deps'] = False\n\n#Mail Options\n# List of email addresses to send update notification to. Defaults to 'root@localhost'. \ndefault['yum-updatesd']['email_to'] = 'root@localhost' \n# Email address for update notifications to be from. Defaults to 'yum-updatesd@localhost'. \ndefault['yum-updatesd']['email_from'] = 'yum-updatesd@localhost'\n# SMTP server to use when sending mail, host or a host:port string. Defaults to 'localhost:25'. \ndefault['yum-updatesd']['smtp_server'] = 'localhost:25'\n\n#Syslog Options\n# What syslog facility should be used. Defaults to 'DAEMON'. \ndefault['yum-updatesd']['syslog_facility'] = 'DAEMON'\n# Level of syslog messages. Defaults to 'WARN'. \ndefault['yum-updatesd']['syslog_level'] =  'WARN'\n```\n\nUsage\n-----\n#### yum-updatesd\nJust include `yum-updatesd` in your node's `run_list`:\n\nLicense & Authors\n-----------------\n- Author:: David Hofmann (<elmic11111@gmail.com>)\n\n```text\nCopyright:: 2015 David Hofmann\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```",
+  "maintainer": "None",
+  "maintainer_email": "elmic11111@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1"
+}

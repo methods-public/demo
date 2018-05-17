@@ -1,0 +1,25 @@
+# Systemd unit file for tomcat_fortify_ssc
+
+[Unit]
+Description=fortify_ssc Apache Tomcat Application
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment="CATALINA_BASE=<%= @install_dir %>"
+Environment="CATALINA_PID=$CATALINA_BASE/bin/tomcat.pid"
+Environment="JAVA_HOME=/usr/lib/jvm/java-1.8.0"
+Environment='CATALINA_OPTS=-Xms<%= @Xms %> -Xmx<%= @Xmx %>'
+Environment='JAVA_OPTS=-Djava.awt.headless=true'
+
+ExecStart=/opt/<%= @instance_name %>/bin/startup.sh
+ExecStop=/opt/<%= @instance_name %>/bin/shutdown.sh
+Restart=on-failure
+RestartSec=2
+
+User=<%= @service_user %>
+Group=<%= @service_group %>
+
+[Install]
+WantedBy=multi-user.target

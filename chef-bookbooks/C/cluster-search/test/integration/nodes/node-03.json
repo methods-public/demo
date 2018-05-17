@@ -1,0 +1,9 @@
+{
+  "id": "node-03",
+  "chef_environment": "not_default",
+  "run_list": [ "role[search]" ],
+  "automatic": {
+    "fqdn": "node-03",
+    "roles": ["search"]
+  }
+}

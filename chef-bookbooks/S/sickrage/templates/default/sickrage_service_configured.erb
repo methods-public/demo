@@ -1,0 +1,56 @@
+#!/bin/bash
+# Copyright (c) 2015 Jeremy Miller
+# All rights reserved.
+#
+# Author: Jeremy Miller, 2015
+#
+# /etc/init.d/sickrage
+# chkconfig: 345 70 30
+
+. /etc/init.d/functions
+
+RETVAL=0
+prog="sickbeard"
+
+
+
+start() {
+        # Start daemon.
+        echo -n $"Starting $prog: "
+        daemon --user=<%= node['sickrage']['user'] %> --pidfile=<%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid <%= node['sickrage']['python']['binary'] %> <%= node['sickrage']['binary'] %> --daemon -p <%= node['sickrage']['listen_port'] %> --pidfile=<%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid --datadir=<%= node['sickrage']['directory']['data_dir'] %> --config=<%= node['sickrage']['directory']['config_dir'] %>/config.ini
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch <%= node['sickrage']['lockfile_dir'] %>/$prog
+        return $RETVAL
+}
+
+stop() {
+        echo -n $"Shutting down $prog: "
+        killproc -p <%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid python
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && rm -f <%= node['sickrage']['directory']['lockfile_dir'] %>/$prog
+        return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status -p <%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid $prog
+        ;;
+    restart)
+        stop
+        sleep 3
+        start
+        ;;
+    *)
+        echo "Usage: $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL

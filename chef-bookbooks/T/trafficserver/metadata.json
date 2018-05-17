@@ -1,0 +1,45 @@
+{
+  "name": "trafficserver",
+  "description": "Installs/Configures Apache Trafficserver",
+  "long_description": "trafficserver Cookbook\n======================\n\n[![Build Status](https://travis-ci.org/vkhatri/chef-trafficserver.svg?branch=master)](https://travis-ci.org/vkhatri/chef-trafficserver)\n\nThis is a [Chef] cookbook to manage [Apache TrafficServer].\n\n>> Note: This cookbook is currently under development and may not be tested for intended\nfeatures & functionality.\n\nMore attributes/features will be added over time, **feel free to contribute** what\nyou find missing!\n\n\n## Repository\n\nhttps://github.com/vkhatri/chef-trafficserver\n\n\n## Supported Platform\n\nCurrently this cookbook under development and support only RHEL based platforms.\n\n\n## Dependencies\n\n- apt\n- yum-epel\n- ulimit\n\n## Recipes\n\n- `trafficserver::default`      - default recipe (used for run_list)\n\n\n## Advance Attributes\n\n\n## Core Attributes\n\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests (`rake`), ensuring they all pass\n6. Write new resource/attribute description to `README.md`\n7. Write description about changes to PR\n8. Submit a Pull Request using Github\n\n\n## Copyright & License\n\nAuthors:: Virender Khatri and [Contributors]\n\n<pre>\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n</pre>\n\n\n[Chef]: https://www.chef.io/\n[Apache TrafficServer]: http://trafficserver.apache.org/\n[Contributors]: https://github.com/vkhatri/chef-trafficserver/graphs/contributors\n",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "ulimit": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

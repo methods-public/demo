@@ -1,0 +1,13 @@
+[Unit]
+Description=Spark Slave
+After=network.target
+
+[Service]
+Type=forking
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=<%= @prefix_root %>/spark/sbin/start-slave.sh <%= @master_url %>
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

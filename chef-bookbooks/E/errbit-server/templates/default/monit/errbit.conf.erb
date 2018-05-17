@@ -1,0 +1,6 @@
+check process <%= @service_name %>
+  with pidfile <%= @pidfile %>
+  start program "/bin/bash -c 'exec <%= @cmd_line %>'"
+    as uid <%= @user %> as gid <%= @user %>
+  stop program "/bin/kill -QUIT `cat <%= @pidfile %>`"
+    as uid <%= @user %> as gid <%= @user %>

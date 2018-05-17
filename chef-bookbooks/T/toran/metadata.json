@@ -1,0 +1,39 @@
+{
+  "name": "toran",
+  "version": "1.0.0",
+  "description": "Installs/Configures Toran Proxy",
+  "long_description": "# toran-cookbook\n\n> Toran Proxy\n\n> A Composer proxy for speed and reliability\n\n> -- [https://toranproxy.com/](https://toranproxy.com/)\n\n## Requirements\n\n* Chef `>= 11.6.0`\n* Ruby `>= 1.9.3`\n\n## Platforms\n\n|              | Apache   | NginX   |\n| -----------: | :------: | :-----: |\n| **Debian**   | X        |         |\n| **CentOS**   |          |         |\n\n### Testing\n\n```sh\n$ vagrant plugin install vagrant-omnibus\n$ vagrant plugin install vagrant-berkshelf\n$ vagrant plugin install vagrant-hostmanager\n\n# Testing on Debian 7\n$ vagrant up debian\n\n# Testing on CentOS 6.5\n$ vagrant up centos\n\n# Open Toran Proxy in a web browser\n$ open http://toran\n```\n\n## Cookbook\n\n### Requirements\n\n* [apt cookbook](https://github.com/opscode-cookbooks/apt)\n* [yum cookbook](https://github.com/opscode-cookbooks/yum)\n* [apache2 cookbook](https://github.com/opscode-cookbooks/apache2)\n* [php cookbook](https://github.com/opscode-cookbooks/php)\n\n**All the requirements are decribed in the cookbook's [`metadata.rb`](metadata.rb) file and are locked using Berkshelf's lock file.**\n\n### Attributes\n\nSee [`default.rb`](attributes/default.rb).\n\n### Recipes\n\n* `toran` To install and configure Toran Proxy web application\n* `toran::php` To set up php-fpm'\n* `toran::apache2` To use Apache2 web server\n* `toran::nginx` To use NginX web server",
+  "maintainer": "jubianchi",
+  "maintainer_email": "contact@jubianchi.fr",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "apache2": ">= 0.0.0",
+    "php": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "toran": "Installs Toran Proxy",
+    "toran::php": "Sets up PHP5",
+    "toran::apache2": "Sets up Toran Proxy virtual host for Apache2",
+    "toran::nginx": "Sets up Toran Proxy virtual host for NginX"
+  }
+}

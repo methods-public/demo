@@ -1,0 +1,19 @@
+#!/bin/bash
+# Install logstash from tar.gz
+
+groupadd <%= @l_group %>
+useradd -g <%= @l_group %> <%= @l_user %>
+
+mkdir <%= @l_directory %>
+
+tar -zxvf <%= @l_package %> -C <%= @l_directory %>
+
+ln -s <%= @l_directory %>/logstash-<%= @l_version %> <%= @l_directory %>/logstash
+
+chown -R <%= @l_user %>:<%= @l_group %> <%= @l_directory %>/logstash-<%= @l_version %>
+
+mkdir -p <%= @l_config_directory %>
+chown -R <%= @l_user %>:<%= @l_group %> <%= @l_config_directory %>
+
+mkdir -p <%= @l_log_directory %>
+chown -R <%= @l_user %>:<%= @l_group %> <%= @l_log_directory %>

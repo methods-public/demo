@@ -1,0 +1,46 @@
+{
+  "name": "nomad",
+  "description": "installs/configures nomad",
+  "long_description": "# nomad\n\nSimple cookbook for installing/managing [Nomad](https://www.nomadproject.io/), a\ndistributed, highly-available, datacenter-aware scheduler.\n\nRecipes\n=======\n\nnomad::default\n--------------\nIncludes the install, configure, manage recipes.\n\nnomad::install\n--------------\nDownloads and installs nomad from the URL specified in attributes..\n\nnomad::configure\n----------------\nSets up simple default configuration.\n\nnomad::manage\n-------------\nconfigure the agent as a service, manage the service\n\nResources\n=========\n\nSee the [docs](https://www.nomadproject.io/docs/agent/index.html) for full details.\n\nSee `test/fixtures/cookbooks` and test-kitchen suites for example usage.\n\n---\nnomad_config\n\n|property|type|\n|---------|----|\n|addresses|Hash|\n|advertise|Hash|\n|bind_addr|String|\n|datacenter|String|\n|data_dir|String|\n|disable_anonymous_signature|[TrueClass, FalseClass]|\n|disable_update_check|[TrueClass, FalseClass]|\n|enable_debug|[TrueClass, FalseClass]|\n|enable_syslog|[TrueClass, FalseClass]|\n|http_api_response_headers|Hash|\n|leave_on_interrupt|[TrueClass, FalseClass]|\n|leave_on_terminate|[TrueClass, FalseClass]|\n|log_level|String|\n|ports|Hash|\n|region|String|\n|syslog_facility|String|\n|acl|Hash|\n|client|Hash|\n|consul|Hash|\n|sentinel|Hash|\n|server|Hash|\n|telemetry|Hash|\n|tls|Hash|\n|vault|Hash|\n\n---\n\nnomad_acl_config\n\n|property|type|\n|---------|----|\n|enabled|[TrueClass, FalseClass]|\n|token_ttl|String|\n|policy_ttl|String|\n|replication_token|String|\n\n---\n\nnomad_client_config\n\n|property|type|\n|---------|----|\n|alloc_dir|String|\n|chroot_env|Hash|\n|enabled|[TrueClass, FalseClass]|\n|max_kill_timeout|String|\n|no_host_uuid|[TrueClass, FalseClass]|\n|meta|Hash|\n|network_interface|String|\n|network_speed|Integer|\n|cpu_total_compute|Integer|\n|node_class|String|\n|options|Hash|\n|reserved|Hash|\n|servers|Array|\n|state_dir|String|\n|gc_interval|String|\n|gc_disk_usage_threshold|Integer|\n|gc_inode_usage_threshold|Integer|\n|gc_max_allocs|Integer|\n|gc_parallel_destroys|Integer|\n\n---\n\nnomad_consul_config\n\n|property|type|\n|---------|----|\n|address|String|\n|auth|String|\n|auto_advertise|[TrueClass, FalseClass]|\n|ca_file|String|\n|cert_file|String|\n|checks_use_advertise|[TrueClass, FalseClass]|\n|client_auto_join|[TrueClass, FalseClass]|\n|client_service_name|String|\n|key_file|String|\n|server_service_name|String|\n|server_http_check_name|String|\n|server_serf_check_name|String|\n|server_rpc_check_name|String|\n|server_auto_join|[TrueClass, FalseClass]|\n|ssl|[TrueClass, FalseClass]|\n|token|String|\n|verify_ssl|[TrueClass, FalseClass]|\n\n---\n\nnomad_server_config\n\n|property|type|\n|---------|----|\n|authoritative_region|String|\n|bootstrap_expect|Integer|\n|data_dir|String|\n|enabled|[TrueClass, FalseClass]|\n|enabled_schedulers|Array|\n|encrypt|String|\n|node_gc_threshold|String|\n|job_gc_threshold|String|\n|eval_gc_threshold|String|\n|deployment_gc_threshold|String|\n|heartbeat_grace|String|\n|min_heartbeat_ttl|String|\n|max_heartbeats_per_second|Integer|\n|non_voting_server|[TrueClass, FalseClass]|\n|num_schedulers|Integer|\n|protocol_version|String|\n|raft_protocol|Integer|\n|redundancy_zone|String|\n|rejoin_after_leave|[TrueClass, FalseClass]|\n|retry_join|Array|\n|retry_interval|String|\n|retry_max|Integer|\n|start_join|Array|\n|upgrade_version|String|\n\n---\n\nnomad_telemetry_config\n\n|property|type|\n|---------|----|\n|disable_hostname|[TrueClass, FalseClass]|\n|collection_interval|String|\n|use_node_name|[TrueClass, FalseClass]|\n|publish_allocation_metrics|[TrueClass, FalseClass]|\n|publish_node_metrics|[TrueClass, FalseClass]|\n|backwards_compatible_metrics|[TrueClass, FalseClass]|\n|disable_tagged_metrics|[TrueClass, FalseClass]|\n|statsite_address|String|\n|statsd_address|String|\n|datadog_address|String|\n|datadog_tags|Array|\n|prometheus_metrics|[TrueClass, FalseClass]|\n|circonus_api_token|String|\n|circonus_api_app|String|\n|circonus_api_url|String|\n|circonus_submission_interval|String|\n|circonus_submission_url|String|\n|circonus_check_id|String|\n|circonus_check_force_metric_activation|[TrueClass, FalseClass]|\n|circonus_check_instance_id|String|\n|circonus_check_search_tag|String|\n|circonus_check_display_name|String|\n|circonus_check_tags|String|\n|circonus_broker_id|String|\n|circonus_broker_select_tag|String|\n\n---\n\nnomad_tls_config\n\n|property|type|\n|---------|----|\n|ca_file|String|\n|cert_file|String|\n|key_file|String|\n|http|[TrueClass, FalseClass]|\n|rpc|[TrueClass, FalseClass]|\n|rpc_upgrade_mode|[TrueClass, FalseClass]|\n|verify_https_client|[TrueClass, FalseClass]|\n|verify_server_hostname|[TrueClass, FalseClass]|\n\n---\n\nnomad_vault_config\n\n|property|type|\n|---------|----|\n|address|String|\n|allow_unauthenticated|[TrueClass, FalseClass]|\n|enabled|[TrueClass, FalseClass]|\n|create_from_role|String|\n|task_token_ttl|String|\n|ca_file|String|\n|ca_path|String|\n|cert_file|String|\n|key_file|String|\n|tls_server_name|String|\n|tls_skip_verify|[TrueClass, FalseClass]|\n|token|String|\n",
+  "maintainer": "Nathan Williams",
+  "maintainer_email": "nath.e.will@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "fedora": ">= 0.0.0",
+    "debian": ">= 8.0",
+    "ubuntu": ">= 12.04",
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "scientific": ">= 6.0"
+  },
+  "dependencies": {
+    "ark": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "https://github.com/nathwill/chef-nomad",
+  "issues_url": "https://github.com/nathwill/chef-nomad/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.7"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+    [
+      "nomad",
+      "~> 0.1"
+    ]
+  ]
+}

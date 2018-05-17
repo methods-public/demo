@@ -1,0 +1,451 @@
+#
+# Default Bacula Director Configuration file
+#
+#  The only thing that MUST be changed is to add one or more
+#   file or directory names in the Include directive of the
+#   FileSet resource.
+#
+#  For Bacula release 5.2.5 (26 January 2012) -- ubuntu 12.04
+#
+#  You might also want to change the default email address
+#   from root to your address.  See the "mail" and "operator"
+#   directives in the Messages resource.
+#
+
+Director {                            # define myself
+  Name = backup-dir
+  DIRport = 9101                # where we listen for UA connections
+  QueryFile = "/etc/bacula/scripts/query.sql"
+  WorkingDirectory = "/var/lib/bacula"
+  PidDirectory = "/var/run/bacula"
+  Maximum Concurrent Jobs = <%= node['bacula']['dir']['max_concurrent_jobs'] %>
+  Password = "<%= node['bacula']['dir']['password'] %>"         # Console password
+  Messages = Daemon<% if node['bacula']['dir']['address']  %>
+  DirAddress = <%= node['bacula']['dir']['address'] %><% end  %>
+}
+
+JobDefs {
+  Name = "DefaultJob"
+  Type = Backup
+  Level = Incremental
+  Schedule = "WeeklyCycle"
+  Storage = <%= node['bacula']['dir']['file_storage_device'] %>
+  Messages = Standard
+  Pool = <%= node['bacula']['dir']['file_storage_pool'] %>
+  Priority = 10
+  Write Bootstrap = "/var/lib/bacula/%c.bsr"
+}
+
+
+# Backup the catalog database (after the nightly save)
+Job {
+  Client = backup-fd
+  Name = "BackupCatalog"
+  JobDefs = "DefaultJob"
+  Level = Full
+  FileSet="Catalog"
+  Schedule = "WeeklyCycleAfterBackup"
+  # This creates an ASCII copy of the catalog
+  # Arguments to make_catalog_backup.pl are:
+  #  make_catalog_backup.pl <catalog-name>
+  RunBeforeJob = "/etc/bacula/scripts/make_catalog_backup.pl MyCatalog"
+  # This deletes the copy of the catalog
+  RunAfterJob  = "/etc/bacula/scripts/delete_catalog_backup"
+  Write Bootstrap = "/var/lib/bacula/%n.bsr"
+  Priority = 11                   # run after main backup
+}
+#
+# Standard Restore template, to be changed by Console program
+#  Only one such job is needed for all Jobs/Clients/Storage ...
+#
+Job {
+  Name = "RestoreFiles"
+  Type = Restore
+  Client=backup-fd
+  FileSet="Full Set"
+  Storage = File
+  Pool = Default
+  Messages = Standard
+  Where = /nonexistant/path/to/file/archive/dir/bacula-restores
+}
+
+
+# List of files to be backed up
+FileSet {
+  Name = "Full Set"
+  Include {
+    Options {
+      signature = MD5
+      compression = LZO
+    }
+#
+#  Put your list of files here, preceded by 'File =', one per line
+#    or include an external list with:
+#
+#    File = <file-name
+#
+#  Note: / backs up everything on the root partition.
+#    if you have other partitions such as /usr or /home
+#    you will probably want to add them too.
+#
+#  By default this is defined to point to the Bacula binary
+#    directory to give a reasonable FileSet to backup to
+#    disk storage during initial testing.
+#
+    File = /usr/sbin
+  }
+
+#
+# If you backup the root directory, the following two excluded
+#   files can be useful
+#
+  Exclude {
+    File = /var/lib/bacula
+    File = /nonexistant/path/to/file/archive/dir
+    File = /proc
+    File = /tmp
+    File = /.journal
+    File = /.fsck
+  }
+}
+
+#
+# When to do the backups, full backup on first sunday of the month,
+#  differential (i.e. incremental since full) every other sunday,
+#  and incremental backups other days
+Schedule {
+  Name = "WeeklyCycle"
+  Run = Full 1st sun at 23:05
+  Run = Differential 2nd-5th sun at 23:05
+  Run = Incremental mon-sat at 23:05
+}
+
+# This schedule does the catalog. It starts after the WeeklyCycle
+Schedule {
+  Name = "WeeklyCycleAfterBackup"
+  Run = Full sun-sat at 23:10
+}
+
+# This is the backup of the catalog
+FileSet {
+  Name = "Catalog"
+  Include {
+    Options {
+      signature = MD5
+      compression = LZO
+    }
+    File = "/var/lib/bacula/bacula.sql"
+  }
+}
+
+# Client (File Services) to backup
+Client {
+  Name = backup-fd
+  Address = localhost
+  FDPort = 9102
+  Catalog = MyCatalog
+  Password = "<%= node['bacula']['fd']['password'] %>"          # password for FileDaemon
+  File Retention = 30 days            # 30 days
+  Job Retention = 6 months            # six months
+  AutoPrune = yes                     # Prune expired Jobs/Files
+}
+
+######################################################
+################## BACULA CLIENTS CONFIGURATION ######
+######################################################
+
+#File Set for MySQL Backups
+FileSet {
+  Name = "Fileset_mysql"
+  Include {
+    Options {
+      signature = MD5
+      compression = LZO
+    }
+    File = /var/local/mysqlbackups
+  }
+}
+
+#File Set for OpenLdap backups
+FileSet {
+  Name = "Fileset_ldap"
+  Include {
+    Options {
+      signature = MD5
+      compression = LZO
+    }
+    File = /var/local/ldapbackups
+  }
+}
+
+#File Set for Chef Server backups
+FileSet {
+  Name = "Fileset_chef"
+  Include {
+    Options {
+      signature = MD5
+      compression = LZO
+    }
+    File = /var/local/chefbackups
+  }
+}
+
+
+#Restore Job for Mysql Replay
+Job {
+  Name = "RestoreMysql"
+  Type = Restore
+  Client=backup-fd
+  FileSet="Fileset_mysql"
+  Storage = File
+  Pool = Default
+  Messages = Standard
+  Where = /var/local/mysqlrestores
+ ClientRunBeforeJob = "/usr/local/sbin/restoredbs"
+}
+
+#Restore Job for OpenLdap replay
+Job {
+  Name = "RestoreLdap"
+  Type = Restore
+  Client=backup-fd
+  FileSet="Fileset_ldap"
+  Storage = File
+  Pool = Default
+  Messages = Standard
+  Where = /var/local/ldaprestores
+#  ClientRunAfterJob = "/usr/local/sbin/restoreldap"
+}
+
+#Restore Job for Chef Server replay
+Job {
+  Name = "RestoreChef"
+  Type = Restore
+  Client=backup-fd
+  FileSet="Fileset_chef"
+  Storage = File
+  Pool = Default
+  Messages = Standard
+  Where = /var/local/chefrestores
+#  ClientRunAfterJob = "/usr/local/sbin/restorechef"
+}
+
+# Client (File Services) to backup
+<% @bacula_clients.sort.each do |client| %>
+  Client {
+    Name = <%= client['bacula']['fd']['client_name'] %>
+    Address = <%= client['bacula']['fd']['address'] %>
+    FDPort = 9102
+    Catalog = MyCatalog
+    Password = "<%= client['bacula']['fd']['password'] %>"          # password for FileDaemon
+    File Retention = <%= client['bacula']['fd']['file_retention'] ? client['bacula']['fd']['file_retention'] : '30 days' %>
+    Job Retention = <%= client['bacula']['fd']['job_retention'] ? client['bacula']['fd']['job_retention'] : '6 months' %><% if client['bacula']['fd']['max_concurrent_jobs'] %>
+    Maximum Concurrent Jobs = <%= client['bacula']['fd']['max_concurrent_jobs'] %><% end %>
+    AutoPrune = yes                     # Prune expired Jobs/Files
+  }
+
+  <% if backup_files = client['bacula']['fd']['files']  %>
+      # List of files to be backed up
+      FileSet {
+        Name = "Fileset_<%= client['bacula']['fd']['client_name'] %>"
+        Include {
+          Options {
+            signature = MD5
+            compression = LZO
+          }
+          <% backup_files['includes'].each do |file| %>
+          File = <%= file %>
+          <% end %>
+        }
+        <% if backup_files['excludes'] %>
+          Exclude {
+            <% backup_files['excludes'].each do |file| %>
+            File = <%= file %>
+            <% end %>
+          }
+        <% end %>
+      }
+      Job {
+        Name = "Backup_<%= client['bacula']['fd']['client_name'] %>_files"
+        JobDefs = "DefaultJob"
+        Client = <%= client['bacula']['fd']['client_name'] %>
+        FileSet = "Fileset_<%= client['bacula']['fd']['client_name'] %>"
+      }
+  <% end %>
+
+  <% if client['openldap'] && client['openldap']['slapd_type'] == "master" %>
+      Job {
+        Name = "Backup_<%= client['bacula']['fd']['client_name'] %>_ldap"
+        JobDefs = "DefaultJob"
+        Client = <%= client['bacula']['fd']['client_name'] %>
+        FileSet = "Fileset_ldap"
+        ClientRunBeforeJob = "/usr/local/sbin/backupldap"
+      }
+  <% end %>
+  <% if client['bacula']['fd']['client_name'] == "chef.#{client['domain']}" %>
+      Job {
+        Name = "Backup_<%= client['bacula']['fd']['client_name'] %>_chef"
+        JobDefs = "DefaultJob"
+        Client = <%= client['bacula']['fd']['client_name'] %>
+        FileSet = "Fileset_chef"
+        ClientRunBeforeJob = "/usr/local/sbin/backupchef"
+      }
+  <% end %>
+  <% if client['bacula']['fd']['jobs']  %># Custom jobs for client <%= client['bacula']['fd']['client_name'] %> are enumerated below
+<% client['bacula']['fd']['jobs'].sort_by { |hsh| hsh['Name'] }.each do |job|  %>
+      Job {<% job.sort.each do |key, value| %>
+        <%= key %> = <%= value %><% end %><% unless job.has_key?('Client') %>
+        Client = <%= client['bacula']['fd']['client_name'] %><% end %>
+      }
+  <% end %>
+  <% end %>
+
+  <% if client['bacula']['fd']['filesets']  %># Custom filesets for client <%= client['bacula']['fd']['client_name'] %> are enumerated below
+<% client['bacula']['fd']['filesets'].each do |fileset|  %>
+      FileSet {<% fileset.each do |value| %>
+        <%= value %><% end %>
+      }
+  <% end %>
+  <% end %>
+
+  <% if client['bacula']['fd']['schedules']  %># Custom schedules for client <%= client['bacula']['fd']['client_name'] %> are enumerated below
+<% client['bacula']['fd']['schedules'].each do |schedule|  %>
+      Schedule {<% schedule.each do |value| %>
+        <%= value %><% end %>
+      }
+  <% end %>
+
+  <% end %>
+<% end %>
+
+
+
+#####################################################
+#####################################################
+
+
+
+# Definition of storage servers
+# If a storage daemon is installed alongside the director,
+# its file storage resource will be called 'File' (to
+# remain consistent with previous installations). Other
+# storage daemons will be called fqdn-file
+<% @bacula_storage.sort.each do |storage_daemon| %>
+Storage {
+  <% if (storage_daemon['fqdn'] == node['fqdn']) or node['dev_mode'] -%>Name = File<% else -%>Name = <%= storage_daemon['fqdn'] %>-file<% end -%>
+# Do not use "localhost" here
+  Address = <%= storage_daemon['bacula']['sd']['address'] %>                # N.B. Use a fully qualified name here
+  SDPort = 9103
+  Password = "<%= storage_daemon['bacula']['sd']['password'] %>"
+  Device = FileStorage
+  Media Type = File<% if storage_daemon['bacula']['sd']['max_concurrent_jobs'] -%>
+  Maximum Concurrent Jobs = <%= storage_daemon['bacula']['sd']['max_concurrent_jobs'] %><% end -%>
+}
+
+# Any additional storage devices will be enumerated here
+<% if storage_daemon['bacula']['sd']['dir-devices'] %><% storage_daemon['bacula']['sd']['dir-devices'].sort_by { |hsh| hsh['Device'] }.each do |dirdevice| %>
+Storage {
+  Name = <%= "#{storage_daemon['fqdn']}-#{dirdevice['Device']}-#{dirdevice['Media Type']}" %>
+  Address = <%= storage_daemon['bacula']['sd']['address'] %>
+  SDPort = 9103
+  Password = "<%= storage_daemon['bacula']['sd']['password'] %>"<% dirdevice.sort.each do |key, value| %>
+  <%= key %> = <%= value %><% end %>
+}
+<% end %>
+<% end %>
+
+<% end %>
+
+
+# Generic catalog service
+Catalog {
+  Name = MyCatalog
+# Uncomment the following line if you want the dbi driver
+# dbdriver = "dbi:sqlite3"; dbaddress = 127.0.0.1; dbport =
+  dbname = "<%= node['bacula']['mysql_user'] %>"; DB Address = "localhost"; dbuser = "<%= node['bacula']['mysql_user'] %>"; dbpassword = "<%= node['bacula']['mysql_password'] %>"
+}
+
+# Reasonable message delivery -- send most everything to email address
+#  and to the console
+Messages {
+  Name = Standard
+#
+# NOTE! If you send to two email or more email addresses, you will need
+#  to replace the %r in the from field (-f part) with a single valid
+#  email address in both the mailcommand and the operatorcommand.
+#  What this does is, it sets the email address that emails would display
+#  in the FROM field, which is by default the same email as they're being
+#  sent to.  However, if you send email to more than one address, then
+#  you'll have to set the FROM address manually, to a single address.
+#  for example, a 'no-reply@mydomain.com', is better since that tends to
+#  tell (most) people that its coming from an automated source.
+
+#
+  mailcommand = "/usr/lib/bacula/bsmtp -h <%=node['bacula']['messages']['mail_server']%> -f \"\(Bacula\) \< %r\ >\" -s \"Bacula: %t %e of %c %l\" %r"
+  operatorcommand = "/usr/lib/bacula/bsmtp -h <%=node['bacula']['messages']['mail_server']%> -f \"\(Bacula\) \< %r \>\" -s \"Bacula: Intervention needed for %j\" %r"
+  mail = <%=node['bacula']['messages']['mail']%> = <%=node['bacula']['messages']['mail_to_send']%>
+  operator = <%=node['bacula']['messages']['operator']%> = mount
+  console = all, !skipped, !saved
+#
+# WARNING! the following will create a file that you must cycle from
+#          time to time as it will grow indefinitely. However, it will
+#          also keep all your messages if they scroll off the console.
+#
+  append = "/var/lib/bacula/log" = all, !skipped
+  catalog = all
+}
+
+
+#
+# Message delivery for daemon messages (no job).
+Messages {
+  Name = Daemon
+  mailcommand = "/usr/lib/bacula/bsmtp -h localhost -f \"\(Bacula\) \< %r \>\" -s \"Bacula daemon message\" %r"
+  mail = root@localhost = all, !skipped
+  console = all, !skipped, !saved
+  append = "/var/lib/bacula/log" = all, !skipped
+}
+
+# Default pool definition
+Pool {
+  Name = Default
+  Pool Type = Backup
+  Recycle = yes                       # Bacula can automatically recycle Volumes
+  AutoPrune = yes                     # Prune expired volumes
+  Volume Retention = 365 days         # one year
+}
+
+# File Pool definition
+Pool {
+  Name = File
+  Pool Type = Backup
+  Recycle = yes                       # Bacula can automatically recycle Volumes
+  AutoPrune = yes                     # Prune expired volumes
+  Volume Retention = 365 days         # one year
+  Maximum Volume Bytes = <%= node['bacula']['volume_size'] %>          # Limit Volume size to something reasonable
+  Maximum Volumes = <%= node['bacula']['volume_max'] %>               # Limit number of Volumes in Pool
+  LabelFormat = "<%= node['bacula']['label_format'] %>"
+}
+
+# Scratch pool definition
+Pool {
+  Name = Scratch
+  Pool Type = Backup
+}
+
+# Any additional storage pools will be enumerated here
+<% if node['bacula']['dir']['pools'] %><% node['bacula']['dir']['pools'].sort_by { |hsh| hsh['Name'] }.each do |pool| %>
+Pool {<% pool.sort.each do |key, value| %>
+  <%= key %> = <%= value %><% end %>
+}
+<% end %>
+<% end %>
+
+#
+# Restricted console used by tray-monitor to get the status of the director
+#
+Console {
+  Name = backup-mon
+  Password = "<%= node['bacula']['dir']['password_monitor'] %>"
+  CommandACL = status, .status
+}

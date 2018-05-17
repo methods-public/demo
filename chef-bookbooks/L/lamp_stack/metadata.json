@@ -1,0 +1,53 @@
+{
+  "name": "lamp_stack",
+  "description": "Installs/Configures lamp_stack",
+  "long_description": "# lamp_stack Cookbook\n\nTODO: Enter the cookbook description here.\n\nThis cookbook will install httpd/apache , then install mysql server and load PHP modules along with PHPMYADMIN.\n\npassword setup :\n\nThe default password for root is \"abcd1234\" .\nyou can change it by running /usr/bin/mysql_secure_installation .\n\nLoad apache page :\n\nRun http://your_serverIPaddress:port to check.\nA custom html page will be loaded by deafult.\n\nphpMyAdmin page :\n\nRun http://your_serverIPaddress/phpMyAdmin .\nThis will open up the admin page.\ndefault user : root\ndefault password : abcd1234\n\nLogin to mysql from cli :\n\n#mysql -u root -p\n\ne.g.\nThis cookbook makes your favorite breakfast sandwich.\n\n## Requirements\n\nTODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.\n\ne.g.\n### Platforms\n\n- centos , redhat . Will extend support to ( suse , ubuntu ) in upcoming versions .\n\n### Chef\n\n- Chef 11.0 or later\n\n### Cookbooks\n\n- `toaster` - lamp_stack needs toaster to brown your bagel.\n\n## Attributes\n\nTODO: List your cookbook attributes here.\n\ne.g.\n### lamp_stack::default\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['lamp_stack']['bacon']</tt></td>\n    <td>Boolean</td>\n    <td>whether to include bacon</td>\n    <td><tt>true</tt></td>\n  </tr>\n</table>\n\n## Usage\n\n### lamp_stack::default\n\nTODO: Write usage instructions for each cookbook.\n\ne.g.\nJust include `lamp_stack` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[lamp_stack]\"\n  ]\n}\n```\n\n## Contributing\n\nTODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.\n\ne.g.\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: TODO: List authors\n\n",
+  "maintainer": "Sujoy Majumder",
+  "maintainer_email": "sujoy.majumder@sap.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

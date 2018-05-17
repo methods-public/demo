@@ -1,0 +1,20 @@
+{
+  "id": "sharding",
+  "config_relset": "CfgTest",
+  "shards": [
+    {"host": "172.16.20.21:27018"},
+    {"host": "172.16.20.22:27018"}
+  ],
+  "shards_set": [
+    {"host": "172.16.20.26:27018"},
+    {"host": "172.16.20.27:27018"},
+    {"host" :"172.16.20.28:27018"}
+  ],
+  "config_servers": [
+    {"host": "172.16.20.23:27019"},
+    {"host": "172.16.20.24:27019"},
+    {"host": "172.16.20.25:27019"}
+  ],
+  "sharding_database": "testdb",
+  "sharding_collection": "testdb.testcoll"
+}

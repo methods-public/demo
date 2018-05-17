@@ -1,0 +1,19 @@
+<?php
+
+/*******  REQUIRED SETTINGS  *******/
+//Update the values below with information about your ACS configuration
+define('ACS_NAMESPACE', 		'<%= @acs_namespace %>');
+define('ACS_APPLICATION_REALM', '<%= @acs_realm %>'); 
+define('ACS_TOKEN_SIGNING_KEY', '<%= @acs_key %>');
+define('ACS_TOKEN_SIGNING_KEY_OLD', ''); 
+
+
+/*******  ADVANCED SETTINGS  *******/
+define('USER_UUID', 	'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'); //required
+define('USER_IDP', 		'http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider'); //required
+define('USER_EMAIL', 	'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress');
+define('USER_NICKNAME', 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name');
+
+define('ACS_TOKEN_TYPE', 	'http://schemas.xmlsoap.org/ws/2009/11/swt-token-profile-1.0');
+
+?>

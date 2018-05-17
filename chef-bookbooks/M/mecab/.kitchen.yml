@@ -1,0 +1,115 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.16.42
+
+platforms:
+  - name: centos-7.0
+  - name: debian-8.0
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[mecab]
+
+  - name: ipadic
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[mecab::ipadic]
+
+  - name: jumandic
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[mecab::jumandic]
+
+  - name: unidic
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[zip]
+      - recipe[mecab::unidic]
+
+  - name: naistjdic
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[tar]
+      - recipe[mecab::naistjdic]
+
+  - name: python
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[poise-python]
+      - recipe[mecab]
+      - recipe[mecab::mecab-python]
+    attributes:
+      poise-python:
+        options:
+          virtualenv_version: false
+          dev_package: true
+          version: '2.7'
+      mecab-python:
+        python_dev_include_path: "/opt/rh/python27/root/usr/include/python2.7/"  # workaround for centos
+        python_dev_lib_path: "/opt/rh/python27/root/lib64/libpython2.7.so"
+
+  - name: java
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[java]
+      - recipe[mecab]
+      - recipe[mecab::mecab-java]
+    attributes:
+      java:
+        install_flavor: "oracle"
+        jdk_version: 7
+        oracle:
+          accept_oracle_download_terms: true
+
+  - name: perl
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[perl]
+      - recipe[mecab]
+      - recipe[mecab::mecab-perl]
+
+  - name: ruby
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[git]
+      - recipe[ruby_build]
+      - recipe[ruby_rbenv::system]
+      - recipe[mecab]
+      - recipe[mecab::mecab-ruby]
+
+    attributes:
+      rbenv:
+        rubies:
+        - name: 2.3.0
+          environment:
+            CONFIGURE_OPTS: --disable-install-rdoc
+        global: 2.3.0
+
+busser:
+  sudo: false
+

@@ -1,0 +1,170 @@
+DEPENDENCIES
+  apache_hadoop
+    git: git://github.com/hopshadoop/apache-hadoop-chef.git
+    revision: 912e0703a7a0de01fccd5e90486bf20ce4de7577
+    branch: master
+  flink
+    git: git://github.com/hopshadoop/flink-chef.git
+    revision: b0bcfd9f92c96dd66aafe368334d63f31fe926b6
+    branch: master
+  hadoop_spark
+    git: git://github.com/hopshadoop/spark-chef.git
+    revision: 295f6cd36f17e1d2994a7bc5e02944f2c3d8d4c5
+    branch: master
+  hops
+    git: git://github.com/hopshadoop/hops-hadoop-chef.git
+    revision: 646efe55ff9795eb378d51b25afe220655017450
+    branch: master
+  hopsworks
+    git: git://github.com/hopshadoop/hopsworks-chef.git
+    revision: c3f0a05754006653f59201ad43ba2a525a7c406a
+    branch: master
+  kagent
+    git: git://github.com/karamelchef/kagent-chef.git
+    revision: 4a293062facd50c86976b82dfafa5195d3e4f315
+    branch: master
+  ndb
+    git: git://github.com/hopshadoop/ndb-chef.git
+    revision: 0dce34835db4e7a084a2d1265e1cb044df1e9ad9
+    branch: master
+  oozie
+    path: .
+    metadata: true
+
+GRAPH
+  apache_hadoop (0.1.0)
+    cmake (>= 0.0.0)
+    java (>= 0.0.0)
+    kagent (>= 0.0.0)
+    sysctl (>= 0.0.0)
+  apache_spark (1.2.12)
+    apt (~> 2.0)
+    java (~> 1.0)
+    logrotate (~> 1.0)
+    monit_wrapper (~> 3.0)
+    tar (>= 0.0.0)
+  apt (2.9.2)
+  archive (0.2.8)
+    cutlery (>= 0.0.0)
+  ark (1.0.1)
+    build-essential (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+    windows (>= 0.0.0)
+  authbind (0.1.10)
+  build-essential (4.0.0)
+    mingw (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  chef-sugar (3.3.0)
+  chef_handler (1.4.0)
+  cmake (0.3.0)
+  compat_resource (12.9.1)
+  cutlery (0.2.10)
+    partial_search (>= 0.0.0)
+  dpkg_autostart (0.2.0)
+  elastic (0.1.1)
+    elasticsearch (>= 0.0.0)
+    java (>= 0.0.0)
+    kagent (>= 0.0.0)
+    ndb (>= 0.0.0)
+    ulimit (>= 0.0.0)
+  elasticsearch (2.3.1)
+    apt (>= 0.0.0)
+    ark (>= 0.0.0)
+    chef-sugar (>= 0.0.0)
+    yum (>= 0.0.0)
+  flink (0.1.1)
+    apache_hadoop (>= 0.0.0)
+    hops (>= 0.0.0)
+    java (>= 0.0.0)
+    kagent (>= 0.0.0)
+  glassfish (0.7.6)
+    archive (>= 0.0.0)
+    authbind (>= 0.0.0)
+    compat_resource (>= 0.0.0)
+    cutlery (>= 0.0.0)
+    java (>= 0.0.0)
+  hadoop (2.3.2)
+    apt (>= 2.1.2)
+    java (~> 1.21)
+    selinux (>= 0.0.0)
+    sysctl (>= 0.0.0)
+    ulimit (>= 0.0.0)
+    yum (>= 3.0)
+  hadoop_spark (0.1.1)
+    apache_hadoop (>= 0.0.0)
+    hops (>= 0.0.0)
+    java (>= 0.0.0)
+    kagent (>= 0.0.0)
+    scala (>= 0.0.0)
+  hops (0.1.1)
+    apache_hadoop (>= 0.0.0)
+    java (>= 0.0.0)
+    kagent (>= 0.0.0)
+    ndb (>= 0.0.0)
+  hopsworks (0.1.0)
+    apache_hadoop (>= 0.0.0)
+    authbind (>= 0.0.0)
+    compat_resource (>= 0.0.0)
+    elastic (>= 0.0.0)
+    flink (>= 0.0.0)
+    glassfish (>= 0.0.0)
+    hadoop_spark (>= 0.0.0)
+    hops (>= 0.0.0)
+    kagent (>= 0.0.0)
+    ndb (>= 0.0.0)
+    ulimit2 (>= 0.0.0)
+    zeppelin (>= 0.0.0)
+  hostsfile (2.4.5)
+  java (1.39.0)
+    apt (>= 0.0.0)
+  kagent (0.1.2)
+    hostsfile (>= 0.0.0)
+    python (>= 0.0.0)
+  logrotate (1.9.2)
+  mingw (1.0.0)
+    compat_resource (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  monit-ng (2.3.0)
+    apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
+    dpkg_autostart (>= 0.0.0)
+    ubuntu (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  monit_wrapper (3.3.1)
+    apt (>= 0.0.0)
+    monit-ng (>= 0.0.0)
+    notifying-action (~> 1.0.1)
+  ndb (0.2.0)
+    kagent (>= 0.0.0)
+  notifying-action (1.0.3)
+  ohai (3.0.1)
+  oozie (0.1.0)
+    java (>= 0.0.0)
+  partial_search (1.0.9)
+  python (1.4.6)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  scala (2.1.0)
+    ark (>= 0.0.0)
+    java (>= 0.0.0)
+  selinux (0.9.0)
+  seven_zip (2.0.0)
+    windows (>= 1.2.2)
+  sysctl (0.7.5)
+    ohai (~> 3.0)
+  tar (0.7.0)
+  ubuntu (1.2.0)
+    apt (>= 0.0.0)
+  ulimit (0.3.3)
+  ulimit2 (0.2.0)
+  windows (1.40.0)
+    chef_handler (>= 0.0.0)
+  yum (3.10.0)
+  yum-epel (0.7.0)
+    yum (>= 3.6.3)
+  zeppelin (0.1.1)
+    apache_spark (>= 0.0.0)
+    flink (>= 0.0.0)
+    hadoop (>= 0.0.0)
+    hops (>= 0.0.0)
+    kagent (>= 0.0.0)

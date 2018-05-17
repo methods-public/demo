@@ -1,0 +1,57 @@
+---
+driver:
+  name: dokken
+
+transport:
+    name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update && /usr/bin/apt-get install -y curl
+        - RUN /usr/bin/curl https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | /usr/bin/apt-key add -
+        - RUN echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main' > /etc/apt/sources.list.d/saltstack.list
+        - RUN /usr/bin/apt-get update && /usr/bin/apt-get install -y salt-minion
+  - name: ubuntu-14.04
+    driver:
+      image: ubuntu:14.04
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update && /usr/bin/apt-get install -y curl
+        - RUN /usr/bin/curl https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | /usr/bin/apt-key add -
+        - RUN echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main' > /etc/apt/sources.list.d/saltstack.list
+        - RUN /usr/bin/apt-get update && /usr/bin/apt-get install -y salt-minion
+  - name: centos-7
+    driver:
+      image: centos:7
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm
+        - RUN yum install -y salt-minion
+        - RUN systemctl enable salt-minion.service
+  - name: centos-6
+    driver:
+      image: centos:6
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install which initscripts net-tools
+        - RUN yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el6.noarch.rpm
+        - RUN yum install -y salt-minion
+        - RUN chkconfig salt-minion on
+suites:
+  - name: default
+    run_list:
+      - recipe[desalination::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

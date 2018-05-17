@@ -1,0 +1,91 @@
+<!-- OSSEC Agent configuration from chef ossec cookbook v.<%= node["ossec"]["version"] %> -->
+<ossec_config>
+  <client>
+    <server-ip><%= @ossec_server_ip %></server-ip>
+  </client>
+
+  <syscheck>
+    <!-- Frequency that syscheck is executed -- default every 2 hours -->
+    <frequency><%= node["ossec"]["syscheck"]["frequency"] %></frequency>
+
+    <!-- Directories to check  (perform all possible verifications) -->
+<% node["ossec"]["syscheck"]["directories"].sort_by {|k,v| k}.each do |directory,params| -%>
+    <directories check_all="yes" report_changes="<%= params[:report_changes] %>" realtime="<%= params[:realtime] %>"><%= directory %></directories>
+<% end -%>
+
+    <alert_new_files><%= node["ossec"]["syscheck"]["alert_new_files"] %></alert_new_files>
+    <auto_ignore><%= node["ossec"]["syscheck"]["auto_ignore"] %></auto_ignore>
+
+    <!-- Files/directories to ignore -->
+<% unless node["ossec"]["syscheck"]["ignore"].nil?
+     node["ossec"]["syscheck"]["ignore"].sort_by {|k,v|}.each do |path,params|
+       if params["use_here"] == true
+         type = params["type"] || "simple"
+         if type == "simple" -%>
+    <ignore><%= path %></ignore>
+<%       else -%>
+    <ignore type='sregex'><%= path %></ignore>
+<%       end
+       end
+     end
+   end -%> 
+  </syscheck>
+
+  <rootcheck>
+    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+  </rootcheck>
+
+  <!-- Commands and Active-Responses -->
+<% node["ossec"]["command"].each_pair do |command, params|
+     if params["enabled"] == true && \
+        params["use_here"] == true -%>
+  <command>
+    <name><%= command %></name>
+<%     params.each_pair do |param, value|
+         unless (param == 'enabled' || \
+                 param == 'apply_to' || \
+                 param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end
+       end -%>
+  </command>
+<%   end
+   end %>
+
+<% node["ossec"]["active-response"].each_pair do |command, params|
+     if params["enabled"] == true && \
+        params["use_here"] == true && \
+        (node["ossec"]["command"][command]["enabled"] == true &&
+         node["ossec"]["command"][command]["use_here"] == true) -%>
+  <active-response>
+    <command><%= command %></command>
+<%     params.each_pair do |param, value|
+         unless (param == 'enabled' || \
+                 param == 'apply_to' || \
+                 param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end
+       end -%>
+  </active-response>
+<%   end
+   end -%>
+
+  <!-- Files to monitor (localfiles) -->
+<% node["ossec"]["syslog_files"].sort_by {|k,v| k}.each do |logfile,params|
+     if params["use_here"] == true 
+       log_format = params["log_format"] || "syslog" -%>
+  <localfile>
+    <log_format><%= log_format %></log_format>
+    <location><%= logfile %></location>
+<%     params.each_pair do |param,value|
+         unless(param == 'log_format' || \
+                param == 'apply_to' ||
+                param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end      
+       end -%>
+  </localfile>
+<%   end
+   end -%>
+</ossec_config>

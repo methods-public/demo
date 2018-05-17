@@ -1,0 +1,59 @@
+{
+  "name": "metricbeat",
+  "description": "Installs/Configures Elastic metricbeat",
+  "long_description": "metricbeat Cookbook\n================\n\n[![Cookbook](http://img.shields.io/badge/cookbook-v0.2.0-green.svg)](https://github.com/vkhatri/chef-metricbeat)[![Build Status](https://travis-ci.org/vkhatri/chef-metricbeat.svg?branch=master)](https://travis-ci.org/vkhatri/chef-metricbeat)\n\nThis is a [Chef] cookbook to manage [metricbeat].\n\n\n>> For Production environment, always prefer the [most recent release](https://supermarket.chef.io/cookbooks/metricbeat).\n\n\n## Most Recent Release\n\n```\ncookbook 'metricbeat', '~> 0.2.0'\n```\n\n## From Git\n\n```\ncookbook 'metricbeat', github: 'vkhatri/chef-metricbeat'\n```\n\n## Repository\n\nhttps://github.com/vkhatri/chef-metricbeat\n\n\n## Supported OS\n\nThis cookbook was tested on Amazon & Ubuntu Linux and expected to work on other RHEL platforms and Windows.\n\n\n## Recipes\n\n- `metricbeat::default` - default recipe (use it for run_list)\n\n- `metricbeat::install` - install metricbeat for rhel, debian, ubuntu based OS\n\n- `metricbeat::config` - configure metricbeat\n\n- `metricbeat::install_windows` - configure metricbeat for windows based OS\n\n\n## Core Attributes\n\n\n* `default['metricbeat']['version']` (default: `5.1.1`): metricbeat version\n\n* `default['metricbeat']['release']` (default: `1`): metricbeat release for yum package\n\n* `default['metricbeat']['packages']` (default: `[]`): package dependencies\n\n* `default['metricbeat']['conf_dir']` (default: `/etc/metricbeat` or `C:/opt/metricbeat/metricbeat-1.3.1-windows/`): metricbeat yaml configuration file directory\n\n* `default['metricbeat']['conf_file']` (default: `/etc/metricbeat/metricbeat.yml` or `C:/opt/metricbeat/metricbeat-1.3.1-windows/metricbeat.yml`): metricbeat configuration file\n\n* `default['metricbeat']['notify_restart']` (default: `true`): whether to restart metricbeat service on configuration file change\n\n* `default['metricbeat']['disable_service']` (default: `false`): whether to stop and disable metricbeat service, useful for maintenance mode\n\n\n## Configuration File metricbeat.yml Attributes\n\n* `default['metricbeat']['config']['input']['period']` (default: `10`): metricbeat statistics collection interval\n\n* `default['metricbeat']['config']['input']['period']` (default: `10`): metricbeat procs to collect statistics\n\n* `default['metricbeat']['config']['output']` (default: `{}`): metricbeat output configuration, e.g. elasticsearch, logstash, file etc.\n\nFor more attribute info, visit below link:\n\nhttps://github.com/elastic/metricbeat/blob/master/etc/metricbeat.yml\n\n\n## metricbeat YUM/APT Repository Attributes\n\n* `default['metricbeat']['yum']['description']` (default: ``): beats yum reporitory attribute\n\n* `default['metricbeat']['yum']['gpgcheck']` (default: `true`): beats yum reporitory attribute\n\n* `default['metricbeat']['yum']['enabled']` (default: `true`): beats yum reporitory attribute\n\n* `default['metricbeat']['yum']['baseurl']` (default: `https://packages.elastic.co/beats/yum/el/$basearch`): beatsyum reporitory attribute\n\n* `default['metricbeat']['yum']['gpgkey']` (default: `https://packages.elasticsearch.org/GPG-KEY-elasticsearch`): beats yum reporitory attribute\n\n* `default['metricbeat']['yum']['action']` (default: `:create`): beats yum reporitory attribute\n\n\n* `default['metricbeat']['apt']['description']` (default: `calculated`): beats apt reporitory attribute\n\n* `default['metricbeat']['apt']['components']` (default: `['stable', 'main']`): beats apt reporitory attribute\n\n* `default['metricbeat']['apt']['uri']` (default: `https://packages.elastic.co/beats/apt`): beats apt reporitory attribute\n\n* `default['metricbeat']['apt']['key']` (default: `http://packages.elasticsearch.org/GPG-KEY-elasticsearch`): beats apt reporitory attribute\n\n* `default['metricbeat']['apt']['action']` (default: `:add`): filebeat apt reporitory attribute\n\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests (`rake & rake knife`), ensuring they all pass\n6. Write new resource/attribute description to `README.md`\n7. Write description about changes to PR\n8. Submit a Pull Request using Github\n\n\n## Copyright & License\n\nAuthors:: Virender Khatri and [Contributors]\n\n<pre>\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n</pre>\n\n\n[Chef]: https://www.chef.io/\n[metricbeat]: https://www.elastic.co/downloads/beats/metricbeat\n[Contributors]: https://github.com/vkhatri/chef-metricbeat/graphs/contributors\n",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "yum-plugin-versionlock": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/vkhatri/chef-metricbeat",
+  "issues_url": "https://github.com/vkhatri/chef-metricbeat/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

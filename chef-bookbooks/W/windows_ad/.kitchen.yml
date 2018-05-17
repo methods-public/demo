@@ -1,0 +1,41 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 12.21.1
+
+platforms:
+  - name: windows-2008-r2
+#     driver_config:
+#       box_url:
+  - name: windows-2008-r2-core
+#    driver_config:
+#      box_url:
+  - name: windows-2012
+#    driver_config:
+#      box_url:
+  - name: windows-2012-r2
+#    driver_config:
+#      box_url:
+  - name: windows-2012-r2-core
+#    driver_config:
+#      box_url:
+  - name: windows-2016
+#    driver_config:
+#      box_url:
+  - name: windows-2016-core
+#    driver_config:
+#      box_url:
+
+suites:
+  - name: default
+    run_list:
+      - recipe[windows_ad::default]
+    attributes:
+  - name: forest
+    run_list:
+      - recipe[windows_ad::default]
+      - recipe[windows_ad::contoso]
+    attributes:

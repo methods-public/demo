@@ -1,0 +1,77 @@
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+
+<%
+mirrorlist_ctx = node['yum_utils']['repos']['CentOS-Base']['mirrorlist_ctx']
+baseurl_ctx = node['yum_utils']['repos']['CentOS-Base']['baseurl_ctx']
+gpgkey = node['yum_utils']['repos']['CentOS-Base']['gpgkey']
+-%>
+[base]
+name=CentOS-$releasever - Base
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/?release=$releasever&arch=$basearch&repo=os
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/os/$basearch/
+<% end -%>
+gpgcheck=1
+gpgkey=<%= gpgkey %>
+
+#released updates 
+[updates]
+name=CentOS-$releasever - Updates
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/?release=$releasever&arch=$basearch&repo=updates
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/updates/$basearch/
+<% end -%>
+gpgcheck=1
+gpgkey=<%= gpgkey %>
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/?release=$releasever&arch=$basearch&repo=extras
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/extras/$basearch/
+<% end -%>
+gpgcheck=1
+gpgkey=<%= gpgkey %>
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/?release=$releasever&arch=$basearch&repo=centosplus
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/centosplus/$basearch/
+<% end -%>
+gpgcheck=1
+enabled=0
+gpgkey=<%= gpgkey %>
+
+#contrib - packages by Centos Users
+[contrib]
+name=CentOS-$releasever - Contrib
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/?release=$releasever&arch=$basearch&repo=contrib
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/contrib/$basearch/
+<% end -%>
+gpgcheck=1
+enabled=0
+gpgkey=<%= gpgkey %>

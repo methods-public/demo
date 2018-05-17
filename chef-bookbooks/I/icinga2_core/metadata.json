@@ -1,0 +1,43 @@
+{
+  "name": "icinga2_core",
+  "description": "Installs icinga2 core",
+  "long_description": "# icinga2_core\n\nInstall icinga2 core. This is needed for the the client and the server.\n\n## Usage:\n\n```ruby\ninclude_recipe 'icinga2_core'\n```\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chocolatey": ">= 1.2.1"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.5",
+  "source_url": "https://github.com/MelonSmasher/icinga2_core",
+  "issues_url": "https://github.com/MelonSmasher/icinga2_core/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

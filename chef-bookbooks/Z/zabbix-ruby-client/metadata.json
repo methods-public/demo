@@ -1,0 +1,44 @@
+{
+  "name": "zabbix-ruby-client",
+  "description": "Installs/Configures Zabbix-ruby-client",
+  "long_description": "Zabbix Ruby Client Cookbook\n============================\n\n[![Cookbook Version](http://img.shields.io/cookbook/v/zabbix-ruby-client.svg)](https://supermarket.getchef.com/cookbooks/zabbix-ruby-client)\n\nThis cookbook is designed for installing [zabbix-ruby-client](https://github.com/eduvo/zabbix-ruby-client) on an Ubuntu server, with zabbix-sender v2.2. It's based on the version 0.1.0 of zabbix-ruby-client (called zrc for short).\n\nThe principle of it is to use the chef client embedded ruby from `/opt/chef/embedded/bin` so there is no need to install a system or versionned ruby on all servers just for that.\n\nTested in the kitchen on\n\n- Ubuntu 12.04\n- Ubuntu 14.04\n- CentOs 5.10\n- CentOs 6.5\n\nIt should also work on RHEL 5 and 6, Oracle Linux 5 and 6, Debian 6 and 7.\n\nIt will install:\n\n- the zabbix source list for ubuntu\n- the zabbix-sender package\n- the zabbix-ruby-client from rubygems (or from github if node.zrc.development = true) using the chef embedded `gem`command\n- a `/etc/default/zrc` with a flag to run it or not\n- config.yml and tasks (minutely.yml) in `/etc/zrc/`\n- a `zrc` system user with a home in `/var/lib/zrc`\n- a data dir at `/var/cache/zrc`\n- a log dir at `/var/log/zrc`\n- a rotatelog config to rotate the logs every week\n- a bash wrapper in `/usr/bin/zrc_send` that launches zrc using the chef embedded ruby version\n- a cronfile gathering the triggering of all tasks at `/etc/cron.d/zabbix`\n\nAttributes\n==============\n\nAttribute |  Default  | Description\n----------|-----------|-------------\nzrc.version     | \"0.1.0\"     | Version of the zabbix-ruby-client to install (if `development` is false)\nzrc.enabled     | true        | If not enabled the cronjob is disabled\nzrc.admin_email | \"root\"      | email or unix account used in the `.forward` in the home of the `zrc` user\nzrc.ruby_bin    | \"/opt/chef/embedded/bin/ruby\" | path to the ruby used by zrc\nzrc.gem_bin     | \"/opt/chef/embedded/bin/gem\"  | path to the gem command used to install zrc\nzrc.binpath     | \"/opt/chef/embedded/bin/zrc\"  | path where the zrc command will be installed\nzrc.zrc_send    | \"1\"         | if set to \"0\" disables the sending of data\nzrc.development | false       | if set to true, use github master branch rather than the published gem version\nzrc.repo_url    | \"https://github.com/eduvo/zabbix-ruby-client.git\" | if zrc.development is true, this repo will be used for getting the gem source\nzrc.repo_branch | \"master\"    | if zrc.development is true, this branch will be used for getting the gem source\nzrc.server.host | \"localhost\" | url of the zabbix server\nzrc.server.port | \"10051\"     | port of the trapper daemon on the zabbix server\nzrc.schedule    | __see below__ | schedule object used to build the tasks files and cron file\n\nDefault schedule\n\n````json\n{\n  \"minutely\": {\n    \"cron\": \"* * * * *\",\n    \"tasks\": [\n      \"load\": null,\n      \"memory\": null,\n      \"cpu\": null\n    ]\n  },\n  \"hourly\": {\n    \"cron\": \"0 * * * *\",\n    \"tasks\": [\n      \"apt\": null\n    ]\n  },\n  \"monthly\": {\n    \"cron\": \"0 0 1 * *\",\n    \"tasks\": [\n      \"sysinfo\": null\n    ]\n  }\n}\n````\n\nif you want to add values to the schedule, use `normal` in a role file. Note that you can append a number to the task name, it will be ignored and makes possible to have multiple calls to the same name.\n\nFor example I have a `zrc-linode.json`, which adds disk and network interface to the minutely task role with:\n\n````json\n{\n  \"name\": \"zrc-linode\",\n  \"chef_type\": \"role\",\n  \"json_class\": \"Chef::Role\",\n  \"description\": \"ZRC linode eth and disks\",\n  \"normal_attributes\": {\n    \"zrc\": {\n      \"schedule\": {\n        \"minutely\": {\n          \"tasks\": {\n            \"disk\": \"[ xvda, /, xvda ]\",\n            \"network0\": \"[ eth0 ]\",\n            \"network1\": \"[ eth1 ]\"\n          }\n        }\n      }\n    }\n  }\n}\n````\n\nIf you need to overwrite the default values, you can use `overwrite_attributes`.\n\n## Debugging\n\nBy setting `zrc.zrc_send` to '0', the cronjobs still run but they are not passed to zabbix_sender, they are sent to output, then sent to the admin_email, so you can check if the values are collected properly.\n\n## Contributing\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Add some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n\n## Contributors\n\n* [@mose](https://github.com/mose) - author\n\n## License\n\nCopyright 2013 [Faria Systems](http://faria.co) - MIT license - created by mose at mose.com\n",
+  "maintainer": "nose",
+  "maintainer_email": "mose@mose.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "oracle": ">= 0.0.0"
+  },
+  "dependencies": {
+    "logrotate": "~> 1.6.0",
+    "git": "~> 4.0.2"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.12"
+}

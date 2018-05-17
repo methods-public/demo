@@ -1,0 +1,60 @@
+{
+  "name": "icinga2repo",
+  "description": "Installs/Configures Icinga2 Packages Repository",
+  "long_description": "Installs/Configures Icinga2 Packages Repository",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "raspbian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 5.0.1",
+    "yum": ">= 4.1.0",
+    "yum-epel": ">= 2.1.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/Icinga/chef-icinga2repo",
+  "issues_url": "https://github.com/Icinga/chef-icinga2repo/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

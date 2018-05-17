@@ -1,0 +1,53 @@
+{
+  "name": "fb_collectd",
+  "description": "Installs/Configures collectd",
+  "long_description": "fb_collectd Cookbook\n====================\nThe `fb_collectd` cookbook installs and configures collectd, a statistics\ncollection and monitoring daemon.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_collectd']['collection']\n* node['fb_collectd']['globals']\n* node['fb_collectd']['plugins']\n* node['fb_collectd']['sysconfig']\n\nUsage\n-----\n### Daemon\nTo install collectd include `fb_collectd::default`. Global settings can be\ncustomized using the `node['fb_collectd']['globals']` attribute and individual\nplugins can be enabled and configured using `node['fb_collectd']['plugins']`.\nExample:\n\n```ruby\nnode.default['fb_collectd']['global']['FQDNLookup'] = true\nnode.default['fb_collectd']['plugins']['cpu'] = nil\nnode.default['fb_collectd']['plugins']['syslog'] = {\n  'LogLevel' => 'info',\n}\n```\n\nOn Debian systems, environment settings can be configured in \n`node['fb_collectd']['sysconfig']`; note that this attribute is ignored on\nCentOS.\n\n### Frontend\nThe collectd-web fronted can be installed with the `fb_collectd::fronted`\nrecipe. Use the `node['fb_collectd']['collection']` to customize its settings.\nNote that this recipe will not install or configure a web server, so unless you\nset one up the collection CGIs will not actually be available.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

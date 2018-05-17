@@ -1,0 +1,53 @@
+{
+  "name": "chef-guard",
+  "description": "Installs/Configures Chef-Guard",
+  "long_description": "Chef-Guard\n==========\nThe Chef-Guard cookbook installs and configures Chef-Guard into your environment\n\nAttributes\n----------\nPlease check http://xanzy.io/projects/chef-guard for all needed details\n\nUsage\n-----\nThis cookbook uses [Chef-Vault](https://github.com/chef/chef-vault) to store the .pem file content, bookshelf key, and bookshelf secret. The pem file is the private key of the Chef user that Chef-Guard uses to interact with the Chef server and Supermarket. Bookshelf is an internal component of your Chef installation and is used to store uploaded cookbook files.\n\nPlease see the following examples for creating the vault items:\n\n```\nknife vault create chef-guard chef.pem -M client -S \"name:some-node-search\" -A your-chef-username --file chef.pem\n```\n\nThe bookshelf keys are created by Chef during install time and are saved in either /etc/chef-server/chef-server-secrets.json (for Open Source Chef) or /etc/opscode/private-chef-secrets.json (for Enterpise Chef and Chef 12) and look something like this in those files:\n\n```\n \"bookshelf\": {\n    \"access_key_id\": \"xxxxxx\",\n    \"secret_access_key\": \"yyyyyy\"\n }\n```\n\nSo just get the keys from one of those files and create the vault like this to get yourself going:\n\n```\nknife vault create chef-guard chef.bookshelf -M client -S \"name:some-node-search\" -A your-chef-username '{\"key\":\"xxxxxx\",\"secret\":\"yyyyyy\"}'\n```\n\nContributing\n------------\n  1. Fork the repository on Github\n  2. Create a named feature branch (i.e. `add-new-recipe`)\n  3. Write your change\n  4. Write tests for your change (if applicable)\n  5. Run the tests, ensuring they all pass\n  6. Submit a Pull Request\n\nLicense and Authors\n-------------------\nAuthors: Sander van Harmelen (sander@xanzy.io)\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n",
+  "maintainer": "Sander van Harmelen",
+  "maintainer_email": "sander@xanzy.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.4.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

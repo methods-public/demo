@@ -1,0 +1,9 @@
+# Managed by Chef.  Local changes will be overwritten.
+LoadPlugin "redis"
+<Plugin redis>
+  <Node "<%= @redis_node %>">
+    Host "<%= @host %>"
+    Port "<%= @port %>"
+    Timeout <%= @timeout %>
+  </Node>
+</Plugin>

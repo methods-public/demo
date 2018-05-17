@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# $FreeBSD$
+#
+# PROVIDE: pyload
+# REQUIRE: LOGIN NETWORK
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf to enable this
+# service during boot; setting optional parameters it is possible to overwrite
+# defaults from this script
+#
+#   pyload_enable="YES"
+#   # Optional
+#   pyload_daemon="<%= node['pyload']['install_dir'] %>/pyLoadCore.py"
+#   pyload_user="<%= node['pyload']['user'] %>"
+#   pyload_group="<%= node['pyload']['group'] %>"
+#   pyload_pid="<%= node['pyload']['pid_dir'] %>/pyload.pid"
+#   pyload_options="--daemon --configdir=<%= node['pyload']['config_dir'] %> --pidfile=<%= node['pyload']['pid_dir'] %>/pyload.pid"
+
+. /etc/rc.subr
+
+PATH="$PATH:/usr/local/bin"
+
+name="pyload"
+rcvar=${name}_enable
+
+: ${pyload_enable:="YES"}
+: ${pyload_daemon:="<%= node['pyload']['install_dir'] %>/pyLoadCore.py"}
+: ${pyload_user:="<%= node['pyload']['user'] %>"}
+: ${pyload_group:="<%= node['pyload']['group'] %>"}
+: ${pyload_pid:="<%= node['pyload']['pid_dir'] %>/pyload.pid"}
+: ${pyload_options:="--daemon --configdir=<%= node['pyload']['config_dir'] %> --pidfile=<%= node['pyload']['pid_dir'] %>/pyload.pid"}
+
+command_interpreter="<%= node['pyload']['python_exec'] %>"
+command="${pyload_daemon}"
+command_args="${pyload_options}"
+command_full="${command_interpreter} ${command} ${command_args}"
+
+start_cmd="su -m ${pyload_user} -c '${command_full}'"
+stop_cmd="su -m ${pyload_user} -c '${command_full} --quit'"
+
+load_rc_config $name
+run_rc_command "$1"

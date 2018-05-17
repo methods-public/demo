@@ -1,0 +1,39 @@
+{
+  "name": "denyhosts",
+  "description": "Installs and configures DenyHosts",
+  "long_description": "Description\n===========\n\nSets up DenyHosts\n\nRequirements\n============\n\nA system that supports denyhosts. tcp_wrappers\n\nTested only on centos 6.6\n\nAttributes\n==========\n\nnode['denyhosts']['config'] - a hash of all configuration\nentries, same as in denyhosts.conf . See attributes/default.rb\n\nnode['denyhosts']['allowed-hosts'] - an array of IP addresses\nthat should be whitelisted and never be blocked.\n\nUsage\n=====\n\nAdd the denyhosts::default recipe to your runlist.\nConfigure any attributes you need.\n\n",
+  "maintainer": "North County Tech Center, LLC",
+  "maintainer_email": "kkeane@4nettech.com",
+  "license": "GNU Public License 3.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0"
+}

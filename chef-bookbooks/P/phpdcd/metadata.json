@@ -1,0 +1,61 @@
+{
+  "name": "phpdcd",
+  "description": "Installs/Configures phpdcd",
+  "long_description": "[![Build Status](https://travis-ci.org/djoos-cookbooks/phpdcd.png)](http://travis-ci.org/djoos-cookbooks/phpdcd)\n\n# phpdcd cookbook\n\n## Description\n\nThis cookbook provides an easy way to install phpdcd, PHP Dead Code Detector.\n\nMore information?\nhttps://github.com/sebastianbergmann/phpdcd\n\n## Requirements\n\n### Cookbooks:\n\n* php\n\n### Platforms:\n\n* Ubuntu\n* Debian\n* RHEL\n* CentOS\n* Fedora\n* Scientific\n* Amazon\n\n## Attributes\n\n* `node['phpdcd']['install_method']` - Installation method, \"composer\" or \"phar\", defaults to \"composer\"\n* `node['phpdcd']['version']` - The phpdcd version that will be installed, defaults to \"latest\"\n* `node['phpdcd']['prefix']` - The composer.json bin-dir, defaults to \"/usr/bin\" (composer install method only)\n\n## Usage\n\n1) include `recipe[phpdcd]` in a run list\n2) change the attributes\n--- OR ---\n[override the attribute on a higher level](http://wiki.opscode.com/display/chef/Attributes#Attributes-AttributesPrecedence)\n\n## References\n\n* [phpdcd GitHub repository] (https://github.com/sebastianbergmann/phpdcd)\n\n## License and Authors\n\nAuthor: David Joos <development@davidjoos.com>\nCopyright: 2016, David Joos\n\nAuthor: David Joos <david.joos@escapestudios.com>\nAuthor: Escape Studios Development <dev@escapestudios.com>\nCopyright: 2013-2015, Escape Studios\n\nUnless otherwise noted, all files are released under the MIT license,\npossible exceptions will contain licensing information in them.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n",
+  "maintainer": "David Joos",
+  "maintainer_email": "development@davidjoos.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "php": ">= 0.0.0",
+    "git": ">= 0.0.0",
+    "composer": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "phpdcd": "Installs phpdcd.",
+    "phpdcd::composer": "Installs phpdcd using composer.",
+    "phpdcd::phar": "Installs phpdcd using phar."
+  },
+  "version": "1.1.0",
+  "source_url": "https://github.com/djoos-cookbooks/phpdcd",
+  "issues_url": "https://github.com/djoos-cookbooks/phpdcd/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+  - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+
+      - recipe[newrelic-sysmond-policy::default]
+
+# You will need to change the attributes below to something that works with your NewRelic account...
+    attributes:
+      newrelic:
+        apikey: "api key"
+        server_monitoring:
+          startup_policy: "some policy"
+          shutdown_policy: "some other policy"
+          ssl: true
+          licsense: "nr license"
+        license: "nr license"

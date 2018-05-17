@@ -1,0 +1,55 @@
+{
+  "name": "zerotier",
+  "description": "Installs/Configures ZeroTier",
+  "long_description": "ZeroTier Cookbook\n==================\n\nThis is a [Chef](https://www.chef.io/) cookbook to manage [ZeroTier](https://www.zerotier.com) networks on your Chef nodes.\n\nSupported Platforms\n---------------------\n* Debian\n* Ubuntu\n* CentOS\n* RHEL\n* Amazon\n\nRecipes\n---------------------\n`zerotier::default`\n\nDefault recipe.  Calls `zerotier::install`\n\n`zerotier::install` \n\nInstall's ZeroTier One on your system via the native package management system.\n\n`zerotier::ohai_plugin` \n\nInstalls the Ohai plugin for ZeroTier.  This is required by the provided LWRP `zerotier_network`.\n\n`zerotier::join_networks`\n\nShortcut to automatically join networks stored in attributes (See example in the Attributes section below)\n\nAttributes\n---------------------\n`node['zerotier']['install_version']` \n\nVersion of ZeroTier to install.  Empty by default and defaults to the latest version available.\n\n`node['zerotier']['central_url']`\n\nURL to the instance of the ZeroTier Central controller. Defaults to https://my.zerotier.com.  Will be useful in the future when Central is distributable to our enterprise customers.\n\n`node['zerotier']['public_autojoin']`\n\nList of *public* networks to automatically join when using the `zerotier::join_networks` recipe.  These networks do not require any interaction with the network controller.\n\n`node['zerotier']['private_autojoin']`\n\nList of *private* networks to automatically join when using the `zerotier::join_networks` recipe.  Joining a private network requires an API Access Token generated at https://my.zerotier.com.  Each member of the list is a hash as follows:\n\n```\n{\n\t:network_id => \"your_network_id\",\n    :auth_token => \"your_auth_token\",  # API access token generated at https://my.zerotier.com\n    :central_url => \"URL_to_central_instance\" # Not required.  Defaults to https://my.zerotier.com\n}\n```\n\nLWRP\n---------------------\nThe ZeroTier recpie provides the `zerotier_network` lwrp\n\nAttributes:\n\n- network_id - Network ID to join. defaults to the name attribute.\n- node_name - Name of the node to put in https://my.zerotier.com (only applicable when joining a private network)\n- auth_token - API access token generated in your account at https://my.zerotier.com. Required if you wish to automatically authorize the node to join the network.\n- central_url - URL to the instance of ZeroTier Central.  Defaults to https://my.zerotier.com.\n- action - `:join` or `:leave`.  Defaults to `:join`\n",
+  "maintainer": "Grant Limberg",
+  "maintainer_email": "grant.limberg@zerotier.com",
+  "license": "GPL v3",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.7",
+  "source_url": "https://github.com/zerotier/chef-zerotier",
+  "issues_url": "https://github.com/zerotier/chef-zerotier/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

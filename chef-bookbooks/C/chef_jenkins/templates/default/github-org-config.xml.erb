@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.branch.OrganizationFolder plugin="branch-api@2.0.9">
+  <actions/>
+  <description><%= @description %></description>
+<% unless @display_name.nil? -%>
+  <displayName><%= @display_name %></displayName>
+<% end -%>
+  <properties>
+<% unless @libraries.empty? -%>
+    <org.jenkinsci.plugins.workflow.libs.FolderLibraries plugin="workflow-cps-global-lib@2.8">
+      <libraries>
+<% @libraries.each do |library, options| %>
+<%= partial_template(library, 'library', options, @cookbook, @include_templates) %>
+<% end %>
+      </libraries>
+    </org.jenkinsci.plugins.workflow.libs.FolderLibraries>
+<% end -%>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.1.4">
+      <dockerLabel><%= @docker_label %></dockerLabel>
+      <registry plugin="docker-commons@1.6">
+        <url><%= @docker_url %></url>
+        <credentialsId><%= @docker_creds_id %></credentialsId>
+      </registry>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+    <jenkins.branch.NoTriggerOrganizationFolderProperty>
+      <branches><%= @auto_build_branch_names %></branches>
+    </jenkins.branch.NoTriggerOrganizationFolderProperty>
+  </properties>
+  <folderViews class="jenkins.branch.OrganizationFolderViewHolder">
+    <owner reference="../.."/>
+  </folderViews>
+  <healthMetrics>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.0.4">
+      <nonRecursive>false</nonRecursive>
+    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+  </healthMetrics>
+  <icon class="jenkins.branch.MetadataActionFolderIcon">
+    <owner class="jenkins.branch.OrganizationFolder" reference="../.."/>
+  </icon>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.0.4">
+    <pruneDeadBranches><%= @discard_old_items %></pruneDeadBranches>
+    <daysToKeep><%= @days_to_keep %></daysToKeep>
+    <numToKeep><%= @num_to_keep %></numToKeep>
+  </orphanedItemStrategy>
+  <triggers>
+    <% if @periodic_scan -%>
+    <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.0.4">
+      <spec><%= @scan_spec %></spec>
+      <interval><%= @scan_interval %></interval>
+    </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+    <% end -%>
+  </triggers>
+  <navigators>
+    <org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator plugin="github-branch-source@2.0.5">
+      <repoOwner><%= @org %></repoOwner>
+      <scanCredentialsId><%= @scan_creds_id %></scanCredentialsId>
+      <checkoutCredentialsId><%= @checkout_creds_id %></checkoutCredentialsId>
+      <% unless @api_url.nil? -%>
+      <apiUri><%= @api_url %></apiUri>
+      <% end -%>
+      <pattern><%= @pattern %></pattern>
+      <% unless @includes.nil? -%>
+      <includes><%= @includes %></includes>
+      <% end -%>
+      <% unless @excludes.nil? -%>
+      <excludes><%= @excludes %></excludes>
+      <% end -%>
+      <buildOriginBranch><%= @build_origin_branch %></buildOriginBranch>
+      <buildOriginBranchWithPR><%= @build_origin_branch_with_pr %></buildOriginBranchWithPR>
+      <buildOriginPRMerge><%= @build_origin_pr_merge %></buildOriginPRMerge>
+      <buildOriginPRHead><%= @build_origin_pr_head %></buildOriginPRHead>
+      <buildForkPRMerge><%= @build_fork_pr_merge %></buildForkPRMerge>
+      <buildForkPRHead><%= @build_fork_pr_head %></buildForkPRHead>
+    </org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator>
+  </navigators>
+  <projectFactories>
+    <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory plugin="workflow-multibranch@2.14"/>
+  </projectFactories>
+</jenkins.branch.OrganizationFolder>

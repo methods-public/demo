@@ -1,0 +1,36 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+  require_chef_omnibus: 12.19.36
+  environments_path: test/environments
+  client_rb:
+    environment: kitchen
+  always_update_cookbooks: true
+
+transport:
+      name: winrm
+      elevated: true
+
+platforms:
+  - name: ubuntu-14.04
+  - name: centos-7.2
+  - name: windows-2012r2
+    driver_config:
+      box: jborean93/WindowsServer2012R2
+      communicator: winrm
+      vm_hostname: false
+
+
+suites:
+  - name: default
+    run_list:
+      - recipe[gnugpg::default]
+    attributes:
+       winCommanderAgent:
+          fqdn: kitchen.local
+          options:
+            NoRebootOnCompletion:

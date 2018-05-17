@@ -1,0 +1,15 @@
+# This file is managed by Chef
+# All changes made locally could and will be overwritten by the client
+# You are warned
+#
+
+# Load the module in Apache
+LoadModule php5_module "<%= node['php']['windows']['path'] %>\\php5apache2_2.dll"
+
+# Set the content type
+<IfModule mime_module>
+AddHandler application/x-httpd-php .php
+</IfModule>
+
+# Set the location where PHP's INI file is located
+PHPIniDir "<%= node['php']['windows']['path'] %>"

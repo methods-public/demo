@@ -1,0 +1,45 @@
+{
+  "name": "patchman",
+  "description": "Linux OS patch management system",
+  "long_description": "Patchman\n========\n\nLinux patch management system. Used to configure and manage OS package updates on Ubuntu and RedHat family OS's.\n\nThis recipe is designed around the assumption of a two stage (test/prod) weekly patching strategy. It is not the best for every situation but I think its a good middle ground for general use.\n\nCurrently only designed to work with Debian and Redhat family of Linux OS's.\n\nRHEL/CentOS\n----------------\nUtilizes yum-cron to determine exclusion list. It then uses cron to run at set time based on environment settings.\n\n\nDebian/Ubuntu\n----------------\nUtilizes unattented-upgrades to determine type of patches, packages for exclusion lists and whether to reboot if needed. It then uses cron to run based on environment settings.\n\n\nAttributes\n----------------\n\nThe define arrays allow for the setting of multiple environments into either the test or prod patching configuration. An example is setting staging and qa under test to share the same patching settings.\n\n`['patchman']['test']['define']`\n\n`['patchman']['prod']['define']`\n\nBy default all nodes default to prod for most restrictive patching unless otherwise configured.\n\n`['patchman']['environment'] = 'prod'`\n\n\nIf you want your patching to send an email you need to ensure a mail service is configured and the following two attributes are set.\n\n`['patchman']['enable']['email'] = true`\n\n`['patchman']['email'] = 'frank@example.com'`\n\nDay and time attributes should be set in crontab format. such as day of week (0 - 6) (Sunday=0), hour/minutes in military time \n\n`['patchman']['test']['day'] = '1'`\n\n`['patchman']['test']['time']['hour'] = '5'`\n\n`['patchman']['test']['time']['minute'] = '45'`\n\nBy default an MOTD file is setup to show scheduled patching state (day and time of next patch). In RHEL/CentOS if a /etc/motd file is already present it will create a motd.tail that needs to then be configured to be read by your MOTD file.\n\n`['patchman']['test']['motd_enabled'] = true`\n\n`['patchman']['prod']['motd_enabled'] = true`\n\n\nExclude list should be setup in the same format as you would use when manually adding it to your system.\n\n`['patchman']['test']['exclude_list'] = []`\n\n`['patchman']['prod']['exclude_list'] = []`\n\nAuto reboot which only works with Debian/Ubuntu is set to false by default\n\n`['patchman']['test']['auto_reboot'] = false`\n\n`['patchman']['prod']['auto_reboot'] = false`\n\nBy default both security and stable updated are ran, these setting allows security updates only (Debian/Ubuntu Only)\n\n`['patchman']['debian']['test']['security_only'] = false`\n`['patchman']['debian']['prod']['security_only'] = false`\n\n\nLicense & Authors\n-----------------\n- Author:: Christopher Coffey (<nomad@cybermerc.org>)\n\n```text\n\nCopyright:: 2014 \n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Christopher Coffey",
+  "maintainer_email": "nomad@cybermerc.org",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

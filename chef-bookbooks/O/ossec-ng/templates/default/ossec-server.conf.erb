@@ -1,0 +1,218 @@
+<!-- OSSEC Server configuration from chef ossec cookbook v.<%= node["ossec"]["version"] %> -->
+<ossec_config>
+  <global>
+    <email_notification><%= node["ossec"]["email_notification"] %></email_notification>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+    <smtp_server><%= node["ossec"]["smtp_server"] %></smtp_server>
+    <email_from><%= node["ossec"]["email_from"] %></email_from>
+    <email_maxperhour><%= node["ossec"]["email_maxperhour"] %></email_maxperhour>
+    <email_idsname><%= node["ossec"]["email_idsname"] %></email_idsname>
+    <memory_size><%=node["ossec"]["memory_size"]%></memory_size>
+    <% node["ossec"]["white_list"].sort_by {|k| k}.each do |ip| -%>
+    <white_list><%= ip %></white_list>
+    <% end -%>
+  </global>
+
+<% node["ossec"]["email_alerts"].sort_by {|k,v| k}.each do |recipient,params|
+     locations = []
+     if params.has_key?('event_location_tag')
+       locations = @ossec_agents.select{
+                     |n| n[:tags].include?(
+                       params[:event_location_tag]
+                     )
+                   }.map {|n2| n2.network.lanip || '172.172.172.172'}
+     elsif params.has_key?('resolved_search')
+       locations = params[:resolved_search]
+     end
+     if locations.count > 0
+       locations.sort_by {|k| k}.each do |location| -%>
+  <email_alerts>
+    <email_to><%= recipient %></email_to>
+    <event_location><%= location %></event_location>
+<%       params.sort_by {|k,v| k}.each do |key, value|
+           unless key =~ /event_location_tag|event_location_search|resolved_search/
+             if key.eql?('tags')
+               value.sort_by {|k| k}.each do |tag| -%>
+    <<%= tag %> />
+<%             end
+             else -%>
+    <<%= key %>><%= value %></<%= key %>>
+<%           end
+           end
+         end -%>
+  </email_alerts>
+<%     end
+     else -%>
+  <email_alerts>
+    <email_to><%= recipient %></email_to>
+<%     params.sort_by {|k,v| k}.each do |key, value|
+         unless key =~ /event_location_tag|event_location_search|resolved_search/
+           if key.eql?('tags')
+             value.sort_by {|k| k}.each do |tag| -%>
+    <<%= tag %> />
+<%           end
+           else -%>
+    <<%= key %>><%= value %></<%= key %>>
+<%         end
+         end
+       end -%>
+  </email_alerts>
+<%   end
+   end -%>
+
+  <rules>
+<% node["ossec"]["load_rules"].each_pair do |name, value|
+     if value -%>
+    <include><%= name %></include>
+<%   end
+   end -%>
+  </rules>
+
+  <remote>
+    <connection><%= node["ossec"]["remote"]["connection"] %></connection>
+    <local_ip><%= node.ipaddress %></local_ip>
+  </remote>
+
+  <syslog_output>
+    <server><%= node["ossec"]["syslog_output"]["ip"] %></server>
+    <port><%= node["ossec"]["syslog_output"]["port"] %></port>
+    <level><%= node["ossec"]["syslog_output"]["min_level"] %></level>
+  </syslog_output>
+
+  <alerts>
+    <log_alert_level><%= node["ossec"]["log_alert_level"] %></log_alert_level>
+    <email_alert_level><%= node["ossec"]["email_alert_level"] %></email_alert_level>
+  </alerts>
+
+  <reports>
+    <category>authentication_success</category>
+    <user type="relation">srcip</user>
+    <title>Daily report: Successful logins</title>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+  </reports>
+
+  <reports>
+    <category>web</category>
+    <title>Daily report: Web</title>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+  </reports>
+
+  <reports>
+    <title>Daily report: Level 7</title>
+    <level>7</level>
+    <srcip type="relation">level</srcip>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+  </reports>
+
+  <reports>
+    <title>Daily report: Level 12</title>
+    <level>12</level>
+    <srcip type="relation">level</srcip>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+  </reports>
+
+  <reports>
+    <category>syscheck</category>
+    <title>Daily report: File changes</title>
+    <location type="relation">filename</location>
+    <% node["ossec"]["email_to"].sort_by {|k| k}.each do |recipient| -%>
+    <email_to><%= recipient %></email_to>
+    <% end -%>
+  </reports>
+
+  <syscheck>
+    <!-- Frequency that syscheck is executed -- default every 2 hours -->
+    <frequency><%= node["ossec"]["syscheck"]["frequency"] %></frequency>
+
+    <!-- Directories to check  (perform all possible verifications) -->
+<% node["ossec"]["syscheck"]["directories"].sort_by {|k,v| k}.each do |directory,params| -%>
+    <directories check_all="yes" report_changes="<%= params[:report_changes] %>" realtime="<%= params[:realtime] %>"><%= directory %></directories>
+<% end -%>
+
+    <alert_new_files><%= node["ossec"]["syscheck"]["alert_new_files"] %></alert_new_files>
+    <auto_ignore><%= node["ossec"]["syscheck"]["auto_ignore"] %></auto_ignore>
+
+    <!-- Files/directories to ignore -->
+<% unless node["ossec"]["syscheck"]["ignore"].nil?
+     node["ossec"]["syscheck"]["ignore"].sort_by {|k,v|}.each do |path,params|
+       if params["use_here"] == true 
+         type = params["type"] || "simple"
+         if type == "simple" -%>
+    <ignore><%= path %></ignore>
+<%       else -%>
+    <ignore type='sregex'><%= path %></ignore>
+<%       end
+       end
+     end
+   end -%>
+  </syscheck>
+
+
+  <rootcheck>
+    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+  </rootcheck>
+
+  <!-- Commands and Active-Responses -->
+<% node["ossec"]["command"].each_pair do |command, params|
+     if params["enabled"] == true && \
+        params["use_here"] == true -%>
+  <command>
+    <name><%= command %></name>
+<%     params.each_pair do |param, value|
+         unless (param == 'enabled' || \
+                 param == 'apply_to' || \
+                 param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end
+       end -%>
+  </command>
+<%   end
+   end %>
+
+<% node["ossec"]["active-response"].each_pair do |command, params|
+     if params["enabled"] == true && \
+        params["use_here"] == true && \
+        (node["ossec"]["command"][command]["enabled"] == true &&
+         node["ossec"]["command"][command]["use_here"] == true) -%>
+  <active-response>
+    <command><%= command %></command>
+<%     params.each_pair do |param, value|
+         unless (param == 'enabled' || \
+                 param == 'apply_to' || \
+                 param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end
+       end -%>
+  </active-response>
+<%   end
+   end -%>
+
+  <!-- Files to monitor (localfiles) -->
+<% node["ossec"]["syslog_files"].sort_by {|k,v| k}.each do |logfile,params|
+     if params["use_here"] == true 
+       log_format = params["log_format"] || "syslog" -%>
+  <localfile>
+    <log_format><%= log_format %></log_format>
+    <location><%= logfile %></location>
+<%     params.each_pair do |param,value|
+         unless(param == 'log_format' || \
+                param == 'apply_to' ||
+                param == 'use_here') -%>
+    <<%= param %>><%= value %></<%= param %>>
+<%       end
+       end -%>
+  </localfile>
+<%   end
+   end -%>
+</ossec_config>

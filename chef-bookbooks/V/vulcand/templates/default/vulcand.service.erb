@@ -1,0 +1,18 @@
+[Unit]
+Description=Vulcand service
+Requires=etcd.service
+After=etcd.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/vulcand/vulcand.conf
+<% if @config.run_user -%>
+User=<%= @config.run_user %>
+<% end -%>
+# set GOMAXPROCS to number of processors
+ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) <%= @config.bin_path %>/vulcand"
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

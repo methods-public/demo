@@ -1,0 +1,25 @@
+language: ruby
+rvm:
+- 2.4
+deploy:
+  edge: true
+  provider: chef-supermarket
+  skip_cleanup: true
+  user_id: criteo
+  cookbook_category: Process Management
+  client_key: ".travis/client.pem"
+  on:
+    tags: true
+    all_branches: true
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_082b236cef80_key -iv $encrypted_082b236cef80_iv
+  -in .travis/client.pem.enc -out .travis/client.pem -d
+env:
+  global:
+  - secure: r8SGQj0jL95nnsZqaCV/LvTfim8sASxPy4oqkbwuMG5ophfWaUIYKZV1UgNY1HsLqWZxC/FTJQkYJ8UBQ44Nh3PUBJHnrfZyeDqXsk1iHY5dUXh94tjaqdMyLMV6l6McOwx3DhRaEkXdQhO9SJLfPKHpiy4B20y/+yYf+HaieZ0=
+  - secure: Nemf+CPPNrKlJDi9JfFg9TN///VaW/G00LqvU5cOMA9xIt0QPnjmstz4ykTKcNr2y+Z+KF8qhfZpKIp3349KCby61oo5+fl1LdDrdWhZgrd2oGUUlRb3o8fPOyO2HLfL9bAFW01QOfVms/3buecF5JKesL7xqdH8+UMNtgxh9pw=
+  - secure: eeTMoo7g/6oxR4YwC6cAUQeMEBxnuAPhFyEKhKs8Ynj4PilNNmeH/5bm9duhzaETVToGaz37gA4aayaqiDi4E/7ZBxZ6ExrVovdOzJoUB/K7TQ80Nbq0haGoXkZkayj/kpgTSlbrOr/jffMgMog4yMtzijizwKWmVXIqprisdKQ=
+  - secure: IDhXtA7lhmNi6avx694iPJCuDJopAfP9Ms4iNe4blTI5H7Xtf+ChUNxA41X583PTeaFJYHuqPJK12zW6tOfpxJfmxLoKCrNud6m2pzIVAcaPQjj14rrZHEA+iejA+cdy7SeanStPQDPsLR6aKwf9qwudQuP1LIEWqxzEmbGxz2A=
+before_install:
+- openssl aes-256-cbc -K $encrypted_39e65b9582b2_key -iv $encrypted_39e65b9582b2_iv
+  -in .travis/travis-ci.pem.enc -out ~/.ssh/id_rsa -d

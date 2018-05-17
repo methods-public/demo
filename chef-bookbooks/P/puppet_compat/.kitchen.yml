@@ -1,0 +1,73 @@
+---
+settings:
+  parallel: true
+
+driver:
+  name: dokken
+  chef_version: latest
+  use_sudo: false
+  privileged: true
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+platforms:
+- name: debian-8
+  driver:
+    image: dokken/debian-8
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
+- name: centos-6
+  driver:
+    image: dokken/centos-6
+    platform: rhel
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y update
+
+- name: centos-7
+  driver:
+    image: dokken/centos-7
+    platform: rhel
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y update
+
+- name: fedora-latest
+  driver:
+    image: dokken/fedora-latest
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN dnf -y upgrade
+
+- name: ubuntu-14.04
+  driver:
+    image: dokken/ubuntu-14.04
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
+- name: ubuntu-16.04
+  driver:
+    image: dokken/ubuntu-16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
+verifier:
+  name: inspec
+
+suites:
+- name: default
+  run_list:
+    - recipe[puppet-test]
+  verifier:
+    inspec_tests:
+    - test/smoke/default
+  attributes:
+

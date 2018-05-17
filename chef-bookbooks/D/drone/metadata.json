@@ -1,0 +1,41 @@
+{
+  "name": "drone",
+  "description": "Installs/Configures Drone",
+  "long_description": "# Drone Cookbook\n[![Build Status](https://travis-ci.org/jmccann/chef-drone.svg?branch=master)](https://travis-ci.org/jmccann/chef-drone)\n\nInstalls [Drone](https://github.com/drone/drone), a CI server built on [Docker](https://www.docker.io).\n\nMore information also @ http://docs.drone.io.\n\n# Requirements\n\n## Chef\n\n* Chef 12+\n\n## Platforms\n\nThis cookbook is tested against:\n\n* Ubuntu 16.04\n* CentOS 7.x\n\n...but it might work on other platforms.\n\n# Usage\n## Recipes\n\n### drone::agent\nInstalls and sets up the drone agent.  Assumes you have already setup and configured docker.\n\nInclude `recipe[drone::agent]` in your run list.\n\n### drone::server\nInstalls the drone server.  Assumes you have already setup and configured docker.\n\nInclude `recipe[drone::server]` in your run list.\n\n### drone::standalone_agent\nInstalls the drone agent.\nAlso will install and configure docker with [jmccann-docker-host cookbook](https://github.com/jmccann/jmccann-docker-host-cookbook).\n\nInclude `recipe[drone::standalone_agent]` in your run list.\n\n### drone::standalone_server\nInstalls the drone server.\nAlso will install and configure docker with [jmccann-docker-host cookbook](https://github.com/jmccann/jmccann-docker-host-cookbook).\n\nInclude `recipe[drone::standalone_server]` in your run list.\n\n## Attributes\n\nAttribute | Description | Type | Default\n----------|-------------|------|--------\n`node['drone']['agent']['config']` | Hash of configuration envvars for Drone Agent | Hash | See [Configuration](#configuration) section below.\n`node['drone']['agent']['repo']` | Docker repo to pull Drone Agent from | String | `'drone/agent'`\n`node['drone']['agent']['network_mode']` | What network mode to start Drone agent with. Default from Docker is `bridge`. | String | `nil`\n`node['drone']['agent']['vault']['items']` | Array of vault items to load from bag for agents | Array | `['drone_secret']`\n`node['drone']['agent']['volumes']` | Volumes to mount to drone from host for agent | Array | `['/var/run/docker.sock:/var/run/docker.sock']`\n`node['drone']['server']['config']` | Hash of configuration envvars for Drone Server | Hash | See [Configuration](#configuration) section below.\n`node['drone']['server']['network_mode']` | What network mode to start Drone server with. Default from Docker is `bridge`. | String | `nil`\n`node['drone']['server']['port']` | Docker port configuration for server.  Binds container 8000 to host 80 and exposes port 9000 by default. | Array | `['80:8000', '9000:9000']`\n`node['drone']['server']['repo']` | Docker repo to pull Drone Server from | String | `'drone/drone'`\n`node['drone']['server']['vault']['items']` | Array of vault items to load from bag for server | Array | `['database_config' 'drone_database_datasource' 'drone_github_client' 'drone_github_secret' 'drone_license' 'drone_secret']`\n`node['drone']['server']['volumes']` | Volumes to mount to drone from host for server | Array | `['/var/lib/drone:/var/lib/drone', '/var/run/docker.sock:/var/run/docker.sock']`\n`node['drone']['vault']['bag']` | Name of vault with secrets | String | `'vault_drone'`.  See [Vault](#vault) section below.\n`node['drone']['version']` | Version of Drone | String | `'0.8'`\n\n## Configuration\n\nDrone is configured by setting certain ENV variables in the agent/server containers.\n\nFor Drone ENV config settings see:\n* http://docs.drone.io/installation/ - Drone 0.8\n\nWith this cookbook you can inject ENV variables to your Drone agent/server\ncontainers by using `node['drone']['agent']['config']`\nand `node['drone']['server']['config']`.  The keys after `config` are the\nENV variable names and the value you set is the value to assign the\nENV variable.\n\nYou can find examples of this in use in the [.kitchen.yml](.kitchen.yml)\n\n## Secrets With Chef-Vault\n\nThis cookbook supports using secrets from chef-vault.  The vault bag to use\nis controlled by `node['drone']['vault']['bag']`.  Vault items that are loaded\nare controlled by the `default['drone']['agent']['vault']['items']`\nand `default['drone']['server']['vault']['items']` attributes.\n\n## HTTPS Config\n\nDrone has the ability to terminate SSL connections.  This cookbook doesn't do\nthis for you but supports being able to do it.\n\n1. Add your cert and private key to the host\n  * https://github.com/zuazo/ssl_certificate-cookbook\n2. Expose the certificates to the Drone container using `node['drone']['server']['volumes']`\n```ruby\nnode['drone']['server']['volumes'] = [\n  \"/var/lib/drone:/var/lib/drone\",\n  \"/var/run/docker.sock:/var/run/docker.sock\",\n  \"/etc/ssl/certs/drone.pem:/etc/ssl/certs/drone.pem\",\n  \"/etc/ssl/private/drone.key:/etc/ssl/private/drone.key\"\n]\n```\n3. Configure Drone to use the cert/key pair\n```ruby\nnode['drone']['config']['drone_server_cert'] = '/etc/ssl/certs/drone.pem'\nnode['drone']['config']['drone_server_key'] = '/etc/ssl/private/drone.key'\n```\n4. Expose Drone service via host port 443\n```ruby\nnode['drone']['server']['port'] = '443:8000'\n```\n\n## Docker\n\nSee `attributes/docker.rb` for more options.\n\n## Testing\n\n* Linting - Rubocop and Foodcritic\n* Spec - ChefSpec\n* Integration - Test Kitchen\n\nTesting requires [ChefDK](https://downloads.chef.io/chef-dk/) be installed using it's native gems.\n\n```\ngem install docker-api\nfoodcritic -f any -X spec .\nrubocop\nrspec --color --format progress\n```\n\nIf you run into issues testing please first remove any additional gems you may\nhave installed into your ChefDK environment.  Extra gems can be found and removed\nat `~/.chefdk/gem`.\n",
+  "maintainer": "Jacob McCann",
+  "maintainer_email": "jmccann.git@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 16.04",
+    "centos": ">= 7.1"
+  },
+  "dependencies": {
+    "chef-vault": "~> 2.1",
+    "docker": "~> 2.15",
+    "jmccann-docker-host": "= 3.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "6.0.0",
+  "source_url": "https://github.com/jmccann/chef-drone",
+  "issues_url": "https://github.com/jmccann/chef-drone/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.0.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

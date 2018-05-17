@@ -1,0 +1,90 @@
+{
+  "name": "scanner-nmap",
+  "description": "Install and control nmap",
+  "long_description": "scanner-nmap Cookbook\n=====================\nThis cookbook installs and controls nmap scanning, either through\nrecipe and attribute or an LWRP\n\nAttributes\n----------\n\n * filename - File for scan output\n * options - Commandline options for nmap \n * target - Target(s) for scanning\n * output - Type of output report\n\nUsage\n-----\n#### scanner-nmap::default\n\nJust include `scanner-nmap` in your node's `run_list` to install nmap:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[scanner-nmap]\"\n  ]\n}\n```\n\n#### scanner-nmap::scan\n\nWill run a scan based on cookbook attributes \n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[scanner-nmap]\"\n  ],\n  \"default_attributes\": {\n    \"scanner-nmap\":{\n      \"scan\":{\n        \"filename\":\"/tmp/my_scan_nmap.xml\",\n        \"target\":\"127.0.0.1\"\n      }\n    }\n  }\n}\n```\n\n#### LWRP\n\n```ruby\nscanner-nmap \"/tmp/my_scan_file-%D-%T.xml\" do\n  target  \"127.0.0.1\"\n  output  :xml\n  options \"-vv -Pn -A\"\nend\n```\n\n\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: Jason Rohwedder <jro@risk.io>\n",
+  "maintainer": "Risk I/O",
+  "maintainer_email": "jro@risk.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "arch": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "filename": {
+      "display_name": "Filename",
+      "description": "File for scan output",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "options": {
+      "display_name": "Options",
+      "description": "Commandline options for nmap",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "target": {
+      "display_name": "Target",
+      "description": "Target(s) for scanning",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "output": {
+      "display_name": "Output",
+      "description": "Type of output report [normal, xml, script kiddie, greppable]",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

@@ -1,0 +1,11 @@
+
+<% @domains.each do |domain| -%>
+zone "<%= domain %>" {
+        type master;
+        notify yes;
+        file "<%= node[:gitzone][:user] %>/<%= domain %>";
+};
+<% end -%>
+
+
+

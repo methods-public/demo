@@ -1,0 +1,81 @@
+#
+# Vulcand config file
+#
+# Copyright 2016, Petr Belyaev <upcfrost@gmail.com>
+#
+
+<% if @config.apiInterface -%>
+APIINTERFACE="<%= @config.apiInterface %>"
+<% end -%>
+<% if @config.apiPort -%>
+APIPORT="<%= @config.apiPort %>"
+<% end -%>
+<% if @config.certPath -%>
+CERTPATH="<%= @config.certPath %>"
+<% end -%>
+<% if @config.default_listener -%>
+DEFAULT_LISTENER="<%= @config.default_listener %>"
+<% end -%>
+<% if @config.endpointDialTimeout -%>
+ENDPOINTDIALTIMEOUT="<%= @config.endpointDialTimeout %>"
+<% end -%>
+<% if @config.endpointReadTimeout -%>
+ENDPOINTREADTIMEOUT="<%= @config.endpointReadTimeout %>"
+<% end -%>
+<% if @config.etcd -%>
+ETCD="<%= @config.etcd %>"
+<% end -%>
+<% if @config.etcdCaFile -%>
+ETCDCAFILE="<%= @config.etcdCaFile %>"
+<% end -%>
+<% if @config.etcdCertFile -%>
+ETCDCERTFILE="<%= @config.etcdCertFile %>"
+<% end -%>
+<% if @config.etcdConsistency -%>
+ETCDCONSISTENCY="<%= @config.etcdConsistency %>"
+<% end -%>
+<% if @config.etcdKey -%>
+ETCDKEY="<%= @config.etcdKey %>"
+<% end -%>
+<% if @config.etcdKeyFile -%>
+ETCDKEYFILE="<%= @config.etcdKeyFile %>"
+<% end -%>
+<% if @config.etcdSyncIntervalSeconds -%>
+ETCDSYNCINTERVALSECONDS="<%= @config.etcdSyncIntervalSeconds %>"
+<% end -%>
+<% if @config.interface -%>
+INTERFACE="<%= @config.interface %>"
+<% end -%>
+<% if @config.log -%>
+LOG="<%= @config.log %>"
+<% end -%>
+<% if @config.logSeverity -%>
+LOGSEVERITY="<%= @config.logSeverity %>"
+<% end -%>
+<% if @config.pidPath -%>
+PIDPATH="<%= @config.pidPath %>"
+<% end -%>
+<% if @config.port -%>
+PORT="<%= @config.port %>"
+<% end -%>
+<% if @config.readTimeout -%>
+READTIMEOUT="<%= @config.readTimeout %>"
+<% end -%>
+<% if @config.sealKey -%>
+SEALKEY="<%= @config.sealKey %>"
+<% end -%>
+<% if @config.serverMaxHeaderBytes -%>
+SERVERMAXHEADERBYTES="<%= @config.serverMaxHeaderBytes %>"
+<% end -%>
+<% if @config.serverReadTimeout -%>
+SERVERREADTIMEOUT="<%= @config.serverReadTimeout %>"
+<% end -%>
+<% if @config.serverWriteTimeout -%>
+SERVERWRITETIMEOUT="<%= @config.serverWriteTimeout %>"
+<% end -%>
+<% if @config.statsdAddr -%>
+STATSDADDR="<%= @config.statsdAddr %>"
+<% end -%>
+<% if @config.statsdPrefix -%>
+STATSDPREFIX="<%= @config.statsdPrefix %>"
+<% end -%>

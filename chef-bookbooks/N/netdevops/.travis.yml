@@ -1,0 +1,12 @@
+---
+language: ruby
+rvm:
+  - 2.1.5
+script:
+  - bundle exec foodcritic --epic-fail any .
+  - bundle exec rubocop .
+  - bundle exec tailor
+notifications:
+  email:
+    on_success: never
+    on_failure: never

@@ -1,0 +1,120 @@
+{
+  "hdfs": {
+     "user" : "jdowling"
+  },
+  "hops": {
+     "nn": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "dn": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "rm": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "nm": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "jhs": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "yarn": {
+        "user" : "jdowling"
+      },
+     "mr": {
+        "user" : "jdowling"
+     },
+     "cluster": "vagrant",
+     "use_hopsworks": "true"
+  },
+  "hadoop": {
+     "yarn":{
+        "user" : "jdowling"
+     },
+     "mr":{
+        "user": "jdowling"
+     },
+     "nn": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "dn": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "rm": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "nm": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "jhs": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "cluster": "vagrant"
+  },
+  "ndb": {
+     "ndbd": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "mgmd": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "mysqld": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "memcached": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "public_ips": ["127.0.0.1"],
+     "enabled": "true"
+  },
+  "spark": {
+     "user": "jdowling",
+     "master": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "worker": {
+        "private_ips": ["127.0.0.1"]
+     }
+  },
+  "flink": {
+     "jobmanager": {
+        "private_ips": ["127.0.0.1"]
+     },
+     "taskmanager": {
+        "private_ips": ["127.0.0.1"]
+     }
+  },
+  "elastic": {
+     "default": {
+        "private_ips": ["127.0.0.1"]
+     }
+  },
+  "zeppelin": {
+     "default": {
+        "private_ips": ["127.0.0.1"]
+     }
+  },
+  "glassfish": {
+     "group": "jdowling"
+  },
+  "hopsworks": {
+     "user": "jdowling",
+     "default": {
+          "private_ips": ["127.0.0.1"],
+          "user": "admin@kth.se",
+          "password": "admin"
+      },
+     "admin": {
+          "user": "adminuser",
+          "password": "adminpw"
+      },
+     "private_ips": ["127.0.0.1"],
+     "public_ips": ["127.0.0.1"]
+  },
+  "private_ips": ["127.0.0.1"],
+  "public_ips": ["127.0.0.1"],
+  "run_list": [ 
+    "recipe[hopsworks::install]",
+    "recipe[hopsworks::default]"
+  ]
+}

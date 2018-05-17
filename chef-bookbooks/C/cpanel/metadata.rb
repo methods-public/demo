@@ -1,0 +1,13 @@
+name             'cpanel'
+maintainer       'V Aretakis'
+maintainer_email 'vassilis@onlab.xyz'
+license          'All rights reserved'
+description      'Configures cpanel, installs dns_only'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.6'
+supports         'centos', '>= 7.0'
+supports         'redhat', '>= 7.0'
+supports         'cloudlinux', '>= 7.0'
+source_url       'https://gitlab.com/onlab_chef/cpanel'
+issues_url       'https://gitlab.com/onlab_chef/cpanel/issues'
+license          'Apache v2.0'

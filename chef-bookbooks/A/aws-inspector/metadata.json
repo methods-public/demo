@@ -1,0 +1,42 @@
+{
+  "name": "aws-inspector",
+  "description": "Installs/Configures aws-inspector",
+  "long_description": "# aws-inspector\n\nInstall and manage AWS Inspector agent.\n\n## Usage\n\nAdd the recipe to the node or the role files where you want AWS\ninspector installed. If you want to remove AWS-inspector from a\nparticular node, set inspector.enabled attribute to false in the node\nfile and it will be removed.\n\n    ```\n    {\n        \"name\": \"aws-inspector.test\",\n        \"chef_environment\": \"testing\",\n        \"run_list\": [\n            \"recipe[aws-inspector]\"\n        ],\n        \"normal\": {\n            \"inspector\": {\n                \"enabled\": true\n            }\n        }\n        ...\n    }\n    ```\n\n## Supported Operating Systems\n\n- Debian Jessie\n- Ubuntu\n- CentOS 7\n- Amazon Linux\n\n## Depends\n\n- apt\n- yum\n\n## Contributions\n\n## Quality Checks\n\nFoodcritic:\n- All foodcritic recommendations followed except that I use symbols\n  rather than strings to access node attributes (FC001)\n\n    ```\n    $ sudo gem install foodcritic\n    $ foodcritic <path_to_recipe>\n    ```\n\nKitchen:\n- Use Kitchen to test the cookbook against a real system. Preferably an\n  instance machine with Ubuntu or CentOS. Note that in `kitchen.yml`, it\n  is necessary to edit `aws_ssh_key_id` and `ssh_key` to point to an SSH\n  key pair in your account.\n\n    ```\n    $ bundle install\n    $ kitchen test\n    # =======\n    $ sudo gem install test-kitchen kitchen-vagrant\n    $ kitchen init\n    $ kitchen diagnose --all\n    ```\n\n- Running converge\n    ```\n    $ kitchen converge default-ubuntu-1404\n    ```\n\n- I use `zsh` inplace of `bash`. I had to do this to make kitchen work:\n\n    ```\n    $ eval \"$(chef shell-init zsh)\"\n    ```\n\nTODO: Unit tests using RSpec and ChefSpec\n\n## License\n\nLicensed under MIT license. License text available in LICENSE.txt\n\nWhile the cookbook itself is licensed under MIT, the AWS installer\nscript, the AWS inspector agent binary and files are licensed under\nother licenses which may be more restrictive than MIT including GPLv2,\nApache, PCRE2 and BSD licenses. Please see the following file post\ninstallation for the license text pertaining to AWS artefacts.\n\n    /opt/aws/awsagent/LICENSE\n",
+  "maintainer": "eternaltyro",
+  "maintainer_email": "eternaltyro@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": "~> 12.04",
+    "redhat": ">= 0.0.0",
+    "centos": "~> 6.5",
+    "amazon": "~> 2015.09"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/eternaltyro/chef-aws-inspector",
+  "issues_url": "https://github.com/eternaltyro/chef-aws-inspector/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

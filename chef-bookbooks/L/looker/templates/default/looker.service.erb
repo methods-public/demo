@@ -1,0 +1,15 @@
+[Unit]
+Description=Looker Application
+After=network.target
+
+[Service]
+ExecStart=<%= @looker_script %> start
+ExecStop=<%= @looker_script %> stop
+Type=simple
+PIDFile=<%= File.join(@looker_dir, '.tmp', 'looker.pid') %>
+User=<%= @looker_user %>
+WorkingDirectory=<%= @looker_dir %>
+TimeoutStartSec=500
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+<% @known_hosts.each do |host| %>
+Host <%= host %>
+Hostname <%= host %>
+<% if host == 'github.com' -%>
+User git
+<% end -%>
+IdentityFile <%= @identity_file %>
+
+<% end %>

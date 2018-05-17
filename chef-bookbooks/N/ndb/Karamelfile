@@ -1,0 +1,13 @@
+dependencies: 
+  - recipe: ndb::ndbd
+    global:  
+      - ndb::mgmd
+  - recipe: ndb::mysqld
+    global:  
+      - ndb::ndbd
+  - recipe: ndb::memcached
+    global:  
+      - ndb::mysqld
+  - recipe: ndb::bench
+    global:  
+      - ndb::mysqld

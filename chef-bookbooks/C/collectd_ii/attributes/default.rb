@@ -1,0 +1,17 @@
+default['collectd_ii']['version'] = '5.5.1'
+default['collectd_ii']['dir'] = '/opt/collectd'
+default['collectd_ii']['plugins_conf_dir'] = ::File.join(node['collectd_ii']['dir'], 'etc', 'conf.d')
+default['collectd_ii']['url'] = "http://collectd.org/files/collectd-#{node['collectd_ii']['version']}.tar.gz"
+default['collectd_ii']['checksum'] = '4dba51d6243ff77858fff1ffbefe6f6528681ff219051f122aa2727e26271079'
+default['collectd_ii']['interval'] = 10
+default['collectd_ii']['read_threads'] = 5
+default['collectd_ii']['write_queue_limit_high'] = 1_000_000
+default['collectd_ii']['write_queue_limit_low'] = 800_000
+default['collectd_ii']['collect_internal_stats'] = false
+default['collectd_ii']['name'] = node['fqdn']
+default['collectd_ii']['fqdnlookup'] = true
+default['collectd_ii']['plugins'] = Mash.new
+default['collectd_ii']['python_plugins'] = Mash.new
+default['collectd_ii']['graphite_role'] = 'graphite'
+default['collectd_ii']['graphite_ipaddress'] = ''
+default['collectd_ii']['configure_flag'] = ''

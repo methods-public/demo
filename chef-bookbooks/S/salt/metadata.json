@@ -1,0 +1,62 @@
+{
+  "name": "salt",
+  "description": "Installs and configures Salt",
+  "long_description": "# Salt Cookbook\n\n[![Build Status](https://travis-ci.org/shortdudey123/chef-salt.svg)](https://travis-ci.org/shortdudey123/chef-salt)\n\n> Because every Chef needs a little Salt.\n\n*Improved Remote Execution for Open Source Chef*\n\nInstall [Salt](http://www.saltstack.com) master and/or minion.\n\n## Why would anyone ever want to use both Salt and Chef?\n\nI'm glad you asked!\n\nOpen Source Chef is weak in one key area that Salt just so happens to be very\nstrong: remote execution. `knife ssh \"name:*\" \"sudo chef-client\"` really doesn't\nscale very well.\n\nThink of Salt as the Push Jobs plugin for Open Source Chef. They're even based\non the same basic messaging technology: ZeroMQ.\n\nAnd as of SaltStack 2014.7, they have significantly improved [Chef integration](http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.chef.html#module-salt.modules.chef).\nWant to do a chef client run on all your nodes: `salt \"*\" chef.client` Then, you\ncan use the job management commands to check on the status of your run.\n\nAnd since you made or are hopefully about to make the wise decision to use this\ncookbook, you'll get even better Chef-Salt integration. The cookbook will\nautomatically sync up the metadata (grains in Salt parlance) between Chef and\nSalt to allow you to filter on role or environment or custom markers.\n\n## Requirements\n\n### Platforms\n\nThis cooked has been confirmed to work on:\n\n* Ubuntu 12.04 or later\n* CentOS 5+, RedHat 5+, Scientific Linux 5+\n* Fedora 21+\n* Debian 7+ (Wheezy)\n\n### Dependencies\n\n* compat_resource\n* ohai\n\n## Attributes\n\n### General\n* `node['salt']['version']` - Package version to be installed (defaults to nil for latest). This attribute applies to both the master and minion, since you'll want to keep their versions synced up\n* `node['salt']['role']['master']` - Salt master role (defaults to salt_master)\n* `node['salt']['role']['minion']` - Salt minion role (defaults to salt_minion)\n\n### Minion\n* `node['salt']['minion']['master']` - Address or list of masters, if not using built-in search functionality.\n* `node['salt']['minion']['environment']` - The environment in which to search for a master; or `nil` to search all environments (defaults to the node's environment)\n* `node['salt']['minion']['config_cookbook']` and `node['salt']['minion']['config_template']` allow you to override the template used to generate the minion config file `/etc/salt/minion`\n* `node['salt']['minion']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)\n\n* `node['salt']['minion']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/minion.html)\n\n### Master\n* `node['salt']['master']['api']['enable']` - install salt-api package (defaults to `false`)\n* `node['salt']['master']['api']['install_opts']` - (defaults to `nil`)\n* `node['salt']['master']['api']['package']` - (defaults to `salt-api`)\n* `node['salt']['master']['api']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html)\n* `node['salt']['minion']['environment']` - The environment in which to search for minions; or `nil` to search all environments (defaults to the node's environment)\n* `node['salt']['master']['config_cookbook']` and `node['salt']['master']['config_template']` allow you to override the template used to generate the master config file `/etc/salt/master`\n* `node['salt']['master']['install_opts']` allows you to specify install options for the package install statement (ex. '--nogpgcheck', but defaults to nil)\n\n* `node['salt']['master']['config']` - contains a hash of config values (see https://docs.saltstack.com/en/latest/ref/configuration/master.html)\n\n\nSee attribute files for more supported attributes.\n\n## Recipes\n\n### default\n\nNothing; reserved to include future LWRPs.\n\n### master\n\nInstall Salt master using OS package manager.\n\n### minion\n\nInstall Salt minion using OS package manager.\n\n\n## Resources/Providers\n\nNone at this time.\n\n## Usage\n\nDefine two roles named salt_master and salt_minion, which include the corresponding\nrecipes. The nodes will automatically discover each other within the same environment\n(when using Chef Server).\n\nIf you want your Salt Masters to operate across all environments, set\n`node['salt']['minion']['environment']` to `nil` for all minions; and set\n`node['salt']['master']['environment']` to `nil` for all masters.\n\nThe cookbook will automatically manage the key exchange between minions and masters.\nNote that once a new minion is setup, it will still be unable to communicate with the master(s)\nuntil the next Chef run on the master(s). The minion recipe registers the minion's public key\nand the master recipe then accepts any new keys that are registered with Chef.\n\n## Using Salt\n\n### Targetting Minions\n\nThis cookbook attempts to keep metadata synchronized between Chef and Salt.\n\nMinions are automatically tagged (and updated on every chef-client run) with the\nfollowing two standard Salt [grains](http://docs.saltstack.com/en/latest/topics/targeting/grains.html):\n\n* *environment* contains the chef environment of the node: `salt -G \"environment:production\" ...`\n* *role* contains a complete expanded list of roles assigned to the node (this includes roles within roles): `salt -G \"role:salt_minion\" ...`\n\nIn addition, you can define your own custom grains using the `node['salt']['minion']['grains']` attribute. See above.\n\n## License and Author\n\n* Author:: Daryl Robbins\n* Author:: Grant Ridder\n\n```\nCopyright:: 2016, Grant Ridder\nCopyright:: 2014, Daryl Robbins\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Grant Ridder",
+  "maintainer_email": "shortdudey123@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 12.04",
+    "fedora": ">= 19.0",
+    "debian": ">= 7.0",
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "scientific": ">= 6.0",
+    "amazon": ">= 6.0",
+    "oracle": ">= 6.0"
+  },
+  "dependencies": {
+    "compat_resource": ">= 12.14.6",
+    "ohai": ">= 4.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "salt::master": "Installs and configures a Salt master",
+    "salt::minion": "Installs and configures a Salt minion"
+  },
+  "version": "4.0.0",
+  "source_url": "https://github.com/shortdudey123/chef-salt",
+  "issues_url": "https://github.com/shortdudey123/chef-salt/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

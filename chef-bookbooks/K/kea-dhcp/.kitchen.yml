@@ -1,0 +1,78 @@
+#
+# Copyright (c) 2015-2016 Sam4Mobile, 2017 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Suites scheduler
+#   <% require "#{File.dirname(__FILE__)}/test/kitchen_command.rb" %>
+# - Create kitchen network if missing
+#   <% net_test = '! docker network ls | grep kitchen-dhcp >/dev/null 2>&1' %>
+#   <% net_create = 'docker network create --driver bridge kitchen-dhcp' %>
+#   <% `if #{net_test}; then #{net_create}; fi` %>'
+# - docker command with 'docken network' injection
+#   <% cmd = '/usr/lib/systemd/systemd; docker network connect kitchen-dhcp' %>
+
+driver:
+  name: docker_cli
+  volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+  instance_host_name: true
+  network: bridge --cap-add=NET_ADMIN
+  security_opt: seccomp=unconfined
+  skip_preparation: true
+  require_chef_omnibus: false
+  build_pull: true
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+
+suites:
+  # Install a dhcp server
+  - name: server
+    driver:
+      container_name: server-dhcpd
+      command: <%= cmd %> server-dhcpd
+    run_list:
+      - role[kea-dhcp]
+    attributes:
+      kea-dhcp:
+        package_retries: 1
+
+  # A node
+  - name: node
+    driver:
+      container_name: node-dhcpd
+      command: <%= cmd %> node-dhcpd
+    run_list:
+      - recipe[prometheus-platform]
+      - role[kea-dhcp]
+    attributes:
+      kea-dhcp:
+        package_retries: 1
+      prometheus-platform:
+        components:
+          node_exporter:
+            install?: true
+            cli_opts:
+              collector.textfile.directory: |
+                /var/opt/node_exporter

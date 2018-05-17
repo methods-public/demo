@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.3
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+# splunk_install is unavoidably bloated with windows user guards.
+# This can probably be removed in the future.
+Metrics/ClassLength:
+  Max: 120
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Metrics/MethodLength:
+  Max: 40
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Documentation:
+  Enabled: false

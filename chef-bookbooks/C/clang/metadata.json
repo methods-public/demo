@@ -1,0 +1,41 @@
+{
+  "name": "clang",
+  "description": "Installs clang from package or source.",
+  "long_description": "Installs clang from package or source.",
+  "maintainer": "John Bellone (<jbellone@bloomberg.net>)",
+  "maintainer_email": "jbellone@bloomberg.net",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": "~> 5.8",
+    "redhat": "~> 5.8",
+    "ubuntu": "= 12.04"
+  },
+  "dependencies": {
+    "ark": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1"
+}

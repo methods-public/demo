@@ -1,0 +1,20 @@
+#Configured by: chef script on a date and at a time
+db.password=<%= node['mysql']['ssc_database_user_password'] %>
+db.timeBetweenEvictionRunsMillis=1000000
+jdbc.url=<%= node['mysql']['db_connection_string'] %>
+db.maxIdle=50
+db.username=<%= node['mysql']['ssc_database_user'] %>
+db.maxWait=60000
+db.removeAbandoned=true
+db.availableDrivers=<%= node['mysql']['db_driver'] %>
+db.driver.class=<%= node['mysql']['db_driver'] %>
+db.logAbandoned=true
+db.defaultAutoCommit=false
+db.minEvictableIdleTimeMillis=1000000
+db.removeAbandonedTimeout=3000
+db.validationQuery=
+db.driverJars=<%= node['mysql']['db_driver_jars'] %>
+db.maxActive=100
+db.connection.properties=
+db.dialect=<%= node['mysql']['db_dialect'] %>
+db.like.specialCharacters=<%= node['mysql']['db_like_specialchars'] %>

@@ -1,0 +1,21 @@
+engines:
+  rubocop:
+    enabled: true
+    checks:
+      Rubocop/Style/StringLiterals:
+        enabled: false
+      Rubocop/Style/PercentLiteralDelimiters:
+        enabled: false
+       Rubocop/Style/SingleSpaceBeforeFirstArg:
+        enabled: false
+      Rubocop/Metrics/LineLength:
+        enabled: false
+      Rubocop/Style/HashSyntax:
+        enabled: false
+      Rubocop/Style/LeadingCommentSpace:
+        enabled: false
+      Rubocop/Style/BracesAroundHashParameters:
+        enabled: false
+ratings:
+  paths:
+  - "**.rb"

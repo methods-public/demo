@@ -1,0 +1,51 @@
+{
+  "name": "fb_rsync",
+  "description": "Installs/Configures rsync",
+  "long_description": "fb_rsync Cookbook\n====================\nManages rsync, either as a client, or a server.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_rsync']['rsync_command']\n* node['fb_rsync']['rsync_server']\n* node['fb_rsync']['rsyncd.conf']\n* node['fb_rsync']['server']['enabled']\n* node['fb_rsync']['server']['start_at_boot']\n\nUsage\n-----\nThe `fb_rsync::client` recipe installs rsync, and sets the\n`node['fb_rsync']['rsync_server']` node key. This key contains the rsync\nservers that a client can connect to. This is required in `fb_init`, which\nmeans any machine can be an rsync client.\n\n### Being an rsync client\nThe `fb_rsync` LWRP can be used to run an rsync with configurable options.\n\n    fb_rsync '/usr/facebook/ops/scripts/' do\n      source '::ops_scripts/'\n      extraopts '--prune-empty-dirs'\n      sharddelete true\n      sharddeleteexcluded false\n      timeout 60\n      maxdelete 100\n    end\n\nThe resulting rsync is configurable but you do not have full control of all\neventual command line options. The default rsync command will run with the\nfollowing as required options:\n`-avz --timeout --partial --partial-dir=.rsync-partial`\nThe verbose output is only visible when running chef at the debug log level.\n\n* The destination is set by the resource name (or the destination parameter).\n* The source may be a module as shown and the default `rsync_server` will be\nused, or you may include the full server name and module. Note that in this\ncase the LWRP will fail if `rsync_server` is not set.\n* The timeout parameter defaults to 60 seconds. A timeout will always be used.\n* The extraopts parameter listed above is optional and is additional raw\noptions to append to the command line for rsync. If you add crazy stuff here\nit could be possible to undermine how this LWRP works. If you do this, run chef\nwith debug and validate that the resulting command line works as you expect.\nYou should avoid extraopts as much as possible and particularly don't include\noptions controlled by other paramters such as `--delete`, `--max-deletes`,\n`--delete-excluded`.\n* `sharddelete` defaults to false. When set to true, it will use the node's\nshard to pick 1 hour out of the day during which the rsync will include the\n`--delete` and `--max-delete` options. This is to allow for cleanup yet\nprevents accidentally mass deleting an important directory (such as if the\nsource is incorrect). The logs will indicate if deletes were skipped or\napplied.\n* `maxdelete` is optional and defaults to `100`. This will be the value for the\n`--max-delete` option used by sharddelete. Hitting the max will result in a\nchef run failure with a custom exception. This is to make mass deletes visible.\nYou can disable use of `--max-delete` by setting this parameter to `nil`\n\nNote: An `rsync --dry-run` is used when `sharddelete` with `max-delete` will\nhappen. If the real rsync would fail due to the `max-delete` limit, we refuse\nto do the rsync at all and throw an exception. This way, deletes are\nall-or-nothing.\n\n* If you are using custom include and exclude options, you may want to use the\n`--delete-excluded` option. Sharddelete supports this by additionally adding\nthe `sharddeleteexcluded` parameter which defaults to `false`. Set it to `true`\nalong with the `sharddelete` parameter and you'll get `--delete-excluded`\nduring the hour that sharded deletes happen.\n\n### Deprecated client usage\nThe LWRP is the preferred way to use rsync, and it uses\n`node['fb_rsync']['rsync_server']` to find the rsync server to connect to.  If\nthe LWRP does not offer the features you need, you may have to build it\nyourself.\n\nIf you want to mostly use the default rsync options, there is an\n`FB::Rsync.cmd` macro that expands to an rsync commandline. If your source path\nstarts with \"::\", the `rsync_server` attribute will be added to the front for\nyou:\n\n    execute 'get_dhcp_configs' do\n      command FB::Rsync.cmd(\"::#{rsync_path}\", dhcp_dir)\n      action :run\n    end\n\nSimilar to the LWRP, the macro will fail in this case if `rsync_server` is not\nset. If that is not sufficient, you can construct the commandline from scratch\nlike this:\n\n    execute 'get_dhcp_configs' do\n      command \"rsync -az #{node['fb_rsync']['rsync_server']}::#{rsync_path}\" +\n        \" #{dhcpd_dir}\"\n      action :run\n    end\n\n### Being an rsync server\nThe `fb_rsync::server` recipe will install `/etc/init.d/rsyncd`, manage running rsync\nin daemon mode, and generate an `/etc/rsyncd.conf`.\n\nIf you want to control how the service is managed:\n* `node['fb_rsync']['server']['enabled']` defaults to `true` and starts the\nservice, setting it to `false` will stop the service.\n* `node['fb_rsync']['server']['start_at_boot']` defaults to `true` and\nenables the service at boot. Setting it to `false` will disable the service at\nboot. This means chef will need to run to start the service.\n\nThe next step in configuring an rsync server will be setting up the rsync\nmodules. Modules are defined within\n`node['fb_rsync']['rsyncd.conf']['modules']`. All of the module's options will\nthen be enumerated as part of the module's hash, for example:\n\n    default['fb_rsync']['rsyncd.conf'] = {\n      'modules' => {\n        'scripts' => {\n           'comment' => 'Master file repository for slave hosts',\n           'exclude' => '.svn',\n           'hosts allow' => 'cc[0-9][0-9].* routablecc[0-9][0-9][0-9].*',\n           'list' => 'no',\n           'path' => '/usr/local/masterfiles/PROD'\n        }\n      }\n    }\n\nOnce you have defined your module you'll need to\nadd the module name to the `node['fb_rsync']['rsyncd.conf']['enabled_modules']` array. You\ncan do so by defining the following attribute in your role:\n\n    node.default['fb_rsync']['rsyncd.conf']['enabled_modules'] << 'scripts'\n\nAt this point when chef executes the `fb_rsync` recipe `/etc/rsyncd.conf`\nwill be generated, and the recipe will manage running the rsync service in\ndaemon mode.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,11 @@
+name             'sda-agent'
+maintainer       'Serena Software'
+maintainer_email 'klee@serena.com'
+license          'Apache v2.0'
+description      'Installs/Configures a Serena Deployment Automation Agent'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.1'
+depends          'java'
+supports         'ubuntu'
+supports         'redhat'
+supports         'centos'

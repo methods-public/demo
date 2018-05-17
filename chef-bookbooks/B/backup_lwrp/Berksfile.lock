@@ -1,0 +1,33 @@
+DEPENDENCIES
+  apt
+  backup
+    path: .
+    metadata: true
+  backup_test
+    path: test/cookbooks/backup_test
+  build-essential
+  minitest-handler
+  yum
+
+GRAPH
+  apt (6.0.0)
+  backup (0.3.3)
+    build-essential (>= 0.0.0)
+    cron (>= 0.0.0)
+  backup_test (0.1.0)
+    backup (>= 0.0.0)
+  build-essential (8.0.0)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  chef_handler (2.1.0)
+  cron (3.0.0)
+  mingw (2.0.0)
+    seven_zip (>= 0.0.0)
+  minitest-handler (1.5.0)
+    chef_handler (>= 0.0.0)
+  ohai (5.0.0)
+  seven_zip (2.0.2)
+    windows (>= 1.2.2)
+  windows (2.1.1)
+    ohai (>= 4.0.0)
+  yum (5.0.0)

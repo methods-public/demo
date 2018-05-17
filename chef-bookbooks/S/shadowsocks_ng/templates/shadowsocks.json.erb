@@ -1,0 +1,10 @@
+{
+    "server": "0.0.0.0",
+    "server_port": <%= node['shadowsocks_ng']['server_port'] %>,
+    "local_address": "127.0.0.1",
+    "local_port": 1080,
+    "password": "<%= node['shadowsocks_ng']['password'] %>",
+    "timeout": 300,
+    "method": "<%= node['shadowsocks_ng']['method'] %>",
+    "fast_open": false
+}

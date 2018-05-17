@@ -1,0 +1,48 @@
+# This file is managed by Chef, using the gitlab_omnibus cookbook.
+# Editing this file by hand is highly discouraged!
+
+external_url '<%= node['gitlab_omnibus']['external_url'] %>'
+<% if node['gitlab_omnibus']['registry_external_url'] -%>
+registry_external_url '<%= node['gitlab_omnibus']['registry_external_url'] %>'
+<% end -%>
+<% if node['gitlab_omnibus']['git_data_dir'] -%>
+git_data_dir '<%= node['gitlab_omnibus']['git_data_dir'] %>'
+<% end -%>
+
+<%
+%w(
+  gitlab_rails
+  user
+  unicorn
+  sidekiq
+  gitlab_shell
+  postgresql
+  redis
+  web_server
+  nginx
+  logging
+  logrotate
+  omnibus_gitconfig
+  high_availability
+  gitlab_ci
+  ci_unicorn
+  ci_sidekiq
+  ci_redis
+  ci_nginx
+  registry
+  registry_nginx
+).each do |variable|
+  node['gitlab_omnibus'][variable].sort.each do |k,v|
+    value = if v.is_a?(String)
+              "'#{v}'"
+            elsif v.nil?
+              'nil'
+            else
+              v
+            end
+-%>
+<%= variable %>['<%= k %>'] = <%= value %>
+<%
+  end
+end
+-%>

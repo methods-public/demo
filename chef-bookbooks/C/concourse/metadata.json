@@ -1,0 +1,43 @@
+{
+  "name": "concourse",
+  "description": "Installs concourse for Vagrant currently",
+  "long_description": "###concourse cookbook\n\nThis is in the very beginning stages proceed with caution.\n\nThe cookbook is standing up a Vagrant CentOS box running concourse as a service.\n\nAfter vagrant up concourse will be running at 192.168.50.205:8080\n\nUser: myuser\nPass: mypass\n\n##Todo list is very long but here is my next 4 items coming up. \n\n* Add chefspec tests\n* Get this building in TravisCI\n* Add test kitchen\n* Add lwrp for flycli with some very basic resources (in progress)\n\n| Attribute | Description | Default | Type | Required | \n| ------------- | ----------- | ----------- | ----------- |----------- |\n| ['concourse']['version'] | Version of Concourse CI | 1.0.0 | string | yes |\n| ['concourse']['download']['url'] | URL to Concourse binary | https://github.com/concourse/concourse/releases/download/v#{concourse['version']}/concourse_linux_amd64 | string | yes |\n| ['concourse']['home']['directory'] | Directory to store Concourse binary | /usr/local/bin | string | yes |\n| ['concourse']['external']['url'] | URL used to connect to Concourse CI | http://127.0.0.1:8080 | string | yes |\n| ['concourse']['fly']['download']['url']| URL to fly binary | https://github.com/concourse/fly/issues/65 | string | no |\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (i.e. `add-new-recipe`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request\n\n## License and Authors\n\nAuthor:: iJet Technologies Engineering (dustin.vanbuskirk@ijettechnologies.com)",
+  "maintainer": "iJet Technologies",
+  "maintainer_email": "dustin.vanbuskirk@ijettechnologies.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 7.0"
+  },
+  "dependencies": {
+    "database": "~> 4.0",
+    "iptables": "~> 2.2",
+    "firewalld": "~> 1.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.3",
+  "source_url": "",
+  "issues_url": ""
+}

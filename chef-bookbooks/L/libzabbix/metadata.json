@@ -1,0 +1,43 @@
+{
+  "name": "libzabbix",
+  "description": "Adds Zabbix Server related LWRPs",
+  "long_description": "This cookbook adds LWRPs that can be used to dynamically add objects to the zabbix server.\n\n## USAGE\ninclude recipe in your metadata.rb file\n\n# LWRPs\nCurrently the LWRPs have not been completely ported to the new zabbix-agent cookbook.\n\n* libzabbix\\_api\\_call\n* libzabbix\\_application\n* libzabbix\\_discovery\\_rule\n* libzabbix\\_graph\n* libzabbix\\_host\\_group\n* libzabbix\\_hostgroup\n* libzabbix\\_host\n* libzabbix\\_interface\n* libzabbix\\_item\n* libzabbix\\_source\n* libzabbix\\_template\n* libzabbix\\_trigger\\_dependency\n* libzabbix\\_trigger\n* libzabbix\\_user\n\n\n# TODO\n\n* LWRP clean up, port and testing\n* Update documentation\n\n# CHANGELOG\n### 0.1.0\n  * Initial conversion\n\n### 0.8.0 forked from https://github.com/laradji/zabbix see this page for historical change log\n",
+  "maintainer": "Bill Warner",
+  "maintainer_email": "bill.warner@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 10.04",
+    "debian": ">= 6.0",
+    "redhat": ">= 5.0",
+    "centos": ">= 5.0",
+    "oracle": ">= 5.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+    "zabbix-agent": ">= 0.0.0"
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0"
+}

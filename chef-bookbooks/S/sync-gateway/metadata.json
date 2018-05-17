@@ -1,0 +1,41 @@
+{
+  "name": "sync-gateway",
+  "description": "Installs and configures sync-gateway",
+  "long_description": "Installs and configures sync-gateway",
+  "maintainer": "Simon Bang Terkildsen",
+  "maintainer_email": "terkildsen@monsenso.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "nssm": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

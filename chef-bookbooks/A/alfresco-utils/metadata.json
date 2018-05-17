@@ -1,0 +1,55 @@
+{
+  "name": "alfresco-utils",
+  "description": "Installs/Configures chef-alfresco-utils",
+  "long_description": "Installs/Configures chef-alfresco-utils",
+  "maintainer": "Alfresco Tooling & Automation",
+  "maintainer_email": "marco.mancuso@alfresco.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 7.0"
+  },
+  "dependencies": {
+    "java": ">= 1.31.0",
+    "yum-epel": ">= 0.0.0",
+    "yum-repoforge": ">= 0.5.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.3.0",
+  "source_url": "https://github.com/Alfresco/chef-alfresco-utils",
+  "issues_url": "https://github.com/Alfresco/chef-alfresco-utils/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "~> 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

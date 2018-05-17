@@ -1,0 +1,46 @@
+{
+  "name": "vpnc",
+  "description": "Installs/Configures vpnc",
+  "long_description": "# vpnc\n\nDeploys Maurice Massar's 'client for cisco vpn concentrator'. Primarly designed to provide a temporary VPN connection for remote infrastructure testing.\n\n## Usage\n\nSet the attributes below and include `vpnc::default` at the top of your node's run_list.\n\n## Attributes\n\n- `node['vpnc']['ipsec_gateway']` - value for \"IPSec gateway\"\n- `node['vpnc']['ipsec_id']` - value for \"IPSec ID\"\n- `node['vpnc']['ipsec_secret']` - value for \"IPSec secret\"\n- `node['vpnc']['xauth_user']` - value for \"Xauth username\"\n- `node['vpnc']['xauth_pass']` - value for \"Xauth password\"\n\nNote: the `ipsec_secret` and `xauth_pass` values may be obfuscated via base64 encoding; simply prefix their encoded values with the fixed string `base64:`. E.g.:\n\n```\n<start irb>\nrequire 'base64'\nputs \"base64:#{Base64.encode64('imsosecret5').chomp}\"\n# base64:aW1zb3NlY3JldHk1\n```\n\n- `node['vpnc']['compile_time']` - Should vpnc be deployed at compile time? Defaults to `false`\n",
+  "maintainer": "Troy Ready",
+  "maintainer_email": "troy@troyready.com",
+  "license": "apache2",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.0",
+  "source_url": "https://github.com/troyready/chef-vpnc",
+  "issues_url": "https://github.com/troyready/chef-vpnc/issues"
+}

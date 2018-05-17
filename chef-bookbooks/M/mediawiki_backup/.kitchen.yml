@@ -1,0 +1,43 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  # Install this exact version of chef-client
+  require_chef_omnibus: 12.5.1
+  client_rb:
+    # Use :enabled, :disabled or :audit_only to run the ServerSpec tests in the recipes•
+    audit_mode: :disabled
+
+platforms:
+  - name: ubuntu12
+    driver:
+      box: 'chef/ubuntu-12.04'
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box
+
+  - name: ubuntu14
+    driver:
+      box: 'chef/ubuntu-14.04'
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box
+
+  - name: centos6
+    driver:
+      box: 'chef/centos-6.6'
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
+
+  - name: centos7
+    driver:
+      box: 'chef/centos-7.1'
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.1_chef-provisionerless.box
+
+suites:
+  - name: backup
+    run_list:
+      - recipe[mediawiki_backup::backup]
+    attributes:
+      mediawiki_backup:
+        ssl_certs:
+          - /etc/pki/tls/certs/server.crt
+          - /etc/pki/tls/private/server.key
+

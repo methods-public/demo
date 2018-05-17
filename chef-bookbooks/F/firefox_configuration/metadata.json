@@ -1,0 +1,52 @@
+{
+  "name": "firefox_configuration",
+  "description": "Configures FireFox",
+  "long_description": "# firefox_configuration\n\nConfigures various Firefox configuration files.\n\n## Supports:\n\n- Windows :white_check_mark:\n- macOS :white_check_mark:\n- Linux - Not supported this time. Does not seem challenging to support, just need to locate the firefox configuration directory on different flavors of linux.\n\n## Usage\n\n### firefox_configuration::default\n\nJust include `firefox_configuration` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[firefox_configuration]\"\n  ]\n}\n```\n\n\n## Attributes \n\n### Firefox Install Directory:\n\nTells this cookbook where to look for Firefox.\n\nDefault Value: \n\n- Windows: `C:/Program Files/Mozilla Firefox/`\n- macOS: `/Applications/Firefox.app/Contents/Resources/`\n- Linux: @todo: Figure out install dir for different flavors of linux. Could use some help here :wink:\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['install_directory'] = \"D:/Firefox/\"\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"install_directory\": \"D:/Firefox/\"\n  }\n}\n```\n\n###### Note: forward slashes are used for Windows paths in Ruby.\n\n### Enable Profile Migrator\n\nSets the `EnableProfileMigrator` in the `override.ini` file that disables the initial profile migrator.\n\nDefault Value: `\"true\"`\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['enable_profile_migrator'] = \"false\"\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"enable_profile_migrator\": \"false\"\n  }\n}\n```\n###### Note: use a string value of the boolean here\n\n### App Update Channel:\n\nThis preference determines what types of builds auto-updates will look for. This manages the `channel-prefs.js` file.\n\nDefault Value: `\"release\"`\n\nPossible Values:\n\n- \"release\" - All final releases.\n- \"esr\" - Special release channel for [extended support releases](http://www.mozilla.org/en-US/firefox/organizations/faq/).\n- \"beta\" - Betas / release candidates (up to Gecko 2.0 also final releases).\n- \"aurora\" - Pre-beta\n- \"nightly\" - All nightly builds.\n- \"default\" - No updates are offered.\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['app_update_channel'] = \"esr\"\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"app_update_channel\": \"esr\"\n  }\n}\n```\n\nMore info:\n- [Mozilla KB](http://kb.mozillazine.org/App.update.channel)\n\n### Preferences:\n\nSets the preference as if a user had set it, every time you start the browser. So users can make changes, but they will be erased on restart. If you set a particular preference this way, it shows up in about:config as \"user set\". These settings are set in the mozilla.cfg file. Any valid firefox preference string can be a member of the hash. \n\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['prefs'] = [ \n    \"browser.shell.checkDefaultBrowser\" => false,\n    \"browser.startup.homepage_override.mstone\" => \"ignore\",\n    \"browser.rights.3.shown\" => true,\n    \"toolkit.telemetry.prompted\" => true\n  ]\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"prefs\": {\n      \"browser.shell.checkDefaultBrowser\": false,\n      \"browser.startup.homepage_override.mstone\": \"ignore\",\n      \"browser.rights.3.shown\": true,\n      \"toolkit.telemetry.prompted\": true\n    }\n  }\n}\n```\n\nMore info:\n- [Preferences](http://kb.mozillazine.org/Category:Preferences)\n- [Mozilla.org](https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment)\n\n### Default Preferences:\n\nIs used to alter the default value, though users can set it normally and their changes will be saved between sessions. If preferences are reset to default through the GUI or some other method, this is what they will go back to. Appears in about:config as \"default\". These settings are set in the mozilla.cfg file. Any valid firefox preference string can be a member of the hash. \n\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['default_prefs'] = [ \n    \"browser.startup.homepage\" => \"data:text/plain,browser.startup.homepage=https://www.google.com\"\n  ]\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"default_prefs\": {\n      \"browser.startup.homepage\": \"data:text/plain,browser.startup.homepage=https://www.google.com\"\n    }\n  }\n}\n```\n\nMore info:\n- [Preferences](http://kb.mozillazine.org/Category:Preferences)\n- [Mozilla.org](https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment)\n\n\n### Lock Preferences:\n\nIs used to lock preferences so they cannot be changed through the GUI or about:config. In many cases the GUI will change to reflect this, graying out or removing options. Appears in about:config as \"locked\". Some config items require lockPref to be set, such as app.update.enabled. It will not work if it set with just pref. These settings are set in the mozilla.cfg file. Any valid firefox preference string can be a member of the hash. \n\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['lock_prefs'] = [\n    \"app.update.enabled\" => false,\n    \"app.update.auto\" => false,\n    \"app.update.mode\" => 0,\n    \"app.update.service.enabled\" => false,\n    \"datareporting.policy.dataSubmissionEnabled\" => false,\n    \"datareporting.healthreport.service.enabled\" => false,\n    \"toolkit.crashreporter.enabled\" => false\n  ]\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"lock_prefs\": {\n      \"app.update.enabled\": false,\n      \"app.update.auto\": false,\n      \"app.update.mode\": 0,\n      \"app.update.service.enabled\": false,\n      \"datareporting.policy.dataSubmissionEnabled\": false,\n      \"datareporting.healthreport.service.enabled\": false,\n      \"toolkit.crashreporter.enabled\": false\n    }\n  }\n}\n```\n\nMore info:\n- [Preferences](http://kb.mozillazine.org/Category:Preferences)\n- [Mozilla.org](https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment)\n\n\n### Clear Preferences:\n\nCan be used to \"blank\" certain preferences. This can be useful e.g. to disable functions that rely on comparing version numbers. These settings are set in the mozilla.cfg file. Any valid firefox preference string can be a member of the array.\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['clear_prefs'] = [\n    \"extensions.lastAppVersion\",\n    \"plugins.update.url\"\n  ]\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"clear_prefs\": [\n      \"extensions.lastAppVersion\",\n      \"plugins.update.url\"\n    ]\n  }\n}\n```\n\nMore info:\n- [Preferences](http://kb.mozillazine.org/Category:Preferences)\n- [Mozilla.org](https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment)\n\n\n### User Chrome CSS:\n\nCSS attributes that are applied to the `userChrome.css` file. These will control visual elements within firefox.\n\nRuby usage:\n\n```ruby\nnode['firefox_configuration']['user_chrome_css'] = [\n    \"#systemDefaultsGroup\" => \"display: none !important;\",\n    \"#updateApp\" => \"display: none !important;\",\n    \"#updateButton\" => \"display: none !important;\"\n  ]\n```\n\nJSON usage:\n\n```json\n{\n  \"firefox_configuration\": {\n    \"user_chrome_css\": {\n      \"#systemDefaultsGroup\": \"display: none !important;\",\n      \"#updateApp\": \"display: none !important;\",\n      \"#updateButton\": \"display: none !important;\"\n    }\n  }\n}\n```\n\nMore info:\n- [Mozilla KB](http://kb.mozillazine.org/Category:Visual_customizations_%28Firefox%29)",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.1",
+  "source_url": "https://github.com/MelonSmasher/chef_firefox_configuration",
+  "issues_url": "https://github.com/MelonSmasher/chef_firefox_configuration/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

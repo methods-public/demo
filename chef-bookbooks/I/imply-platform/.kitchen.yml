@@ -1,0 +1,117 @@
+#
+# Copyright (c) 2016 Sam4Mobile
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Suites scheduler
+#   <% load "#{File.dirname(__FILE__)}/test/kitchen_command.rb" %>
+# - Create kitchen network if missing
+#   <% net_test = '! docker network ls | grep "kitchen" >/dev/null 2>&1' %>
+#   <% net_create = 'docker network create --driver bridge kitchen' %>
+#   <% `if #{net_test}; then #{net_create}; fi` %>
+
+driver:
+  name: docker_cli
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+      volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+      command: /usr/lib/systemd/systemd
+      network: kitchen
+      security_opt: seccomp=unconfined
+      skip_preparation: true
+      instance_host_name: true
+      instance_container_name: true
+
+suites:
+  - name: data-volume-imply
+    driver:
+      image: sbernard/centos-chef
+      volume: /data
+
+  # Install a stand-alone zookeeper
+  - name: zookeeper-imply
+    run_list:
+      - recipe[zookeeper-platform]
+    attributes:
+      zookeeper-platform:
+        hosts: localhost
+        package_retries: 1
+
+  # Install a stand-alone galera
+  - name: galera-imply
+    data_bags_path: 'test/integration/default/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/default/secret_key'
+    run_list:
+      - recipe[galera-platform]
+    attributes:
+      galera-platform:
+        hosts: galera-imply-centos-7
+        package_retries: 1
+
+  # Generate different types of nodes
+<% {
+  'master' => 2, 'data' => 2, 'query' => 2, 'client' => 1
+  }.each do |name, n| %>
+  <% ("1".."#{n}").each do |i| %>
+  - name: <%= name %>-imply-<%= i %>
+    data_bags_path: 'test/integration/default/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/default/secret_key'
+    driver:
+      volumes_from: data-volume-imply-centos-7
+    run_list:
+      - role[<%= name %>-imply-kitchen]
+      - recipe[test-imply::deploy_files]
+    attributes:
+      imply-platform:
+        auto_restart: true
+        package_retries: 1
+        database_creation_retries: 20
+        database_creation_retry_delay: 10
+        druid:
+          config:
+            common_runtime_properties:
+              druid.metadata.storage.connector.user: root
+              druid.storage.storageDirectory: /data/druid-storage
+              druid.indexer.logs.directory: /data/druid-indexing-logs
+            components:
+              historical:
+                druid.processing.numThreads: 2
+              broker:
+                druid.processing.numThreads: 2
+            jvm:
+              coordinator:
+                -Xms: 256m
+                -Xmx: 1g
+              overlord:
+                -Xms: 256m
+                -Xmx: 1g
+              historical:
+                -Xms: 256m
+                -Xmx: 2g
+              broker:
+                -Xms: 256m
+                -Xmx: 2g
+  <% end %>
+<% end %>

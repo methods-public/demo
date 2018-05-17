@@ -1,0 +1,60 @@
+{
+  "name": "gliderlabs_registrator",
+  "description": "Installs/Configures gliderlabs_registrator",
+  "long_description": "Installs/Configures gliderlabs_registrator",
+  "maintainer": "Petr Belyaev",
+  "maintainer_email": "upcfrost@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "ubuntu": ">= 14.04",
+    "debian": ">= 8.0",
+    "fedora": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+    "docker": ">= 0.0.0",
+    "golang": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "zypper": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/upcFrost/gliderlabs_registrator",
+  "issues_url": "https://github.com/upcFrost/gliderlabs_registrator/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "ovh-api",
+  "description": "Configure and control your servers on OVH by its API",
+  "long_description": "OVH API\n========\n\nDescription\n-----------\n\nUse [OVH API](https://api.ovh.com) to configure your servers, domains, etc.\nhosted by [OVH](http://ovh.com). It includes an Ohai plugin used to load\nOVH information in automatic attributes.\n\nAt the moment, this cookbook can configures the firewall associated to an\nIP, the \"FTP\" backup associated to a dedicated server and the ohai plugin\nloads the hardware specifications.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\n- Should work on every GNU/Linux and may even work on Windows\n- Tested on RHEL Family 7 (centos 7.2)\n\nUsage\n-----\n\n### Prerequisite\n\nFirst, you should get an **application key**, an **application secret** and a\n**consumer key** with the necessary rights from OVH. More information on\n<https://api.ovh.com/g934.first_step_with_api>.\n\nThen you have to create an encrypted data bag containing these keys. By default\nthis data bags is named _secrets_ and its item containing the OVH keys is\n_ovh-keys_. Its decrypted content should be like:\n\n```json\n{\n  \"id\": \"ovh-keys\",\n  \"app_key\": \"my_app_key\",\n  \"app_secret\": \"my_app_secret\",\n  \"consumer_key\": \"my_consumer_key\"\n}\n```\n\nFinally do not forget to place the secret keys on the servers.\n\nTo verify your setup, add `recipe[ovh-api::init]` in your runlist. If it\nconverges, your authentification with OVH is correctly configured.\n\nAn example of setup is given in\n[test/integration/default](test/integration/default) directory.\n\n### Firewall\n\nAdd `recipe[ovh-api::firewall]` in your run-list to configure the OVH firewall\nfor this server. You can configure each IP associated to this server. The\ndefault one can be named _primary_.\n\nThen for each IP, you can enable or disable the firewall and manage the rules.\nThe configuration syntax is the same as OVH API, for which you can find the\ndocumentation at <https://api.ovh.com/console>.\n\nFinally, you can find an example in [.kitchen.yml](.kitchen.yml).\n\n### Backup\n\n`recipe[ovh-api::backup]` applies two recipes `recipe[ovh-api::backup_api]` and\n`recipe[ovh-api::backup_mount]` the first one will activate (or not) any\nprotocols offered by OVH to access the backup space (FTP, NFS, CIFS).\nThe second recipe will take care to mount the CIFS or NFS locally.\n\nNote: because it is very complicated to test the mount locally and we only use\nCIFS in production, NFS is not recommended.\n\n### Ohai\n\nAdd `recipe[ovh-api::ohai]` in your run-list to install and load the Ohai\nplugin. It will fetch different information and put them in `node['ovh']`.\n\n### Test\n\nThis cookbook is tested in kitchen with the help of\n[webmock](https://github.com/bblimke/webmock) to intercept the HTTP REST\ncalls.\n\nIt uses a test cookbook [webmock](test/cookbooks/webmock) by setting\n`recipe[webmock::stubs]` and `recipe[webmock::verify]` in the runlist:\n**stubs** recipe initializes webmock and create the necessarily stubs while\n**verify** recipe dumps all calls so they can later be checked by serverspec.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nNote: for fields needing an IP address, it is possible to set an interface\nname, which will be resolved to its first non-local address.\n\nRecipes\n-------\n\n### default\n\nInclude all other recipes except init and ohai.\n\n### init\n\nInitialize the OVH client.\n\n### firewall\n\nConfigure the firewall according to `node['ovh-api']['firewall']`.\n\n### backup\n\nInclude backup\\_api and backup\\_mount recipes.\n\n#### backup\\_api\n\nActivate the backup space with protocols defined in\n`node['ovh-api']['backup']['protos']`.\n\n#### backup\\_mount\n\nMount the backup space if the protocols are CIFS or NFS.\n\n### ohai\n\nInstall and load the Ohai plugin, add OVH information about the server in\n`node['ovh']`.\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG](CHANGELOG).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Vincent Baret (<vbaret@gmail.com>)\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2015-2017 Sam4Mobile, 2017-2018 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 4.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.3.0",
+  "source_url": "https://gitlab.com/chef-platform/ovh-api",
+  "issues_url": "https://gitlab.com/chef-platform/ovh-api/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

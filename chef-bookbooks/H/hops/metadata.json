@@ -1,0 +1,689 @@
+{
+  "name": "hops",
+  "description": "Installs/Configures HOPS distribution",
+  "long_description": "\nHops installer\n===\n\nrecipes:\n\n* install.rb\n* namenode.rb\n* datanode.rb\n\n\n## AWS VPC Instructions for Karamel\n\n1. Try and use a default VPC - it's much easier :)\n\nIf you have to create a VPC, then you need to make sure that:\n 1. Tenancy should be dedicated (for better performance)\n 2. DNS Resolution must be activated (yes)\n 3. DNS Hostnames must be activated (yes)\n 4. Your attached subnets must have auto-assigned public IP enabled\n 5. Your attached Internet Gateways should have global (public) access for all IPs enabled\nYou can set the VPC properties when you both create the VPC and using the 'action' button in the VPC menu page.\n\n\n \n##Roadmap\n\nRoadmap\n\nThis is still very much a work-in-progress, but stay tuned for updates as we continue development. If you have ideas or patches, feel free to contribute!\n\n- [x] Launching Hops using Karamel/Vagrant\n  1. Implement Karamel Scheduler and DAG API\n  1. Launch it!\n- [x] Chef orchestration \n- [x] AngularJs NgSortable\n- [ ] Integration in Hops Dashboard\n- [ ] Middleware for performance\n\n## Contributing\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Added some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "GPL 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "kagent": ">= 0.0.0",
+    "ndb": ">= 0.0.0",
+    "apache_hadoop": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/rm_heartbeat": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "mysql/user": {
+      "description": "Mysql server username",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "mysql/password": {
+      "description": "MySql server Password",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hops/use_hopsworks": {
+      "description": "'true' or 'false' - true to enable HopsWorks support",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/erasure_coding": {
+      "description": "'true' or 'false' - true to enable erasure-coding replication",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/nn/direct_memory_size": {
+      "description": "Size of the direct memory size for the NameNode in MBs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/nn/heap_size": {
+      "description": "Size of the NameNode heap in MBs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/nn/cache": {
+      "description": "'true' or 'false' - true to enable the path cache in the NameNode",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/nn/partition_key": {
+      "description": "'true' or 'false' - true to enable the partition key when starting transactions. Distribution-aware transactions.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/resource_tracker": {
+      "description": "Hadoop Resource Tracker enabled on this nodegroup",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/install_db": {
+      "description": "Install hops database and tables in MySQL Cluster ('true' (default) or 'false')",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/dir": {
+      "description": "Base installation directory for HopsFS",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/use_systemd": {
+      "description": "Use systemd startup scripts, default 'false'",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/group": {
+      "description": "Group to run hdfs/yarn/mr as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/nm/memory_mbs": {
+      "description": "Apache_Hadoop NodeManager Memory in MB",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/vcores": {
+      "description": "Apache_Hadoop NodeManager Number of Virtual Cores",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/max_vcores": {
+      "description": "Hadoop NodeManager Maximum Virtual Cores per container",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/version": {
+      "description": "Hadoop version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/num_replicas": {
+      "description": "HDFS replication factor",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/container_cleanup_delay_sec": {
+      "description": "The number of seconds container data is retained after termination",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/user": {
+      "description": "Username to run yarn as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/mr/user": {
+      "description": "Username to run mapReduce as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/hdfs/user": {
+      "description": "Username to run hdfs as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/format": {
+      "description": "Format HDFS",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/tmp_dir": {
+      "description": "The directory in which Hadoop stores temporary data, including container data",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/data_dir": {
+      "description": "The directory in which Hadoop's DataNodes store their data",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/nodemanager_hb_ms": {
+      "description": "Heartbeat Interval for NodeManager->ResourceManager in ms",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/rm/scheduler_class": {
+      "description": "Java Classname for the Yarn scheduler (fifo, capacity, fair)",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/rm/scheduler_capacity/calculator_class": {
+      "description": "YARN resource calculator class. Switch to DominantResourseCalculator for multiple resource scheduling",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/user_envs": {
+      "description": "Update the PATH environment variable for the hdfs and yarn users to include hadoop/bin in the PATH ",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/logging_level": {
+      "description": "Log levels are: TRACE, DEBUG, INFO, WARN",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/nn/heap_size": {
+      "description": "Size of the NameNode heap in MBs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/nn/direct_memory_size": {
+      "description": "Size of the direct memory size for the NameNode in MBs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/ha_enabled": {
+      "description": "'true' to enable HA, else 'false'",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/yarn/rt": {
+      "description": "Hadoop Resource Tracker enabled on this nodegroup",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "apache_hadoop/dir": {
+      "description": "Hadoop installation directory",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/rm_distributed": {
+      "description": "Set to 'true' to enable distributed RMs",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_ha_enabled": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_auto_failover_enabled": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_recovery_enabled": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_rpc_batch_max_size": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_rpc_batch_max_duration": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/nodemanager_rm_streaming_enabled": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/client_failover_sleep_base_ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/client_failover_sleep_max_ms": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/quota_enabled": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/quota_monitor_interval": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/quota_ticks_per_credit": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/quota_min_ticks_charge": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/yarn/quota_checkpoint_nbticks": {
+      "description": "",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "hops::nn": "Installs a Hops NameNode",
+    "hops::dn": "Installs a Hops DataNode",
+    "hops::rm": "Installs a YARN ResourceManager",
+    "hops::nm": "Installs a YARN NodeManager",
+    "hops::jhs": "Installs a MapReduce JobHistory Server for YARN",
+    "hops::ps": "Installs a WebProxy Server for YARN",
+    "hops::rt": "Installs a ResourceTracker server for YARN",
+    "hops::client": "Installs libaries and configuration files for writing HDFS and YARN progams",
+    "hops::purge": "Removes all hops-hadoop files and dirs and ndb-dal, but doesnt drop hops db from NDB",
+    "hops::purge-ndb": "Drops  hops db from NDB"
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/hopshadoop/hops-hadoop-chef",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,22 @@
+DEPENDENCIES
+  data-bag-faker
+    path: test/fixtures/cookbooks/data-bag-faker
+  default-resource
+    path: test/fixtures/cookbooks/default-resource
+  installer-resource
+    path: test/fixtures/cookbooks/installer-resource
+  source-resource
+    path: test/fixtures/cookbooks/source-resource
+  sumologic-collector
+    path: .
+    metadata: true
+
+GRAPH
+  data-bag-faker (1.0.0)
+  default-resource (1.0.0)
+    sumologic-collector (>= 0.0.0)
+  installer-resource (1.0.0)
+    sumologic-collector (>= 0.0.0)
+  source-resource (1.0.0)
+    sumologic-collector (>= 0.0.0)
+  sumologic-collector (1.2.22)

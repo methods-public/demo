@@ -1,0 +1,33 @@
+{
+  "name": "kitchen",
+  "description": "My Chef environment",
+  "cookbook_versions": {},
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+    "chef_client": {
+      "interval": 300,
+      "splay": 60
+    }
+  },
+  "override_attributes": {
+    "chef": {
+      "level" : {
+        "attributes" : {
+          "environment" : {
+            "Development" : {
+              "env.attribute.period.concatenated" : "concatenated",
+              "env.attribute.period.concatenated2" : "concatenated2"
+            }
+          },
+          "role" : {
+            "dev-role" : {
+              "role.attribute.period.concatenated" : "concatenated",
+              "role.attribute.period.concatenated2" : "concatenated2"
+            }
+          }
+        }
+      }
+    }
+  }
+}

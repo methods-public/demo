@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+.bundle/
+.kitchen/
+
+vendor
+
+Berksfile.lock
+Gemfile.lock

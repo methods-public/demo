@@ -1,0 +1,11 @@
+  <hudson.model.ParametersDefinitionProperty>
+    <parameterDefinitions>
+      <% @parameters.each do |parameter, options| %>
+      <<%= options['type']%>>
+        <name><%= parameter %></name>
+        <description><%= options['description']%></description>
+        <defaultValue><%= options['defaultValue']%></defaultValue>
+      </<%= options['type']%>>
+      <% end %>
+    </parameterDefinitions>
+  </hudson.model.ParametersDefinitionProperty>

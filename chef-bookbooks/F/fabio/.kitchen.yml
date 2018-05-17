@@ -1,0 +1,30 @@
+---
+transport:
+  name: sftp
+driver:
+  name: docker
+  binary: /usr/bin/docker
+  use_sudo: false
+  provision_command:
+    - curl -L https://www.chef.io/chef/install.sh | bash -s -- -v 12.11.18
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos
+  - name: ubuntu
+  - name: debian
+
+suites:
+  - name: binary
+    run_list:
+      - recipe[apt]
+      - recipe[yum]
+      - recipe[fabio::_test_file]
+      - recipe[fabio::default]
+    attributes:
+      fabio:
+        config:
+          registry.backend: file
+          registry.file.path: /etc/fabio/registry

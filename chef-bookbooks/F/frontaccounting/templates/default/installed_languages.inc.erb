@@ -1,0 +1,26 @@
+<?php
+
+$installed_languages = array (
+<%
+  count=0
+  deflang = nil
+  separator = ''
+  @languages.each do |code,lang|
+    if deflang.nil? then
+      deflang=code
+    end
+    %>
+<%= separator %><% separator = ',' %>
+  <%=count%> => 
+  array (
+    'code' => '<%=code%>',
+    'name' => '<%=lang['name']%>',
+    'encoding' => '<%=lang['encoding']%>'
+  )<%
+  count = count+1
+end%>
+);
+
+$dflt_lang = '<%=deflang%>';
+?>
+

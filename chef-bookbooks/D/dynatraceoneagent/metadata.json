@@ -1,0 +1,59 @@
+{
+  "name": "dynatraceoneagent",
+  "description": "Installs the Dynatrace One Agent.",
+  "long_description": "# DynatraceOneAgent\r\n\r\n## Overview\r\n\r\nThis recipe downloads and installs the [Dynatrace](http://www.dynatrace.com/) OneAgent on Linux or Windows systems.\r\nTo find details about installing OneAgent visit Dynatrace [help page](https://help.dynatrace.com/get-started/installation/how-do-i-install-dynatrace-oneagent/).\r\n\r\n### Sample Usage\r\n##### Linux\r\n```\r\nknife ssh 'name:oneagent_test' 'sudo chef-client' --ssh-user user_name\r\n```\r\n\r\n### Configuration\r\nPlease edit the download_link in attributes according to your needs.\r\n\r\n#### `download_link`\r\nThe link to dynatrace one agent. You can get your link by following these steps\r\n\r\n1. Select **Deploy Dynatrace** from the navigation menu.\r\n2. Click the **Start installation** button.\r\n3  For **Linux** \r\n   - Locate your `download_link`, as shown below. \r\n   ![Alt text](https://help.dynatrace.com/images/content/infrastructure-monitoring/containers/openshift-installer.png)\r\n4. For **Windows**\r\n    - Rightclick on \"Download agent.exe\" button and select \"Copy link address\"\r\n5. Use the link in your attributes.\r\n\r\n## Supported OSes\r\nThis recipe is designed for Linux and Windows systems. \r\nIf it does not work for your environment please get in touch via the project site.\r\n\r\n## License\r\nThis module is provided under BSD-3-Clause license. Please check out the details in the LICENSE.txt\r\n",
+  "maintainer": "Piotr Mejer",
+  "maintainer_email": "piotr.mejer@dynatrace.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/Dynatrace/Dynatrace-OneAgent-Chef",
+  "issues_url": "https://github.com/Dynatrace/Dynatrace-OneAgent-Chef/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

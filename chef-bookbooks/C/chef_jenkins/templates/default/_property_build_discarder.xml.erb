@@ -1,0 +1,8 @@
+<jenkins.model.BuildDiscarderProperty>
+  <strategy class="hudson.tasks.LogRotator">
+    <daysToKeep><%= defined?(@build_discarder['days']) ? @build_discarder['days'] : '7' %></daysToKeep>
+    <numToKeep><%= defined?(@build_discarder['number']) ? @build_discarder['number'] : '-1' %></numToKeep>
+    <artifactDaysToKeep><%= defined?(@build_discarder['artifact_days']) ? @build_discarder['artifact_days'] : '-1' %></artifactDaysToKeep>
+    <artifactNumToKeep><%= defined?(@build_discarder['artifact_number']) ? @build_discarder['artifact_number'] : '-1' %></artifactNumToKeep>
+  </strategy>
+</jenkins.model.BuildDiscarderProperty>

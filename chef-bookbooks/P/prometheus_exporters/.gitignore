@@ -1,0 +1,10 @@
+Berksfile.lock
+.kitchen/
+.kitchen.local.yml
+
+# Vim swap files
+.*.sw?
+
+.travis/secrets.tar.gz
+.travis/id_rsa
+.travis/dr_agon.pem

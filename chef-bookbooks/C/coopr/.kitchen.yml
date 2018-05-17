@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 4096
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: true
+
+platforms:
+  - name: centos-6.6
+  - name: ubuntu-12.04
+    run_list:
+    - apt::default
+
+suites:
+  - name: default
+    run_list:
+      - recipe[coopr::fullstack]

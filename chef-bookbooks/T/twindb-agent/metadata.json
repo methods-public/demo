@@ -1,0 +1,45 @@
+{
+  "name": "twindb-agent",
+  "description": "Installs/Configures twindb-agent",
+  "long_description": "# twindb-agent\n\n## Description\n\n  This cookbook provides provides the ability to configure, install and\n  register TwinDB agent.\n\n## Required Cookbooks\n\n  * twindb-repo\n\n## Attributes\n\n## Usage\n\n  Set node specific overrides, and add recipe[\"twindb-agent::default\"] to the run_list\n\n### twindb-agent::register recipe\n\nA recipe to register the TwinDB agent.\n\nExample twindb-agent node configuration is shown below.\n\n```json\n\"normal\": {\n  \"twindb_agent\": {\n      \"registration_code\": \"0f6714f735a06a488ec92asasssx0a3f2\"\n  }\n}\n```\n\n### twindb-agent::unregister recipe\n\nA recipe to unregister the TwinDB agent.\n\n## License and Author\n\nCopyright 2015, Ovais Tariq <ovaistariq@twindb.com>  \n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Ovais Tariq",
+  "maintainer_email": "ovaistariq@twindb.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "centos": ">= 6.1",
+    "redhat": ">= 6.1",
+    "debian": ">= 7.4",
+    "ubuntu": ">= 12.04",
+    "amazon": ">= 2014.03"
+  },
+  "dependencies": {
+    "twindb-repo": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "twindb-agent": "Installs and configures TwinDB agent",
+    "twindb-agent::register": "Register the MySQL instance with TwinDB server",
+    "twindb-agent::unregister": "Unregister the MySQL instance with TwinDB server"
+  },
+  "version": "0.3.0"
+}

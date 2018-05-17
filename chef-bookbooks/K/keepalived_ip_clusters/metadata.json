@@ -1,0 +1,39 @@
+{
+  "name": "keepalived_ip_clusters",
+  "description": "Configures a Keepalived cluster with shared virtual IP addresses.",
+  "long_description": "# Keepalived IP Cluster Manager\n\nManage Keepalived IP clusters.\n\n---\n\n## Usage\n\n### keepalived_ip_clusters::default\n\nConfigure Keepalived:\n\nJust include `keepalived_ip_clusters` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[keepalived_ip_clusters]\"\n  ]\n}\n```\n\n## Configure Clusters:\n\nManage cluster configuration:\n\n```json\n{\n  \"keepalived\": {\n    \"clusters\": [\n        {\n          \"addresses\": [\"192.168.1.10\", \"192.168.1.110\"],\n          \"password\": \"StrongPassword\",\n          \"members\": {\n            \"node1-hostname\": {\n              \"priority\": 100,\n              \"state\": \"MASTER\"\n            },\n            \"node2-hostname\": {\n              \"priority\": 98,\n              \"state\": \"BACKUP\"\n            },\n            \"node3-hostname\": {\n              \"priority\": 99,\n              \"state\": \"BACKUP\"\n            }\n          }\n        },\n        {\n          \"addresses\": [\"192.168.1.11\", \"192.168.1.111\"],\n          \"password\": \"AnotherStrongPassword\",\n          \"members\": {\n            \"node1-hostname\": {\n              \"priority\": 100,\n              \"state\": \"MASTER\"\n            },\n            \"node2-hostname\": {\n              \"priority\": 98,\n              \"state\": \"BACKUP\"\n            },\n            \"node3-hostname\": {\n              \"priority\": 99,\n              \"state\": \"BACKUP\"\n            }\n          }\n        }\n     ]\n  }\n}\n```\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "keepalived": "~> 3.0.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.3",
+  "source_url": "https://github.com/MelonSmasher/chef_keepalived_ip_cluster",
+  "issues_url": "https://github.com/MelonSmasher/chef_keepalived_ip_cluster/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

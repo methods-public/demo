@@ -1,0 +1,11 @@
+# File created by chef for <%= node.name %>
+worker_processes <%= node['geminabox-ng']['unicorn']['worker_processes'] %>
+working_directory '<%= node['geminabox-ng']['user']['home_dir'] %>'
+listen '<%= unicorn_listen %>'
+timeout <%= node['geminabox-ng']['unicorn']['timeout'] %>
+pid '<%= File.join(node['geminabox-ng']['user']['home_dir'], 'unicorn.pid') %>'
+preload_app <%= node['geminabox-ng']['unicorn']['preload_app'] || true %>
+
+if(GC.respond_to?(:copy_on_write_friendly=))
+  GC.copy_on_write_friendly = <%= node['geminabox-ng']['unicorn']['cow_friendly'] %>
+end

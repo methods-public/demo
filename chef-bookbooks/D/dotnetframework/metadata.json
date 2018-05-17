@@ -1,0 +1,38 @@
+{
+  "name": "dotnetframework",
+  "description": "Installs/Configures .NET Framework",
+  "long_description": "# Dotnetframework cookbook\n\nInstalls and configures the .NET framework 4, 4.5, 4.5.1, 4.5.2, or 4.6 runtime\n\n# Requirements\n\nTested on Windows Server 2008 R2 and Windows Server 2012R2. The selected .NET\nruntime should work on versions of Windows supported by the associated .NET\ninstaller.\n\n* Windows 2008\n* Windows 2008 R2\n* Windows 2012\n* Windows 2012 R2\n\n# Usage\n\nInclude the default recipe in your run list. The default recipe will install\nthe specified .NET framework version.\n\n# Attributes\n\n## default\n\n* `node['dotnetframework']['version']` - defaults to '4.5.2' Acceptable values:\n'4.0', '4.5', '4.5.1', '4.5.2', '4.6', '4.6.1', '4.6.2'.\n\n# Recipes\n\n## default\n\nInstalls the .NET Framework.\n\n## regiis\n\nThis recipe register .NET with IIS so that IIS can host .NET application\nassociated with the specified intalled .NET version. This recipe currently\ndoes not support Windows 2012 or higher. For Windows 2012 or newer its\nrecommended that you use the IIS cookbook to register the .NET version.\n\n## mini-tests\n\nYou can include the mini-tests in your runlist to verify .NET was successfully\ninstalled, however .NET will not work until you reboot.\n\n.NET 4.6 minitests will fail until you reboot, so its best to run Chef with\nonly dotnetframework in your runlist, reboot, then include dotnetframework\nagain with the minitest-handler.\n\n# TODO\n\n- Install .NET using the windows_feature resource if the current OS supports it.\n- Support older versions of .NET < 4.0.\n- Support installation over WinRM (i.e. native scheduled task support).\n- Abstract .NET installation to a Chef resource.\n\n# Author\n\nAuthor:: Shawn Neal (sneal@sneal.net)\n",
+  "maintainer": "Changepoint",
+  "maintainer_email": "cpc_sea_teamengineering@changepoint.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 1.2.6"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.0",
+  "source_url": "https://github.com/daptiv/dotnetframework/",
+  "issues_url": "https://github.com/daptiv/dotnetframework/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

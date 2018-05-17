@@ -1,0 +1,43 @@
+{
+  "name": "zammad",
+  "description": "Installs/Configures zammad",
+  "long_description": "Installs/Configures zammad",
+  "maintainer": "Matt Mencel",
+  "maintainer_email": "mr-mencel@wiu.edu",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "elasticsearch": "~> 3.4",
+    "java": "~> 1.0",
+    "nginx": "~> 7.0",
+    "postfix": ">= 0.0.0",
+    "sysctl": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/WIU/zammad",
+  "issues_url": "https://github.com/WIU/zammad/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

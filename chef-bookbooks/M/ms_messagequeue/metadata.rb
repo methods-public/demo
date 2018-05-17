@@ -1,0 +1,10 @@
+name 'ms_messagequeue'
+maintainer 'Tim Smith'
+maintainer_email 'tim@cozy.co'
+license 'Apache 2.0'
+license 'All rights reserved'
+description 'Installs Microsoft Message Queueing Service'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version '0.1.0'
+supports 'windows'
+depends 'windows'

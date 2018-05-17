@@ -1,0 +1,10 @@
+{
+  "id": "node-02",
+  "run_list": [ "role[search]", "role[ip]" ],
+  "automatic": {
+    "fqdn": "node-02",
+    "ipaddress": "10.0.0.2",
+    "platform": "centos",
+    "roles": ["search", "ip"]
+  }
+}

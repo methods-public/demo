@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- root element, all properties must be under this element -->
+<jive>
+  <adminConsole>
+    <port><%= @admin_port %></port>
+    <securePort><%= @admin_port_secure %></securePort>
+  </adminConsole>
+  <locale><%= @locale %></locale>
+<% if @external_db == 'internal' %>
+<connectionProvider>
+  <className>org.jivesoftware.database.EmbeddedConnectionProvider</className>
+</connectionProvider>
+<% else %>
+  <connectionProvider>
+    <className>org.jivesoftware.database.DefaultConnectionProvider</className>
+  </connectionProvider>
+  <database>
+    <defaultProvider>
+      <driver><%= @db_driver %></driver>
+      <serverURL><%= @db_connection %></serverURL>
+      <username encrypted="true"><%= @db_user %></username>
+      <password encrypted="true"><%= @db_password %></password>
+      <testSQL>select 1</testSQL>
+      <testBeforeUse>true</testBeforeUse>
+      <testAfterUse>true</testAfterUse>
+      <minConnections>5</minConnections>
+      <maxConnections>25</maxConnections>
+      <connectionTimeout>1.0</connectionTimeout>
+    </defaultProvider>
+  </database>
+<% end %>
+  <setup>true</setup>
+</jive>

@@ -1,0 +1,44 @@
+{
+  "name": "elastic-heartbeat",
+  "description": "Installs/Configures elastic-heartbeat",
+  "long_description": "elastic-heartbeat Cookbook\n================\n\n[![Cookbook](https://img.shields.io/github/tag/vkhatri/chef-heartbeat.svg)](https://github.com/vkhatri/chef-heartbeat) [![Build Status](https://travis-ci.org/vkhatri/chef-heartbeat.svg?branch=master)](https://travis-ci.org/vkhatri/chef-heartbeat)\n\nThis is a [Chef] cookbook to manage [Heartbeat].\n\n\n>> For Production environment, always prefer the [most recent release](https://supermarket.chef.io/cookbooks/elastic-heartbeat).\n\n\n## Most Recent Release\n\n```ruby\ncookbook 'elastic-heartbeat', '~> 0.1.1'\n```\n\n## From Git\n\n```ruby\ncookbook 'elastic-heartbeat', github: 'vkhatri/chef-heartbeat',  tag: 'v0.1.1'\n```\n\n## Repository\n\n```\nhttps://github.com/vkhatri/chef-heartbeat\n```\n\n## Supported OS\n\nThis cookbook was tested on CentOS & Ubuntu Linux and expected to work on other RHEL platforms.\n\n\n## Cookbook Dependency\n\n- elastic_beats_repo\n- yum-plugin-versionlock\n\n## Recipes\n\n- `elastic-heartbeat::attributes` - cookbook derived default attributes\n\n- `elastic-heartbeat::config` - configure heartbeat\n\n- `elastic-heartbeat::default` - default recipe (use it for run_list)\n\n- `elastic-heartbeat::install` - install heartbeat package for linux platform\n\n\n## Core Attributes\n\n\n* `default['heartbeat']['version']` (default: `5.2.2`): heartbeat version\n\n* `default['heartbeat']['ignore_version']` (default: `false`): ignore heartbeat version for `package` install\n\n* `default['heartbeat']['release']` (default: `1`): heartbeat release for yum package\n\n* `default['heartbeat']['service']['init_style']` (default: `init`): heartbeat service init system, options: init, runit\n\n* `default['heartbeat']['conf_dir']` (default: `/etc/heartbeat`): heartbeat yaml configuration file directory\n\n* `default['heartbeat']['conf_file']` (default: `/etc/heartbeat/heartbeat.yml`): heartbeat configuration file\n\n* `default['heartbeat']['notify_restart']` (default: `true`): whether to restart heartbeat service on configuration file change\n\n* `default['heartbeat']['disable_service']` (default: `false`): whether to stop and disable heartbeat service\n\n* `default['heartbeat']['monitors_dir']` (default: `/etc/heartbeat/conf.d`): monitors configuration file directory\n\n* `default['heartbeat']['setup_repo']` (default: `true`): whether to manage the beats apt/yum repository\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests (`rake & rake knife`), ensuring they all pass\n6. Write new resource/attribute description to `README.md`\n7. Write description about changes to PR\n8. Submit a Pull Request using Github\n\n\n## Copyright & License\n\nAuthors:: Virender Khatri and [Contributors]\n\n<pre>\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n</pre>\n\n\n[Chef]: https://www.chef.io/\n[Heartbeat]: https://www.elastic.co/products/beats/heartbeat\n[Contributors]: https://github.com/vkhatri/chef-heartbeat/graphs/contributors\n",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "elastic_beats_repo": ">= 0.0.0",
+    "yum-plugin-versionlock": ">= 0.1.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/vkhatri/chef-heartbeat",
+  "issues_url": "https://github.com/vkhatri/chef-heartbeat/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

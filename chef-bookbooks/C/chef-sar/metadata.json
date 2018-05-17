@@ -1,0 +1,48 @@
+{
+  "name": "chef-sar",
+  "description": "Installs/Configures sar",
+  "long_description": "sar\n===\n\nDescription\n===========\n\nThis cookbook installs sysstat, enables it and allows you to configure the frequency at which it collects statistics.\n\nAttributes\n==========\n\nnode['sar']['enabled'] - If sysstat logging is enabled (Default: true)\nnode['sar']['sa1_options'] - Configure sa1_options for systat config (Default: '-S DISK')\nnode['sar']['sa2_options'] - Configure sa2_options for systat config (Default: '')\nnode['sar']['cron']['run_every_minutes'] - Sets time between statistic collection cron job (Default: 2)\n\nUsage\n=====\n\nClone cookbook repository as sar\n\nSomewhere in your recipe, include the sar recipe and add it as a dependency in your metadata.rb\n\nmetadata.rb\n    depends 'chef-sar'\n\nyour_recipe.rb\n    include_recipe 'chef-sar'\n\nPlatforms\n=========\n\nThis has been tested on Ubuntu but should work on Debian like systems and maybe others. If there is a need for this on another system, I'd be glad to implemenet functionality for this.\n",
+  "maintainer": "Philip Hutchins",
+  "maintainer_email": "flipture@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0"
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "",
+  "issues_url": ""
+}

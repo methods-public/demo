@@ -1,0 +1,40 @@
+---
+driver:
+  name: hyperv
+  parent_vhd_folder: 'C:\hyperv\Kitchen-Win7PRO\Virtual Hard Disks'
+  memory_startup_bytes: 2147483648
+  processor_count: 4
+  vm_switch: Internal
+  enable_guest_services: true
+
+
+transport:
+  username: kitchen
+  password: kitchen
+  name: winrm
+  elevated: true
+
+provisioner:
+  name: chef_solo
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+verifier:
+  name: inspec
+
+platforms:
+  - name: windows-7
+    driver:
+      parent_vhd_name: Kitchen-Win7PRO.vhdx
+
+suites:
+  - name: default
+    run_list:
+      - recipe[nant]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
+      nant:
+        version: "0.92"

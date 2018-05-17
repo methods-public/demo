@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+tmpdir=$(mktemp -d)
+trap "rm -rf $tmpdir" EXIT
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+mkdir -p $tmpdir/cookbooks/
+cp -r $SCRIPT_DIR $tmpdir/cookbooks/signalfx_agent
+
+knife cookbook site share -o $tmpdir/cookbooks signalfx_agent

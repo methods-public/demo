@@ -1,0 +1,33 @@
+{
+  "name": "omnibus_serverspec",
+  "description": "Install omnibus_serverspec",
+  "long_description": "omnibus_serverspec Cookbook\n===========================\n\n** unofficial **\n\nThis cookbook installs the [serverspec](http://serverspec.org/) package made by [omnibus-ruby project](https://github.com/OpsRockin/omnibus-serverspec).\n\nSupports\n----\n\n### tested\n\n- CentOS6\n- Ubuntu \n\n### maybe works\n\n- Redhat family and friends\n- Debian based distributions\n\nRequirements\n------------\n\n- chef\n\nAttributes\n----------\n\nTODO: List your cookbook attributes here.\n\n\nUsage\n-----\n#### omnibus_serverspec::default\n\nJust include `omnibus_serverspec` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[omnibus_serverspec]\"\n  ]\n}\n```\n\nInstalls serverspec and dependencies to `/opt/serverspec/*`\n\nTest\n---\n\n```\n$ bundle\n$ kitchen test\n```\n\n### Testing environment and suites\n\n- test-kitchen\n  - vagrant\n  - shindo\n\n\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\n\napache2 license.\n\n\nAuthor: SAWANOBORI Yukihiko(<sawanboriyu@higanworks.com>)\n\n",
+  "maintainer": "HiganWorks LLC.",
+  "maintainer_email": "sawanoboriyu@higanworks.com",
+  "license": "apache2",
+  "platforms": {
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubunth": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1"
+}

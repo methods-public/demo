@@ -1,0 +1,54 @@
+##########################################################################
+# Copyright 2017 ThoughtWorks, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
+
+---
+driver_config:
+  digitalocean_api_key: <%= ENV['DIGITALOCEAN_API_KEY'] %>
+  digitalocean_client_id: <%= ENV['DIGITALOCEAN_CLIENT_ID'] %>
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+- name: ubuntu-12.04
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 6374130
+    flavor_id: 63
+    region_id: 4
+    ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+    ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEY_IDS'] %>
+
+- name: amazon-2014.09.1
+  driver_plugin: ec2
+  driver_config:
+    image_id: ami-b66ed3de
+    region: us-east-1
+    availability_zone: us-east-1b
+    flavor_id: t2.micro
+    username: ec2-user
+    security_group_ids: <%= ENV['AWS_SECURITY_GROUP'] %>
+    ssh_key: <%= ENV['AWS_SSH_KEY_PATH'] %>
+
+suites:
+- name: default
+  run_list:
+  - recipe[gocd]
+  attributes: {}

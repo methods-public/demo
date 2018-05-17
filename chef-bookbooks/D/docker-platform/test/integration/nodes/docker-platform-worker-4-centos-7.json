@@ -1,0 +1,8 @@
+{
+  "id": "docker-platform-worker-4-centos-7",
+  "run_list": [ "role[docker-platform-worker-kitchen]" ],
+  "automatic": {
+    "fqdn": "docker-platform-worker-4-centos-7",
+    "roles": ["docker-platform-worker-kitchen"]
+  }
+}

@@ -1,0 +1,10 @@
+name 'chocolatey_packages'
+maintainer 'Luke Watson'
+maintainer_email 'luwatson90@gmail.com'
+license 'all_rights'
+version '1.0.0'
+issues_url 'https://github.com/watsonlu/chocolatey_packages/issues'
+source_url 'https://github.com/watsonlu/chocolatey_packages'
+supports 'windows'
+
+description 'A cookbook that installs a list of chocolatey_packages through attributes.'

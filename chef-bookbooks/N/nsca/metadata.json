@@ -1,0 +1,59 @@
+{
+  "name": "nsca",
+  "description": "Installs/Configures NSCA daemon/client",
+  "long_description": "# NSCA Installer Cookbook\n\n[![Cookbook Version](https://img.shields.io/cookbook/v/nsca.svg)](https://supermarket.chef.io/cookbooks/nsca)\n[![Build Status](https://secure.travis-ci.org/scopenco/chef-nsca.png?branch=master)](http://travis-ci.org/scopenco/chef-nsca)\n\n## Description\n\nChef cookbook to install and configure NSCA server/client.\n\n## Requirements\n\n### Chef\n\n* Chef 12 or higher\n\n### Platforms\n\n* Debian 6.X, 7.X\n* Ubuntu 14.04\n* Red Hat Enterprise Linux (CentOS/Amazon/Scientific/Oracle) 5.X, 6.X\n* Fedora 22\n\n**Notes**: This cookbook has been tested on the listed platforms. It may work on other platforms with or without modification.\n\n### Cookbooks\n\n* yum-epel\n\n## Recipes\n\n### server\n\nConfigure NSCA server.\n\n### client\n\nConfigure NSCA client.\n\n#### Attributes\n\n### platform specific attributes (auto set based on platform)\n\n* `node['nsca']['conf_dir']` - location of the nsca configuration\n* `node['nsca']['user']` - NSCA user\n* `node['nsca']['group']` - NSCA group\n* `node['nsca']['mode']` - chmod configuration file\n* `node['nsca']['command_file']` - path to nagios/icinga command pipe\n* `node['nsca']['alternate_dump_file']` - path to alternative dump file when pipe is closed\n\n# config file options\n* `node['nsca']['pid_file']` - path to pid file\n* `node['nsca']['server_address']` - address for NSCA binding\n* `node['nsca']['nsca_chroot']` - path to NSCA chroot\n* `node['nsca']['server_port']` - NSCA port binding\n* `node['nsca']['debug']` - This option determines whether or not debugging messages are logged to the syslog facility.\n* `node['nsca']['aggregate_writes']` - This option determines whether or not the nsca daemon will aggregate writes to the external command file for client connections that contain multiple check results.\n* `node['nsca']['append_to_file']` - This option determines whether or not the nsca daemon will open the external command file for writing or appending.\n* `node['nsca']['max_packet_age']` - This option is used by the nsca daemon to determine when client data is too old to be valid.\n* `node['nsca']['password']` - This option is used for password if data bag doesn't exist.\n* `node['nsca']['decryption_method']` - This option determines the method by which the nsca daemon will decrypt the packets it receives from the clients.\n\n## Data bags\n\nPassword for NSCA can be described in data bag `node['nsca']['data_bag_item']`. There should be an item which name is the value of `node['nsca']['data_bag_item']`.\nIn our case it is set to data bag \"apps\" and item to \"nsca\".\n\nRefer to examples from the \"nsca\" cookbook: https://github.com/scopenco/chef-nsca/tree/master/test/fixtures/data_bags/apps\n\n## License & Authors\n- Author:: Andrei Skopenko <andrey@skopenko.net>\n\n```text\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Andrei Skopenko",
+  "maintainer_email": "andrey@skopenko.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "nsca::default": "Install and configure NSCA daemon and client",
+    "nsca::server": "Install and configure NSCA daemon",
+    "nsca::client": "Install and configure NSCA client"
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/scopenco/chef-nsca",
+  "issues_url": "https://github.com/scopenco/chef-nsca/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

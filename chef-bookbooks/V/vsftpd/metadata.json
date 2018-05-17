@@ -1,0 +1,57 @@
+{
+  "name": "vsftpd",
+  "description": "Installs/Configures VsFTPD daemon",
+  "long_description": "# vsftpd Installer cookbook\n\n[![Cookbook Version](https://img.shields.io/cookbook/v/vsftpd.svg)](https://supermarket.chef.io/cookbooks/vsftpd)\n[![Build Status](https://secure.travis-ci.org/scopenco/chef-vsftpd.png?branch=master)](http://travis-ci.org/scopenco/chef-vsftpd)\n\n## Description\n\nChef cookbook to install and configure vsftpd server/client.\n\n## Requirements\n\n### Chef\n\n* Chef 12 or higher\n\n### Platforms\n\n* Debian 6.X, 7.X\n* Ubuntu 14.04\n* Red Hat Enterprise Linux (CentOS/Amazon/Scientific/Oracle) 5.X, 6.X\n* Fedora 22\n\n**Notes**: This cookbook has been tested on the listed platforms. It may work on other platforms with or without modification.\n\n### Cookbooks\n\n* yum-epel\n\n## Recipes\n\n### default\n\nConfigure VsFTPD server.\n\n#### Attributes\n\n### platform specific attributes (auto set based on platform)\n\n* `node['vsftpd']['conf_dir']` - location of the vsftpd configuration\n\n# config file options\n\n* `node['vsftpd']['config']` - hash of config options\n\n## License & Authors\n- Author:: Andrei Skopenko <andrey@skopenko.net>\n\n```text\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Andrei Skopenko",
+  "maintainer_email": "andrey@skopenko.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "vsftpd::default": "Install and configure VsFTPD daemon"
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/scopenco/chef-vsftpd",
+  "issues_url": "https://github.com/scopenco/chef-vsftpd/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

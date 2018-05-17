@@ -1,0 +1,43 @@
+{
+  "name": "chef_changereport_handler",
+  "description": "Chef handler: generate chef report after deploy",
+  "long_description": "chef_changereport_handler Cookbook\n================\nGenerate chef report after deploy: change list, update summary, etc.\n\nRequirements\n------------\n### Platform\n- Debian/Ubuntu\n\nRecipes\n-------\n* default\nEnable Chef handler: report what are changed by chef and record update summary to disk\n\nUsage\n-----\nUse the cookbook by `recipe[chef_changereport_handler]`.\n\nAttributes List\n---------------\n* `node['chef_changereport_handler']['working_dir']` - Working directory for generated report and chef handler\n* `node['chef_changereport_handler']['report_extra_info']` - Extra info you can specify which will be combined into report\n* `node['chef_changereport_handler']['command_run_after_failure']` - Bash command you want to run, after deployment failure\n\nExamples and Common usage\n-------------------------\n#### When deployment failed, run customized command\n```json\n\"chef_changereport_handler\": {\n  \"command_run_after_failure\": \"echo failed >> /tmp/test.log\"\n}\n```\nSample output for the report\n-----------------\nThe handler outputs to log after Chef Run follwing.\n\n```\n========================================================\nChef Update Run On: chef_changereport_handler-DeployChefCookbooks-114-anonymous\nStarted: 2016-04-10 00:50:07, Ended: 2016-04-10 00:50:07, duration: 0.09s\nUpdate Status: success\nChanged List: 2 resources are changed\n    - template[/root/chef_update/handlers/changereport_handler.rb]\n    - chef_handler[MyChefReport::ChangReportHandler]\nDetail info:\n    My extra info message\n```\n\nLicense & Authors\n-----------------\n- Author:: DennyZhang001 <denny@dennyzhang.com>\n- Copyright:: 2016, http://DennyZhang.com\n\n```text\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "dennyzhang",
+  "maintainer_email": "denny@dennyzhang.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef_handler": ">= 0.0.0",
+    "logrotate": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.5",
+  "source_url": "",
+  "issues_url": ""
+}

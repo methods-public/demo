@@ -1,0 +1,44 @@
+{
+  "name": "sysctl_d",
+  "description": "Configures sysctl.d files",
+  "long_description": "Sysctl.d Cookbook\n=================\nThis cookbook contains LWRP to manage files under /etc/sysctl.d\n\nRequirements\n------------\n#### cookbooks\n- `sysctl` - sysctl.d needs sysctl to notify procps service\n\nUsage\n-----\n#### LWRP Examples\n```\nsysctl_d \"90-postgresql\" do\n  params \"kernel.shmmax\" => (node[\"memory\"][\"total\"].to_i * 1024 * 0.80).to_i,\n         \"kernel.shmall\" => (node[\"memory\"][\"total\"].to_i * 1024 * 0.80 / 4096).to_i,\n         \"vm.swappiness\" => 0\nend\n```\n\n```\nsysctl_d \"90-postgresql\" do\n  action :remove\nend\n```\n\nLicense and Authors\n-------------------\nAuthors: Lev Popov\n",
+  "maintainer": "Lev Popov",
+  "maintainer_email": "leo@nabam.net",
+  "license": "BSD",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "sysctl": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.4",
+  "source_url": "",
+  "issues_url": ""
+}

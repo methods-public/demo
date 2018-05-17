@@ -1,0 +1,43 @@
+---
+driver:
+  name: ec2
+  region: us-west-2
+  availability_zone: b
+  associate_public_ip: true
+  subnet_id: subnet-787e531d
+  instance_type: t2.large
+  tags:
+    Name: travisci_nexpose-cookbook
+
+transport:
+  name: rsync
+  username: ubuntu
+  ssh_key: ./ssh_private_key
+
+windows_config: &WINDOWS_CONFIG
+  driver: &win_driver_config
+    retryable_tries: 60
+    retryable_sleep: 10
+  transport:
+    name: winrm
+    username: Administrator
+    connection_retries: 20
+    connection_retry_sleep: 5
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      image_id: ami-4c514f2d
+  - name: ubuntu-14.04
+    driver:
+      image_id: ami-5189a661
+  - name: centos-7
+    driver:
+      image_id: ami-d440a6e7
+    transport:
+      username: centos
+  - name: windows-2012r2
+    <<: *WINDOWS_CONFIG
+    driver:
+      <<: *win_driver_config
+      image_id: ami-83a5bce2

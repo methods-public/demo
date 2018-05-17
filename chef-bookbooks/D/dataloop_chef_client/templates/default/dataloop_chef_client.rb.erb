@@ -1,0 +1,81 @@
+#!/opt/chef/embedded/bin/ruby
+
+# This plugin will use the ohai_time attribute to determine the last time the
+# chef client has checked in with the server. You will want to set the
+# following:
+#
+# https://docs.chef.io/config_rb_client.html for more information on these
+# configuration values
+#
+# CLIENT_RB: Path to the client.rb file on your nodes
+# CLIENT_KEY: Path to the client key (pem file)
+# SSL_VERIFY_MODE: ssl verification
+#
+# WARNING: Warning threshold in seconds
+# CRITICAL: Critical threshold in secconds
+
+require 'ohai/config'
+require 'chef/log'
+require 'chef/rest'
+require 'chef/node'
+
+CLIENT_RB = '<%= @client_rb %>'.freeze
+CLIENT_KEY = '<%= @client_key %>'.freeze
+SSL_VERIFY_MODE = '<%= @ssl_verify_mode %>'.to_sym
+WARNING = <%= @warning %>
+CRITICAL = <%= @critical %>
+OUTPUT = '<%= @output_path %>'.freeze
+
+# Passing to Chef::Config
+Chef::Config[:client_key] = CLIENT_KEY
+
+# Allow override of ssl_verify_mode
+if SSL_VERIFY_MODE.size > 0
+  Chef::Config[:ssl_verify_mode] = SSL_VERIFY_MODE
+end
+
+# Load client config
+Chef::Config.from_file(CLIENT_RB)
+
+CURRENT_TIME = Time.now.to_i.freeze
+rest = Chef::REST.new Chef::Config[:chef_server_url]
+node = rest.get(format('/nodes/%s', Chef::Config[:node_name]))
+
+# ohai_time is measured as epoch in seconds
+#
+# https://docs.chef.io/ohai.html
+#
+# The time at which Ohai was last run. This attribute is not commonly used in
+# recipes, but it is saved to the Chef server and can be accessed using the
+# knife status sub-command.
+
+difference = CURRENT_TIME - node.attributes.ohai_time.to_i
+
+hours = difference / 60.0 / 60.0
+output = format('hours=%.02f;;;;', hours)
+
+if difference <= WARNING
+  File.open(OUTPUT, 'w') do |f|
+    f.write "OK | #{output}"
+    f.chmod 0666
+  end
+  exit 0
+elsif difference > WARNING && difference <= CRITICAL
+  File.open(OUTPUT, 'w') do |f|
+    f.write "WARNING | #{output}"
+    f.chmod 0666
+  end
+  exit 1
+elsif difference > CRITICAL
+  File.open(OUTPUT, 'w') do |f|
+    f.write "CRITICAL | #{output}"
+    f.chmod 0666
+  end
+  exit 2
+else
+  File.open(OUTPUT, 'w') do |f|
+    f.write 'UNKNOWN'
+    f.chmod 0666
+  end
+  exit 3
+end

@@ -1,0 +1,21 @@
+# !!! WARNING !!!
+#
+# This file is managed using Chef. Any changes will be overwritten.
+#
+# !!! WARNING !!!
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+
+# CIS Benchmark 1.4.2 Set the SELinux State
+SELINUX=<%= @state %>
+
+# SELINUXTYPE= can take one of these two values:
+#     targeted - Targeted processes are protected,
+#     mls - Multi Level Security protection.
+
+# CIS Benchmark 1.4.3 Set the SELinux Policy
+SELINUXTYPE=targeted

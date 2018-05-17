@@ -1,0 +1,39 @@
+<% if @config.hostname -%>
+HOSTNAME="<%= @config.hostname %>"
+<% end -%>
+<% if @config.register -%>
+REGISTER="<%= @config.register %>"
+<% end -%>
+<% if @config.register_public_ip -%>
+REGISTER_PUBLIC_IP="<%= @config.register_public_ip %>"
+<% end -%>
+<% if @config.force_public_ip -%>
+FORCE_PUBLIC_IP="<%= @config.force_public_ip %>"
+<% end -%>
+<% if @config.skydns_prefix -%>
+SKYDNS_PREFIX="<%= @config.skydns_prefix %>"
+<% end -%>
+<% if @config.vulcand_prefix -%>
+VULCAND_PREFIX="<%= @config.vulcand_prefix %>"
+<% end -%>
+<% if @config.docker_host -%>
+DOCKER_HOST="<%= @config.docker_host %>"
+<% end -%>
+<% if @config.docker_tls_verify -%>
+DOCKER_TLS_VERIFY="<%= @config.docker_tls_verify %>"
+<% end -%>
+<% if @config.docker_cert_path -%>
+DOCKER_CERT_PATH="<%= @config.docker_cert_path %>"
+<% end -%>
+<% if @config.etcd_endpoints -%>
+ETCD_ENDPOINTS="<%= @config.etcd_endpoints %>"
+<% end -%>
+<% if @config.etcd_cafile -%>
+ETCD_CAFILE="<%= @config.etcd_cafile %>"
+<% end -%>
+<% if @config.etcd_certfile -%>
+ETCD_CERTFILE="<%= @config.etcd_certfile %>"
+<% end -%>
+<% if @config.etcd_keyfile -%>
+ETCD_KEYFILE="<%= @config.etcd_keyfile %>"
+<% end -%>

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH=.:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/<%= node['nodejs_utils']['nvm']['version'] %>/install.sh | bash

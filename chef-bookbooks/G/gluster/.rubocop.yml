@@ -1,0 +1,35 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - vendor/**/*
+
+Metrics/LineLength:
+  Max: 175
+
+Style/RescueModifier:
+  Exclude:
+    - 'recipes/server_setup.rb'
+
+Metrics/AbcSize:
+  Max: 19
+
+Metrics/BlockNesting:
+  Max: 4
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/AccessorMethodName:
+  Exclude:
+    - 'libraries/matchers.rb'
+
+Style/Next:
+  Exclude:
+    - 'recipes/server_setup.rb'
+
+Style/MutableConstant:
+  Exclude:
+    - 'Vagrantfile'
+
+Style/SymbolArray:
+  EnforcedStyle: brackets

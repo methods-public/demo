@@ -1,0 +1,53 @@
+{
+  "name": "sbp_packer",
+  "description": "Installs/Configures packer",
+  "long_description": "# sbp_packer cookbook\n\nInstalls [Packer](http://packer.io/) using the [ark](https://github.com/opscode-cookbooks/ark) cookbook.\nOriginal cookbook from Emil Sit : https://github.com/sit/chef-packer\n\n# Requirements\n\nNone.\n\n# Usage\n\nJust include `recipe[sbp_packer]` in your run list.\nChange attribute from 'binary' to 'source' if you prefer to install directly from github\n\nThis will put Packer into `/usr/local` in a `packer-*version*` directory, with a symlink of `packer` to `/usr/local/bin`.\n\n# Attributes\n\n* `node['packer']['url_base']` - Base URL from which to download (in case you have your own mirror). Defaults to the link at http://www.packer.io/downloads.html.\n* `node['packer']['zipfile']` - On binary installations, this is the name of the packer zip file with no path info\n* `node['packer']['version']` - The version of Packer to install.\n* `node['packer']['arch']` - Architecture to use; auto-detects amd64 and 386 but you must override with arm if desired.\n* `node['packer']['raw_checksums']` - The contents of the upstream checksum file to allow checksum auto-detection.\n* `node['packer']['checksums']` - A `Hash` mapping file name to checksums, derived by default from `raw_checksums`.\n* `node['packer']['checksum']` - SHA-256 checksum of appropriate binary. Should be auto-detected for the default version using data in `raw_checksums` or `checksums`.\n* `node['packer']['install_method']` - Either 'binary' or 'source'\n\nWhen overriding with a particular desired version, you can set the checksum a variety of ways. When\nthis cookbook is updated for a new default version, the checksums will be updated by the maintainers.\n\nIf you require a particular older (or newer) version, you can update the\n`raw_checksums` with the official SHA256SUM list from\n`https://releases.hashicorp.com/packer/${VERSION}/packer_${VERSION}_SHA256SUMS`\n(easiest), directly override the `checksums` attribute with an explicit map of\njust the versions you want (somewhat more work for you), or just directly\nsetting the `checksum` attribute (if you only need a single platform).\n\nNote that you can also ignore the checksum variables if you don't care about downloading\nthe binary repeatedly as [Chef only uses the checksum to avoid re-downloads][remote_file], and not\nto verify integrity.\n\n[remote_file]: http://docs.opscode.com/resource_remote_file.html#file-re-downloads\n\n# Author\nThanks to Emil Sit for the original cookbook and the following for inspiration through PR's and their chef work:\nJohn Bellone (<jbellone@bloomberg.net>) - https://github.com/johnbellone/consul-cookbook/tree/v0.11.1/recipes\n\nAuthor:: Emil Sit (<sit@hadapt.com>)\n\nAuthor:: Andrew Repton (<arepton@schubergphilis.com>)\n",
+  "maintainer": "Andrew Repton",
+  "maintainer_email": "arepton@schubergphilis.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": "= 14.04",
+    "centos": "= 7.1"
+  },
+  "dependencies": {
+    "ark": ">= 1.0.0",
+    "golang": ">= 1.7.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.4.8",
+  "source_url": "https://github.com/schubergphilis/sbp_packer/",
+  "issues_url": "https://github.com/schubergphilis/sbp_packer/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

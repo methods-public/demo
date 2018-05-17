@@ -1,0 +1,8 @@
+{
+  "id": "docker-platform-manager-3-centos-7",
+  "run_list": [ "role[docker-platform-manager-kitchen]" ],
+  "automatic": {
+    "fqdn": "docker-platform-manager-3-centos-7",
+    "roles": ["docker-platform-manager-kitchen"]
+  }
+}

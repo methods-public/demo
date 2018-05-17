@@ -1,0 +1,51 @@
+{
+  "name": "couchdb",
+  "description": "Installs CouchDB 2.0 from package or source",
+  "long_description": "Installs the CouchDB package either from a package repository (default recipe)\nor direct from source code (source recipe). Convenience LWRPs are provided to\ncreate databases as well.\n",
+  "maintainer": "Joan Touzet",
+  "maintainer_email": "wohali@apache.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 14.04",
+    "debian": ">= 7.0",
+    "amazon": ">= 7.0",
+    "centos": ">= 7.0",
+    "oracle": ">= 7.0",
+    "redhat": ">= 7.0",
+    "scientific": ">= 7.0",
+    "zlinux": ">= 7.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0",
+    "compat_resource": ">= 0.0.0",
+    "erlang": ">= 0.0.0",
+    "poise-python": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "java": ">= 0.0.0",
+    "maven": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.0.3",
+  "source_url": "https://github.com/wohali/couchdb-cookbook",
+  "issues_url": "https://github.com/wohali/couchdb-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

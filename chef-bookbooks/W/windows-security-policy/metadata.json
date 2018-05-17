@@ -1,0 +1,53 @@
+{
+  "name": "windows-security-policy",
+  "description": "Configures Windows security policy",
+  "long_description": "A helper cookbook that allows you to use attributes and custom resources to manage your local security policy on Windows.",
+  "maintainer": "Joe Gardiner",
+  "maintainer_email": "joe@grdnr.io",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.7",
+  "source_url": "https://github.com/grdnrio/windows-security-policy",
+  "issues_url": "https://github.com/grdnrio/windows-security-policy/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

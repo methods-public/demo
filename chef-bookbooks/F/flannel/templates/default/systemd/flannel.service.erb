@@ -1,0 +1,11 @@
+[Unit]
+Description=Flannel software-defined networking service
+Documentation=https://coreos.com/flannel
+After=network.target
+
+[Service]
+Type=notify
+ExecStart=<%= @flanneld_command %>
+
+[Install]
+WantedBy=multi-user.target

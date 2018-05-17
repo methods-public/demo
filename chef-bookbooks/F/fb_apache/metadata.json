@@ -1,0 +1,53 @@
+{
+  "name": "fb_apache",
+  "description": "Installs/Configures Apache",
+  "long_description": "fb_apache Cookbook\n==================\nInstalls and configures Apache\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_apache']['manage_packages']\n* node['fb_apache']['sites'][$SITE][$CONFIG]\n* node['fb_apache']['sysconfig'][$KEY]\n* node['fb_apache']['sysconfig']['_extra_lines']\n* node['fb_apache']['modules']\n* node['fb_apache']['modules_directory']\n* node['fb_apache']['modules_mapping']\n* node['fb_apache']['module_packages']\n\nUsage\n-----\n### Packages\nMy default `fb_apache` will install and keep up to date the `apache` and \n`mod_ssl` packages as relevant for your distribution. If you'd prefer to do \nthis on your own then you can set `node['fb_apache']['manage_packages']` to \n`false`.\n\nFor modules, we keep a mapping of the package required for modules in\n`node['fb_apache']['module_packages']`. If `manage_packages` is enabled, we will\ninstall the relevant packages for any modules you enable in\n`node['fb_apache']['modules']`. This is important since it'll happen before we\nattempt to start apache.\n\n### Sites / VirtualHosts\nThe `node['fb_apache']['sites']` hash configures virtual hosts. All virtual \nhosts are kept in a single file called `fb_apache_sites.cfg` in a directory \nrelevant to your distribution. In general, it's a 1:1 mapping of the apache \nsyntax to a hash. So for example:\n\n```ruby\nnode.default['fb_apache']['sites']['*:80'] = {\n  'ServerName' => 'example.com',\n  'ServerAdmin' => 'l33t@example.com',\n  'DocRoot' => '/var/www',\n}\n```\n\nWill produce:\n\n```\n<VirtualHost *:80>\n  ServerName example.com\n  ServerAdmin l33t@example.com\n  Docroot /var/www\n</VirtualHost>\n```\n\nIf the value of the hash is an `Array`, then it's assumed it's a key that can \nbe repeated. So for example:\n\n```ruby\nnode.default['fb_apache']['sites']['*:80'] = {\n  'ServerAlias' => [\n    'cool.example.com',\n    'awesome.example.com',\n  ]\n}\n```\n\nWould produce:\n\n```\n<VirtualHost *:80>\n  ServerAlias cool.example.com\n  ServerAlias awesome.example.com\n</VirtualHost>\n```\n\nThis can be used for anything which repeats such as `Alias`, `ServerAlias`, or \n`ScriptAlias`.\n\nIf the value is a hash, then the key is treated like another markup tag in the \nconfig and the hash is values inside that tag. For example:\n\n\n```\nnode.default['fb_apache']['sites']['*:80'] = {\n  'Directory /var/www' => {\n    'Options' => 'Indexes FollowSymLinks MultiViews',\n    'AllowOverride' => 'all',\n    'Order' => 'allow,deny',\n  }\n}\n```\n\nWould produce:\n\n```\n<VirtualHost *:80>\n  <Directory /var/www>\n    Options Indexes FollowSymLinks MultiViews\n    AllowOverride all\n    Order allow,deny\n  </Directory>\n</VirtualHost>\n```\n\nNote that you have to include the entire tag here (`Directory /var/www`, \ninstead of just `Directory`).\n\nHashes like this work for all nested tags such as `Directory` and `Location`.\n\n#### Rewrite rules\n\nOne exception to this generic 1:1 mapping is rewrite rules. Because of the \ncomplicated nature of rewrite rules and because they are not structured like \nmost of Apache VirtualHost configuration, these are special-cased in this \ncookbook. These can be stored in the special `_rewrites` key in the hash. Each \nconditional/rewrite set is an entry in the hash. The key is a human-readable \nname (will be used as a comment) and the value is another hash with a \n\"conditions\" array and a \"rule\" array. Note that you just like conditionals in \napache, multiple conditionals in the same block will be ANDed together. To get \nOR, make an additional entry in the hash. So for example:\n\n```\nnode.default['fb_apache']['sites']['*:80'] = {\n  '_rewrites' => {\n    'rewrite old thing to new thing' => {\n      'conditions' => [\n        '%{REQUEST_URI} ^/old_thing',\n        '%{REQUEST_URI} ^/other_old_thing',\n      ],\n      'rule' => '^/(.*) https://www.example.com/real_site/$1',\n    }\n  }\n}\n```\n\nWould produce:\n\n```\n<VirtualHost *:80>\n  # rewrite old thing to new thing\n  RewriteCond %{REQUEST_URI} ^/old_thing\n  RewriteCond %{REQUEST_URI} ^/other_old_thing\n  RewriteRule ^/(.*) https://www.example.com/real_site/$1\n</VirtualHost>\n```\n\n### Sysconfig / Defaults\n`node['fb_apache']['sysconfig']` can be used to configure either\n`/etc/sysconfig/httpd` on Redhat-like systems or `/etc/default/apache2` on\nDebian-like systems.\n\nBy default the key-value pairs in the hash are mapped to KEY=\"value\" pairs in\nthe file (the keys are up-cased and values are enclosed in quotes) with two\nexceptions:\n\n* If the value is an array, it is joined on strings. We preset `options` (RHEL)\n  and `htcacheclean_options` (Debian) to empty arrays for convenience\n* If the key is `_extra_lines`, see below.\n\n`node['fb_apache']['sysconfig']['_extra_lines']` is an array and every line in\nit is put at the end of the file verbatim.\n\n### Modules\nThe list of modules in `node['fb_apache']['modules']` (which is an array) are\nall `LoadModule`d in `fb_modules.conf`. No config is done for them, as that\nshould be done using `node['fb_apache']['extra_configs']`.\n\nModules in there should not include the `_module` suffix.\n\nThe mapping of names to files is held in `node['fb_apache']['modules_mapping']`\nand we've pre-populated all the common modules on both distro variants.\n\nFinally, `node['fb_apache']['modules_directory']` is set to the proper module\ndirectory for your distro, but you may override it if you'd like.\n\n### Extra Configs\nEverything in `node['fb_apache']['extra_configs']` will be converted from hash\nsyntax to Apache Config syntax in the same 1:1 manner as the `sites` hash above\nand put into an `fb_apache.conf` config file.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,51 @@
+#
+# Default  Bacula File Daemon Configuration file
+#
+#  Tested with Bacula release 5.2.X
+#
+# There is not much to change here except perhaps the
+# File daemon Name to
+#
+
+#
+# List Directors who are permitted to contact this File daemon
+#
+Director {
+  Name = backup-dir
+  Password = "<%= node['bacula']['fd']['password'] %>"
+}
+
+#
+# Restricted Director, used by tray-monitor to get the
+#   status of the file daemon
+#
+Director {
+  Name = backup-mon
+  Password = "<%= node['bacula']['fd']['password_monitor'] %>"
+  Monitor = yes
+}
+
+#
+# "Global" File daemon configuration specifications
+#
+FileDaemon {                          # this is me
+  Name = <%= node['bacula']['fd']['client_name'] %>
+  FDport = 9102                  # where we listen for the director
+  WorkingDirectory = "<%= node['bacula']['fd']['working_directory'] %>"
+  Pid Directory = "<%= node['bacula']['fd']['pid_directory'] %>"
+  Maximum Concurrent Jobs = <%= node['bacula']['fd']['max_con_jobs'] %><% if node['bacula']['fd']['max_network_buffer'] -%>
+  Maximum Network Buffer Size = <%= node['bacula']['fd']['max_network_buffer'] %><% end -%><% if node['platform_family'] == 'rhel' %>
+  compatible = yes<% end %>
+  FDAddress = <%= node['bacula']['fd']['address'] %><% if node['bacula']['fd']['encrypt_backups'] %>
+  PKI Signatures = Yes
+  PKI Encryption = Yes
+  PKI Keypair = <%= @pki_keypair_location %><% if @pki_masterkey_location %>
+  PKI Master Key = <%= @pki_masterkey_location %><% end %><% end %>
+}
+
+# Send all messages except skipped files back to Director
+Messages {
+  Name = Standard
+  director = backup-dir = all, !skipped, !restored
+}
+

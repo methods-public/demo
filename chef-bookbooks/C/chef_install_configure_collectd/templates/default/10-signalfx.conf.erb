@@ -1,0 +1,17 @@
+LoadPlugin python
+TypesDB "/opt/signalfx-collectd-plugin/types.db.plugin"
+<Plugin python>
+  ModulePath "/opt/signalfx-collectd-plugin"
+  LogTraces true
+  Interactive false
+  Import "signalfx_metadata"
+  <Module signalfx_metadata>
+    URL "<%= @INGEST_HOST %>"
+    Token "<%= @API_TOKEN %>"
+<% if @ENABLE_STATSD -%>
+    DogStatsDPort <%= @STATSD_PORT %>
+<% end -%>
+    Notifications true
+    NotifyLevel "OKAY"
+  </Module>
+</Plugin>

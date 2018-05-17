@@ -1,0 +1,57 @@
+{
+  "name": "nodeinfo",
+  "description": "Manages information about this node",
+  "long_description": "# nodeinfo-cookbook\n\nSimple cookbook to manage a JSON file in /etc/ that contains information about the node.\nThis file is readable by OHAI, so can be a two-way management.\n\nThis is not meant to manage any sensitive information that could cause security issues.\n\n\n## Supported Platforms\n\nlinux\n## Usage\n\n### nodeinfo::default\nInstalls Ohai plugin that reads /etc/nodeinfo/info.json\nmanages this file should node attributes differ from it.\n\n## License and Authors\n\nAuthor:: Stuart Harland (<essjayhch@gmail.com>)\n",
+  "maintainer": "Stuart Harland",
+  "maintainer_email": "essjayhch@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/essjayhch/nodeinfo",
+  "issues_url": "https://github.com/essjayhch/nodeinfo/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

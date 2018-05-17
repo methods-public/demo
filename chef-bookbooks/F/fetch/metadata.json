@@ -1,0 +1,43 @@
+{
+  "name": "fetch",
+  "description": "Installs/Configures fetch",
+  "long_description": "This cookbook was written primarily to automate several steps I often have to do in recipes:\n\n+ Fetch some archive\n+ Extract it somewhere\n+ Symlink it elsewhere\n\nAll these steps are wrapped in a neat LWRP.\n\n## Supported archive types\n\n- gzip\n\n## Usage\n\nSee the ```test.rb``` recipe for examples.\n\n## LWRP options\n\n+ ```archive_type```: gzip\n+ ```download_to```: By default, to Chef's temp download directory. Can be changed to wherever.\n+ ```extract```: defaults to ```true```\n+ ```extract_to```: where to unpack the archive\n+ ```strip```: defaults to ```true```. Remove the first-level directory from the archive.\n+ ```symlink```: defaults to ```true```\n+ ```symlink_to```: where to symlink it\n\n## Contributing\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write you change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\nAuthors: Jean-Francois Theroux <me@failshell.io>\n\nLicense: Apache version 2\n",
+  "maintainer": "Jean-Francois Theroux",
+  "maintainer_email": "me@failshell.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.0.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

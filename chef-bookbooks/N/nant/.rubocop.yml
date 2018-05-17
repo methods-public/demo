@@ -1,0 +1,4 @@
+EndOfLine:
+  Enabled: false
+Metrics/LineLength:
+  Max: 200

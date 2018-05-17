@@ -1,0 +1,103 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          glances
+# Required-Start:    $remote_fs $local_fs $network
+# Required-Stop:     $remote_fs $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starts and daemonize Glances server
+# Description:       Starts and daemonize Glances server
+### END INIT INFO
+
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Glances server"
+NAME=glances
+USER=$NAME
+DAEMON="/usr/bin/$NAME"
+PIDFILE="/run/$NAME/$NAME.pid"
+CONF="/etc/glances/glances.conf"
+DAEMON_ARGS="-C $CONF -s"
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+# Exit if the package is not installed
+[ -x "$DAEMON" ] || exit 0
+
+# Source function library.
+. /lib/lsb/init-functions
+
+# Ensure /run/glances is there, cf. Debian policy 9.4.1
+# http://www.debian.org/doc/debian-policy/ch-opersys.html#s-fhs-run
+if [ ! -d "$(dirname $PIDFILE)" ]; then
+    mkdir -p "$(dirname $PIDFILE)"
+    chown $USER:$USER "$(dirname $PIDFILE)"
+    chmod 755 "$(dirname $PIDFILE)"
+fi
+
+do_start()
+{
+    log_daemon_msg "Starting $DESC" "$NAME "
+    [ -e $PIDFILE ] && PID=$(cat "$PIDFILE")
+    if ( [ -e $PIDFILE ] && ps -p $PID 1>&2 > /dev/null )
+    then
+        log_action_end_msg 1 "already running, PID's $PID"
+        return 1
+    elif ( [ -w $PIDFILE ] )
+    then
+        log_warning_msg "PID file found while ${NAME} is not running, removing file."
+        rm $PIDFILE
+    fi
+
+    if [ "$RUN" != "true" ]; then
+        log_action_msg "Not starting glances: disabled by /etc/default/$NAME".
+        return 2
+    fi
+
+    start-stop-daemon --start --chuid $USER --pidfile=$PIDFILE --quiet -m -b --exec $DAEMON -- $DAEMON_ARGS || exit 2
+    [ -e "$PIDFILE" ] && chown $USER $PIDFILE
+    return 0
+}
+
+do_stop()
+{
+    log_daemon_msg "Stopping $DESC" "$NAME "
+    if [ ! -w $PIDFILE ]
+    then
+        log_warning_msg "PID file not found"
+        return 1
+    fi
+    start-stop-daemon --stop --oknodo --chuid $USER --user=$USER --pidfile=$PIDFILE --retry=30 || exit 1
+    /bin/rm -f $PIDFILE
+    return 0
+}
+
+case "$1" in
+  start)
+    do_start
+    ;;
+  stop)
+    do_stop
+    ;;
+  status)
+    status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME"
+    ;;
+  restart|force-reload)
+    do_stop
+    case "$?" in
+      0)
+        log_end_msg 0
+        do_start
+        ;;
+      *)
+        log_end_msg 1
+        ;;
+    esac
+    ;;
+  *)
+    echo "Usage: invoke-rc.d $NAME {start|stop|status|restart|force-reload}" >&2
+    exit 3
+    ;;
+esac

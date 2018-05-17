@@ -1,0 +1,26 @@
+
+platforms:
+- name: ubuntu-14.04-i386
+  attributes:
+    wlp:
+      archive:
+        accept_license: true
+    java:
+      install_flavor: oracle
+      jdk:
+        "6":
+          i586:
+            url: http://192.168.1.10:8000/jdk-6u51-fcs-bin-b11-linux-i586-06_jun_2013.bin
+
+- name: centos-6.4
+  attributes:
+    wlp:
+      archive:
+        accept_license: true
+    java:
+      install_flavor: oracle
+      jdk:
+        "6":
+          x86_64:
+            url: http://192.168.1.10:8000/jdk-6u51-fcs-bin-b11-linux-x64-06_jun_2013.bin
+

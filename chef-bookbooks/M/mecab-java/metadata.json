@@ -1,0 +1,44 @@
+{
+  "name": "mecab-java",
+  "description": "Installs an official java binding for mecab",
+  "long_description": "mecab-java Chef Cookbook\n=======================\n\n[![Circle CI](https://circleci.com/gh/kogecoo/chef-mecab-java.svg?style=svg)](https://circleci.com/gh/kogecoo/chef-mecab-java)\n\n Installs an official java binding for mecab\n\nPlatforms\n---------\nThe following platforms and versions are tested and supported using test-kitchen\n* Ubuntu 14.04\n* Debian 7.8\n* CentOS 7.0\n\nAttributes\n-----\nIMPORTANT!\n* You need to set the path where mecab-java binding will be installed to `node['mecab-java']['install_to']`\n\nsee also [source](attributes/default.rb)\n\nUsage\n-----\nJust include `mecab-java` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[mecab-java]\"\n  ]\n}\n```\n\nMisc\n----\n[GitHub Repository](http://github.com/kogecoo/chef-mecab-java)\n\nLicense and Author\n-------------------\n- Author: [kogecoo](http://github.com/kogecoo)\n- License: Apache License, Version 2.0 (see [LICENSE](LICENSE))\n",
+  "maintainer": "kogecoo",
+  "maintainer_email": "kogecoo@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "mecab": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "",
+  "issues_url": ""
+}

@@ -1,0 +1,40 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+
+platforms:
+<% %w(13.0 12.19).each do |chef_version| %>
+  - name: ubuntu-14.04-chef<%= chef_version %>
+    driver_config:
+      image: ubuntu:14.04
+      platform: ubuntu
+      require_chef_omnibus: <%= chef_version %>
+  - name: ubuntu-16.04-chef<%= chef_version %>
+    driver_config:
+      box: ubuntu:16.04
+      platform: ubuntu
+    provisioner:
+      require_chef_omnibus: <%= chef_version %>
+  - name: centos-6.8-chef<%= chef_version %>
+    driver_config:
+      box: centos:6.8
+      platform: centos
+    provisioner:
+      require_chef_omnibus: <%= chef_version %>
+  - name: centos-7.2-chef<%= chef_version %>
+    driver_config:
+      box: centos:7.2
+      platform: centos
+    provisioner:
+      require_chef_omnibus: <%= chef_version %>
+<% end %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[telegraf::default]
+    attributes:

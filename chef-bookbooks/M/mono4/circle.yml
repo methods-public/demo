@@ -1,0 +1,32 @@
+machine:
+  ruby:
+    version: 2.2.0
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - bundle install:
+        timeout: 1200
+  cache_directories:
+    - "~/.chefdk"
+
+test:
+  override:
+  - bundle exec foodcritic -f any .
+  - bundle exec tailor
+  - cp .kitchen.circle.yml .kitchen.yml
+  - bundle exec kitchen converge package-centos-70:
+      timeout: 1200
+  - bundle exec kitchen converge source-centos-70:
+      timeout: 1800
+  - bundle exec kitchen converge package-ubuntu-1404:
+      timeout: 1200
+  - bundle exec kitchen converge source-ubuntu-1404:
+      timeout: 1800
+  - bundle exec kitchen converge package-debian-78:
+      timeout: 1200
+  - bundle exec kitchen converge source-debian-78:
+      timeout: 1800
+  - bundle exec kitchen destroy all

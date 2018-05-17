@@ -1,0 +1,39 @@
+{
+  "name": "rundeck-wrapper",
+  "description": "Install and configure rundeck server",
+  "long_description": "Rundeck Wrapper Cookbook\n=============\n\nDescription\n-----------\n\nInstall and configure [Rundeck](http://rundeck.org/) by wrapping cookbook\n[rundeck-server][rundeck-server].\n\nThis wrapper allows to :\n\n- Generate rundeck users from a data bag.\n- Generate nodes file per Chef role.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nTested on:\n\n- RHEL Family 7, tested on Centos\n\nUsage\n-----\n\n### Easy Setup\n\nAdd `recipe[rundeck-wrapper]` in your run-list to install and configure\n**Rundeck**. Configuration will be fetched from attribute\n`node['rundeck_server']`. See cookbook [**rundeck-server**][rundeck-server]\ndocumentation for more information.\n\nTo see an example, look at [.kitchen.yml](.kitchen.yml).\n\n### Data Bags\n\nAn optional data bag is available to manage rundeck realm users credentials.\n\nYou must specify the name of data bag you want to use in\n`node['rundeck-wrapper']['data_bag']['realm_users']`.\n\n#### Realm Users Data Bag\n\nIt will replaces the following attribute during config recipe :\n* `node['rundeck-wrapper']['realm.properties']`.\n\n##### Databag Definition\n\nA sample Realm user object would look like :\n```json\n{\n  \"id\": \"admin\",\n  \"rundeck_password\": \"admin\",\n  \"groups\": [\n    \"user\",\n    \"admin\"\n   ]\n}\n\n```\n##### Databag Key Definitions\n\n- `id`: _String_ specifies the username, as well as the data bag object id.\n- `rundeck_password`: _String_ specifies the realm user's password.\n- `groups`: _Array_ an array of groups that the realm user will be added to.\n\n### Test\n\nThis cookbook is fully tested through the installation of a rundeck server in a\ndocker host. This uses kitchen and docker.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `java`, `rundeck-server::default`, `secret`, `node`, recipes.\n\n### java\n\nInstall java from distribution package. Is disabled if `install_java` is true\nfor rundeck\\_server.\n\n### secret\n\nGenerate and deploy [Rundeck] realm properties users file from data bag :\n*realm.properties*.\n\n### node\n\nGenerate and deploy nodes files per Chef role declared in attribute\n`node['rundeck-wrapper']['nodes_roles']`.\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Sylvain Arrambourg (<saye@sknss.net>)\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2017 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n[rundeck-server]: https://supermarket.chef.io/cookbooks/rundeck-server\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "rundeck-server": ">= 0.0.0",
+    "cluster-search": ">= 1.3.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "https://gitlab.com/chef-platform/rundeck-wrapper",
+  "issues_url": "https://gitlab.com/chef-platform/rundeck-wrapper/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

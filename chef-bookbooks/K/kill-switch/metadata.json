@@ -1,0 +1,53 @@
+{
+  "name": "kill-switch",
+  "description": "Kill switch to prevent Chef runs from occuring",
+  "long_description": "# kill-switch\n\nThis cookbook allows you a quick and easy way to stop Chef runs in your environment either through a touch file on the filesystem or through a node attribute. You also have the choice of a clean or unclean exit.\n\nThe exit logic occurs during the compilation phase. This recipe should be included at the very tippy top of your run_list to ensure other compilation phase actions do not run.\n\nYou should absolutely use this functionality sparingly. Converging a node on a routine basis prevents configuration drift and the longer you go without running Chef, the more risk you take from more changes being introduced to the system on the next run. There are however use-cases and emergency situations where you need to shut-down Chef runs on a tier of servers or even globally for a period of time. This cookbook aims to be a tool that can be leveraged for those scenarios.\n\nThere is some monkey-patching that needs to happen to have the option of a clean exit during compilation. No refunds, sorry.\n\n## Attributes\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['kill_switch']['engage']</tt></td>\n    <td>Bool</td>\n    <td>Force Chef run to exit immediately.</td>\n    <td><tt>false</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['kill_switch']['normal_exit']</tt></td>\n    <td>Bool</td>\n    <td>Exit should be \"success\" / `0`. Will still generate a `fatal` level log message regardless.</td>\n    <td><tt>false</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['kill_switch']['touch_file']</tt></td>\n    <td>String</td>\n    <td>Engage kill switch if a file exists at this path</td>\n    <td><tt>C:\\\\.kill_chef</tt> on Windows, <tt>/.kill_chef</tt> on Linux</td>\n  </tr>\n</table>\n\n## Recipes\n\n### kill-switch::default\n\nChecks for a touch file or `node['kill_switch']['engage']` to be `true` and exits the Chef run immediately with desired exit status.\n\n## License and Authors\n\nAuthors: Matt Kulka <matt@lqx.net>\n",
+  "maintainer": "Matt Kulka",
+  "maintainer_email": "matt@lqx.net",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "openbsd": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "solaris2": ">= 0.0.0",
+    "opensuse": ">= 0.0.0",
+    "opensuseleap": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/mattlqx/cookbook-kill-switch",
+  "issues_url": "https://github.com/mattlqx/cookbook-kill-switch/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

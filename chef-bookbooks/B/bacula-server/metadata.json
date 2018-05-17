@@ -1,0 +1,52 @@
+{
+  "name": "bacula-server",
+  "description": "Installs/Configures bacula-server",
+  "long_description": "Installs/Configures bacula-server",
+  "maintainer": "Pavel Yudin",
+  "maintainer_email": "pyudin@parallels.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "postgresql": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/parallels-cookbooks/bacula-server",
+  "issues_url": "https://github.com/parallels-cookbooks/bacula-server/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

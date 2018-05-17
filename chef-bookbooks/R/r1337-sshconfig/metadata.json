@@ -1,0 +1,41 @@
+{
+  "name": "r1337-sshconfig",
+  "description": "Configure OpenSSH with standard or hardened settings",
+  "long_description": "This Chef cookbook will configure SSH on Linux servers to be compliant with Route 1337 security policies. There are a few versions of the configuration depending on the recipe that is chosen",
+  "maintainer": "Matthew Ahrenstein",
+  "maintainer_email": "matthew@route1337.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "openssh": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "r1337-sshconfig::default": "Call this recipe to run the correct configuration based on attribute settings",
+    "r1337-sshconfig::standardssh": "This is a standard SSH config for environments that don't have stringent security requirements",
+    "r1337-sshconfig::hardenedssh": "This recipe should be used in untrusted environments (DMZs) or in environments with tight security regulations"
+  },
+  "version": "0.1.5",
+  "source_url": "https://github.com/route1337/chef-cookbook-sshconfig",
+  "issues_url": "https://github.com/route1337/chef-cookbook-sshconfig/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.6.4"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

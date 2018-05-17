@@ -1,0 +1,43 @@
+{
+  "name": "deep-security-agent",
+  "description": "Installs/Configures the Deep Security Agent",
+  "long_description": "A collection of recipes to help deploy and manage the Trend Micro Deep Security Agent.\n\n## Requirements\n\nAll of the recipes in this cookbook require a working Deep Security infrastructure. The key component is the Trend Micro Deep Security Manager. The agents (which these recipes help you manage) do the heavy lifting but the manager gives the marching orders. \n\nThere are no specific technical requirements beyond a standard Chef deployment.\n\n\n## Attributes\n\n#### Recipe : deep-security-agent::default\n\nThe \"default\" recipe runs the \"deep-security-agent::dsa-install\" and \"deep-security-agent::dsa-activate\" recipes internally.\n\nKey | Type | Description | Default\n----|------|-------------|--------\n['dsm_agent_download_hostname'] | String | Hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com\n['dsm_agent_download_port'] | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443\n['ignore_ssl_validation'] | Boolean |  Whether or not to ignore the SSL certificate validation for agent downloads. Marketplace and software deployments ship with self-signed certificates and require this set to 'true'. | false\n['dsm_agent_activation_hostname'] | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com\n['dsm_agent_activation_port'] | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443\n['tenant_id'] | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil\n['token'] | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil\n['policy_id'] | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil\n['force_reactivation'] | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false\n\n\n#### Recipe : deep-security-agent::dsa-install\n\n\"dsa-install\" recipe will download and install the Deep Security Agent service. Installation will be skipped if agent with same version already installed. If downloaded Deep Security Installer version is newer, then version upgrade will be performed.\n\nKey | Type | Description | Default\n----|------|-------------|--------\n['dsm_agent_download_hostname'] | String | Hostname of the Deep Security Manager. | app.deepsecurity.trendmicro.com\n['dsm_agent_download_port'] | Int | The port to connect to the Deep Security Manager to download the agents. This is typically the same port as the one used to access the Deep Security Manager admin interface. | 443\n['ignore_ssl_validation'] | Boolean |  Whether or not to ignore the SSL certificate validation for agent downloads. Marketplace and software deployments ship with self-signed certificates and require this set to 'true'. | false\n\n\n#### Recipe : deep-security-agent::dsa-activate\n\n\"dsa-activate\" recipe will activate the Deep Security Agent service by registering into Trend Micro Deep Security Manager. By default, this recipe will skip activation if agent already in activated state, unless 'force_reactivation' attribute is set to 'true'.\n\nKey | Type | Description | Default\n----|------|-------------|--------\n['dsm_agent_activation_hostname'] | String | The hostname for the agents to communicate with once deployed. For Marketplace and software deployments this is typically the same hostname as 'dsm_agent_download_hostname'. | agents.deepsecurity.trendmicro.com\n['dsm_agent_activation_port'] | Int | The port to use for the agent heartbeat (the regular communication). For Marketplace and software deployments, the default is 4120. | 443\n['tenant_id'] | String | In a multi-tenant installation (like Deep Security as a Service), this identifies the tenant account to register the agent with. | nil\n['token'] | String | In a multi-tenant installation (like Trend Micro Deep Security as a Service), this identifies the tenant account to register the agent with. | nil\n['policy_id'] | String | The Deep Security ID assigned to the policy to apply to the agents on activation. | nil\n['force_reactivation'] | Boolean | Whether to force re-activation even Deep Security Agent has been activated. | false\n\n## Usage\n\n#### Recipe : deep-security-agent::default\n\nMake sure that you include 'deep-security-agent' in your node's 'run_list'. This ensures that the Deep Security Agent is installed (it's the default.rb recipe).\n\n```json\n{\n  \"name\":\"my_node\",\n  \"default_attributes\": {\n    \"deep_security_agent\" : {\n      \"dsm_agent_download_hostname\": \"app.deepsecurity.trendmicro.com\",\n      \"dsm_agent_download_port\" : \"443\",\n      \"dsm_agent_activation_hostname\" : \"agents.deepsecurity.trendmicro.com\",\n      \"dsm_agent_activation_port\" : \"443\",\n      \"tenant_id\" : \"<Deep Security DSAAS Tenant ID>\",\n      \"token\" : \"<Deep Security DSAAS Tenant Token>\"\n\t}\n  },\n  \"run_list\": [\n    \"recipe[deep-security-agent::default]\"\n  ]\n}\n```\n\n## Acknowledgment\n\n* We thank [Blair Hamilton](https://github.com/blairham) for his contributions to the [Deep Security Agent cookbook] (https://supermarket.chef.io/cookbooks/deep-security-agent).",
+  "maintainer": "Trend Micro",
+  "maintainer_email": "deepsecurityopensource@trendmicro.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

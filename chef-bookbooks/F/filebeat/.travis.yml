@@ -1,0 +1,58 @@
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - chef-stable-trusty
+    packages:
+      - chefdk
+
+# Don't run bundle install
+install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+    - /^(?i:travis).*$/
+
+services: docker
+
+env:
+  matrix:
+    - INSTANCE=chef12-centos6
+    - INSTANCE=chef12-centos7
+    - INSTANCE=chef12-fedora26
+    - INSTANCE=chef12-ubuntu14
+    - INSTANCE=chef12-ubuntu16
+    - INSTANCE=chef12-debian8
+    - INSTANCE=chef12-debian9
+    - INSTANCE=chef12-amazon
+    - INSTANCE=chef12-amazon2
+    - INSTANCE=chef13-centos6
+    - INSTANCE=chef13-centos7
+    - INSTANCE=chef13-fedora26
+    - INSTANCE=chef13-ubuntu14
+    - INSTANCE=chef13-ubuntu16
+    - INSTANCE=chef13-debian8
+    - INSTANCE=chef13-debian9
+    - INSTANCE=chef13-amazon
+    - INSTANCE=chef13-amazon2
+
+script:
+  - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+  - cat .kitchen/logs/kitchen.log
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+
+
+matrix:
+  include:
+    - script:
+      - /opt/chefdk/bin/chef exec rake
+      env: UNIT_AND_LINT=1

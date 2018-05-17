@@ -1,0 +1,9 @@
+<%= node['spree']['environment'] %>:
+  socket: <%= node['spree']['db_socket'] %>
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: <%= node['spree']['db_name'] %>
+  pool: 5
+  username: <%= node['spree']['db_user'] %>
+  password: <%= node['spree']['db_pass'] %>

@@ -1,0 +1,282 @@
+<% artifactory = node['alphard']['artifactory'] %>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://artifactory.jfrog.org/xsd/1.7.9"
+        xsi:schemaLocation="http://artifactory.jfrog.org/xsd/1.7.9
+        http://www.jfrog.org/xsd/artifactory-v1_7_9.xsd">
+
+    <!-- General Config -->
+
+    <serverName><%= artifactory['serverName'] %></serverName>
+    <offlineMode><%= artifactory['offlineMode'] %></offlineMode>
+    <helpLinksEnabled><%= artifactory['helpLinksEnabled'] %></helpLinksEnabled>
+    <fileUploadMaxSizeMb><%= artifactory['fileUploadMaxSizeMb'] %></fileUploadMaxSizeMb>
+    <dateFormat><%= artifactory['dateFormat'] %></dateFormat>
+
+    <!-- Security -->
+
+    <security>
+
+        <anonAccessEnabled><%= artifactory['security']['anonAccessEnabled'] %></anonAccessEnabled>
+        <anonAccessToBuildInfosDisabled><%= artifactory['security']['anonAccessToBuildInfosDisabled'] %></anonAccessToBuildInfosDisabled>
+        <hideUnauthorizedResources><%= artifactory['security']['hideUnauthorizedResources'] %></hideUnauthorizedResources>
+
+        <passwordSettings>
+            <encryptionPolicy><%= artifactory['security']['passwordSettings']['encryptionPolicy'] %></encryptionPolicy>
+            <expirationPolicy>
+                <enabled><%= artifactory['security']['passwordSettings']['expirationPolicy']['enabled'] %></enabled>
+                <passwordMaxAge><%= artifactory['security']['passwordSettings']['expirationPolicy']['passwordMaxAge'] %></passwordMaxAge>
+                <notifyByEmail><%= artifactory['security']['passwordSettings']['expirationPolicy']['notifyByEmail'] %></notifyByEmail>
+            </expirationPolicy>
+        </passwordSettings>
+
+        <ldapSettings/>
+
+        <ldapGroupSettings/>
+
+        <userLockPolicy>
+            <enabled><%= artifactory['security']['userLockPolicy']['enabled'] %></enabled>
+            <loginAttempts><%= artifactory['security']['userLockPolicy']['loginAttempts'] %></loginAttempts>
+        </userLockPolicy>
+
+    </security>
+
+    <!-- Backups -->
+
+    <backups>
+
+    <% artifactory['backups'].each do |backupKey, backup| %>
+
+        <backup>
+            <key><%= backupKey %></key>
+            <cronExp><%= backup[:cronExp] %></cronExp>
+            <retentionPeriodHours><%= backup[:retentionPeriodHours] %></retentionPeriodHours>
+            <excludedRepositories>
+            <% backup[:excludedRepositories].each do |repository| %>
+                <repositoryRef><%= repository %></repositoryRef>
+            <% end %>
+            </excludedRepositories>
+        </backup>
+
+    <% end %>
+
+    </backups>
+
+    <!-- Indexer -->
+
+    <indexer>
+        <cronExp><%= artifactory['indexer']['cronExp'] %></cronExp>
+    </indexer>
+
+    <!-- Local Repositories -->
+
+    <localRepositories>
+
+    <% artifactory['localRepositories'].each do |localRepositoryKey, localRepository| %>
+
+        <localRepository>
+            <key><%= localRepositoryKey %></key>
+            <type><%= localRepository[:type] %></type>
+            <description><%= localRepository[:description] %></description>
+            <repoLayoutRef><%= localRepository[:repoLayoutRef] %></repoLayoutRef>
+            <handleReleases><%= localRepository[:handleReleases] %></handleReleases>
+            <handleSnapshots><%= localRepository[:handleSnapshots] %></handleSnapshots>
+            <suppressPomConsistencyChecks><%= localRepository[:suppressPomConsistencyChecks] %></suppressPomConsistencyChecks>
+        </localRepository>
+
+    <% end %>
+
+    </localRepositories>
+
+    <!-- Remove Repositories -->
+
+    <remoteRepositories>
+
+    <% artifactory['remoteRepositories'].each do |remoteRepositoryKey, remoteRepository| %>
+
+        <remoteRepository>
+            <key><%= remoteRepositoryKey %></key>
+            <type><%= remoteRepository[:type] %></type>
+            <description><%= remoteRepository[:description] %></description>
+            <repoLayoutRef><%= remoteRepository[:repoLayoutRef] %></repoLayoutRef>
+            <handleReleases><%= remoteRepository[:handleReleases] %></handleReleases>
+            <handleSnapshots><%= remoteRepository[:handleSnapshots] %></handleSnapshots>
+            <suppressPomConsistencyChecks><%= remoteRepository[:suppressPomConsistencyChecks] %></suppressPomConsistencyChecks>
+            <url><%= remoteRepository[:url] %></url>
+            <blockMismatchingMimeTypes><%= remoteRepository[:blockMismatchingMimeTypes] %></blockMismatchingMimeTypes>
+        </remoteRepository>
+
+    <% end %>
+
+    </remoteRepositories>
+
+    <!-- Virtual Repositories -->
+
+    <virtualRepositories>
+
+    <% artifactory['virtualRepositories'].each do |virtualRepositoryKey, virtualRepository| %>
+
+        <virtualRepository>
+            <key><%= virtualRepositoryKey %></key>
+            <type><%= virtualRepository[:type] %></type>
+            <% unless virtualRepository[:artifactoryRequestsCanRetrieveRemoteArtifacts].nil? %>
+            <artifactoryRequestsCanRetrieveRemoteArtifacts><%= virtualRepository[:artifactoryRequestsCanRetrieveRemoteArtifacts] %></artifactoryRequestsCanRetrieveRemoteArtifacts>
+            <% end %>
+            <repositories>
+            <% virtualRepository[:repositories].each do |repository| %>
+                <repositoryRef><%= repository %></repositoryRef>
+            <% end %>
+            </repositories>
+        </virtualRepository>
+
+    <% end %>
+
+    </virtualRepositories>
+
+    <!-- URL Base -->
+    <urlBase><%= artifactory['urlBase'] %></urlBase>
+
+    <!-- Logo -->
+    <logo><%= artifactory['logo'] %></logo>
+
+    <!-- Footer -->
+    <footer><%= artifactory['footer'] %></footer>
+
+    <!-- Repository Layouts -->
+
+    <repoLayouts>
+
+        <repoLayout>
+            <name>maven-2-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
+            <descriptorPathPattern>[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).pom</descriptorPathPattern>
+            <folderIntegrationRevisionRegExp>SNAPSHOT</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>SNAPSHOT|(?:(?:[0-9]{8}.[0-9]{6})-(?:[0-9]+))</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>ivy-default</name>
+            <artifactPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[type]s/[module](-[classifier])-[baseRev](-[fileItegRev]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
+            <descriptorPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[type]s/ivy-[baseRev](-[fileItegRev]).xml</descriptorPathPattern>
+            <folderIntegrationRevisionRegExp>\d{14}</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>\d{14}</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>gradle-default</name>
+            <artifactPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
+            <descriptorPathPattern>[org]/[module]/ivy-[baseRev](-[fileItegRev]).xml</descriptorPathPattern>
+            <folderIntegrationRevisionRegExp>\d{14}</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>\d{14}</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>maven-1-default</name>
+            <artifactPathPattern>[org]/[type]s/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
+            <descriptorPathPattern>[org]/[type]s/[module]-[baseRev](-[fileItegRev]).pom</descriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.+</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>.+</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>nuget-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[module].[baseRev](-[fileItegRev]).nupkg</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>npm-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[module]-[baseRev](-[fileItegRev]).tgz</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>bower-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[module]-[baseRev](-[fileItegRev]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>vcs-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[refs&lt;tags|branches&gt;]/[baseRev]/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>[a-zA-Z0-9]{40}</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>sbt-default</name>
+            <artifactPathPattern>[org]/[module]/(scala_[scalaVersion&lt;.+&gt;])/(sbt_[sbtVersion&lt;.+&gt;])/[baseRev]/[type]s/[module](-[classifier]).[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
+            <descriptorPathPattern>[org]/[module]/(scala_[scalaVersion&lt;.+&gt;])/(sbt_[sbtVersion&lt;.+&gt;])/[baseRev]/[type]s/ivy.xml</descriptorPathPattern>
+            <folderIntegrationRevisionRegExp>\d{14}</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>\d{14}</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+        <repoLayout>
+            <name>simple-default</name>
+            <artifactPathPattern>[orgPath]/[module]/[module]-[baseRev].[ext]</artifactPathPattern>
+            <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+            <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+            <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+        </repoLayout>
+
+    </repoLayouts>
+
+    <!-- GC Config -->
+
+    <gcConfig>
+        <cronExp><%= artifactory['gcConfig']['cronExp'] %></cronExp>
+    </gcConfig>
+
+    <!-- Cleanup Config -->
+
+    <cleanupConfig>
+        <cronExp><%= artifactory['cleanupConfig']['cronExp'] %></cronExp>
+    </cleanupConfig>
+
+    <!-- Virtual Cache Cleanup Config -->
+
+    <virtualCacheCleanupConfig>
+        <cronExp><%= artifactory['virtualCacheCleanupConfig']['cronExp'] %></cronExp>
+    </virtualCacheCleanupConfig>
+
+    <!-- System Message Config -->
+
+    <systemMessageConfig>
+        <enabled><%= artifactory['systemMessageConfig']['enabled'] %></enabled>
+        <% unless artifactory['systemMessageConfig']['title'].to_s == '' %><title><%= artifactory['systemMessageConfig']['title'] %></title><% end %>
+        <% unless artifactory['systemMessageConfig']['titleColor'].to_s == '' %><titleColor><%= artifactory['systemMessageConfig']['titleColor'] %></titleColor><% end %>
+        <% unless artifactory['systemMessageConfig']['message'].to_s == '' %><message><%= artifactory['systemMessageConfig']['message'] %></message><% end %>
+        <showOnAllPages><%= artifactory['systemMessageConfig']['showOnAllPages'] %></showOnAllPages>
+    </systemMessageConfig>
+
+    <!-- Folder Download Config -->
+
+    <folderDownloadConfig>
+        <enabled><%= artifactory['folderDownloadConfig']['enabled'] %></enabled>
+        <maxDownloadSizeMb><%= artifactory['folderDownloadConfig']['maxDownloadSizeMb'] %></maxDownloadSizeMb>
+        <maxFiles><%= artifactory['folderDownloadConfig']['maxFiles'] %></maxFiles>
+        <maxConcurrentRequests><%= artifactory['folderDownloadConfig']['maxConcurrentRequests'] %></maxConcurrentRequests>
+    </folderDownloadConfig>
+
+    <!-- Trash Can Config -->
+
+    <trashcanConfig>
+        <enabled><%= artifactory['trashcanConfig']['enabled'] %></enabled>
+        <allowPermDeletes><%= artifactory['trashcanConfig']['allowPermDeletes'] %></allowPermDeletes>
+        <retentionPeriodDays><%= artifactory['trashcanConfig']['retentionPeriodDays'] %></retentionPeriodDays>
+    </trashcanConfig>
+
+</config>

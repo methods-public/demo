@@ -1,0 +1,21 @@
+[Unit]
+Description=Gliderlabs registrator service for systemd
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/registrator/registrator.conf
+<% if @config.run_user -%>
+User=<%= @config.run_user %>
+<% end -%>
+# set GOMAXPROCS to number of processors
+ExecStart=/bin/bash <%= @config.bin_path %>/<%= @config.start_registrator_bin %> start
+ExecStop=/bin/bash <%= @config.bin_path %>/<%= @config.start_registrator_bin %> stop
+PIDFile=/var/run/registrator.pid
+KillMode=process
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

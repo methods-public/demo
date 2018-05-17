@@ -1,0 +1,37 @@
+{
+  "name": "libmemcached",
+  "description": "Install/Configure libmemcached",
+  "long_description": "= DESCRIPTION:\n\nLibmemcached Chef recipe. Builds libmemcached from source.\n\nhttps://github.com/fred/chef-libmemcached\n\nYou can overwrite the version attributes for newer versions\n\ndefault[:libmemcached][:version] = \"1.0.17\"\n\nSupports: ubuntu, debian, redhat, centos, fedora, suse, amazon\n\n\n= REQUIREMENTS:\n\nThis cookbook depends on build-essential cookbook, it also installs these packages needed for compiling:\n\n  - gcc-c++ (rhel, not part of build-essential)\n  - cloog-ppl (rhel)\n  - libcloog-ppl-dev (debian)\n  - libcloog-ppl0 (debian)\n\n= ATTRIBUTES:\n\n= USAGE:\n\nrename the cloned repo to libmemcached\n\ngit clone git@github.com:fred/chef-libmemcached.git ./libmemcached\n\nthen add it to run list, optionally specifiying the version you need.\n\n```json \n{\n  \"libmemcached\": {\n    \"version\": \"1.0.17\"\n  }\n  \"run_list\": [\n    \"recipe[libmemcached]\"\n  ]\n}\n\n```",
+  "maintainer": "Frederico Araujo (originally by Tomaz Muraus)",
+  "maintainer_email": "fred.the.master@gmail.com (tomaz+cookbooks@tomaz.me)",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

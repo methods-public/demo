@@ -1,0 +1,4 @@
+# Bypass some of the longer lines
+Metrics/LineLength:
+  Max: 113
+  

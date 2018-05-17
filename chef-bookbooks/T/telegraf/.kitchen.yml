@@ -1,0 +1,70 @@
+---
+driver:
+  name: vagrant
+  linked_clone: true
+
+provisioner:
+  name: chef_zero
+  encrypted_data_bag_secret_key_path: test/integration/tk_encrypted_data_bag_secret
+  data_bags_path: test/integration/data_bags
+  environments_path: test/environments
+  environment: kitchen
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-15.04
+  - name: ubuntu-16.04
+  - name: centos-6.8
+  - name: centos-7.3
+  - name: windows-2012r2
+    driver_config:
+      box: mwrock/Windows2012R2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[telegraf::default]
+    attributes:
+      telegraf:
+        outputs:
+          influxdb:
+            urls: ['http://localhost:8086']
+            database: 'telegraf'
+            precision: 's'
+  - name: file
+    run_list:
+      - recipe[telegraf::default]
+    attributes:
+      telegraf:
+        install_type: file
+        version: 1.4.1
+        shasums: 
+          windows: '1cad74edb888bd7a3cde9461b7f0b4210942e967d3cdb3f416ce589e3c755080'        
+        outputs:
+          influxdb:
+            urls: ['http://localhost:8086']
+            database: 'telegraf'
+            precision: 's'
+    includes:
+      - windows-2012r2
+  - name: file
+    run_list:
+      - recipe[telegraf::default]
+    attributes:
+      telegraf:
+        install_type: file
+        version: 1.4.1-1
+        shasums: 
+          debian: f70ca532511a92e590eaf129ee816dd7cd8c0f7eeb62b41e1b8c8623334d6a8d'
+          rhel: 76ae1248890b399c5964d254fc763587b60059ab45081e73d7cad805fa97615b'
+        outputs:
+          influxdb:
+            urls: ['http://localhost:8086']
+            database: 'telegraf'
+            precision: 's'
+    excludes:
+      - windows-2012r2      

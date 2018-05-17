@@ -1,0 +1,95 @@
+PIDFILE="/var/run/registrator.pid"
+LOGFILE="/var/log/cluster/registrator"
+
+get_pid() {
+  PID=`cat $PIDFILE`
+}
+
+start () {
+  # Main exec file
+  COMMAND=<%= @config.bin_path %>/<%= @config.registrator_bin %>
+
+  # Set the log file
+  if [ -n "$REGISTRATOR_LOGFILE" ]; then
+    LOGFILE="$REGISTRATOR_LOGFILE"
+  else
+    LOGFILE="/var/log/cluster/registrator"
+  fi
+
+  # Assemble start command
+  if [ -n "$REGISTRATOR_CLEANUP" ]; then
+    COMMAND="$COMMAND -cleanup"
+  fi
+  if [ -n "$REGISTRATOR_DEREGISTER" ]; then
+    COMMAND="$COMMAND -deregister $REGISTRATOR_DEREGISTER"
+  fi
+  if [ -n "$REGISTRATOR_INTERNAL" ]; then
+    COMMAND="$COMMAND -internal"
+  fi
+  if [ -n "$REGISTRATOR_IP" ]; then
+    COMMAND="$COMMAND -ip $REGISTRATOR_IP"
+  fi
+  if [ -n "$REGISTRATOR_RESYNC" ]; then
+    COMMAND="$COMMAND -resync $REGISTRATOR_RESYNC"
+  fi
+  if [ -n "$REGISTRATOR_RETRY_ATTEMPTS" ]; then
+    COMMAND="$COMMAND -retry-attempts $REGISTRATOR_RETRY_ATTEMPTS"
+  fi
+  if [ -n "$REGISTRATOR_RETRY_INTERVAL" ]; then
+    COMMAND="$COMMAND -retry-interval $REGISTRATOR_RETRY_INTERVAL"
+  fi
+  if [ -n "$REGISTRATOR_TAGS" ]; then
+    COMMAND="$COMMAND -tags $REGISTRATOR_TAGS"
+  fi
+  if [ -n "$REGISTRATOR_TTL" ]; then
+    COMMAND="$COMMAND -ttl $REGISTRATOR_TTL"
+  fi
+  if [ -n "$REGISTRATOR_TTL_REFRESH" ]; then
+    COMMAND="$COMMAND -ttl-refresh $REGISTRATOR_TTL_REFRESH"
+  fi
+
+  if [ -n "$REGISTRATOR_BACKEND" ]; then
+    COMMAND="$COMMAND $REGISTRATOR_BACKEND"
+  else
+    echo "Backend not specified"
+    exit 1
+  fi
+
+  echo "Starting registrator: $COMMAND" > $LOGFILE
+  ( $COMMAND & echo $! > $PIDFILE ) >> $LOGFILE 2>> $LOGFILE &
+  return $?
+}
+
+status() {
+  get_pid
+  if [ -z $PID ]; then
+    echo "Service is not running"
+    exit 1
+  else
+    echo "Service is running, PID=$PIDFILE"
+  fi
+}
+
+stop() {
+  echo "Stopping registrator" >> $LOGFILE
+  get_pid
+  kill -n 1 $PID
+  rm -f $PIDFILE
+  return $?
+}
+
+restart() {
+  echo "Restarting registrator" >> $LOGFILE
+  get_pid
+  if [ -z $PID ]; then
+    start
+  else
+    stop
+    sleep 5
+    start
+  fi
+}
+
+case $1 in
+  start|stop|status|restart) "$1" ;;
+esac

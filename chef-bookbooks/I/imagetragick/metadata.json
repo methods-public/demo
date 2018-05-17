@@ -1,0 +1,55 @@
+{
+  "name": "imagetragick",
+  "description": "Install the policy file which (hopefully) patches the imagetragick vulnerability",
+  "long_description": "# imagetragick Cookbook\n\n[![Chef cookbook](https://img.shields.io/cookbook/v/imagetragick.svg)](https://supermarket.chef.io/cookbooks/imagetragick)\n[![Build Status](https://travis-ci.org/ajgon/chef-imagetragick.svg?branch=master)](https://travis-ci.org/ajgon/chef-imagetragick)\n[![Coverage Status](https://coveralls.io/repos/github/ajgon/chef-imagetragick/badge.svg?branch=master)](https://coveralls.io/github/ajgon/chef-imagetragick?branch=master)\n[![license](https://img.shields.io/github/license/ajgon/chef-imagetragick.svg?maxAge=2592000)](https://github.com/ajgon/chef-imagetragick/blob/master/LICENSE)\n\nA [chef](https://chef.io/) cookbook, designed to (hopefully) patch the [ImageTragick](https://imagetragick.com/)\nvulnerability via `policy.xml` file.\n\n## Requirements\n\n### Cookbooks\n\n* [imagemagick](https://supermarket.chef.io/cookbooks/imagemagick)\n\n### Platform\n\nTested on:\n\n* Ubuntu (14.04)\n\n## Recipes\n\nThis cookbook provides only one \"default\" recipe.\n\n## Contributing\n\nPlease see [CONTRIBUTING](https://github.com/ajgon/chef-imagetragick/blob/master/CONTRIBUTING.md)\nfor details.\n\n## Author and License\n\nAuthor: Igor Rzegocki <[igor@rzegocki.pl](mailto:igor@rzegocki.pl)>\n\nLicense: [MIT](https://github.com/ajgon/chef-imagetragick/blob/master/LICENSE)\n",
+  "maintainer": "Igor Rzegocki",
+  "maintainer_email": "igor@rzegocki.pl",
+  "license": "MIT",
+  "platforms": {
+    "fedora": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "imagemagick": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/ajgon/chef-imagetragick",
+  "issues_url": "https://github.com/ajgon/chef-imagetragick/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

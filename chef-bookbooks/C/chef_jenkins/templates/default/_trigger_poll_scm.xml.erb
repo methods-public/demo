@@ -1,0 +1,4 @@
+<hudson.triggers.SCMTrigger>
+  <spec><%= defined?(@poll_scm['schedule']) ? @poll_scm['schedule'] : '* * * * *' %></spec>
+  <ignorePostCommitHooks>false</ignorePostCommitHooks>
+</hudson.triggers.SCMTrigger>

@@ -1,0 +1,13 @@
+name             'cxs'
+maintainer       'Vassilis Aretakis'
+maintainer_email 'vassilis@onlab.xyz'
+license          'APACHE License 2.0'
+description      'Manages and Installs ConfigServer Xploit Scanner'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.5.1'
+chef_version     '~> 12'
+source_url       'https://gitlab.com/billias/cxs'
+issues_url       'https://gitlab.com/billias/cxs/issues'
+supports         'centos'
+supports         'cloudlinux'
+supports         'redhat'

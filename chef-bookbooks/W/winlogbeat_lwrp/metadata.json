@@ -1,0 +1,53 @@
+{
+  "name": "winlogbeat_lwrp",
+  "description": "LWRP for winlogbeat(shipper for Elasticsearch & Logstash)",
+  "long_description": "\n[Build status](https://ci.appveyor.com/api/projects/status/github/postgred/winlogbeat_lwrp?branch=master&svg=true)\n\n# winlogbeat_lwrp cookbook\n[winlogbeat](https://www.elastic.co/products/beats/winlogbeat) is a lightweight shipper for Windows Event Logs. This cookbook provide LWRP for installing the shipper.\n\n# Requirements\n## Platforms\n- Windows\n\n## Chef\n- Chef >= 12\n\n## Cookbooks\n- windows\n\n# Resource/Provider\n## winlogbeat_install\nInstall winlogbeat to the specified destination directory and overwrite a config by template.\n\n#### Actions\n- `:create` - Install winlogbeat and configure\n- `:delete` - Delete winlogbeat\n\n#### Attribute Parameters\n- `version` - Version of winlogbeat. Default is 5.4.0.\n- `bit` - Architecture of Windows(x86_64/x86). Default is x86_64.\n- `install_path` - The directory path to install winlogbeat.\n- `custom_url` - Url for downloading an archive of winlogbeat.\n- `conf_cookbook` - A cookbook with configuration templates.\n- `conf_template_source` - Name of an erb template for winlogbeat.yml\n\n#### Examples\nInstall winlogbeat `5.4.0` in a wrapper.\n\n* Create wrapper(logs-wrapper)\n* Add template for winlogbeat.yml\n* Use winlogbeat_install in recipe\n\n```ruby\nwinlogbeat_install '' do\n  version '5.4.0'\n  conf_cookbook 'logs-wrapper'\n  conf_template 'winlogbeat.yml.erb'\nend\n```\n\n# Recipes\n## default\n\nInstalls winlogbeat.\n\n# License & Authors\n- Author:: Andrey Aleksandrov (<postgred@gmail.com>)\n\n```text\nCopyright 2017 Andrey Aleksandrov\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n```\n",
+  "maintainer": "Andrey Aleksandrov",
+  "maintainer_email": "postgred@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/postgred/winlogbeat_lwrp",
+  "issues_url": "https://github.com/postgred/winlogbeat_lwrp/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,1 @@
+default['openvswitch']['packages'] = ['openvswitch']

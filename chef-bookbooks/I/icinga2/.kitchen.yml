@@ -1,0 +1,52 @@
+---
+driver:
+  name: vagrant
+
+verifier:
+  name: inspec
+
+provisioner:
+  name: chef_zero
+  # require_chef_omnibus: 12.21.4
+  attributes:
+    icinga2:
+      ignore_version: true
+    apt:
+      compile_time_update: true
+      # temp fix
+      disable_conf_d: false
+      confd:
+        install_recommends: false
+
+platforms:
+  - name: centos-6.8
+  - name: centos-7.2
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt::default]
+  - name: ubuntu-16.04
+    run_list:
+      - recipe[apt::default]
+  - name: debian-8.5
+    run_list:
+      - recipe[apt::default]
+
+suites:
+  - name: chef12server
+    driver:
+      require_chef_omnibus: 12.21.4
+    verifier:
+      inspec_tests:
+        - test/smoke/server
+    run_list:
+      - recipe[icinga2::default]
+      - recipe[icinga2-test::default]
+  - name: chef13server
+    driver:
+      require_chef_omnibus: 13.3.42
+    verifier:
+      inspec_tests:
+        - test/smoke/server
+    run_list:
+      - recipe[icinga2::default]
+      - recipe[icinga2-test::default]

@@ -1,0 +1,51 @@
+{
+  "name": "nscp",
+  "description": "Installs/Configures NSClient++ for Windows operating system",
+  "long_description": "# Nscp Chef Cookbook\n\n### Description\nNSClient++ is used as a monitoring agent on Windows. This cookbook installs it in NRPE (legacy) mode. Also it provides LWRP to create additional script checks.\n\n### Requirements\n\n#### Platforms\nTested only on Windows Server 2012 R2.\n\n### Attributes\nRoot for all attributes is `node['nscp']`.\n\n|Attribute|Description|Type|Default|\n|---------|-----------|----|-------|\n|`['config']`|Configuration values for `nsclient.ini` are stored here.|Hash|Check `attributes/default.rb`|\n|`['template_cookbook']`|Name of the cookbook where configuration templates are stored.|String|'nscp'|\n|`['template_name']`|Name of template file for `nsclient.ini` config.|String|'nsclient.ini.erb'|\n|`['template_scripts_name']`|Name of template file for `nsclient_scripts.ini` config.|String|'nsclient_scripts.ini.erb'|\n|`['service_name']`|Name of the NSClient++ service.|String|'nscp'|\n\n\n### Recipes\n\n* `default.rb` - Install and configure NSClient++.\n\n\n### Resources\n\n#### nscp_check\n\nUsed to create additional script checks. Every check is saved in node attributes.\n\n|Property|Description|Type|Default|\n|--------|-----------|----|-------|\n|`command_name`|Unique command name. This command then called from check_nrpe.|String||\n|`command`|Script name to execute. Currently only scripts in `<nsclient_folder>/scripts` are supported. Put custom scripts there using `template` or `cookbook_file` resources. Arguments are supported.|String||\n|`arguments`|Arguments array to be used with check. ATTENTION: These values are not for NSClient++ configuration, but for Nagios, Icinga, etc. to run with check_nrpe.|Array|[]|\n\n\n### Kitchen\n```bash\n# check style\nchef exec rake style\n# converge and run tests\nchef exec rake integration:vagrant\n```\n\n### Examples\nFor examples see `test/fixtures/cookbooks/test` cookbook.\n\n### Authors\n* Author:: Azat Khadiev (anuriq@gmail.com)\n",
+  "maintainer": "Azat Khadiev",
+  "maintainer_email": "anuriq@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chocolatey": "~> 1.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/anuriq/chef-nscp",
+  "issues_url": "https://github.com/anuriq/chef-nscp/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

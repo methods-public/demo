@@ -1,0 +1,141 @@
+<?php
+header('X-Source: ' . gethostname());
+header('X-Version: 1.0');
+header('Content-Type: text/html');
+header('Cache-Control: must-revalidate');
+header('Cache-Control: no-cache');
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300"
+        rel="stylesheet">
+    <style>
+    BODY {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    #banner {
+      background-color: #298ad8;
+      text-align: center;
+    }
+    #banner IMG {
+      width: 600px;
+    }
+    H1 {
+      color: white;
+      margin: 0;
+      padding-bottom: 16pt;
+    }
+    #content {
+      padding: 24pt;
+      padding-left: 32pt;
+      padding-right: 32pt;
+    }
+    ADDRESS {
+      font-size: 16pt;
+      color: white;
+      padding-bottom: 12pt;
+      margin: 0;
+    }
+    ADDRESS CODE {
+      color: white;
+      font-size: inherit;
+      padding: 4pt;
+      border: 0;
+      margin: 0;
+    }
+    CODE A:link, CODE A:visited {
+      color: white;
+    }
+    CODE {
+      font-size: 14pt;
+      display: inline-block;
+      color: green;
+      margin-top: 4pt;
+      margin-bottom: 4pt;
+    }
+    .time {
+      color: magenta;
+    }
+    .cook-sel {
+      color: red;
+    }
+    .cook-nosel {
+      color: brown;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div id='banner'>
+      <img src="logo.png">
+      <h1>Getting Started: Automating Google Cloud Platform with Chef</h1>
+      <address>
+        This is a sample application created with the
+        <code><a href=
+        'https://github.com/nelsonjr/chef-webinars/tree/master/getting-started'
+        >webinar1-infra</a></code> cookbook.
+      </address>
+    </div>
+
+    <div id='content'>
+      <p>Hello from <code><%= node['hostname'] %></code>, with the IP address of
+        <code><%= node['cloud_v2']['public_ipv4'] %></code> on a
+        <code><%= node['platform'] %></code> virtual machine.
+      </p>
+
+      <p>It's <?= date('r') ?> around here</p>
+
+      <h2>Metadata from Google Cloud Platform</h2>
+
+      Here's some useful data we get from
+      <a href="https://docs.chef.io/ohai.html">Ohai</a>:
+
+      <ul>
+        <li>We got the startup script from:
+          <code>
+          <%= node['gce']['instance']['attributes']['startup-script-url'] %>
+          </code>
+        </li>
+        <li>
+          Our CPU arch is:
+          <code><%= node['gce']['instance']['cpuPlatform'] %></code>
+        </li>
+        <li>
+          My hostname on GCP is:
+          <code><%= node['gce']['instance']['hostname'] %></code>
+        </li>
+        <li>
+          Finally, my machine image:
+          <code><%= node['gce']['instance']['image'] %></code>
+        </li>
+      </ul>
+
+      <h2>Cookbooks</h2>
+
+      <p>The following cookbooks were applied to this machine:</p>
+
+      <ul>
+<% run_list = node['expanded_run_list'] -%>
+<%
+  node['cookbooks'].select { |k, _v| run_list.any? { |r| r.include?(k) } }
+                   .each do |name, data|
+-%>
+        <li><code><%= name -%>: <%= data['version'] -%></code></li>
+<% end -%>
+      </ul>
+
+      <p>The following cookbooks were also applied:</p>
+
+      <ul>
+<%
+  node['cookbooks'].reject { |k, _v| run_list.any? { |r| r.include?(k) } }
+                   .each do |name, data|
+-%>
+        <li><code><%= name -%>: <%= data['version'] -%></code></li>
+<% end -%>
+      </ul>
+    </div>
+  </body>
+</html>

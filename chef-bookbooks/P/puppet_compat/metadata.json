@@ -1,0 +1,42 @@
+{
+  "name": "puppet_compat",
+  "description": "HWRP for ini_setting and file_line resources",
+  "long_description": "Creates puppet-like resource ini_setting and file_line for easier migration",
+  "maintainer": "Stanislav Voroniy",
+  "maintainer_email": "stas@voroniy.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "https://github.com/voroniys/puppet_compat",
+  "issues_url": "https://github.com/voroniys/puppet_compat/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

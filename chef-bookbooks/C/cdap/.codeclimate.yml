@@ -1,0 +1,22 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 20
+  fixme:
+    enabled: true
+  foodcritic:
+    enabled: true
+  markdownlint:
+    enabled: true
+  rubocop:
+    enabled: true
+ratings:
+  paths:
+  - "**.md"
+  - "**.rb"
+exclude_paths:
+- spec/

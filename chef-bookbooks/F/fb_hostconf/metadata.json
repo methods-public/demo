@@ -1,0 +1,53 @@
+{
+  "name": "fb_hostconf",
+  "description": "Configures /etc/host.conf",
+  "long_description": "fb_hostconf Cookbook\n====================\nThis cookbook configures host.conf and provides an API for modifying all \naspects of host.conf\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_hostconf']['trim']\n* node['fb_hostconf']['multi']\n* node['fb_hostconf']['nospoof']\n* node['fb_hostconf']['spoofalert']\n* node['fb_hostconf']['spoof']\n* node['fb_hostconf']['reorder']\n* node['fb_hostconf']['order']\n\nUsage\n-----\nWill take arbirtrary values under `node['fb_hostconf']` and write them out\nto /etc/host.conf in different ways depending on the name of key or datatype \nof the value.\n\nIf key name is 'spoof' or 'trim', the value is written out as is without \nvalidation\n\nIf datatype of the value is an Array the values will be written out as \ncomma seperated strings\n\nAll other values are interpeted as boolean and if evaluated to true, the \nstring 'on' is written out else 'off' is written out.\n\nSee man host.conf for all settable attributes\n\nThe default is\n\n    default['fb_hostconf']['multi'] = True\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

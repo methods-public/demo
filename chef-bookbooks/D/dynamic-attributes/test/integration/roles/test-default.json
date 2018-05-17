@@ -1,0 +1,56 @@
+{
+  "name": "test",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "dynamic": {
+      "revrec_replace": "node['dynamic']['override']['fqdn_replace']",
+      "sym_replace": "node[:fqdn]",
+      "array_replace": ["node['fqdn']", "misc"],
+      "hash_replace": {
+        "node['ipaddress']": {
+          "node['fqdn']" : "deep"
+        }
+      },
+      "complex_replace": [
+        {"node['fqdn']": "node['fqdn']", "a": {"b": ["node['ipaddress']"]}},
+          "node[:ipaddress]"
+      ],
+      "nil_replace": "node['dynamic']['doesnotexist']",
+      "fqdn_eval": "#{node['fqdn']}",
+      "op_eval": "1+1=#{1+1}",
+      "hash_eval": {
+        "eth#{1+1}": {
+          "#{node['fqdn']}-#{node['ipaddress']}": "deep"
+        }
+      },
+      "string_eval": "\"I'm a string\"",
+      "complex_eval": [
+        {"#{node['fqdn']}": "1+1=#{1+1}", "a": {"b": [":#{node['fqdn']}"]}},
+          "sym:#{node[:ipaddress]}"
+      ],
+      "revrec_eval": "#{node['dynamic']['override']['rec_eval']}",
+      "mixed": ["node['fqdn']", ":#{node['fqdn']}"]
+    },
+    "dynamic-2": {
+      "dangerous_eval": "#{`cat /etc/shadow`}"
+    }
+  },
+  "override_attributes": {
+    "dynamic": {
+      "override": {
+        "fqdn_replace": "node['fqdn']",
+        "rec_replace": "node['dynamic']['array_replace']",
+        "composition_eval": "test-#{node['fqdn']}",
+        "array_eval": ["#{node['fqdn']}-#{node['ipaddress']}", "#{1+1}"],
+        "rec_eval": "#{node['dynamic']['op_eval']}"
+      }
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+
+  ],
+  "env_run_lists": {
+
+  }
+}

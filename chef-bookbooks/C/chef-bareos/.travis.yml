@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - 2.1.9
+  - 2.2.5
+  - 2.3.1
+
+script:
+  - bundle exec rspec --default-path spec
+  - bundle exec foodcritic -f any .
+  - bundle exec rubocop
+
+notifications:
+  email:
+    recipients:
+      - leonard.tavae@gmail.com
+      - sysadmin@informatique.gov.pf
+      - ian.smith@pnnl.gov
+    on_success: always
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/8b3467fd343caf088255
+    on_success: always
+    on_failure: always

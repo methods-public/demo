@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: ubuntu
+    run_list:
+      - recipe[vmware_workstation::ubuntu]
+    attributes: {
+      vmware_workstation: {
+				accept_eula: true,
+				serial_number: 'REPLACE_ME',
+				source_prefix: 'REPLACE_ME',
+				install_file: 'VMware-Workstation-Full-10.0.2-1744117.x86_64.bundle',
+				checksum: 'f32b72ecfc8b808731e97c3d478a1cda78427aaf'
+      }
+    }

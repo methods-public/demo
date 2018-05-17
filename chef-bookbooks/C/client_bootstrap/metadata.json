@@ -1,0 +1,56 @@
+{
+  "name": "client_bootstrap",
+  "description": "Bootstrap new Chef-Nodes",
+  "long_description": "# Client Bootstap by Chef-Server\n\n\nThis Cookbook will helps you to Bootstrap new Nodes by recipe.\n\n## Platforms\n\n- Windows\n- Redhat\n- Centos\n- Fedora\n\n## Requirements\n\nFirst of all you need an already bootstraped Linux Node with installed ChefDK.\n\n### Data Bags\n\nYou need to add the following DataBags:\n\n- bootstrap\n- sources\n\n#### DataBag Item\n\nIn the DataBag sources you have to create a DataBag Item named bootstrapping with a download link for each platform you want to bootstrap.\n\n##### DataBag Syntax example\n\n``` \n{\n  \"windows\": \"http://link2Chef-Client.msi\",\n  \"redhat\": \"http://link2Chef-client.rpm\"\n}\n```\n\nFor each Node you want to bootstrap you have to create a DataBag Item\n\n##### DataBag Syntax Windows\n\n``` \n{\n \"platform\": \"windows\",\n  \"hostname\": \"HOSTNAME\",\n  \"fqdn\": \"FQDN\",\n  \"domain\": \"DomainName\",\n  \"user\": \"UserOnTheRemoteSystem\",\n  \"passwd\": \"yourpasswd\",\n  \"environment\": \"_default\",\n}\n```\n\n##### DataBag Syntax Linux\n\n``` \n{\n \"platform\": \"redhat\", # or centos or fedora\n  \"hostname\": \"HOSTNAME\",\n  \"fqdn\": \"FQDN\",\n  \"domain\": \"DomainName\",\n  \"user\": \"UserOnTheRemoteSystem\",\n  \"passwd\": \"yourpasswd\",\n  \"environment\": \"_default\",\n}\n```\n\n## Execute\n\nEdit the runlist of your Linux Workstation Node ;) and add the chef_bootstrap cookbook.\n\nThe recipe will add a line (bootstraped = true) to the DataBag content after finishing.\n\n## License & Authors\n\n### Author: \n\nFrederik\n\n### License\n\n``` \nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n\n",
+  "maintainer": "Frederik Gutzeit",
+  "maintainer_email": null,
+  "license": "all_rights",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.5",
+  "source_url": "https://github.com/Rikzg/client_bootstrap",
+  "issues_url": "https://github.com/Rikzg/client_bootstrap/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

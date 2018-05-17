@@ -1,0 +1,8 @@
+#!/bin/sh
+exec 2>&1
+
+DAEMON_USER=<%= node['lita']['daemon_user'] %>
+CMD_FILE=<%= node['lita']['install_dir'] %>/bin/lita
+cd <%= node['lita']['install_dir'] %>
+
+exec /usr/bin/env chpst -e <%= node['runit']['sv_dir'] %>/lita/env/ -u $DAEMON_USER $CMD_FILE

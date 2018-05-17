@@ -1,0 +1,19 @@
+AllCops:
+  Exclude:
+    - '.kitchen/**/*'
+    - 'vendor/**/*'
+
+LineLength:
+  Max: 120
+
+MethodLength:
+  Max: 30
+
+AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  Enabled: false
+
+EndOfLine:
+  Enabled: false

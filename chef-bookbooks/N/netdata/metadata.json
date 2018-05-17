@@ -1,0 +1,61 @@
+{
+  "name": "netdata",
+  "description": "Compile, install and configure netdata",
+  "long_description": "# NetData Cookbook\n\n[![Build Status](https://travis-ci.org/jmadureira/netdata-cookbook.svg?branch=master)](https://travis-ci.org/jmadureira/netdata-cookbook)\n[![NetData Cookbook](https://img.shields.io/cookbook/v/netdata.svg)](https://supermarket.chef.io/cookbooks/netdata)\n[![Chef Version](http://img.shields.io/badge/chef-v12.9.38-orange.svg?style=flat)](https://www.chef.io)\n\nThis cookbook provides a way to download, install and configure NetData\nfrom FireHol, a real-time performance monitoring.\n\nLive demo: http://netdata.firehol.org\n\nGithub: https://github.com/firehol/netdata\n\n## Requirements\n\n### Platforms\n\n- Amazon Linux 2013.09+\n- Centos 6.7+\n- Debian 7.11+\n- Fedora 25+\n- Ubuntu 14.04+\n\n### Chef\n\n- Chef 12.6+\n\n### Cookbooks\n\n- yum-epel\n- apt\n\n## Usage\n\nThis cookbook implements resources to install NetData and manage its\nconfiguration files.\n\n## Recipies\n\n### default\n\nInstalls NetData using the netdata_install resource with default parameters.\n\n### install_netdata\n\nDeprecated, please use default recipe or netdata_install resource.\n\n## Resources\n\n### netdata_install\n\nInstalls NetData from source or binary on supported platforms (default: source).\n\n```rb\nnetdata_install 'default' do\n  install_method 'source'\n  git_repository 'https://github.com/firehol/netdata.git'\n  git_revision 'master'\n  git_source_directory '/tmp/netdata'\n  autoupdate true\n  update true\nend\n```\n\n- `install_method` - Installation method.\n- `git_repository` - Location of git repository to pull the NetData source.\n- `git_revision` - Tag/Branch/Commit to checkout.\n- `git_source_directory` - Location to sync the repository to on the server.\n- `install_path` - Change the location where NetData is installed.\n- `autoupdate` - Allow NetData to autoupdate itself via a cron entry.\n- `update` - Allow chef-client to update NetData if it is already installed (note: use 'true' to update NetData on every chef-client run, 'false' is the default value).\n\nIt's highly recommended to use a different path than `/tmp/netdata` for `git_source_directory` and in future versions the default path will change. This is encouraged because when `autoupdate` is set to true NetData will create a symbolic link from the source directory to cron.d and you don't want NetData to create a symbolic link to anything in `/tmp`\n\n\n```rb\nnetdata_install 'optional' do\n  install_method 'binary'\n  binary_repository 'https://raw.githubusercontent.com/firehol/binary-packages/master'\n  binary_package 'netdata-latest.gz.run'\n  binary_install_options([\n    '--accept'\n  ])\n  binary_post_install_options([\n    '--dont-start-it'\n  ])\nend\n```\n\n- `install_method` - Installation method.\n- `binary_repository` -  Location of the repository for binary packages.\n- `binary_package` - The binary package to be installed (note: 'netdata-latest.gz.run' is the default value that updates NetData on every chef-client run).\n- `binary_install_options` - Array of options to pass to the binary package installation script ('--accept' is required for automated installation).\n- `binary_post_install_options` - Array of options to pass to the binary package post installation script.\n\nThis resource will create a file `/opt/netdata/version.txt` with the filename of the binary package installed.\n\n### netdata_config\n\nManages the main netdata.conf file. Call this as many times as needed.\nEach name should be unique. (i.e. web, global)\n\n```rb\nnetdata_config 'web' do\n  owner 'netdata'\n  group 'netdata'\n  base_directory '/etc'\n  configurations(\n    'bind to' => 'localhost'\n  )\nend\n```\n\nResulting file content (/etc/netdata/netdata.conf):\n\n```sh\n[web]\n  bind to = localhost\n```\n\n- `owner` - User to own the file\n- `group` - Group to own the file\n- `base_directory` - Parent folder that holds the NetData configuration files.\n- `configurations` - Hash of key, value pairs for customizing NetData.\n\nThis resource will restart the NetData service automatically.\n\n### netdata_stream\n\nManages stream.conf file. Call this as many times as needed.  \nResource names could be either 'stream' or \"#{api_key}\" and \"#{machine_guid}\" depending on whether you configure slave or master NetData.\nName 'stream' should be used only once to configure slave NetData.\nValues for api_key and machine_guid should be unique.\n\n```rb\nnetdata_stream 'stream' do\n  owner 'netdata'\n  group 'netdata'\n  base_directory \"#{install_path}/netdata\"\n  configurations(\n    'enabled' => 'yes',\n    'destination' => 'netdata_master:19999',\n    'api key' => '11111111-2222-3333-4444-555555555555'\n  )\nend\n```\n\nResulting file content (\"#{install_path}/netdata/etc/netdata/stream.conf\"):\n\n```sh\n[stream]\n  enabled = yes\n  destination = netdata_master:19999\n  api key = 11111111-2222-3333-4444-555555555555\n```\n\n- `owner` - User to own the file\n- `group` - Group to own the file\n- `base_directory` - Parent folder where the NetData has been installed to (should be \"#{install_path}/netdata\" if `install_path` was used in netdata_install resource, otherwise should not be used).\n- `configurations` - Hash of key, value pairs for customizing NetData stream configuration.\n\nThis resource will restart the NetData service automatically.\n\n### netdata_python_plugin\n\nManages python plugin configuration files.\n\n```rb\nnetdata_python_plugin 'mysql' do\n  owner 'netdata'\n  group 'netdata'\n  base_directory '/etc'\n  global_configuration(\n    'retries' => 5\n  )\n  jobs(\n    'tcp' => {\n      'name' => 'local',\n      'host' => 'localhost',\n      'port' => 3306   \n    }\n  )\nend\n```\n\nResulting file content (/etc/netdata/python.d/mysql.conf):\n\n```sh\n# GLOBAL\nretries: 5\n\n# JOBS\ntcp:\n  name: local\n  host: localhost\n  port: 3306\n```\n\n- `owner` - User to own the file\n- `group` - Group to own the file\n- `base_directory` - Parent folder that holds the NetData configuration files.\n- `global_configuration` - Hash of global variables for the plugin.\n- `jobs` - Hash of jobs that tell NetData to pull statistics from.\n\nThis resource will restart the NetData service automatically.\n\n### netdata_statsd_plugin\n\nManages statsd plugin configuration files.\n\n```rb\nnetdata_statsd_plugin 'your_app' do\n  owner 'netdata'\n  group 'netdata'\n  base_directory ''\n  app_configuration(\n    'name' => 'your_app',\n    'metrics' => 'metrics to match'\n  )\n  charts(\n    'heap' => {\n      'name' => 'heap',\n      'title' => 'Heap Memory',\n      'dimension' => 'app.memory.heap.used used last 1 1000000'  \n    }\n  )\nend\n```\n\nResulting file content (/etc/netdata/statsd.d/your_app.conf):\n\n```sh\n# APP\n[app]\n  name = your_app\n  metrics = metrics to match\n\n# CHARTS\n[heap]\n  name = heap\n  title = Heap Memory\n  dimension = app.memory.heap.used used last 1 1000000\n```\n\n- `owner` - User to own the file\n- `group` - Group to own the file\n- `base_directory` - Parent folder that holds the NetData configuration files.\n- `app_configuration` - Hash with the application configuration.\n- `charts` - Hash of each specific chart configuration.\n\n### netdata_bind_rndc_conf\n\nDeprecated, please use netdata_python_plugin\n\n### netdata_nginx_conf\n\nDeprecated, please use netdata_python_plugin\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors:\n* Sergio Pena https://github.com/sergiopena\n* João Madureira https://github.com/jmadureira\n* Nick Willever https://github.com/nictrix\n",
+  "maintainer": "Sergio Pena",
+  "maintainer_email": "kekio.one@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": "< 3.0.0",
+    "apt": "< 7.0.0",
+    "compat_resource": "~> 12.19.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.4.0",
+  "source_url": "https://github.com/jmadureira/netdata-cookbook",
+  "issues_url": "https://github.com/jmadureira/netdata-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

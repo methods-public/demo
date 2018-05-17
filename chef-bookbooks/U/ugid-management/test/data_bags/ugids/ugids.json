@@ -1,0 +1,19 @@
+{
+  "id": "ugids",
+  "ugids": {
+    "username": 201,
+    "user_a": 202,
+    "user_b": 203,
+    "chrony": 204,
+    "dovenull": 205,
+    "foobarbefore": "1000:100",
+    "foobarafter": "1002:100",
+    "team": ":2400",
+    "devops": ":2410",
+    "docker": ":2420",
+    "sysadmin": ":3000",
+    "kitchenusers": ":3001",
+    "superadmin": "2000:100",
+    "auser": "2001:100"
+  }
+}

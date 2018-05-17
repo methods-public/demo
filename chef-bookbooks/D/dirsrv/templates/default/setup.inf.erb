@@ -1,0 +1,37 @@
+[General]
+FullMachineName         = <%= @host %>
+SuiteSpotGroup          = dirsrv
+SuiteSpotUserID         = dirsrv
+<% if @has_cfgdir -%>
+  <% if @cfgdir_domain %>
+AdminDomain             = <%= @cfgdir_domain %>
+  <% end -%>
+ConfigDirectoryAdminID  = <%= @cfgdir_credentials['username'] %>
+ConfigDirectoryAdminPwd = <%= @cfgdir_credentials['password'] %>
+ConfigDirectoryLdapURL  = ldap://<%= @cfgdir_addr %>:<%= @cfgdir_ldap_port %>/o=NetscapeRoot
+<% end -%>
+
+<% if @is_cfgdir -%>
+[admin]
+Port            = <%= @cfgdir_http_port %>
+ServerAdminID   = <%= @cfgdir_credentials['username'] %>
+ServerAdminPwd  = <%= @cfgdir_credentials['password'] %>
+ServerIpAddress = <%= @cfgdir_addr %>
+SysUser         = dirsrv
+<% end -%>
+
+[slapd]
+AddOrgEntries    = <%= @add_org_entries %>
+AddSampleEntries = <%= @add_sample_entries %>
+InstallLdifFile  = <%= @preseed_ldif %>
+RootDN           = <%= @credentials['bind_dn'] %>
+RootDNPwd        = <%= @credentials['password'] %>
+ServerIdentifier = <%= @instance %>
+ServerPort       = <%= @port %>
+Suffix           = <%= @suffix %>
+cert_dir         = <%= @conf_dir %>/slapd-<%= @instance %>
+config_dir       = <%= @conf_dir %>/slapd-<%= @instance %>
+bak_dir          = <%= @base_dir %>/slapd-<%= @instance %>/bak
+db_dir           = <%= @base_dir %>/slapd-<%= @instance %>/db
+ldif_dir         = <%= @base_dir %>/slapd-<%= @instance %>/ldif
+schema_dir       = <%= @conf_dir %>/slapd-<%= @instance %>/schema

@@ -1,0 +1,50 @@
+{
+  "name": "opsview",
+  "description": "Installs and configures Opsview",
+  "long_description": "",
+  "maintainer": "Biola University",
+  "maintainer_email": "jared.king@biola.edu",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 2.0",
+    "ark": "~> 0.9.0",
+    "chef-vault": ">= 1.0",
+    "mysql": "< 6.0",
+    "openssl": ">= 2.0",
+    "oracle_instant_client": ">= 0.2.0",
+    "vsphere_perl_sdk": ">= 1.0",
+    "yum": ">= 3.0",
+    "yum-epel": "~> 0.6.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.0.2"
+}

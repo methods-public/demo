@@ -1,0 +1,54 @@
+{
+  "name": "fb_logrotate",
+  "description": "Installs/Configures logrotate",
+  "long_description": "fb_logrotate Cookbook\n====================\nThis configures the logrotate package with common configs that go on\nevery server, but do not necessarily have a corresponding cookbook\nthey should go in.\n\nIf the system that this cookbook is run on is MAC OS X, it will populate all\nthe files outlined in the configration in the newsylog.d format.\n\nSee http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf\nfor more details about the newsyslog feature.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_logrotate']['globals'][$CONFIG]\n* node['fb_logrotate']['configs'][$NAME]\n* node['fb_logrotate']['add_locking_to_logrotate']\n* node['fb_logrotate']['debug_log']\n\nUsage\n-----\nThe configuration of logrotate via Chef is best explained by looking\ndirectly at attributes/default.rb of this cookbook. A summary is below.\n\nThe `node['fb_logrotate']['configs']` hash contains one entry\nper logrotate configuration block.\n\nTo rotate a new set of logs, add a new entry to this hash, like so:\n\n    node['fb_logrotate']['configs']['myapp'] = {\n      'files' => ['/var/log/myapp.log']\n      'overrides' => {\n        'missingok' => true,\n      }\n    }\n\n\nThe following defaults are provided:\n\nLinux:\n  daily\n  rotate 14\n  maxage 14\n  compress\n  compresscmd /usr/bin/pigz (except on CentOS 6, where pigz is not available)\n  copytruncate\n  notifempty\n  missingok\n\nMAC OS (BSD):\n  rotate 14\n  mode 644\n  size 102400\n  when *\n  flags J\n\nOf these compresscmd, rotate and maxage defaults are specified via\n* node['fb_logrotate']['globals']['...']\nThese maybe overridden by recipes for a particular platform.\n  compresscmd - Specifies which command to use to compress log files.\n                The default is pigz, except for CentOS 6 where pigz\n                is not available. You can specify this by\n                node['fb_logrotate']['globals']['compresscmd']\n  rotate - Log files are rotated count times before being removed or mailed\n           to the address specified in a mail directive. If count is 0,\n           old versions are removed rather than rotated. You can specify\n           this by node['fb_logrotate']['globals']['rotate']\n  maxage - Remove rotated logs older than <count> days. The age is only\n           checked if the logfile is to be rotated. The files are mailed to\n           the configured address if `maillast` and `mail` are configured.\n           You can specify this by node['fb_logrotate']['globals']['maxage']\n\n\nThe following attributes are optional and not populated by default.\nThese can be then later specified by setting the appropriate attribute\nand would get picked up by this logrotate recipe.\n  size - Log files are rotated if they grow bigger than size bytes. \n         If size is followed by k, the size is assumed to be in kilobytes.\n         If the M is used, the size is in megabytes, and if G is used,\n         the size is in gigabytes. So size 100, size 100k, size 100M\n         and size 100G are all valid.\n         specified by node['fb_logrotate']['globals']['size']\n  compressext - Specifies which extension to use on compressed logfiles,\n                if compression is enabled.\n                specified by node['fb_logrotate']['globals']['compressext']\n\nOverrides accepts the following booleans:\n  copytruncate\n  ifempty\n  nocompress\n  missingok\n  sharedscripts\n  nomail\n  noolddir\n  nocopytruncate\n  dateext\n  nodateext\n  nocreate\n\nSimply set them to true in your override hash to enable them. The following\nadditional overrides are accepted and require values:\n\n  rotation     # this is how you specify daily/weekly/monthly/yearly\n  rotate       # will be set to 14 if you choose daily but don't specify this\n  size\n  minsize\n  create\n  postrotate\n  prerotate\n  preremove\n  olddir\n  su\n  compressoptions\n  dateformat\n  owner (mac os x, BSD - only)\n  pid_file (mac os x, BSD - only)\n  sig_num (mac os x, BSD - only)\n\nPlease don't turn off compression unless you know what you are doing, and\nplease specify only the minimum of overrides.\n\nIMPORTANT NOTE: No syntax checking is done for the logrotate configs.\nYou are responsible for ensuring you are entering correct, typo-free\ndata.\n\nLet's go ahead and now take a look at a full sample structure, and\nthe resulting config file it would generate:\n\n    default['fb_logrotate']['configs']['mcproxy'] = {\n      'files' => [\n        \"/var/log/mcproxy-tao.log\",\n        \"/var/log/mcproxy-tao2.log\",\n        \"/var/log/mcproxy.init.log\",\n        \"/var/log/mcproxy.tao.log\",\n        \"/var/log/mcproxy.tao2.log\",\n        \"/var/log/mcproxy2.tao.log\",\n        \"/var/log/mcproxy.log.global\",\n        \"/var/log/mcproxy.log\",\n        \"/var/log/mcproxy.global\",\n        \"/var/log/mcproxy.regional.log\",\n      ],\n      'overrides' => {\n        'size' => '50M',\n        'copytruncate' => true,\n        'missingok' => true,\n        'sharedscripts' => true,\n      },\n    }\n\nFrom the above structure, the following config file is generated:\n\n    /var/log/mcproxy-tao.log /var/log/mcproxy-tao2.log /var/log/mcproxy.init.log /var/log/mcproxy.tao.log /var/log/mcproxy.tao2.log /var/log/mcproxy2.tao.log /var/log/mcproxy.log.global /var/log/mcproxy.log /var/log/mcproxy.global /var/log/mcproxy.regional.log {\n      size 50M\n      copytruncate\n      missingok\n      sharedscripts\n    }\n\nAnother example that shows the newsyslog.d conf file as generated on a MAC\nmachine using the following sample strucutre:\n\n    node.default['fb_logrotate']['configs']['mylogfile'] = {\n      'files' => ['/var/log/mylogfile'],\n      'overrides' => {\n        'size' => '1048576', # 1GB\n      },\n    }\n\nFrom the above structure, the a config file\n(/etc/newsyslog.d/fb_bsd_newsyslog.conf) is generated with output:\n\n```\n# logfilename                       [owner:group]        mode count size     when  flags [/pid_file] [sig_num]\n/var/log/messages                                        644  5     1024     24    J\n/var/log/mylogfile                                       644  14    1048576  *     J\n/var/log/secure                                          644  14    1048576  *     J\n```\n\nNote that by default rotations for /var/log/messages and /var/log/secure\nare auto-populated into the newsyslog.d conf file.\n\n### add_locking_to_logrotate\nThe `node['fb_logrotate']['add_locking_to_logrotate']` feature will *overwrite*\nthe cronjob for logrotate (/etc/cron.daily/logrotate) with one that wraps the\ncall to logrotate in a `flock` call to prevent logrotate runs from stepping on\neach other. This can be very useful, but be aware you are overwriting a file from\nthe system package.\n\n### debug_log\nThe `node['fb_logrotate']['debug_log']` feature is disabled by default. Setting\nthis to true will cause verbose logrotate output to be captured in\n`/tmp/logrotate.debug.log`. This option is only available if\nthe `add_locking_to_logrotate` feature is also enabled.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

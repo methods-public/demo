@@ -1,0 +1,41 @@
+{
+  "name": "winscp",
+  "description": "Installs/Configures winscp",
+  "long_description": "# winscp'\n\nChef cookbook for downloading and installing WinSCP\n",
+  "maintainer": "Ellert van der Vecht",
+  "maintainer_email": "evandervecht@schubergphilis.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "winscp::default": "Installs WinSCP"
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

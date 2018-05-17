@@ -1,0 +1,22 @@
+#
+# Cookbook Name:: gnugpg
+#
+# Copyright (C) 2017 Rodel Manalo Talampas
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+default['gnugpg']['win']['install_loc'] = 'c:\\gnugpg'
+default['gnugpg']['win']['install_loc_2'] = 'c:\\GnuPG'
+default['gnugpg']['win']['checksum'] = '2565bf6faf8defb8fa61b0b1a30f0e68e2ca5ceb3177d08516e00ca1620252bf'
+default['gnugpg']['win']['version'] = '3.0.0'
+default['gnugpg']['win']['download_url'] = "http://static.helixleisure.net/installer/gnu/gpg4win-#{node['gnugpg']['win']['version']}.exe"

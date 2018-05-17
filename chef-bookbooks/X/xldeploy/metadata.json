@@ -1,0 +1,41 @@
+{
+  "name": "xldeploy",
+  "description": "Installs and configures XL Deploy from XebiaLabs",
+  "long_description": "\n# XL Deploy\n[![Build Status](https://travis-ci.org/electric-it/xldeploy.svg?branch=master)](https://travis-ci.org/electric-it/xldeploy)\n\n[xebialabs.com](https://xebialabs.com)\n\n# Description\nXL Deploy is the only application release automation solution that is agentless across all target platforms. Connect to Windows and Unix target systems using proven, industry-standard remote protocols; no agent installation and maintenance, no overhead on the target systems, no firewall ports to be opened, and no security reviews.\n\n# Server requirements\nTo install the XL Deploy server, the following prerequisites must be met:\n\n1. XL Deploy license: You can download your license from https://tech.xebialabs.com/download/license.\n2. Operating system: Windows or Unix-family operating system running Java.\n3. Java Runtime Environment: JDK 7 (Oracle, IBM or Apple)\n4. RAM: At least 2GB of RAM available for XL Deploy.\n5. Hard disk space: Sufficient hard disk space to store the XL Deploy repository. This depends on your usage of XL Deploy. See Determining hard disk space requirements.\n\nDepending on the environment, the following may also be required:\n\n1. Database: XL Deploy's Jackrabbit repository supports a number of different databases. For more information, see Configuring the repository.\n2. LDAP: To enable group-based security, an LDAP x.509 compliant registry is needed. For more information, see Configuring LDAP security.\n\n**Download Installation Archive**\nThe cookbook is using wget to download the installation archive from xebialabs.\nSet attribute ['xldeploy']['downloadurl'] to this installation archive.\nSet attribute default['xldeploy']['username'] = 'supplied by xebialabs'\nSet attribute default['xldeploy']['password'] = 'supplied by xebialabs'\n\n**Using the default recipe the below steps are executed**\n1. Creates xldeploy user and group.\n2. Creates an installation directory /opt/xl-deploy-4.5.x-server. This can be changed via attributes.\n3. wgets the XL Deploy installation archive from the ['xldeploy']['downloadurl'] attribute.\n4. Extracts the archive into the installation directory.\n5. Change ownership of the installation directory to be owned by xldeploy user and group.\n6. Configure the deployit.conf through the setup.config.txt.erb template. All values in this setup file can be overwritten by attributes.\n7. Kick off xldeploy installation program (server.sh included in installation archive).\n8. Configure xldeploy as a service (runit).\n\n# Post Installation\nAdd the license file to your installation directory ~/conf directory and restart XLDeploy service\n\n```sv down xldeploy; sv up xldeploy```\n\n# Contributing\n\n1. Fork it!\n2. Create your feature branch: `git checkout -b my-new-feature`\n3. Commit your changes: `git commit -am 'Add some feature'`\n4. Push to the branch: `git push origin my-new-feature`\n5. Submit a pull request :D\n\n# License & Authors\n- Authors: Robert Castelle & Bernie Durfee\n\n```\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n```\n",
+  "maintainer": "YOUR_COMPANY_NAME",
+  "maintainer_email": "YOUR_EMAIL",
+  "license": "Apache v2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "runit": "~> 1.5",
+    "java": "~> 1.25",
+    "tar": "~> 0.5"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.2"
+}

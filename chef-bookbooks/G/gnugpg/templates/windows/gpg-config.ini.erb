@@ -1,0 +1,27 @@
+; Installer settings. Do not define or leave empty for defaults.
+inst_gnupg2 = false
+inst_gpgol = true
+inst_gpgex = true
+inst_gpa = true
+inst_winpt = true
+inst_gpgee = true
+inst_claws_mail = false
+inst_novice_manual_en = true
+inst_novice_manual_de = true
+inst_advanced_manual_de = true
+; Where to install short-cuts.
+inst_start_menu = true
+inst_desktop = false
+inst_quick_launch_bar = false
+; Contrary to other settings in this file, the start menu folder
+; setting here will override the user selection at installation
+; time.
+inst_start_menu_folder = GnuPG for Windows
+; Additional configuration files to install.
+gpg.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\gpg-site.conf
+gpg-agent.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\gpg-agent-site.conf
+trustlist.txt = <%= node['gnugpg']['win']['install_loc'] -%>\config\trustlist-site.txt
+dirmngr.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\dirmngr-site.conf
+dirmngr_ldapserver.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\dirmngr_ldapserver-site.conf
+scdaemon.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\scdaemon-site.txt
+gpa.conf = <%= node['gnugpg']['win']['install_loc'] -%>\config\gpa-site.conf

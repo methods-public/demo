@@ -1,0 +1,16 @@
+<%
+mirrorlist_ctx = node['yum_utils']['repos']['epel']['mirrorlist_ctx']
+baseurl_ctx = node['yum_utils']['repos']['epel']['baseurl_ctx']
+gpgkey = node['yum_utils']['repos']['epel']['gpgkey']
+-%>
+[epel]
+name=Extra Packages for Enterprise Linux
+<% if !mirrorlist_ctx.empty? then -%>
+mirrorlist=<%= mirrorlist_ctx %>/mirrorlist?repo=epel-$releasever&arch=$basearch
+<% end -%>
+<% if !baseurl_ctx.empty? then -%>
+baseurl=<%= baseurl_ctx %>/$releasever/$basearch
+<% end -%>
+gpgcheck=1
+gpgkey=<%= gpgkey %>
+enabled=1

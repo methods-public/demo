@@ -1,0 +1,6 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'test-fail2ban-platform',
+         path: 'test/cookbooks/test-fail2ban-platform'
+
+metadata

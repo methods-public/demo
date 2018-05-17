@@ -1,0 +1,71 @@
+---
+driver:
+  name: vagrant
+  vm_hostname: test-kitchen.local
+  customize:
+    cpus: 2
+    memory: 4096
+  network:
+    - ["forwarded_port", {guest: 11011, host: 11011}]
+    - ["forwarded_port", {guest: 11015, host: 11015}]
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: true
+  attributes:
+    cdap:
+      kafka:
+        init_actions: ['start']
+      master:
+        init_actions: ['start']
+      router:
+        init_actions: ['start']
+      sdk:
+        init_actions: ['start']
+      security:
+        init_actions: ['start']
+      ui:
+        init_actions: ['start']
+    hadoop:
+      hdfs_site:
+       'dfs.datanode.max.transfer.threads': 4096
+    hive:
+      hive_site:
+       'hive.support.concurrency': true
+       'hive.zookeeper.quorum': 'localhost'
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-6.7
+  - name: debian-6.0.10
+    run_list:
+    - apt::default
+  - name: ubuntu-12.04
+    run_list:
+    - apt::default
+  - name: ubuntu-14.04
+    run_list:
+    - apt::default
+
+suites:
+  - name: cdh5
+    run_list:
+      - recipe[cdap::fullstack]
+    attributes: { hadoop: { distribution: 'cdh', distribution_version: '5.4.1' } }
+  - name: hdp2
+    run_list:
+      - recipe[cdap::fullstack]
+    attributes: { hadoop: { distribution: 'hdp', distribution_version: '2.2.4.2' } }
+  - name: sdk
+    run_list:
+      - recipe[cdap::sdk]
+  - name: ambari
+    attributes: { cdap: { ambari: { install: true } } }
+    run_list:
+      - recipe[cdap::ambari]
+    excludes:
+      - debian-6.0.10
+      - ubuntu-12.04
+      - ubuntu-14.04

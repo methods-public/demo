@@ -1,0 +1,62 @@
+{
+  "name": "mod_security",
+  "description": "Installs and configures mod_security for Apache2 or IIS",
+  "long_description": "# Description\n\nEver wanted a little guardian angel to protect your chef deployed\nservers from the bad guys?  Like a bad-ass Jiminy Cricket on your\nshoulder?\n\nThis package is to make deployment and testing of mod_security easier\nwith Chef. Right now it centers entirely around the OWASP Core Rule\nSets of mod_security rules. In future, it will allow you to manage/deploy\ncustom rule/rulesets of your own.\n\nThere are 2 main use cases right now:\n\n## Install on a real production server\n\n* Adjust the attributes to your liking and install the default\n  recipe.\n\n## Find out what ModSecurity could do for your site in less than 15-minutes.\n\n* Setup a base chef recipe for a server.\n* Set it to install the default recipe\n* Create a cookbook to reverse proxy to your real server sorta like\n  this:\n<pre>\nmod_secure_proxy \"my_site\" do\n  server_name \"www.mysite.com\"\n  enable_https true # if you want to proxy https too\nend\n</pre>\n* Set your local /etc/hosts (or equiv.) file to have that server's IP\n  look like your site\n* Test to your heart's content.\n* Look at /var/log/modsec.log and see what you could be blocking\n* Change the \"DetectOnly\" attribute to \"On\" and test some more\n\n# Requirements\n\n## Cookbooks\n\nThis cookbook depends on apache2 and build-essential or IIS for Windows\n\n## Platforms\n\n### Supported\n* Windows (tested on 2008R2 and 2012R2)\n* Ubuntu (tested on 12.04 and 13.04)\n* Debian (tested on 6.0.8 and 7.2.0)\n* RedHat (untested)\n* CentOS (tested on 6.5)\n* Fedora (untested)\n* FreeBSD (untested)\n* Amazon Linux (tested on 20160701)\n\n### Coming Soon\n* Arch (anything else that apache2 supports)\n\n# Attributes\n\nMajor ones will be documented soon.  For right now check the\nattributes file.  A few suggestions\n\n* Compile from source.  I normally prefer not to do this, but some\n  core rules break if you don't\n* crs->bundled determines if the bundled version of the crs should be used or \n  if the core rules are downloaded from the SpiderLabs GitHub releases.\n* Base rules should generally be safe, the other groups much less\n  so. There are some rules with inconsistently named data files that are\n  fixed by this cookbook.\n* custom->rules allows you to install your own custom rules\n* custom->datafiles allows you to install your own data files to be used in \n  pmFromFile directives\n\nRecipes\n=======\n\ndefault\n-------\nThis installs base, the OWASP core rule set and your own custom rules, adjust\nmod_security.install_base,mod_security.install_crs and mod_security.install_custom\nto alter this behavior\n\ninstall_base_apache\n-------------------\nInstalls mod_security for Apache (!Windows)\n\ninstall_base_iis\n----------------\nInstalls mod_security for IIS (Windows)\n\ninstall_owasp_core_rule_set\n---------------------------\nInstall the bundled / chef template managed OWASP CRS\n\ninstall_custom_rule_set\n-----------------------\nReads custom->rules and custom->datafiles properties and creates .conf and .data \nfiles based on their contents in mod_security/rules which is included by the default\nmod_security.conf file\n\nLicense and Authors\n===================\n\nAuthor:: Jason Rohwedder <jro@honeyapps.com>\nAuthor:: Frank Breedijk <fbreedijk@schubergphilis.com>\nAuthor:: Gavin Reynolds <g.reynolds@src.gla.ac.uk>\nAuthor:: Matthijs Wijers <mwijers@schubergphilis.com>\nAuthor:: Steven Geerts <sgeerts@schubergphilis.com>\n\nCopyright:: 2016, HoneyApps, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n\n",
+  "maintainer": "Schuberg Philis",
+  "maintainer_email": "fbreedijk@schubergphilis.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apache2": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.6",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

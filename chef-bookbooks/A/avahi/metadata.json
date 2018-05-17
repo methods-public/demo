@@ -1,0 +1,41 @@
+{
+  "name": "avahi",
+  "description": "Installs/Configures avahi",
+  "long_description": "[![Cookbook](http://img.shields.io/cookbook/v/avahi.svg)](https://supermarket.chef.io/cookbooks/avahi)\n[![GitHub tag](https://img.shields.io/github/tag/pwelch/chef-avahi.svg)](https://github.com/pwelch/chef-avahi/releases)\n[![Build Status](https://secure.travis-ci.org/pwelch/chef-avahi.svg)](http://travis-ci.org/pwelch/chef-avahi)\n\n## Description\nChef cookbook that installs and configures [avahi](http://avahi.org/) the zeroconf software.\n\n## Usage\nInclude `avahi::default` recipe in the `run_list`.\n\nTo disable the avahi-daemon set the attribute like so:\n```\n  node.default['avahi']['disable_service'] = true\n```\n\n## Development\n\nDevelopment requires [ChefDK](https://downloads.chef.io/chefdk)\n\n## Testing\n\nRunning tests:\n```bash\nchef exec rake\nchef exec kitchen verify\n```\n\n## Contributing\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Add some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n\nSource code availabe [here](https://github.com/pwelch/chef-avahi)\n",
+  "maintainer": "Paul Welch",
+  "maintainer_email": "git@pwelch.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "avahi::default": "Installs and configures avahi-daemon"
+  },
+  "version": "2.0.0",
+  "source_url": "https://github.com/pwelch/chef-avahi",
+  "issues_url": "https://github.com/pwelch/chef-avahi/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

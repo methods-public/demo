@@ -1,0 +1,57 @@
+{
+  "name": "omni_ruby",
+  "description": "Installs ruby",
+  "long_description": "OmniRuby\n=============\n\nThis cookbook provides Ruby installation from a variety of places. It also\nhandles ohai reloading to ensure proper ruby/gem usage.  It is forked and based\noff of the ruby_installer cookbook, found at https://github.com/hw-cookbooks/ruby_installer\n\nUsage\n=====\n\n```\nknife node run_list add my.node recipe[omni_ruby]\n```\n\nBy default it will install ruby packages and generally defaults to 1.8. You\ncan override that by providing the package names you want installed via\nattributes.\n\nConfigurable attributes\n=======================\n\n* `default['omni_ruby']['method'] = 'package' # package/ree/source`\n* `default['omni_ruby']['package_name'] = true # apt package name`\n* `default['omni_ruby']['rubygem_package'] = true # install rubygems package`\n* `default['omni_ruby']['rubydev_package'] = true # install ruby development libs`\n* `default['omni_ruby']['source_version'] = nil # source version`\n* `default['omni_ruby']['source_package_dependencies'] = [] # package dependencies for building from source`\n* `default['omni_ruby']['ree_url'] = 'http://rubyenterpriseedition.googlecode.com/files/ruby-enterprise_1.8.7-2012.02_amd64_ubuntu10.04.deb' # URI for REE deb package`\n* `default['omni_ruby']['ree_source_url'] = 'http://rubyenterpriseedition.googlecode.com/files/ruby-enterprise-1.8.7-2012.02.tar.gz' # URI for REE source`\n\nRepository\n==========\n\nhttps://github.com/spindance-ops/omni_ruby\n\nContributors\n============\n* Erik Kranzusch - https://github.com/erikk-spindance\n* Chris Roberts - https://github.com/chrisroberts\n* Graham McIntire - https://github.com/gmcintire\n",
+  "maintainer": "Erik Kranzusch",
+  "maintainer_email": "erikk@spindance.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/spindance-ops/omni_ruby",
+  "issues_url": "https://github.com/spindance-ops/omni_ruby/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,12 @@
+<% @variables.each do |k, v| -%>
+<% case v -%>
+<% when TrueClass -%>
+<%= k %>
+<% when Array, Hash, Mash -%>
+<% v.each do |e| -%>
+<%= k %>=<%= e %>
+<% end -%>
+<% else -%>
+<%= k %>=<%= v %>
+<% end -%>
+<% end -%>

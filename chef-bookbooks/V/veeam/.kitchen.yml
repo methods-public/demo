@@ -1,0 +1,153 @@
+---
+driver:
+  name: vagrant
+  gui: false
+  #  Veeam Backup Server requires a minimum of 2 CPU and 4GB of RAM
+  customize:
+    cpus: 2
+    memory: 4096
+
+provisioner:
+  name: chef_zero
+  data_bags_path: "../../data_bags/"
+  # You many wish to test your CHEF::Log.<level> messages while using test-kitche.  Change the below
+  # value to the level of choice.  For cleaner output, comment this option out.
+  log_level: info
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+  retry_on_exit_code: # https://discourse.chef.io/t/test-kitchen-1-10-0-released/8721
+    - 35 # 35 is the exit code signaling that the node is rebooting
+    - 259 # WinRM error during kitchen test when rebooting after installing .NET 4.5.2
+  max_retries: 2
+  client_rb:
+    exit_status: :enabled # Opt-in to the standardized exit codes
+    client_fork: false  # Forked instances don't return the real exit code
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: windows-2012r2
+    transport:
+      name: winrm
+      elevated: true
+  - name: windows-2016
+    transport:
+      name: winrm
+      elevated: true
+
+suites:
+  - name: catalog
+    run_list:
+      - recipe[veeam::catalog]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/catalog
+    attributes:
+      veeam:
+        version: '9.5'
+  - name: console
+    run_list:
+      - recipe[veeam::console]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/console
+    attributes:
+      veeam:
+        version: '9.5'
+        console:
+          accept_eula: true
+  - name: server
+    run_list:
+      - recipe[veeam::server]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/server
+    attributes:
+      veeam:
+        version: '9.5'
+        server:
+          accept_eula: true
+  - name: server_with_console
+    run_list:
+      - recipe[veeam::server_with_console]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/server
+        - test/inspec/9.5.0.711/console
+    attributes:
+      veeam:
+        version: '9.5'
+        server:
+          accept_eula: true
+        console:
+          accept_eula: true
+  - name: server_with_catalog
+    run_list:
+      - recipe[veeam::server_with_catalog]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/catalog
+        - test/inspec/9.5.0.711/server
+    attributes:
+      veeam:
+        version: '9.5'
+        server:
+          accept_eula: true
+  - name: standalone_complete
+    run_list:
+      - recipe[veeam::standalone_complete]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/catalog
+        - test/inspec/9.5.0.711/server
+        - test/inspec/9.5.0.711/console
+    attributes:
+      veeam:
+        version: '9.5'
+        server:
+          accept_eula: true
+        console:
+          accept_eula: true
+  - name: proxy_server
+    run_list:
+      - recipe[veeam::proxy_server]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/console
+    attributes:
+      veeam:
+        version: '9.5'
+        console:
+          accept_eula: true
+        proxy:
+          register: false
+  - name: proxy_remove
+    run_list:
+      - recipe[veeam::proxy_remove]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/console
+    attributes:
+      veeam:
+        version: '9.5'
+        console:
+          accept_eula: true
+        proxy:
+          register: false
+  - name: upgrade
+    run_list:
+      - recipe[veeam::server]
+      - recipe[veeam::upgrade]
+    verifier:
+      inspec_tests:
+        - test/inspec/9.5.0.711/server
+    attributes:
+      veeam:
+        version: '9.5.0.1536'
+        server:
+          accept_eula: true
+        console:
+          accept_eula: true

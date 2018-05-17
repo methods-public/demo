@@ -1,0 +1,20 @@
+language: ruby
+sudo: false
+
+rvm:
+  - 2.3.1
+
+gemfile:
+  - Gemfile
+
+env:
+  - CHEF_VERSION=master
+  - CHEF_VERSION=12.4.3
+  - CHEF_VERSION=12.4.1
+
+before_script:
+  - bundle exec berks
+
+script: 
+  - bundle exec foodcritic -f any -t ~FC066 .
+  - bundle exec rspec 

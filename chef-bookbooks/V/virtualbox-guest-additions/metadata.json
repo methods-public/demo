@@ -1,0 +1,31 @@
+{
+  "name": "virtualbox-guest-additions",
+  "version": "0.1.0",
+  "description": "Installs/Configures virtualbox-guest-additions",
+  "long_description": "# virtualbox-guest-additions-cookbook\r\n\r\nInstalls the Virtualbox Guest Additions\r\n\r\n## Supported Platforms\r\n\r\n* Centos 6.5 \r\n\r\n## Attributes\r\n\r\n* [default](attributes/default.rb)\r\n\r\n## Recipes\r\n\r\n### default\r\n\r\nInstalls the Virtualbox Guest Additions\r\n\r\n## Contributing\r\n\r\n1. Fork the repository on Github\r\n2. Create a named feature branch (i.e. `add-new-recipe`)\r\n3. Write your change\r\n4. Write tests for your change (if applicable)\r\n5. Run the tests, ensuring they all pass\r\n6. Submit a Pull Request\r\n\r\n## License and Authors\r\n\r\nAuthor:: Patrick Ayoup (patrick.ayoup@gmail.com)\r\n",
+  "maintainer": "Patrick Ayoup",
+  "maintainer_email": "patrick.ayoup@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": "= 6.5"
+  },
+  "dependencies": {
+    "yum-epel": "~> 0.4.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

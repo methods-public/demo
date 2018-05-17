@@ -1,0 +1,57 @@
+{
+  "name": "artifactory_ii",
+  "description": "Installs/Configures artifactory_ii",
+  "long_description": "Installs/Configures artifactory_ii",
+  "maintainer": "Corey Hemminger",
+  "maintainer_email": "hemminger@hotmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "apache2": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.0",
+  "source_url": "https://github.com/Stromweld/artifactory_ii",
+  "issues_url": "https://github.com/Stromweld/artifactory_ii/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

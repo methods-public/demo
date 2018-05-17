@@ -1,0 +1,14 @@
+[Unit]
+Description=Starts Logstash as a daemon.
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+WorkingDirectory=<%= @l_directory %>/logstash
+EnvironmentFile=/etc/default/logstash
+ExecStart=<%= @l_directory %>/logstash/bin/logstash agent -f ${LS_CONF_DIR} -l ${LS_LOG_DIR}/${LS_NAME}.log
+Restart=on-failure
+LimitNOFILE=10000
+
+[Install]
+WantedBy=multi-user.target

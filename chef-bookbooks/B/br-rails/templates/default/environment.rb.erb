@@ -1,0 +1,5 @@
+Rails.application.configure do
+<% @data.with_flat_keys.each do |keys, value| %>
+  config.<%= keys.join('.') %> = <%= value %>
+<% end %>
+end

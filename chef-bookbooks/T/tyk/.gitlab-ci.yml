@@ -1,0 +1,11 @@
+before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler
+    - bundle install --path /cache
+
+test:
+  script:
+    - bundle exec rake test:quick
+  tags:
+    - ruby

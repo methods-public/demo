@@ -1,0 +1,47 @@
+{
+  "name": "bamboo-agent",
+  "description": "Installs/Configures a bamboo agent",
+  "long_description": "Bamboo-agent Cookbook [![Build Status](https://travis-ci.org/Numergy/bamboo-agent-cookbook.svg)](https://travis-ci.org/Numergy/bamboo-agent-cookbook)\n================\nA Chef cookbook for managing Bamboo agents.\n\nIt can:\n- Install multiple agents side-by-side on a node\n- Ensure agents are running / started up after a reboot\n- Set properties in a agent's wrapper.conf\n- Manage agent capabilities\n\nThis cookbook is based on the Puppet module: https://github.com/kayakco/puppet-bamboo_agent\n\nAttributes\n----------\n#### bamboo-agent::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['server']['address']</tt></td>\n    <td>String</td>\n    <td>Bamboo server address</td>\n    <td><tt>localhost</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['server']['protocol']</tt></td>\n    <td>String</td>\n    <td>Bamboo server protocol</td>\n    <td><tt>localhost</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['server']['port']</tt></td>\n    <td>Integer/String</td>\n    <td>Bamboo server port</td>\n    <td><tt>8085</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['install_dir']</tt></td>\n    <td>String</td>\n    <td>whether to install bamboo agents</td>\n    <td><tt>/usr/local/bamboo</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['installer_jar']</tt></td>\n    <td>String</td>\n    <td>whether to download the installer</td>\n    <td><tt>\"#{node['bamboo-agent']['install_dir']}/bamboo-agent-installer.jar\"</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['user']['name']</tt></td>\n    <td>String</td>\n    <td>The username for bamboo agents</td>\n    <td><tt>bamboo</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['user']['group']</tt></td>\n    <td>String</td>\n    <td>The group for bamboo agents</td>\n    <td><tt>bamboo</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['user']['manage']</tt></td>\n    <td>Boolean</td>\n    <td>If the user home must be managed</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['user']['shell']</tt></td>\n    <td>String</td>\n    <td>The user shell</td>\n    <td><tt>/bin/bash</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['capabilities']</tt></td>\n    <td>Hash</td>\n    <td>The default capabilities</td>\n    <td><tt>{}</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['bamboo-agent']['agents']</tt></td>\n    <td>Hash</td>\n    <td>Agents to deploy</td>\n    <td><tt>{}</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### bamboo-agent::default\n\n```json\n{\n  \"bamboo-agent\": {\n    \"server\": {\n      \"address\": \"my-bamboo-url\"\n    },\n    \"agents\": [\n      {\"id\":\"1\", \"capabilities\": {\"system.builder.command.Bash\": \"/bin/bash\"}},\n      {\"id\":\"2\"}\n    ]\n  },\n  \"run_list\": [\n    \"recipe[bamboo-agent]\"\n  ]\n}\n```\n\nRunning tests\n-------------\nThis cookbook use Rake to run tests suites:  \n\n- First install dependencies:  \n`bundle install`  \n\n- Run all checkstyle tests:  \n`bundle exec rake test:checkstyle`  \n\n- Run all rspec tests:  \n`bundle exec rake test:specs`  \n\n- Run all kitchen tests:  \n`bundle exec rake test:kitchen`  \n\n- Run all tests (checkstyle and rspec):  \n`bundle exec rake test`  \n\nAvailable tests suites:  \n- Knife\n- RuboCop\n- Foodcritic\n- ChefSpec\n- Kitchen\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\n|                      |                                             |\n|:---------------------|:--------------------------------------------|\n| **Author**           | Pierre Rambaud <pierre.rambaud@numergy.com> |\n| **Author**           | Antoine Rouyer <antoine.rouyer@numergy.com> |\n|                      |                                             |\n| **Copyright**        | Copyright (c) 2014 Numergy                  |\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n",
+  "maintainer": "Numergy",
+  "maintainer_email": "cd@numergy.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 7.0",
+    "centos": ">= 6.4"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "augeas": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.7.0",
+  "source_url": "",
+  "issues_url": ""
+}

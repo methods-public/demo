@@ -1,0 +1,2 @@
+#!/bin/bash
+CHEF_USER=ernestas_poskus knife supermarket share proxysql

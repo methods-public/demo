@@ -1,0 +1,53 @@
+{
+  "name": "cpanel",
+  "description": "Configures cpanel, installs dns_only",
+  "long_description": "# cpanel Cookbook\n\nThis cookbook is meant to manage and install cPanel (as automated as possible)\nCurrently not many features have been installed\n\n## Requirements\n\ne.g.\n### Platforms\n\n- CentOS\n- RedHat\n- CloudLinux\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n| Cookbook     | Description |\n|:-------------|:------------|\n| default.rb   | Does nothing at all\n| manage.rb    | installs all the applications (clamav, whmcs, packages,features) if enabled by attribute\n| dns_only.rb  | Install dns_only cpanel without any configuration been touched\n\n## Attributes\n\n\n### cpanel::default\n\n| Attribute | Default | Description|\n|:----------|:--------|:-----------|\n| `node['cpanel']['manage_features']['clamav']` | false | Executes the clamav installation/configuration\n| `node['cpanel']['manage_features']['features']` | false | Manages Features (for packages)\n| `node['cpanel']['manage_features']['packages']` | false | Manages Packages\n| `node['cpanel']['manage_features']['whmcs']` | false | Copies a WHMCS page under /var/www/html for use with WHMCS\n\n## Usage\n\n### cpanel::default\n\nTODO: Write usage instructions for each cookbook.\n\ne.g.\nJust include `cpanel` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[cpanel::manage]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Gitlab\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n|                      |                                          |\n|:---------------------|:-----------------------------------------|\n| **Author:**          | [Vassilis Aretakis](https://gitlab.com/billias) (<vassilis@aretakis.eu)\n\n\n\n\n      Licensed under the Apache License, Version 2.0 (the \"License\");\n      you may not use this file except in compliance with the License.\n      You may obtain a copy of the License at\n\n          http://www.apache.org/licenses/LICENSE-2.0\n\n      Unless required by applicable law or agreed to in writing, software\n      distributed under the License is distributed on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n      See the License for the specific language governing permissions and\n      limitations under the License.\n",
+  "maintainer": "V Aretakis",
+  "maintainer_email": "vassilis@onlab.xyz",
+  "license": "Apache v2.0",
+  "platforms": {
+    "centos": ">= 7.0",
+    "redhat": ">= 7.0",
+    "cloudlinux": ">= 7.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.6",
+  "source_url": "https://gitlab.com/onlab_chef/cpanel",
+  "issues_url": "https://gitlab.com/onlab_chef/cpanel/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

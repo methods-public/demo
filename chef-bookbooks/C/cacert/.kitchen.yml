@@ -1,0 +1,33 @@
+---
+driver_plugin: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+- name: ubuntu-14.04
+- name: ubuntu-12.04
+- name: debian-8.1
+- name: debian-7.8
+- name: centos-7.1
+- name: centos-6.6
+
+suites:
+- name: default
+  run_list:
+  - recipe[minitest-handler]
+  - recipe[cacert::default]
+  attributes:
+    cacert:
+      certs:
+        cacert.org.pem:
+          source: 'http://www.cacert.org/certs/root.crt'
+          hash:   '99d0fa06'
+        cacert.org.class3.pem:
+          source: 'http://www.cacert.org/certs/class3.crt'
+          hash:   '590d426f'
+
+- name: cacert.org
+  run_list:
+  - recipe[minitest-handler]
+  - recipe[cacert::cacert.org]

@@ -1,0 +1,41 @@
+{
+  "name": "rundeck-bridge",
+  "description": "Installs chef-rundeck bridge and configure as needed",
+  "long_description": "# Description\n\nThis cookbook will setup a bridge on the chef server for rundeck.\nSee https://github.com/oswaldlabs/chef-rundeck for more information on how to configure the bridge.\n\nMost of the config is still left to the user and has to be done in a wrapper cookbook, including:\n- bridge definitions\n- chef server access through knife.rb configuration\n- chef user definition on the chef server\n\n# Requirements\n\n## Platform:\n\n* Centos\n\n## Cookbooks:\n\n* chef-client\n* poise-service\n* rundeck-server (Suggested but not required)\n* rundeck-node (Suggested but not required)\n\n# Attributes\n\nName | Description | Default\n-----|-------------|--------\n* `node['rundeck_bridge']['user']` | Service user on bridge. |Defaults to `\"chef-rundeck\"`.\n* `node['rundeck_bridge']['group']` |  |Defaults to `\"chef-rundeck\"`.\n* `node['rundeck_bridge']['home']` | Home of service user. |Defaults to `\"/home/chef-rundeck\"`.\n* `node['rundeck_bridge']['binary']` | Location of chef-rundeck gem binary. |Defaults to `\"/opt/chef/embedded/bin/chef-rundeck\"`.\n* `node['rundeck_bridge']['options']['host']` | IP to bind the bridge to. |Defaults to `\"0.0.0.0\"`.\n* `node['rundeck_bridge']['options']['port']` | Port the bridge listens to. |Defaults to `\"9980\"`.\n* `node['rundeck_bridge']['options']['partial-search']` | Lighten load on chef-server using partial search instead of classic search. |Defaults to `\"true\"`.\n* `node['rundeck_bridge']['options']['username']` | Default username attribute for the node element in the generated resource xml. |Defaults to `\"rundeck\"`.\n\n# Recipes\n\n* rundeck-bridge::install\n* rundeck-bridge::config\n* rundeck-bridge::service\n* [rundeck-bridge::default](#rundeck-bridgedefault)\n\n## rundeck-bridge::default\n\nThis recipe call config recipe and setup a chef-rundeck service that host all bridges\n\n# License and Maintainer\n\nMaintainer:: Robert Veznaver (<r.veznaver@criteo.com>)\n\nLicense:: Apache License 2.0\n",
+  "maintainer": "Robert Veznaver",
+  "maintainer_email": "r.veznaver@criteo.com",
+  "license": "Apache License 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-client": ">= 0.0.0",
+    "poise-service": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+    "rundeck-server": ">= 0.0.0",
+    "rundeck-node": ">= 0.0.0"
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.1.3"
+}

@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+if ENV['CHEF_VERSION'] == 'master'
+  gem 'chef', github: 'chef/chef'
+else
+  gem 'chef', ENV['CHEF_VERSION']
+end
+
+group :lint do
+  gem 'foodcritic', '~> 4.0'
+  gem 'rubocop'
+end

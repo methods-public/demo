@@ -1,0 +1,41 @@
+{
+  "name": "ms_messagequeue",
+  "description": "Installs Microsoft Message Queueing Service",
+  "long_description": "Description\n===========\n\nThis cookbook installs the Microsoft Message Queueing service\n\nRequirements\n============\n\nWindows cookbook\n\nAttributes\n==========\n\nNone\n\nUsage\n=====\n\nApply the cookbook to your runlist\n",
+  "maintainer": "Tim Smith",
+  "maintainer_email": "tim@cozy.co",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

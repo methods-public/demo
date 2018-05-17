@@ -1,0 +1,19 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  cookbooks_path: 'test/fixtures/cookbooks'
+
+platforms:
+  - name: windows-2012r2
+    transport:
+      name: winrm
+    driver:
+      box: mwrock/Windows2012R2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[nscp::default]
+      - recipe[nscp_test]

@@ -1,0 +1,46 @@
+driver:
+  name: docker
+  use_sudo: false
+  links:
+    - dev-vault:dev-vault
+  run_options:
+    net: bridge
+  # dockerfile: test/dockerfile
+
+client_rb:
+  treat_deprecation_warnings_as_errors: true
+  resource_cloning: false
+
+platforms:
+  - name: debian
+  - name: centos
+  - name: ubuntu
+  - name: fedora
+
+suites:
+  - name: dynamic
+    run_list:
+      - recipe[java] # We need java to generate key/trust stores
+      - recipe[test::default]
+    attributes:
+      vault_certificate:
+        address: "http://dev-vault:8200/"
+        token: <%= ENV['VAULT_TOKEN'] %>
+        pki_role: "example-com"
+      java:
+        jdk_version: 8
+  - name: static
+    run_list:
+      - recipe[java] # We need java to generate key/trust stores
+      - recipe[test::default]
+    provisioner:
+      name: chef_zero
+      environments_path: test/environments/
+      client_rb:
+        environment: production
+    attributes:
+      vault_certificate:
+        address: "http://dev-vault:8200/"
+        token: <%= ENV['VAULT_TOKEN'] %>
+      java:
+        jdk_version: 8

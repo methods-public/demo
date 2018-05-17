@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+  network:
+  - ["forwarded_port", { guest: 9000, host: 9000 }]
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt]
+  - name: centos-7.1
+
+suites:
+  - name: default
+    run_list:
+      - recipe[java]
+      - recipe[kafka-manager::default]
+      - recipe[kafka-manager::nginx]
+    attributes:
+      java:
+        jdk_version: 7
+      kafka-manager:
+        zkhosts: "swat-zoo06.ndlab.local:2181,swat-zoo07.ndlab.local:2181,swat-zoo08.ndlab.local:2181"

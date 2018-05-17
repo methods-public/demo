@@ -1,0 +1,55 @@
+{
+  "name": "yum_utils",
+  "description": "YUM Utilities",
+  "long_description": "yum_utils Cookbook\n==================\n\nThis cookbook includes YUM utilities setup recipes.\n\n## Contents\n\n- [Requirements](#requirements)\n  - [cookbooks](#cookbooks)\n  - [packages](#packages)\n- [Attributes](#attributes)\n  - [yum_utils::default](#yum_utilsdefault)\n- [Usage](#usage)\n  - [Recipes](#recipes)\n    - [yum_utils::default](#yum_utilsdefault)\n    - [yum_utils::mirror](#yum_utilsmirror)\n    - [yum_utils::repos](#yum_utilsrepos)\n    - [yum_utils::reposync_mirror](#yum_utilsreposync_mirror)\n    - [yum_utils::yum-epel](#yum_utilsyum-epel)\n- [License and Authors](#license-and-authors)\n\n## Requirements\n\n### cookbooks\n\n- `platform_utils` >= 0.4.0\n- `yum` >= 3.0\n- `yum-epel`\n\n### packages\n\nnone.\n\n## Attributes\n\n### yum_utils::default\n\n|Key|Type|Description (with examples)|Default|\n|:--|:--|:--|:--|\n|`['yum_utils']['repos']['CentOS-Base']['mirrorlist_ctx']`|String|e.g. `'http://mirrorlist.centos.org'`|`''` (inactive)|\n|`['yum_utils']['repos']['CentOS-Base']['baseurl_ctx']`|String|e.g. `'http://ftp.grid.example.com/centos'`|`''` (inactive)|\n|`['yum_utils']['repos']['CentOS-Base']['gpgkey']`|String|GPG key path|`'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6'`|\n|`['yum_utils']['repos']['epel']['mirrorlist_ctx']`|String|e.g. `'http://mirrors.fedoraproject.org'`|`''` (inactive)|\n|`['yum_utils']['repos']['epel']['baseurl_ctx']`|String|e.g. `'http://ftp.grid.example.com/fedora/epel'`|`''` (inactive)|\n|`['yum_utils']['repos']['epel']['gpgkey']`|String|GPG key path|`'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6'`|\n|`['yum_utils']['mirror']['user']`|String|mirroring user|`'yum-mirror'`|\n|`['yum_utils']['mirror']['cron_period']`|String|cron period expression|`'#0 2\t* * *'` (inactive)|\n|`['yum_utils']['mirror']['base_path']`|String|base directory path|`'/var/spool/yum-mirror'`|\n|`['yum_utils']['mirror']['rsync_sources']`|Array|see attributes/default.rb file.|`[]` (empty)|\n|`['yum_utils']['reposync_mirror']['user']`|String|mirroring user|`'yum-mirror'`|\n|`['yum_utils']['reposync_mirror']['cron_period']`|String|cron period expression|`'#0 3   * * *'` (inactive)|\n|`['yum_utils']['reposync_mirror']['base_path']`|String|base directory path|`'/var/spool/yum-reposync-mirror'`|\n|`['yum_utils']['reposync_mirror']['yum_conf']`|String|YUM configuration file path|Debian: `'/etc/yum/yum.conf'`, RHEL: `'/etc/yum.conf'`|\n|`['yum_utils']['reposync_mirror']['repos_dir']`|String|repository configuration directory path|Debian: `'/etc/yum/repos.d'`, RHEL: `'/etc/yum.repos.d'`|\n|`['yum_utils']['reposync_mirror']['repo_ids']`|Array|mirroring repository ids|`[]` (empty)|\n|`['yum_utils']['reposync_mirror']['arch']`|String|system architecture|`''`|\n|`['yum_utils']['reposync_mirror']['url_alias_with_authority_part']`|Boolean|use url alias with authority part|`true`|\n\n## Usage\n\n### Recipes\n\n#### yum_utils::default\n\nThis recipe does nothing.\n\n#### yum_utils::mirror\n\nThis recipe sets up mirroring configurations by the rsync.\n\n#### yum_utils::repos\n\nThis recipe sets up repository access configurations.\n\n#### yum_utils::reposync_mirror\n\nThis recipe sets up mirroring configurations by the reposync.\n\n#### yum_utils::yum-epel\n\nThis recipe sets up EPEL yum repository.\n\n## License and Authors\n\n- Author:: whitestar at osdn.jp\n\n```text\nCopyright 2013-2017, whitestar\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "whitestar",
+  "maintainer_email": "",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "platform_utils": ">= 0.4.0",
+    "yum": ">= 3.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "http://scm.osdn.jp/gitroot/metasearch/grid-chef-repo.git",
+  "issues_url": "https://osdn.jp/projects/metasearch/ticket",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

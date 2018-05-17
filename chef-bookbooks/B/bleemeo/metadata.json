@@ -1,0 +1,56 @@
+{
+  "name": "bleemeo",
+  "description": "Installs/Configures bleemeo-agent",
+  "long_description": "Bleemeo-cookbook\n===\n\nAbout\n---\n\nBleemeo is a Cloud based monitoring solution. This cookbook deploys the agent\non servers you want to monitor. Free trial is available at https://bleemeo.com/trial\n\nThis cookboot is a community contribution and is not officially supported.\n\n\nInstall Bleemeo agent using repositories.\n---\n\n### Supported Platforms\n\n- Ubuntu 16.04\n- Debian 8\n- Centos 7.3\n- Fedora 24\n\n### Attributes\n\n#### account (uuid v4)\n\n`node['bleemeo']['account']`\n\nID of the account to connect node to.\n\n#### key (uuid v4)\n\n`node['bleemeo']['key']`\n\nRegistration key to allow node to register.\n\n#### auto-upgrade (boolean)\n\n`node['bleemeo']['auto-upgrade']`\n\nDefine version strategy, will upgrade automatically if true or stick to the same\nversion.\n\n> default to false\n\n#### tags (Array)\n\n`node['bleemeo']['tags']`\n\nList of tags for the agent. Your agent will be tagged with those tags on Bleemeo Cloud Platform.\n\nOnly create associated configuration file if `bleemeo::configure` is ran.\n\n> default to ['chef-client']\n\n#### stack (String)\n\n`node['bleemeo']['stack']`\n\nDefault services stack for the agent.\n\nOnly create associated configuration file if `bleemeo::configure` is ran.\n\n> default to nil\n\n### Usage\n\nInclude `bleemeo` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[bleemeo::default]\"\n  ],\n  \"normal\": {\n    \"bleemeo\": {\n      \"account\": \"YOUR_ACCOUNT_ID\",\n      \"key\": \"YOUR_REGISTRATION_KEY\"\n    }\n  },\n}\n```\n\n### Recipes\n\n#### bleemeo::default / bleemeo::install\n\nInstall and configure Bleemeo agent from repositories\n\n#### bleemeo::repositories\n\nInstall Bleemeo agent's repositories, included in `bleemeo::install`.\n\n#### bleemeo::configure\n\nCreate default Bleemeo agent's configuration folder and files, included in `bleemeo::install`.\n\n### Resources\n\n#### bleemeo_tcp_check\n\nDefine a tcp custom check\n\n```ruby\nbleemeo_tcp_check 'name' do\n  id              String  # default to 'name' if not specified\n  port            Integer # required\n  address         String  # default to 127.0.0.1\n  stack           String  # default to nil\nend\n```\n\n#### bleemeo_http_check\n\nDefine a http(s) custom check\n\n```ruby\nbleemeo_http_check 'name' do\n  id              String  # default to 'name' if not specified\n  tls             TrueClass, FalseClass # default to false\n  port            Integer # required\n  address         String  # default to 127.0.0.1\n  path            String  # default to /\n  status_code     Integer\n  stack           String  # default to nil\nend\n```\n\n#### bleemeo_nagios_check\n\nDefine a nagios custom check\n\n```ruby\nbleemeo_nagios_check 'name' do\n  id              String  # default to 'name' if not specified\n  command         String  # required\n  stack           String  # default to nil\nend\n```\n\n#### bleemeo_pull_metric\n\nDefine a custom poll metric.\n\n```ruby\nbleemeo_pull_metric 'name' do\n  id              String  # default to 'name' if not specified\n  url             String  # required\n  item            [String, nil]\n  ssl_check       [TrueClass, FalseClass]  # default to true\n  username        [String, nil]\n  password        [String, nil]\nend\n```\n\n#### bleemeo_prometheus_endpoint\n\nDefine a custom prometheus endpoint.\n\n```ruby\nbleemeo_prometheus_endpoint 'name' do\n  id              String  # default to 'name' if not specified\n  url             String  # required\nend\n```\n\n### Development\n\nInstall gems from Gemfile :\n\n```sh\nbundler install\n```\n\n#### Linter\n\nFoodcritic :\n\n```sh\nfoodcritic .\n```\n\nRubocop\n\n```sh\nrubocop -D\n```\n\n#### Tests\n\n**Require vagrant and virtualbox.**\n\nRun tests : `kitchen test`\n\n### License (MIT)\n\nCopyright 2017 Matlo\n\n[see LICENSE](./LICENSSE)\n",
+  "maintainer": "matlo",
+  "maintainer_email": "lbonnargent@matlo.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": "= 16.04",
+    "debian": "= 8.7",
+    "centos": "= 7.3",
+    "fedora": "= 24.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.5.0",
+  "source_url": "https://github.com/aileo/chef-bleemeo",
+  "issues_url": "https://github.com/aileo/chef-bleemeo/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.0.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

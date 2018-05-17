@@ -1,0 +1,8 @@
+AllCops:
+  Exclude:
+    - '.kitchen/**/*'
+    - 'vendor/**/*'
+
+Layout/EndOfLine:
+  Enabled: false
+

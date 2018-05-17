@@ -1,0 +1,56 @@
+{
+  "name": "collectd-abiquo",
+  "description": "Installs and configures the Abiquo collectd plugin",
+  "long_description": "Chef cookbook for the abiquo-writer collectd plugin\n===================================================\n\n[![Build Status](https://travis-ci.org/abiquo/collectd-abiquo-cookbook.svg?branch=master)](https://travis-ci.org/abiquo/collectd-abiquo-cookbook)\n[![collectd-abiquo Cookbook](https://img.shields.io/badge/collectd--abiquo--cookbook-v0.2.0-blue.svg?style=flat)](https://supermarket.chef.io/cookbooks/collectd-abiquo)\n[![Chef Version](http://img.shields.io/badge/chef-v12.5.1-orange.svg?style=flat)](https://www.chef.io)\n\nThis cookbook provides a recipe to install the [Abiquo collectd plugin](https://github.com/abiquo/collectd-abiquo).\nIt integrates any virtual machine deployed in the Abiquo platform with the\nmetrics system and allows them to push their own metrics to the Abiquo API.\n\n## Requirements\n\nThe cookbook has been tested in the following platforms:\n\n* CentOS 6.7\n* Ubuntu 16.04\n\nThe cookbook depends on the following cookbooks:\n\n* collectd-lib\n* python\n* yum-epel\n\n## Recipes\n\n* `recipe[collectd-abiquo]` - Installs collectd and the Abiquo monitoring plugin\n* `recipe[collectd-abiquo::collectd]` - Installs and configures collectd and the default plugins\n* `recipe[collectd-abiquo::plugin]` - Installs and configures the Abiquo collectd plugin\n\n## Attributes\n\nThe following attributes are under the `node['collectd_abiquo']` namespace.\n\nAttribute | Description | Type | Mandatory | Default value\n----------|-------------|------|-----------|--------------\n`['endpoint']` | The endpoint where the plugin will push the metrics | String | Yes | nil\n`['auth_type']` | The authentication method used to push metrics to the Abiquo API (basic | oauth) | String | No | 'oauth'\n`['python_module_path']` | The path where python modules are installed | String | No | /usr/lib/collectd\n`['packages']` | The names of the collectd packages to install | List | No | \\['collectd'\\] (\\['collectd-core', 'libpython2.7'\\] in Ubuntu)\n`['plugins']` | The names of the default collectd plugins to install | List | No | \\['cpu', 'disk', 'interface'\\]\n`['log_traces']` | Enables the Abiquo plugin log | Boolean | No | true\n`['version']` | The version of the Abiquo plugin to install | String | No | master\n`['url']` | The URL of the Abiquo plugin file | String | Yes | https://rawgit.com/abiquo/collectd-abiquo/master/abiquo-writer.py \n`['verify_ssl']` | Enable SSL validation when pushing the metrics | Boolean | No | false\n`['flush_interval_secs']` | Interval in which the metrics are pushed, in seconds | Integer | No | 30\n\n# Usage\n\nThe cookbook is pretty straightforward to use. Just set all the mandatory attributes with the values for\nthe notification endpoint and the authentication type, and include the `recipe[collectd-abiquo]` in the\nrun list. You'll have to configure a data bag with the credentials in the Chef Server as explained below.\n\n# Configuring access to the Abiquo API\n\nIn order to let the collectd plugin push metrics to the Abiquo API, the credentials must be stored in a\ndata bag with an item named `collectd_basic` (for basic auth credentials) or `collectd_oauth` (for OAuth\ncredentials). The recipes will pick the right data bag item according to the value of the `node['collectd_abiquo']['auth_type']`\nattribute. The name of the data bag can be configured with the `node['collectd_abiquo']['credentials_data_bag']`\n8defaults to `abiquo_credentials`). Convenience items are included in this cookbook. You can upload them to the\nChef Server as follows:\n\n    knife data bag create abiquo_credentials\n    knife data bag from file abiquo_credentials data_bags/abiquo_credentials/collectd_basic.json\n    knife data bag from file abiquo_credentials data_bags/abiquo_credentials/collectd_oauth.json\n\n# Testing\n\nIn order to test the cookbook you will need to install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/).\nOnce installed you can run the unit and integration tests as follows:\n\n    bundle install\n    bundle exec berks install   # Install the cookbook dependencies\n    bundle exec rake            # Run the unit and style tests\n    bundle exec rake kitchen    # Run the integration tests\n\nThe tests and Gemfile have been developed using Ruby 2.1.5, and that is the recommended Ruby version to use to run the tests.\nOther versions may cause conflicts with the versions of the gems Bundler will install.\n\n# License and authors\n\n* Author:: Enric Ruiz (enric.ruiz@abiquo.com)\n* Author:: Ignasi Barrera (ignasi.barrera@abiquo.com)\n\nCopyright:: 2015, Abiquo\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Abiquo",
+  "maintainer_email": "ignasi.barrera@abiquo.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": "~> 6.7",
+    "ubuntu": "~> 16.04"
+  },
+  "dependencies": {
+    "collectd-lib": "~> 3.1.0",
+    "python": "~> 1.4.6",
+    "yum-epel": "~> 2.1.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "collectd-abiquo": "Installs collectd and the Abiquo monitoring plugin",
+    "collectd-abiquo::collectd": "Installs and configures collectd and the default plugins",
+    "collectd-abiquo::plugin": "Installs and configures the Abiquo collectd plugin"
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/abiquo/collectd-abiquo-cookbook",
+  "issues_url": "https://github.com/abiquo/collectd-abiquo-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

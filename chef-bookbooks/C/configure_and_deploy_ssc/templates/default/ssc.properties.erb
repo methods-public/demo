@@ -1,0 +1,206 @@
+#####################
+# Password policy settings
+
+# This property was moved in database configuration table.
+#authentication.max_failed_login_attempts=3
+# This property was moved in database configuration table.
+#authentication.days_password_valid=30
+# This property was moved in database configuration table.
+#authentication.minutes_user_frozen=30
+authentication.max.concurrent.logins=1
+authentication.password_require_upper_char = true
+authentication.password_require_lower_char = true
+authentication.password_require_digit = true
+authentication.password_require_special_char = true
+authentication.password_min_length = 8
+
+#####################
+# Project Version "Current State" delta period, in days
+pv.currentstate.delta.period = 7
+# If parameter is "false" a project version's snapshot will not contain removed issues
+pv.snapshot.include_removed_issues = true
+
+#####################
+# Rulepack Update configurations
+# These properties were moved in database configuration table.
+#rulepack.update.url=https://update.fortify.com
+#rulepack.update.proxy.host=
+#rulepack.update.proxy.port=
+#rulepack.update.proxy.username=
+#rulepack.update.proxy.password=
+#rulepack.update.locale=
+
+host.url=<%= @host_url %>
+
+# This property was moved in database configuration table.
+#relative.session.timeout.minutes=30
+# This property was moved in database configuration table.
+#absolute.session.timeout.minutes=240
+unified.login.token.name=unifiedLoginToken
+
+####################
+# Custom attribute configuration
+project.template.attribute.only=true
+project.customtag.map.unknown.to.badpractice=true
+techstack.id=Languages
+payload.verification.dependency.check=true
+
+monodis.path=monodis
+
+# whether we want to send the original value of the truncated runtime event attribute value to the flex
+runtime.show.full.value=false
+
+driver.name.oracle=Oracle JDBC driver
+driver.name.jtds=jTDS Type 4 JDBC Driver for MS SQL Server and Sybase
+driver.name.sqlserver=Microsoft SQL Server JDBC Driver 2.0
+driver.name.sqlserver3=Microsoft SQL Server JDBC Driver 3.0
+driver.name.sqlserver4=Microsoft JDBC Driver 4.0 for SQL Server
+driver.name.db2=IBM DB2 JDBC Universal Driver Architecture
+driver.name.db297=IBM Data Server Driver for JDBC and SQLJ
+driver.name.mysql=MySQL-AB JDBC Driver
+driver.name.mysql-connector=MySQL Connector Java
+driver.name.derby=Apache Derby Network Client JDBC Driver
+
+appserver.jdk.version=jdkversion.1.7
+appserver.product.name=<%= @app_server %>
+
+
+
+# comma separated list of events to exclude from creating event log entries
+event.log.exclusions = EVENTLOG_ENTRY_CREATED,CLOUD_SCAN_POLLED,RUNTIME_EVENT_RECEIVED,RUNTIME_ALERT_RECEIVED
+
+# comma separated list of events to mark as security related events
+event.log.security.events = WEBUI_LOGIN_SUCCESS,WEBUI_LOGIN_FAILED,WEBUI_LOGOUT,\
+  WS_LOGIN_SUCCESS,WS_LOGIN_FAILED,\
+  LOCAL_USER_CREATED,LOCAL_USER_UPDATED,LOCAL_USER_DELETED,\
+  LDAP_ENTITY_CREATED,LDAP_ENTITY_UPDATED,LDAP_ENTITY_DELETED,\
+  LDAP_CACHE_REFRESH_REQUESTED,LDAP_CACHE_REFRESH_STARTED,LDAP_CACHE_REFRESH_COMPLETED,\
+  PROJECT_VERSION_ACCESS_ADDED,PROJECT_VERSION_ACCESS_REMOVED,\
+  PERSONA_ASSIGNMENT_UPDATED,\
+  RUNTIME_HOST_CONNECTED,RUNTIME_HOST_DISCONNECTED,\
+  RUNTIME_HOST_CREATED,RUNTIME_HOST_DELETED,RUNTIME_HOST_DISCOVERED,RUNTIME_HOST_ENABLED,RUNTIME_HOST_DISABLED,\
+  ACCEPT_NEW_HOSTS_ENABLED,ACCEPT_NEW_HOSTS_DISABLED,\
+  RTAPP_ACCESS_ADDED,RTAPP_ACCESS_REMOVED
+
+# comma seperated list of events to exclude from activity feed
+event.log.activityfeed.exclusions = WEBUI_LOGIN_FAILED,WEBUI_LOGOUT,WS_LOGIN_SUCCESS,WS_LOGIN_FAILED,LOCAL_USER_UPDATED,\
+  LOCAL_USER_CREATED,LOCAL_USER_DELETED,LDAP_ENTITY_CREATED,LDAP_ENTITY_UPDATED,LDAP_ENTITY_DELETED,\
+  LDAP_CACHE_REFRESH_REQUESTED,PROJECT_VERSION_ACCESS_ADDED,PROJECT_VERSION_ACCESS_REMOVED,ARTIFACT_UPLOAD_STARTED,\
+  DOCUMENT_ARTIFACT_CREATED,DOCUMENT_ARTIFACT_UPDATED,DOCUMENT_ARTIFACT_DELETED,AUDIT_PERFORMED,DUE_DATE_UPDATED,\
+  TASK_INSTANCE_CREATED,TASK_INSTANCE_UPDATED,TASK_INSTANCE_DELETED,TASK_INSTANCE_SIGNOFF_UPDATED,\
+  ACTIVITY_INSTANCE_SIGNOFF_UPDATED,REQUIREMENT_INSTANCE_SIGNOFF_UPDATED,REQUIREMENT_TEMPLATE_INSTANCE_SIGNOFF_UPDATED,\
+  SESSION_TIMEOUT,ARTIFACT_DELETE_STARTED,ARTIFACT_PURGE_REQUEST_STARTED,FILTERSET_FOLDER_REFRESH_REQUESTED,\
+  FILTERSET_FOLDER_REFRESH_COMPLETED,FILTERSET_FOLDER_REFRESH_FAILED,PERSONA_ASSIGNMENT_UPDATED,WORK_OWNER_UPDATED,\
+  ACCEPT_NEW_HOSTS_ENABLED,ACCEPT_NEW_HOSTS_DISABLED,DISABLED_HOST_CONNECTION,\
+  REAPPLY_APPLICATION_ASSIGNMENT_RULES_REQUESTED,DYNAMIC_SCAN_EDITED,BATCH_BUG_FILING_REQUESTED,BUG_STATE_MANAGEMENT_STARTED,\
+  BUG_STATE_MANAGEMENT_ENDED,BUG_STATE_MANAGEMENT_ENDED_WITH_ERRORS
+
+# for migration to 2.5
+default.migrated.signoff.persona.guid=businessriskowner
+
+# whether we want to run iid migration on solaris server
+run.iidmigration.on.solaris=false
+
+# whether we want to run e2i on solaris server
+run.e2i.on.solaris=false
+
+# whether we want to allow backward compatibility
+allow.backward.compatibility=true
+
+# the maximum number of events to store in the details of an issue when converting events to issues
+# This property was moved in database configuration table.
+#events.to.issues.max.events = 5
+
+# number of events to process in each batch
+rta.event.parsing.batch.size=10000
+
+# putting this here instead of rta.properties because it's also used when converting events to issues
+# This property was moved in database configuration table.
+#runtime.event.description.url = https://content.fortify.com/products/360/rta/descriptions/
+
+# This property was moved in database configuration table.
+#display.user.details = true
+
+# This property was moved in database configuration table.
+#user.administrator.email =
+
+
+upload.mb.limit.audit.attachment=3
+# 3MB
+
+upload.mb.limit.analysis.result=1024
+# 1GB
+
+upload.mb.limit.meta.value.attachment=50
+# 50MB
+
+pagination.results.size=50
+# 50
+
+meta.value.allowed.file.attachment.types=application/zip;application/x-tar;application/x-gtar;application/x-gzip;image/jpeg;image/tiff;image/png;image/x-ms-bmp;image/x-icon;application/msword;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-powerpoint;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.openxmlformats-officedocument.presentationml.template;application/vnd.openxmlformats-officedocument.presentationml.slideshow;application/x-tika-ooxml;application/x-tika-msoffice;application/pdf;application/xml;text/plain;text/html;application/rtf;application/rdf+xml;application/postscript
+meta.value.allowed.file.extensions=*.wsdl;*.zip;*.tar;*.gz;*.jpg;*.jpeg;*.tiff;*.png;*.bmp;*.doc;*.docx;*.dot;*.dotx;*.xls;*.xlsx;*.ppt;*.pptx;*.pps;*.rdf;*.xml;*.txt;*.html;*.pdf;*.ps
+
+age.of.orphaned.docs.to.clean.up.hours=5
+
+# number of seconds to wait before retrying a Quartz job that failed due to a temporary fault
+temp.fault.retry.delay=600
+
+# If this parameter is true, every time when new local user is created in SSC it will be checked if user with the same user name exists in LDAP directory.
+# But this feature decreases the performance of local user adding since communicating with LDAP directory can be quite slow.
+#So, if you 100% sure that local user names are not intersect with LDAP user names, disable this property.
+keep.local.and.ldap.user.storage.consistent = false
+
+# Fire an alert every time when it's updated.
+# In previous versions of the SSC, is some event associated with alert associated with alert had already been happened, and alert definition was changed,
+# this alert was fired again. As a result, multiply alerts could be created for some specific event.
+# If this option is enabled (= true), SSC will process alerts in the old way.
+# If this option is disabled (= false), alert will not be re-fired is it's changed, but will be fired if this event happens after alert update.
+refire.alerts.on.update=false
+
+# Max number of concurrent threads to query dashboard objects.  This is per dashboard request.
+dashboard.max.threads=5
+# These are to limit how many total db queries are run at the same time.
+dashboard.core.pool.size=20
+dashboard.max.pool.size=50
+
+# This property is used in this class - AuditedAnalysisRule.
+# It affects user permission checking when new FPR file is uploading if user does not have Suppress/Un-Suppress permission.
+# SSC used to check permission if the following way: if user did not have Suppress/Un-Suppress permission and FPR contained
+# issues where suppression value had been changed, this FPR could not be uploaded by this user.
+# It was not appropriate for some SSC customers and it was decided to make this behaviour configurable.
+# If this option is disabled, SSC behaves in a "classic" way - all suppression changes are denied for users who don't have
+# Suppress/UnSuppress permission.
+# if this option is enabled, SSC ignores all suppression changes if issue is currently un-suppressed.
+# This option is useful only for the users who does not have Suppress/Un-Suppress permission.
+# It's not used in all other cases.
+audit.rule.allowUnSuppressionInFprAudit=false
+
+# DOCTYPE declaration and external entity expansion is by default removed from BIRT custom reports (rptdesign)
+# and BIRT libraries (rptlibrary) at upload
+birt.report.removeDTD=true
+
+# BIRT's temporary directory.
+# The BIRT's tmp dir is taken from JVM's syst. variable java.io.tmpdir  by default.
+# This BIRT's tmp dir can be changed for SSC by setting the birt.tmp.dir property:
+#    - directory must be R/W
+#    - correct file separators must be used: single slashes "/" for Unix, double backslashes "\\" for Windows
+# birt.tmp.dir=
+
+# Lucene index location on filesystem
+searchIndex.location=<%= @ssc_index_dir %>
+
+# Size of the job processing thread pool
+jobs.threadCount=8
+
+# How many times the job can fail before failing permanently
+jobs.maxRunAttempts=3
+
+# 1 - Local users first, fallback to LDAP users
+# 2 - LDAP users first, fallback to local users
+# 3 - LDAP users first, fallback only for local administrators
+user.lookup.strategy=3
+
+# Set value of default.ui.url=/flex/index.jsp only if customer wants to have Flex UI as default.
+# If value is not set the default UI will be HTML.
+default.ui.url=
+

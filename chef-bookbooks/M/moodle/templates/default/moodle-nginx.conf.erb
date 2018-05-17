@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    server_name <%= @server_name %>;
+    root <%= @web_root %>;
+    index index.html index.htm index.php;
+
+    include     webapps/php-fpm/<%= @server_name %>.conf;
+
+    # Moodle specific configuration
+    include     webapps/moodle-nginx.conf;
+
+    location ~ \.php$ {
+        root <%= @web_root %>;
+        include fastcgi_params;
+        fastcgi_pass unix:<%= @dbsocket %>;
+    }
+}

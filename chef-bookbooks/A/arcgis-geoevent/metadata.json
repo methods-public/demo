@@ -1,0 +1,43 @@
+{
+  "name": "arcgis-geoevent",
+  "description": "Installs and configures ArcGIS GeoEvent Server",
+  "long_description": "arcgis-geoevent cookbook\n===============\n\nThis cookbook installs and configures ArcGIS GeoEvent Server.\n\nRequirements\n------------\n\n### Supported ArcGIS versions\n\n* 10.4\n* 10.4.1\n* 10.5\n* 10.5.1\n* 10.6\n\n### Supported ArcGIS software\n\n* ArcGIS GeoEvent Server\n\n### Platforms\n\n* Windows 7\n* Windows 8 (8.1)\n* Windows 10\n* Windows Server 2008 (R2)\n* Windows Server 2012 (R2)\n* Windows Server 2016\n* Ubuntu 14.04/16.04\n* Rhel 6.5, 7.0\n\n### Dependencies\nThe following cookbooks are required:\n\n* arcgis-enterprise\n\nAttributes\n----------\n\n* `node['arcgis']['geoevent']['authorization_file']` = ArcGIS GeoEvent Server authorization file path. Default value is ``.\n* `node['arcgis']['geoevent']['authorization_file_version']` = ArcGIS GeoEvent Server authorization file version. Default value is `node['arcgis']['server']['authorization_file_version']`.\n* `node['arcgis']['geoevent']['setup']` = The location of ArcGIS GeoEvent Server setup executable. Default location is `C:\\ArcGIS\\GeoEvent\\setup.exe` on Windows and `/arcgis/geo-event-cd/Setup.sh` on Linux.\n* `node['arcgis']['geoevent']['configure_autostart']` = If set to true, on Linux the GeoEvent Server is configured to start with the operating system.  Default value is `true`.\n* `node['arcgis']['geoevent']['ports']` = Ports to open for GeoEvent. Default depends on `node['arcgis']['version']`.\n\n\nRecipes\n-------\n\n### arcgis-geoevent::default\nInstalls and configures ArcGIS GeoEvent Server.\n\n### arcgis-geoevent::lp-install\nInstalls language pack for ArcGIS GeoEvent Server.\n\n### arcgis-geoevent::uninstall\nUninstalls ArcGIS GeoEvent Server.\n\n\nUsage\n-----\n\nSee [wiki](https://github.com/Esri/arcgis-cookbook/wiki) pages for more information about using ArcGIS cookbooks.\n\n## Issues\n\nFind a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/Esri/arcgis-cookbook/issues).\n\n## Contributing\n\nEsri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).\n\nLicensing\n---------\n\nCopyright 2017 Esri\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nA copy of the license is available in the repository's [License.txt](https://github.com/Esri/arcgis-cookbook/blob/master/License.txt?raw=true) file.\n\n[](Esri Tags: ArcGIS Enterprise GeoEvent Server Chef Cookbook)\n[](Esri Language: Ruby)\n",
+  "maintainer": "Esri",
+  "maintainer_email": "contracts@esri.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "arcgis-enterprise": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "arcgis-geoevent::default": "Installs and configures ArcGIS GeoEvent Server",
+    "arcgis-geoevent::lp-install": "Installs language pack for ArcGIS GeoEvent Server.",
+    "arcgis-geoevent::uninstall": "Uninstalls ArcGIS GeoEvent Server"
+  },
+  "version": "3.2.0",
+  "source_url": "https://github.com/Esri/arcgis-cookbook",
+  "issues_url": "https://github.com/Esri/arcgis-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "< 14.0",
+      ">= 12.6"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

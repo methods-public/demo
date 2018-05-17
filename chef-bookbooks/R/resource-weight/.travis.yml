@@ -1,0 +1,14 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.3.0
+deploy:
+  provider: chef-supermarket
+  user_id: criteo
+  cookbook_category: Utilities
+  client_key: ".travis/client.pem"
+  on:
+    tags: true
+    all_branches: true
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_a631c1ae3253_key -iv $encrypted_a631c1ae3253_iv -in .travis/client.pem.enc -out .travis/client.pem -d

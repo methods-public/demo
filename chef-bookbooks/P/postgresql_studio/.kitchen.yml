@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+  network:
+    forwarded_port:
+      guest: 80
+      host: 4280
+      auto_correct: true
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+    run_list: apt
+  - name: debian-7.7
+    run_list: apt
+  - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+      - recipe[postgresql_studio::default]
+    attributes:

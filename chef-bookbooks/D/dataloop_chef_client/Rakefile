@@ -1,0 +1,24 @@
+require 'rspec/core/rake_task'
+require 'rspec'
+require 'rubocop/rake_task'
+require 'foodcritic'
+require 'rspec'
+require 'English'
+require 'kitchen'
+
+RuboCop::RakeTask.new(:rubocop)
+FoodCritic::Rake::LintTask.new(:foodcritic)
+RSpec::Core::RakeTask.new(:unit) do |r|
+  r.rspec_opts = '--format documentation --color'
+end
+
+desc 'integration testing'
+task :integration do
+  system 'bash test/bin/kitchen_runner.sh'
+  fail unless $CHILD_STATUS.success?
+end
+
+desc 'Run travis pipeline'
+task travis: %i(rubocop:auto_correct foodcritic unit)
+
+task default: %i(rubocop:auto_correct foodcritic unit integration)

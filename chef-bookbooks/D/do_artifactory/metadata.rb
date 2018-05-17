@@ -1,0 +1,11 @@
+name 'do_artifactory'
+description 'A utility cookbook for installing the artifactory gem, finding an artifact and returning its location or changing its properties.'
+issues_url 'https://github.com/JackChance/do_artifactory/issues'
+source_url 'https://github.com/JackChance/do_artifactory'
+license 'MIT'
+maintainer 'Cameron Straka'
+maintainer_email 'strakacameron@hotmail.com'
+supports 'windows'
+supports 'oel', '>=6.5'
+
+version '0.1.4'

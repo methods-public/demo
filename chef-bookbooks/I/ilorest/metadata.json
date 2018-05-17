@@ -1,0 +1,54 @@
+{
+  "name": "ilorest",
+  "description": "Showcases the python ilorest library examples",
+  "long_description": "# ilorest Cookbook [![PyPI](https://img.shields.io/pypi/pyversions/python-ilorest-library.svg?maxAge=2592000)](https://pypi.python.org/pypi/python-ilorest-library) \n\n#### Table of Contents\n1. [Description](#description)\n1. [Requirements](#requirements)\n1. [Platforms - which platforms are supported](#platforms)\n    * [Which Chef version is compatible?](#chef)\n    * [Prerequisites](#cookbooks)\n1. [Attributes](#attributes)\n1. [Usage](#usage)\n1. [How to contribute](#contributing)\n\n## Description\n\n**ilorest** is a Chef cookbook that installs the [Python ilorest library](https://github.com/HewlettPackard/python-ilorest-library) and runs a handful of examples included in the library. Currently ilorest works with Windows Server and any 'nix distribution.\n\n**ilorest** was written primarily as an example for server administrators to use as a template or basis for writing their own modules using the ilorest library. ilorest installs the ilorest library as part of the installation to preserve idempotency along with managing the example scripts.\n\n### What does ilorest do?\n\n**ilorest** starts by installing the python ilorest library through the usage of pip install. It has been set to be idempotent and supports multiple runs. Additionally, it also copies the required files into the node's cache. Subsequently, it runs a few examples with either default or set attributes. These examples are ex09, ex03, and ex14. Find MAC address, Change a bios setting, and managing a user session.\n\n**Note:** These examples have been slightly modified from the originals. They support arguments passing the iLO credentials.\n\n## Requirements\n\n**ilorest** requires the node to have Python version 2.7.11+ installed for ilorest to work properly. It is suggested that `poise-python` be used for python installation and management.\n\nIt is strongly suggested by Chef and us that chef-client be run as root or administrator, to ensure that everything is working properly. If root/administrator is not used, **ilorest** may fail.\n\n### Platforms\n\n- Windows Server 2012, Ubuntu, Red Hat Linux\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `poise-python` - ilorest needs python to be pre-installed.\n\n## Attributes\n\n### ilorest::default\n\nThese are default values that ilorest is set to.\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['ilorest']['iLO_IP']</tt></td>\n    <td>String</td>\n    <td>IP address of the node's iLO</td>\n    <td><tt>10.0.0.100</tt></td>\n  </tr>\n    <tr>\n    <td><tt>['ilorest']['iLO_username']</tt></td>\n    <td>String</td>\n    <td>username to login to the node's iLO</td>\n    <td><tt>admin</tt></td>\n  </tr>\n    <tr>\n    <td><tt>['ilorest']['iLO_password']</tt></td>\n    <td>String</td>\n    <td>password to login to the node's iLO</td>\n    <td><tt>password</tt></td>\n  </tr>\n</table>\n\n## Usage\n\n### ilorest::default\n\ninclude `ilorest` in your node's `run_list` to use the default values.\n\nIt is suggested that the attributes be edited before using since the default iLO IP address is unlikely to be the same as your node's. See the attribute example below for help in setting the attributes in JSON format.\n\n**Attribute example**\n\nBelow is an example of what the attributes should look like when edit attributes is selected through the Chef Manage UI.\n\n```json\n{\n  \"ilorest\": {\n    \"iLO_IP\" : \"16.1.1.10\",\n    \"iLO_username\": \"admin\",\n    \"iLO_password\": \"password\",\n  }\n}\n```\n\n## Replacing examples\n\nExamples can be easily added or replaced by following the format for the execute resource. newexample.py should be replaced with the new script you want to execute. live_stream is set to true here to show an output. The `#{platformdirectory}` variable is set depending on the platform running this module, and the `['ilorest']` attributes are set in the default.rb in the attribute's folder, or set through the use of `knife` or through the Chef Management UI.\n\n``` ruby\nexecute \"new example\" do\n  command \"newexample.py #{node['ilorest']['iLO_IP']} #{node['ilorest']['iLO_username']} #{node['ilorest']['iLO_password']}\"\n  cwd \"#{platformdirectory}\"\n  live_stream true\nend\n```\n\n**Note:** live_stream is set to true to produce log results. \n\n## Contributing\n\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: TODO: List authors\n\n",
+  "maintainer": "lumbajack",
+  "maintainer_email": "jack.g.garcia@hpe.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/HewlettPackard/chef-ilorest-module",
+  "issues_url": "https://github.com/HewlettPackard/chef-ilorest-module/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,71 @@
+#
+# Copyright (c) 2016-2017 Sam4Mobile
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Interpreting ruby files as data bag
+#   <% load "#{File.dirname(__FILE__)}/test/kitchen_sandbox_databag.rb" %>
+
+driver:
+  name: docker_cli
+  volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+  command: /sbin/init
+  security_opt: seccomp=unconfined
+  skip_preparation: true
+  require_chef_omnibus: false
+  instance_host_name: true
+  instance_container_name: true
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+
+suites:
+  - name: nginx-wrapper-01
+    data_bags_path: "test/integration/data_bags"
+    encrypted_data_bag_secret_key_path: "test/integration/secret_key"
+    run_list:
+      - recipe[nginx-wrapper]
+    attributes:
+      nginx:
+        default_site_enabled: false
+      nginx_conf:
+        confs:
+          - nginx-wrapper-01-centos-7.kitchen:
+              listen: "443"
+              root: /usr/share/nginx/html/
+              site_type: static
+              block:
+                ssl on;
+                ssl_certificate /etc/nginx/ssl/nginx-wrapper-01-centos-7.pem;
+                ssl_certificate_key
+                /etc/nginx/ssl/nginx-wrapper-01-centos-7.key;
+      nginx-wrapper:
+        package_retries: 1
+        ssl_configs:
+          nginx-wrapper-01-centos-7.kitchen:
+            data_bag: nginx-certs
+            data_bag_type: encrypted
+            cert_path: /etc/nginx/ssl
+            nginx_cert: true
+            create_subfolders: false

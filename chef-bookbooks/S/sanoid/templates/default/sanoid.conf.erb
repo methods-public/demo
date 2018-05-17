@@ -1,0 +1,62 @@
+# Managed by Chef for node <%= node['fqdn'] -%>.
+
+#### DATASETS ####
+<% @sanoid.each do |resource| -%>
+<% if resource.resource_name == :sanoid_dataset -%>
+[<%= resource.name %>]
+<% %w(use_template hourly daily monthly yearly autosnap autoprune min_percent_free hourly_min daily_hour daily_min monthly_mday monthly_mhour monthly_min yearly_mon yearly_mday yearly_hour yearly_min).each do |prop| %>
+<% if resource.send(prop) %>
+ <%= prop -%> = <%=resource.send(prop) %>
+<% end %>
+<% end %>
+<% end -%>
+<% end -%>
+
+#### TEMPLATES ####
+<% @sanoid.each do |resource| -%>
+<% if resource.resource_name == :sanoid_template -%>
+[template_<%= resource.name %>]
+<% %w(hourly daily monthly yearly autosnap autoprune min_percent_free hourly_min daily_hour daily_min monthly_mday monthly_mhour monthly_min yearly_mon yearly_mday yearly_hour yearly_min).each do |prop| %>
+<% if resource.send(prop) %>
+ <%= prop -%> = <%=resource.send(prop) %>
+<% end %>
+<% end %>
+<% end -%>
+<% end -%>
+
+###################################################################################
+# default template - contains same values as hardcoded, unless you override here. #
+#                    ALL values set here, so useful as documentation even if      #
+#                    nothing is actually overridden.                              #
+###################################################################################
+
+[template_default]
+template = yes
+autoprune = yes
+hourly = 48
+daily = 90
+monthly = 6
+yearly = 0
+min_percent_free = 10
+autosnap = 1;
+hourly_min = 0;
+daily_hour = 23;
+daily_min = 59;
+monthly_mday = 1;
+monthly_hour = 0;
+monthly_min = 0;
+yearly_mon = 1;
+yearly_mday = 1;
+yearly_hour = 0;
+yearly_min = 0;
+monitor = yes
+monitor_dont_warn = no
+monitor_dont_crit = no
+hourly_warn = 90
+hourly_crit = 360 
+daily_warn = 28
+daily_crit = 32
+monthly_warn = 32
+monthly_crit = 35
+yearly_warn = 0
+yearly_crit = 0

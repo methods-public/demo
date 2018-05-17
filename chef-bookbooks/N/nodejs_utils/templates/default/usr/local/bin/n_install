@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH=.:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
+
+curl -L https://git.io/n-install | bash

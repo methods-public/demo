@@ -1,0 +1,25 @@
+include file("/etc/abiquo/watchtower/<%= @watchtower_service %>-base.conf")
+
+<%= @watchtower_service %> {
+    database {
+        url = "jdbc:mysql://<%= node['abiquo']['monitoring']['db']['host'] %>:<%= node['abiquo']['monitoring']['db']['port'] %>/watchtower"
+        username = "<%= node['abiquo']['monitoring']['db']['user'] %>"
+        password = "<%= node['abiquo']['monitoring']['db']['password'] %>"
+    }
+
+    kairosdb {
+        host = "<%= node['abiquo']['monitoring']['kairosdb']['host'] %>"
+        port = <%= node['abiquo']['monitoring']['kairosdb']['port'] %>
+    }
+    
+    <% if @watchtower_service == "emmett" %>
+        service {
+            port = <%= node['abiquo']['monitoring']['emmett']['port'] %>
+            <% if node['abiquo']['monitoring']['emmett']['ssl'] %>
+                ssl = true
+                certfile = "<%= node['abiquo']['certificate']['file'] %>"
+                keyfile = "<%= node['abiquo']['certificate']['key_file'] %>.pkcs8"
+            <% end %>
+        }
+    <% end %>
+}

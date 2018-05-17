@@ -1,0 +1,41 @@
+{
+  "name": "pulp",
+  "description": "Installs/Configures pulp",
+  "long_description": "Usage\n-----\n\nDescription\n-----------\nThis is Chef cookbook to deploy pulp service.\n\nSupport\n-------\n- CentOS 6 (Tested on CentOS 6.5)\n\nLinks\n-----\n- http://www.pulpproject.org/\n",
+  "maintainer": "Marius Karnauskas",
+  "maintainer_email": "marius@karnauskas.lt",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "qpid": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": ""
+}

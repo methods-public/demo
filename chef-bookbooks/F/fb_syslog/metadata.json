@@ -1,0 +1,52 @@
+{
+  "name": "fb_syslog",
+  "description": "Installs/Configures syslog",
+  "long_description": "fb_syslog Cookbook\n====================\nGenerates valid syslog/rsyslog.conf files.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_syslog']['syslog-entries']\n* node['fb_syslog']['rsyslog_server']\n* node['fb_syslog']['rsyslog_upstream']\n* node['fb_syslog']['rsyslog_port']\n* node['fb_syslog']['rsyslog_early_lines']\n* node['fb_syslog']['rsyslog_late_lines']\n* node['fb_syslog']['rsyslog_rulesets']\n* node['fb_syslog']['rsyslog_nonruleset_ports']\n* node['fb_syslog']['rsyslog_escape_cchars']\n* node['fb_syslog']['rsyslog_additional_sockets']\n* node['fb_syslog']['rsyslog_facilities_sent_to_remote']\n* node['fb_syslog']['rsyslog_omprog_binary']\n* node['fb_syslog']['rsyslog_use_omprog']\n* node['fb_syslog']['rsyslog_use_omprog_force']\n* node['fb_syslog']['rsyslog_stats_logging']\n* node['fb_syslog']['rsyslog_report_suspension']\n* node['fb_syslog']['sysconfig']['vars'][$KEY][$VAL]\n* node['fb_syslog']['sysconfig']['extra_lines']\n\n\nUsage\n-----\n### syslog-compatible entries\nThe `node['fb_syslog']['syslog-entries']` is used to populate all lines\nin a `syslog.conf`, and all syslog-style entries in `rsyslog.conf`.\n\nEach generated rule is composed of a hash entry:\n\n    'name' => {\n      comment => 'Associated comment',\n      selector => '<facility>.<priority>',\n      action => '<action>'\n    }\n\nThe selector and action values get dumped into the config file as-is,\nso you can make use of any valid syntax you wish according to\nsyslog.conf(5).  Each entry you create simply needs to be added into\nthe `node['fb_syslog']['syslog-entries']` hash with a unique\nkey (the key name is not used except to have a unique key).\n\n### Additional rsyslogd configuration\nBy default rsyslogd runs in client mode, but if you want to run rsyslogd to\nreceive logging from other clients, call `recipe[fb_syslog::server]` from your\nrecipe or role.\n\nYou can add rsyslog-specific lines before the `syslog-entries` (mentioned above)\nsuch as loading modules by adding lines to the array\n`node['fb_syslog']['rsyslog_early_lines']`.\n\nSimilarly if you have syslog-incompatible rules that do not fit into the ruleset\nAPIs below, you can add lines to the array\n`node['fb_syslog']['rsyslog_late_lines']` which will be included just\nafter the processed `syslog-entries`.\n\n### Using RuleSets\nIf you have to define RuleSets to do filtering of incoming syslog, you will\ndefine them in `node['fb_syslog']['rsyslog_rulesets']`.  This will also\nopen up the required network ports for listening and bind them to the RuleSet.\nHere is an example for usage, also see fb_rlog recipe for a larger example:\n\n    node.default['fb_syslog']['rsyslog_rulesets'] = {\n      'incoming_music' => {\n        'proto' => 'udp',\n        'port' => '514',\n        'rules' => {\n          'Metallica' => [\n              ':programname, isequal, \"RideTheLightning\" /var/log/metallica.log', '& ~',\n          ],\n          'Tool' => [\n              ':hostname, contains, \"Lateralus\" /var/log/lateralus.log', '& ~',\n              ':hostname, contains, \"Aenima\" /var/log/aenima.log', '& ~',\n              ':hostname, contains, \"10000_Days\" /var/log/10000_days.log', '& ~',\n              ':hostname, contains, \"Undertow\" /var/log/undertow.log', '& ~',\n              ':hostname, contains, \"Opiate\" /var/log/opiate.log', '& ~',\n          ],\n        },\n      },\n    }\n\nThe output of the above example would yield:\n\n    $RuleSet incoming_music\n    # Metallica\n    :programname, isequal, \"RideTheLightning\" /var/log/metallica.log\n    & ~\n\n    # Tool\n    :hostname, contains, \"Lateralus\" /var/log/lateralus.log\n    & ~\n    :hostname, contains, \"Aenima\" /var/log/aenima.log\n    & ~\n    :hostname, contains, \"10000_Days\" /var/log/10000_days.log\n    & ~\n    :hostname, contains, \"Undertow\" /var/log/undertow.log\n    & ~\n    :hostname, contains, \"Opiate\" /var/log/opiate.log\n    & ~\n\n    $InputUDPServerBindRuleset incoming_music\n    $UDPServerRun 514\n\n### Opening network ports for listening\nIf you want to open network ports without binding them to a specific ruleset\nyou define these in `node['fb_syslog']['rsyslog_nonruleset_ports']`.\nThe most common use for this will be if you need to open ports to pass health\nchecks that are not already opened from your ruleset.\nHere is an example:\n\n    node.default['fb_syslog']['rsyslog_nonruleset_ports'] = {\n      'tcp' => [\n        '514',\n        '5140',\n      ],\n      'udp' => [\n        '514',\n      ],\n    }\n\nThe output of the above example would yield:\n\n    $InputTCPServerRun 514\n    $InputTCPServerRun 5140\n    $InputUDPServerRun 514\n\nThese don't take effect unless `rsyslog_server` is set.\n\n### Escaping control characters in messages\nIf messages entering the syslog system contain control characters and it's\ncausing you problems, you can enable escaping of non-printable characters by\nenabling the `node['fb_syslog']['rsyslog_escape_cchars']` attribute:\n\n    node.default['fb_syslog']['rsyslog_escape_cchars'] = true\n\n### Enabling additional sockets\nIf you need to have /dev/log inside chroots, you'll need to have rsyslog\nlistening to additional sockets in a directory that can be bind mounted inside\nthe chroot. Rsyslog will create any missing directory for you.\n\n    node.default['fb_syslog']['rsyslog_additional_sockets'] << '/dev/rsyslog/log'\n\nThe output of the above example would yield:\n\n    $InputUnixListenSocketCreatePath on\n    $AddUnixListenSocket /dev/rsyslog/log\n\nWith that, you can bind mount /dev/rsyslog to your chroot and symlink\n/dev/rsyslog/log to /dev/log there.\n\n### Remote forwarding\nIf you set `node['fb_syslog']['rsyslog_upstream']`, then any facilities you add\nto `node['fb_syslog']['rsyslog_facilities_sent_to_remote']` will be sent to that\nupstream. For example:\n\n    node.default['fb_syslog']['rsyslog_facilities_sent_to_remote'] << 'auth.*'\n    node.default['fb_syslog']['rsyslog_upstream'] << 'syslog.mydomain.com'\n\n### Program forwarding\nIf you set `node['fb_syslog']['rsyslog_use_omprog']` to true, rsyslog will\nuse program forwarding (omprog) instead of remote forwarding (omfwd).\nYou will need to specify the binary to forward syslog messages to in\n`node['fb_syslog']['rsyslog_omprog_binary']`. Logs from the facilities you set\nin `node['fb_syslog']['rsyslog_facilities_sent_to_remote']` will be forwarded to\nthat binary. For example:\n\n    node.default['fb_syslog']['rsyslog_facilities_sent_to_remote'] << 'auth.*'\n    node.default['fb_syslog']['rsyslog_use_omprog'] = true\n    node.default['fb_syslog']['rsyslog_omprog_binary'] = '/usr/bin/myprogram'\n\nBy default, program forwarding (omprog) will only be enabled if\n`node['fb_syslog']['rsyslog_server']` is not set to `true`. You can set\n`node['fb_syslog']['rsyslog_use_omprog_force']` to enable program forwarding\nand a rsyslog server simultaneously. For example:\n\n    node.default['fb_syslog']['rsyslog_use_omprog_force'] = true\n\n### Suspension reporting\nSetting `node['fb_syslog']['rsyslog_report_suspension']` controls suspension \nreporting, which defaults to `off`. If the attriubte is set to `nil` suspension\nreporting will not be managed (useful e.g. if your version of rsyslog does not\nsupport it).\n\n### Statistics logging\nSet `node['fb_syslog']['rsyslog_stats_logging']` to true to enable periodic\noutput of rsyslog internal counters. These will be logged using the `impstats`\nmodule to `/var/log/rsyslog-stats.log`.\n\n### sysconfig settings\nOn non-systemd systems, `node['fb_syslog']['sysconfig']` can be used\nto setup `/etc/sysconfig/rsyslog` (for RedHat machines) or \n`/etc/default/rsyslog` (for Debian or Ubuntu). In general you should use it \nlike this:\n\n    node.default['fb_syslog']['sysconfig']['vars']['SYSLOGD_OPTIONS'] =\n      '-c'\n\nBut the `extra_lines` array is also available for forcing arbitrary stuff like\n`ulimit` calls.\n\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

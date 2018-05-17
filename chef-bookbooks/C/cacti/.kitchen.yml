@@ -1,0 +1,59 @@
+---
+driver_plugin: vagrant
+
+driver_config:
+  customize:
+    memory: 1024
+
+platforms:
+- name: centos-6
+  driver_config:
+    box: bento/centos-6.7
+    require_chef_omnibus: latest
+- name: centos-7
+  driver_config:
+    box: bento/centos-7.1
+    require_chef_omnibus: latest
+- name: debian-7
+  driver_config:
+    box: bento/debian-7.9
+    require_chef_omnibus: latest
+- name: debian-8
+  driver_config:
+    box: bento/debian-8.2
+    require_chef_omnibus: latest
+- name: fedora-21
+  driver_config:
+    box: bento/fedora-21
+    require_chef_omnibus: latest
+- name: fedora-22
+  driver_config:
+    box: bento/fedora-22
+    require_chef_omnibus: latest
+- name: ubuntu-12.04
+  driver_config:
+    box: bento/ubuntu-12.04
+    require_chef_omnibus: latest
+- name: ubuntu-14.04
+  driver_config:
+    box: bento/ubuntu-14.04
+    require_chef_omnibus: latest
+- name: ubuntu-15.04
+  driver_config:
+    box: bento/ubuntu-15.04
+    require_chef_omnibus: latest
+
+suites:
+- name: cacti
+  run_list:
+  - recipe[minitest-handler]
+  - recipe[cacti_test::default]
+  - recipe[cacti_test::device_lwrp]
+  - recipe[cacti_test::data_query]
+  - recipe[cacti_test::graph_lwrp]
+  - recipe[cacti_test::tree_lwrp]
+  attributes:
+    mysql:
+      server_root_password: iloverandompasswordsbutthiswilldo
+      server_repl_password: iloverandompasswordsbutthiswilldo
+      server_debian_password: iloverandompasswordsbutthiswilldo

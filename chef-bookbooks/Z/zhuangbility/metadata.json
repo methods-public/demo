@@ -1,0 +1,54 @@
+{
+  "name": "zhuangbility",
+  "description": "Installs/Configures zhuangbility",
+  "long_description": "zhuangbility Cookbook\n=====================\nMany people think they are full of niubility, and like to play zhuangbility, which only reflect their shability.\n\nRequirements\n------------\nThis cookbook has no required dependencies.\n\nAttributes\n----------\n#### zhuangbility::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['zhuangbility']['bacon']</tt></td>\n    <td>Boolean</td>\n    <td>whether to include bacon</td>\n    <td><tt>true</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### zhuangbility::default\nJust include `zhuangbility` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[zhuangbility]\"\n  ]\n}\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\n- Author:: rx007 (<rx007@me.com>)\n\n```text\nCopyright:: 2015 rx007, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```",
+  "maintainer": "rx007 inc",
+  "maintainer_email": "rx007@me.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "smartos": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "raspbian": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.4.0",
+  "source_url": "",
+  "issues_url": ""
+}

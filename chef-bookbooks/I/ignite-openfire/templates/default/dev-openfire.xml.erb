@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jive>
+  <adminConsole>
+    <port>9090</port>
+    <securePort>9091</securePort>
+  </adminConsole>
+  <locale>en</locale>
+  <stream>
+    <management>
+      <active>true</active>
+    </management>
+  </stream>
+  <connectionProvider>
+    <className>org.jivesoftware.database.DefaultConnectionProvider</className>
+  </connectionProvider>
+  <database>
+    <defaultProvider>
+      <driver>net.sourceforge.jtds.jdbc.Driver</driver>
+      <serverURL>jdbc:jtds:sqlserver://dev.caathyf1wzpj.eu-west-1.rds.amazonaws.com/openfire;appName=jive</serverURL>
+      <username encrypted="true">b1caec60e675b3741d7f4e7e5e1f4e988479eb9e82b92237</username>
+      <password encrypted="true">20b2cf7bda516757a192e3c30114e8245f99e22f64af9dae89cdc6ca3c92399b5bb7bfba1b537bed153f010a1bdca89c</password>
+      <testSQL>select 1</testSQL>
+      <testBeforeUse>false</testBeforeUse>
+      <testAfterUse>false</testAfterUse>
+      <minConnections>5</minConnections>
+      <maxConnections>25</maxConnections>
+      <connectionTimeout>1.0</connectionTimeout>
+    </defaultProvider>
+  </database>
+  <setup>true</setup>
+  <clustering>
+    <enabled>true</enabled>
+  </clustering>
+</jive>

@@ -1,0 +1,166 @@
+#
+# Copyright (c) 2016-2017 Sam4Mobile, 2017-2018 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Suites scheduler
+#   <% load "#{File.dirname(__FILE__)}/test/kitchen_command.rb" %>
+# - Interpreting ruby files as data bag
+#   <% load "#{File.dirname(__FILE__)}/test/kitchen_sandbox_databag.rb" %>
+# - Create kitchen network if missing
+#   <% net_test = '! docker network ls | grep "kitchen" >/dev/null 2>&1' %>
+#   <% net_create = 'docker network create --driver bridge kitchen' %>
+#   <% `if #{net_test}; then #{net_create}; fi` %>
+
+driver:
+  name: docker_cli
+  http_proxy:
+  volume:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  command: /sbin/init
+  network: kitchen
+  security_opt: seccomp=unconfined
+  skip_preparation: true
+  instance_host_name: true
+  instance_container_name: true
+  build_pull: true
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  data_bags_path: test/integration/data_bags
+  encrypted_data_bag_secret_key_path: test/integration/secret_key
+  no_proxy: localhost
+
+platforms:
+  - name: centos-7
+    driver:
+      image: sbernard/centos-systemd-kitchen
+
+suites:
+  # Install a stand-alone consul
+  - name: consul-swarm
+    run_list:
+      - recipe[consul-platform]
+    attributes:
+      consul-platform:
+        hosts: consul-swarm-centos-7
+        config:
+          consul.json:
+            bind_addr: '0.0.0.0'
+            client_addr: '0.0.0.0'
+            disable_host_node_id: true
+        package_retries: 1
+  - name: docker-platform-standalone
+    driver:
+      privileged: true
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+        - /lib/modules:/lib/modules:ro
+    run_list:
+      - recipe[docker-platform]
+    attributes:
+      docker-platform:
+        systemd_unit: # used to test full unit override
+          Service:
+            ExecStart: /usr/bin/dockerd
+        config:
+          storage-driver: vfs
+        data_bag:
+          item: docker-platform-kitchen
+        unit_full_override: true
+        docker_volume:
+          alpine_data:
+        docker_image:
+          my_alpine:
+            repo: alpine
+            action: pull
+          busybox:
+        docker_network:
+          mynetwork:
+            driver: bridge
+            subnet: '192.168.233.0/30'
+            action: create
+        docker_container:
+          an_echo_server:
+            repo: alpine
+            network_disabled: true
+            command: 'nc -ll -p 7777 -e /bin/cat'
+            port: '7777:7777'
+            volumes: [['alpine_data:/data']]
+            restart_policy: always
+            action: run
+            subscribes: [redeploy, 'docker_image[my_alpine]', immediately]
+          kill_an_echo_server:
+            container_name: an_echo_server
+            action: kill
+          restart_an_echo_server:
+            container_name: an_echo_server
+            action: restart
+          with_fixed_ip:
+            repo: alpine
+            command: 'nc -ll -p 7777 -e /bin/cat'
+            network_mode: mynetwork
+            ip_address: 192.168.233.2
+        package_retries: 1
+
+<% ("1".."4").each do |n| %>
+  <% name = n == '4' ? 'worker' : 'manager' %>
+  - name: docker-platform-<%= name %>-<%= n %>
+    driver:
+      privileged: true
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+        - /lib/modules:/lib/modules:ro
+    run_list:
+      - role[docker-platform-<%= name %>-kitchen]
+    attributes:
+      docker-platform:
+        systemd_unit:
+          Service:
+            ExecStart: /usr/bin/dockerd
+        config:
+          storage-driver: vfs
+        data_bag:
+          item: docker-platform-kitchen
+        swarm:
+          enabled?: true
+          role: 'docker-platform-manager-kitchen'
+          size: 3
+          consul:
+            hosts: 'consul-swarm-centos-7'
+          join_opts:
+            listen_addr: '0.0.0.0:2377'
+            availability: <%= n == '1' ? 'drain' : 'active' %>
+        docker_network:
+          kitchen_swarm:
+            driver: overlay
+            action: create
+            only_if: 'docker node ls | grep "$(hostname).*Leader"'
+        services:
+          redis:
+            options:
+              replicas: 5
+              network: kitchen_swarm
+              placement-pref:
+                - 'spread=node.labels.datacenter'
+                - 'spread=node.labels.rack'
+            image: 'redis:latest'
+            action: create
+        package_retries: 1
+<% end %>

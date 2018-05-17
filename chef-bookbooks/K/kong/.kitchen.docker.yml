@@ -1,0 +1,25 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+# If you add new platforms below, include them in the .travis.yml file matrix
+platforms:
+- name: centos-6 # does not work
+  driver_config:
+    # Fixes: could not open session
+    privileged: true
+- name: debian-7
+  run_list: recipe[apt]
+# urllib2.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate
+# verify failed (_ssl.c:581)>
+# - name: debian-8
+#   run_list: recipe[apt]
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-15.04
+  run_list: recipe[apt]
+- name: ubuntu-16.04
+  run_list: recipe[apt]

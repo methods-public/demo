@@ -1,0 +1,14 @@
+DEPENDENCIES
+  newrelic-infra
+    path: .
+    metadata: true
+
+GRAPH
+  newrelic-infra (0.6.0)
+    poise-archive (~> 1.5)
+    poise-service (~> 1.5)
+  poise (2.8.1)
+  poise-archive (1.5.0)
+    poise (~> 2.6)
+  poise-service (1.5.2)
+    poise (~> 2.0)

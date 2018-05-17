@@ -1,0 +1,11 @@
+DEPENDENCIES
+  apktool
+    path: .
+    metadata: true
+
+GRAPH
+  apktool (0.1.0)
+    ark (>= 0.0.0)
+    java (>= 0.0.0)
+  ark (0.8.2)
+  java (1.22.0)

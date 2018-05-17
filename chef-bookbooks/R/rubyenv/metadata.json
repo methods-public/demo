@@ -1,0 +1,43 @@
+{
+  "name": "rubyenv",
+  "description": "Install one or more ruby versions with rbenv",
+  "long_description": "# Description\n\nInstalls one or more ruby versions with rbenv\n\n# Requirements\n\nDepends on 'rbenv' cookbook\n\n## Platform:\n\n* ubuntu (= 14.04)\n* centos (= 6.6)\n\n# Attributes\n\n* `node[\"rubyenv\"][\"rubies\"] ['1.9.3-p551' => false,'2.1.5' => false,'2.2.3' => true]`\n\n# Recipes\n\n* rubyenv::default\n\n# Example (attributes.json)\n\n```\n{\n  \"run_list\": [\n    \"recipe[rubyenv::default]\"\n  ],\n  \"rubyenv\": {\n    \"rubies\": {\n      \"1.9.3-p511\": false,\n      \"2.1.5\": false,\n      \"2.2.3\": true\n    }\n  }\n}\n\n```\n\nThe true/false flag signifies whether or not this should be the global ruby version.\n\n# License and Maintainer\n\nMaintainer:: Dennis Vink (dennis.vink@sentia.com)\n\nLicense:: MIT (see LICENSE)\n",
+  "maintainer": "Dennis Vink",
+  "maintainer_email": "dennis.vink@sentia.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": "= 14.04",
+    "centos": "= 6.6"
+  },
+  "dependencies": {
+    "rbenv": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.4",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

@@ -1,0 +1,17 @@
+<% if @channel == "main" -%>
+#Do no edit this file
+#Changes will be overwritten next chef run!
+
+[<%= @channel %>]
+enabled = <%= @enabled %>
+gpgcheck = <%= @gpg_check %>
+<% else -%>
+
+[<%= @channel %>]
+enabled = <%= @enabled %>
+gpgcheck = <%= @gpg_check %>
+<% end -%>
+
+<% @included_files.each { |file|  %>
+<%= File.read(file) %>    
+<% } %>

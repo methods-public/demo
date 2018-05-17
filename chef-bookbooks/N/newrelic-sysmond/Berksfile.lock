@@ -1,0 +1,11 @@
+DEPENDENCIES
+  newrelic-sysmond
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.4.0)
+  newrelic-sysmond (1.4.1)
+    apt (>= 1.9.2)
+    yum (>= 3.0.0)
+  yum (3.2.2)

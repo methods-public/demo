@@ -1,0 +1,94 @@
+#
+# Copyright (c) 2015-2016 Sam4Mobile
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Suites scheduler
+#   <% require "#{File.dirname(__FILE__)}/test/kitchen_command.rb" %>
+# - Create kitchen network if missing
+#   <% net_test = '! docker network ls | grep kitchen-dhcp >/dev/null 2>&1' %>
+#   <% net_create = 'docker network create --driver bridge kitchen-dhcp' %>
+#   <% `if #{net_test}; then #{net_create}; fi` %>'
+# - docker command with 'docken network' injection
+#   <% cmd = '/usr/lib/systemd/systemd; docker network connect kitchen-dhcp' %>
+
+driver:
+  name: docker_cli
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+      volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+      instance_host_name: true
+      network: bridge --cap-add=NET_ADMIN
+
+suites:
+  # Install a dhcp server
+  - name: server
+    driver:
+      container_name: server-dhcpd
+      command: <%= cmd %> server-dhcpd
+    run_list:
+      - recipe[dhcp-wrapper]
+    attributes:
+      dhcp:
+        use_bags: false
+        interfaces: [ eth1 ]
+        networks: [ eth1 ]
+        network_data:
+          eth1:
+            id: "10.0.0.0_16"
+            address: "10.0.0.0"
+            netmask: "255.255.0.0"
+            broadcast: "10.0.255.255"
+            range: "10.0.1.2 10.0.127.240"
+      dhcp-wrapper:
+        servers: [ server-centos-7 ]
+        network-interface: # Should be overridden
+          - device: eth0
+        server-config: # Should be used
+          network-interface:
+            - device: eth1
+              bootproto: 'static'
+              address: '10.0.1.1'
+              netmask: '255.255.0.0'
+        client-config: # Should not be used
+          network-interface:
+            - device: eth1
+              bootproto: 'dhcp'
+        routes:
+          eth1:
+            - "10.1.0.0/16 via 10.0.0.1 dev eth1"
+            - "10.2.0.0/16 via 10.0.0.1 dev eth1"
+
+  # A node
+  - name: node
+    driver:
+      container_name: node-dhcpd
+      command: <%= cmd %> node-dhcpd
+    run_list:
+      - recipe[dhcp-wrapper::client]
+    attributes:
+      dhcp-wrapper:
+        network-interface:
+          - device: eth1
+            bootproto: 'dhcp'

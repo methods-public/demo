@@ -1,0 +1,43 @@
+{
+  "name": "ultradns_client",
+  "description": "Installs/Configures ultradns_client",
+  "long_description": "Installs/Configures ultradns_client",
+  "maintainer": "General Electric",
+  "maintainer_email": "brent.walker@ge.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

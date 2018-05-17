@@ -1,0 +1,40 @@
+{
+  "name": "kernel-modules",
+  "description": "Manage kernel modules on linux",
+  "long_description": "kernel-modules Cookbook\nConfigure and Load kernel modules.\n",
+  "maintainer": "Criteo",
+  "maintainer_email": "sre-core@criteo.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.3"
+}

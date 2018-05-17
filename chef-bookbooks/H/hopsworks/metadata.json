@@ -1,0 +1,441 @@
+{
+  "name": "hopsworks",
+  "description": "Installs/Configures the HopsHub Dashboard",
+  "long_description": "HopsWorks\n==================\n\nChef cookbook to install HopsWorks, Hadoop for Humans.\n\n\nVagrant Installation\n==================\n\nRequirements: Vagrant, Virtualbox, Min 9 GB of main memory\n\nInstall the omnibus plugin, if needed:\n````\nvagrant plugin install vagrant-omnibus\n````\n\n\nClone this repo, then run:\n````\ncd hopsworks-chef\n# remove any old berkshelf cookbooks/cache\nrm -rf cookbooks Berksfile.lock\nberks vendor cookbooks\nvagrant up\n````\n\nAfter hopsworks has installed, access hopsworks from your browser, with the username and password below:\n````\nhttp://localhost:8080/hopsworks\n````\n# Default credentials:\n````\nuser: admin@kth.se\npassword: admin\n````\n\n\n## On-Premise RedHat/Centos/Fedora Installations\n\nBy default, Redhat/Centos/Fedora disable \"ssh hostname sudo <cmd>\", because it will show the password in clear. \nThis prevents Karamel from executing Chef recipes on bare-metal Centos/Redhat hosts. To overcome this, you can\nforce the use of a pseudeo-terminal, by commenting out the following line in **/etc/sudoers**:\n\n# Comment out this line below, in /etc/sudoers\n#Defaults    requiretty\n\nThis has to be done for all hosts in the cluster on which Karamel will be executed.\n\n\n## Contributing\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Added some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "rhel": ">= 0.0.0"
+  },
+  "dependencies": {
+    "glassfish": ">= 0.0.0",
+    "ndb": ">= 0.0.0",
+    "kagent": ">= 0.0.0",
+    "hops": ">= 0.0.0",
+    "elastic": ">= 0.0.0",
+    "hadoop_spark": ">= 0.0.0",
+    "flink": ">= 0.0.0",
+    "zeppelin": ">= 0.0.0",
+    "compat_resource": ">= 0.0.0",
+    "ulimit": ">= 0.0.0",
+    "authbind": ">= 0.0.0",
+    "apache_hadoop": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "hopsworks/twofactor_auth": {
+      "description": "twofactor_auth (default: false)",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/gmail/email": {
+      "description": "Email address for gmail account",
+      "required": "required",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/gmail/password": {
+      "description": "Password for gmail account",
+      "required": "required",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/admin/user": {
+      "description": "Username for the Administration account on the Web Application Server",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/admin/password": {
+      "description": "Password for the Administration account on the Web Application Server",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "mysql/user": {
+      "description": "Username for the MySQL Server Accounts",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "mysql/password": {
+      "description": "Password for the MySQL Server Accounts",
+      "type": "string",
+      "required": "required",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/master/password": {
+      "description": "Web Application Server master password",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/cn": {
+      "description": "Certificate Name",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/o": {
+      "description": "organization",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/ou": {
+      "description": "Organization unit",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/l": {
+      "description": "Location",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/s": {
+      "description": "City",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "karamel/cert/c": {
+      "description": "Country (2 letters)",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "glassfish/version": {
+      "description": "glassfish/version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "glassfish/user": {
+      "description": "Install and run the glassfish server as this username",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "glassfish/group": {
+      "description": "glassfish/group",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/port": {
+      "description": "Port that webserver will listen on",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/max_mem": {
+      "description": "glassfish/max_mem",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/min_mem": {
+      "description": "glassfish/min_mem",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/max_stack_size": {
+      "description": "glassfish/max_stack_size",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/max_perm_size": {
+      "description": "glassfish/max_perm_size",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "kagent/enabled": {
+      "description": "Install kagent",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/reinstall": {
+      "description": "Enter 'true' if this is a reinstallation",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/war_url": {
+      "description": "Url for the hopsworks war file",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/yarn_default_quota_mins": {
+      "description": "Default number of CPU mins availble per project",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/hdfs_default_quota_gbs": {
+      "description": "Default amount in GB of available storage per project",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hopsworks/max_num_proj_per_user": {
+      "description": "Maximum number of projects that can be created by each user",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "glassfish/package_url": {
+      "description": "Url for the Glassfish distribution zip file.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "ndb/dir": {
+      "description": "Ndb Installation directory.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hops/dir": {
+      "description": "Ndb Installation directory.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "hadoop_spark/dir": {
+      "description": "Installation directory.",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "hopsworks::install": "Installs Glassfish",
+    "hopsworks": "Installs HopsWorks war file, starts glassfish+application.",
+    "hopsworks::dev": "Installs development libraries needed for HopsWorks development.",
+    "hopsworks::letsencypt": "Given a glassfish installation and a letscrypt installation, update glassfish's key."
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

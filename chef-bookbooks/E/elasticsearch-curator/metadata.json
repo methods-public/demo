@@ -1,0 +1,46 @@
+{
+  "name": "elasticsearch-curator",
+  "description": "Installs/Configures elasticsearch-curator",
+  "long_description": "# elasticsearch-curator [![Cookbook Version](http://img.shields.io/cookbook/v/elasticsearch-curator.svg)](https://community.opscode.com/cookbooks/elasticsearch-curator) [![Build Status](https://travis-ci.org/cyberflow/chef-elasticsearch-curator.svg?branch=master)](https://travis-ci.org/cyberflow/chef-elasticsearch-curator)\n\nChef cookbook to install and configure [elasticsearch-curator](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.html) from version 4.\n\n## Tested Platforms\n\n* ubuntu 14.04\n* centos 7.2\n\n## Usage\n\nThis cookbook can be used by including `elasticsearch-curator::default` in your run list and settings attributes as needed.  Alternatively, you can use the custom resources directly.\n\nIf you are using elasticsearch-curator < 4.2 you might want to use the cookbook version 0.1.4.\n\n### Attributes\n\n| Key                                  | Type   | Description                                           | Default                                                                                                                                                             |\n|--------------------------------------|--------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| node['elasticsearch-curator']['version']          | String | Version of elasticsearch-curator to install, nil = latest | nil |\n| node['elasticsearch-curator']['repository_url'] | String | URL of elasticsearch-curator package repository | 'http://packages.elastic.co/curator/4/debian' |\n| node['elasticsearch-curator']['repository_key']           | String   | elasticsearch-curator repository key | 'https://packages.elastic.co/GPG-KEY-elasticsearch' |\n| node['elasticsearch-curator']['bin_path'] | String | bin path for elasticsearch-curator | '/usr/bin' |\n|node['elasticsearch-curator']['username']|String|user for running curator|'curator'|\n|node['elasticsearch-curator']['config_file_path']|String|path to direct curator config file|\"/home/#{node['elasticsearch-curator']['username']}/.curator\"|\n|node['elasticsearch-curator']['action_file_path']|String|path to direct action config file|\"/home/#{node['elasticsearch-curator']['username']}/.curator\"|\n|node['elasticsearch-curator']['cron_minute']|String|Minute to run the curator cron job|'0'|\n|node['elasticsearch-curator']['cron_hour']|String|Hour to run the curator cron job|'*'|\n|node['elasticsearch-curator']['config']|Hash|config elasticsearch-curator| {<br>&nbsp;&nbsp;'client' => {<br>&nbsp;&nbsp;&nbsp;&nbsp;'hosts' => ['127.0.0.1'],<br>&nbsp;&nbsp;&nbsp;&nbsp;'port' => 9200,<br>&nbsp;&nbsp;&nbsp;&nbsp;'use_ssl' => false,<br>&nbsp;&nbsp;&nbsp;&nbsp;'ssl_no_validate' => false,<br>&nbsp;&nbsp;&nbsp;&nbsp;'timeout' => 30,<br>&nbsp;&nbsp;&nbsp;&nbsp;'master_only' => false<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;'logging' => {<br>&nbsp;&nbsp;&nbsp;&nbsp;'loglevel' => 'INFO',<br>&nbsp;&nbsp;&nbsp;&nbsp;'logformat' => 'default'<br>&nbsp;&nbsp;}<br>}|\n\nThis cookbook ships with custom resources for install elasticsearch-curator and managing the configuration file:\n\n### Custom Resources\n\n#### elasticsearch_curator_install\n\nInstalls elasticsearch-curator. Optionally specifies a version, otherwise the latest available is installed\n\n```ruby\nelasticsearch_curator_install 'curator' do\n  install_method node['elasticsearch-curator']['install_method']\n  action :install\nend\n```\n\n#### elasticsearch_curator_config\n\nWrites out the elasticsearch-curator configuration file.\n\n```ruby\nelasticsearch_curator_config 'default' do\n  config node['elasticsearch-curator']['config']\n  action :configure\nend\n```\nThis method also supports a http_auth property to allow passing a string with this format : \"username:password\". This allows retrieving the credentials from the wrapper cookbook (for example using chef-vault) and not store this sensitive information in the attributes.\n\n#### elasticsearch_curator_action\n\nThis will setup a cron job and create action.yaml file for elasticsearch-curator.\n\n```ruby\nelasticsearch_curator_action 'action' do\n  config node['elasticsearch-curator']['action_config']\n  minute '0'\n  hour '*'\n  action :create\nend\n```\n\n## Tests\n\nTo run tests, install all dependencies with [bundler](http://bundler.io/):\n\n    bundle install\n    bundle exec cookstyle\n    bundle exec foodcritic .\n",
+  "maintainer": "servers.com",
+  "maintainer_email": "dmitry.r@cyberflow.net",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "poise-python": ">= 0.0.0",
+    "cron": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "compat_resource": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.8",
+  "source_url": "https://github.com/cyberflow/chef-elasticsearch-curator",
+  "issues_url": "https://github.com/cyberflow/chef-elasticsearch-curator/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.9"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

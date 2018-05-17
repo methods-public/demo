@@ -1,0 +1,5 @@
+<%
+require 'json'
+json_str = JSON.pretty_generate(node['hc-vault']['config'].to_hash)
+-%>
+<%= json_str %>

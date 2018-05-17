@@ -1,0 +1,28 @@
+---
+driver:
+  name: proxy
+  host: localhost
+  reset_command: "exit 0"
+  port: <%= ENV["machine_port"] %>
+  username: <%= ENV["machine_user"] %>
+  password: <%= ENV["machine_pass"] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12
+
+platforms:
+  - name: windows-2012R2
+
+suites:
+- name: default
+  run_list:
+    - nexus3_test::default
+    - nexus3_test::create_script
+    - nexus3_test::delete_script
+    - nexus3_test::run_script
+    - nexus3_test::list_scripts
+  attributes:
+    nexus3:
+      api:
+        sensitive: false

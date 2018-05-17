@@ -1,0 +1,62 @@
+{
+  "name": "ad-join",
+  "description": "Joins windows computers to Active Directory (LDAP) Domain",
+  "long_description": "ad-join Cookbook\n============================\n\nLibrary cookbook that will join an Active Directory domain\n\n\n## Tested OS's\n\n- Windows 2012R2  \n- Ubuntu 14.04 (experimental)\n- Ubuntu 16.04 (experimental)\n\n\n## Usage\n\nThis cookbook is a library cookbook and is intended to be used by your own wrapper cookbook. See the [test/cookbooks directory](./test/cookbooks) for examples.\nWhile the examples show running separate cookbooks for windows and linux, this isn't required. It is possible for one wrapper cookbook to manage both windows and linux hosts.\n\n\n### Actions\n\n- join\n- leave\n\nIt contains a custom resource named `domain_join` with the following properties\n\n- domain\n- domain_user\n- domain_password\n- ou\n- server (optional)\n- update_hostname (optional, windows only, Set to false if you want the domain name/hostname to be different from the chef node name. (see [#5](https://github.com/NetDocuments/ad-join-cookbook/issues/5)).)\n- double_reboot (optional, windows only, Will continue to reboot windows until joined to domain and breadcrumb `c:\\\\Windows\\\\chef-ad-join.txt` exists. Useful since timezone doesn't always sync after first reboot. )\n- visual_warning true (optional, windows only, display a login warning to anyone who connects via RDP to the machine before chef has finished the reboots and the converge. This will override any group policy your company might have in place for displaying custom login messages.)\n- hide_sensitive (optional, linux only, hide password used in realmd command, set to false for debugging)\n\nexample:  \n\n```ruby\ndomain_join 'foobar' do\n  domain          'example.com'\n  domain_user     'binduser'\n  domain_password 'correct-horse-battery-staple'\n  ou              'OU=US,OU=West,OU=Web,DC=example,DC=com'\n  server          'DC01'\n  update_hostname true\n  double_reboot true\n  visual_warning true\n  hide_sensitive true\n  action :join\nend\n```\n\nvisual_warning\n\n![](http://cl.ly/3l1I1n3X0q1G/Screenshot%202016-01-21%2012.49.45.png)\n\n\nThe ou must be formatted with `OU=` before each organizational unit and `DC=` before each domain component. see [test/cookbooks directory](./test/cookbooks) for an example of how to derive the OU from attributes.\n\n\n## Behind the scenes\n\nIf you bootstrapped the node with the name option; e.g.\n\n    knife bootstrap -N us-web01\n\nThen that is the name that will be used to join the domain (not the hostname since windows randomly generates it on first boot)\n\n**The name cannot include control characters, leading or trailing spaces, or any of the following characters: / \\\\ [ ].**\n\n### Windows\n\n\nIn most cases, Windows hostnames must be 15 characters or less.\n\nThe cookbook creates a windows scheduled task that runs chef as soon as the VM is started. The scheduled task is deleted after all the reboots.\n\nThe cookbook will restart windows twice since some group policy objects (like the time zone) are not applied on first boot. You can change this behavior by changing the following attribute to false.\n\n    default['ad-join']['windows']['double_reboot'] = true  \n\nThis cookbook basically runs this powershell command, then reboots\n\n    $adminname = \"EXAMPLE.COM\\\\bob\"\n    $password = 'correct-horse-battery-staple' | ConvertTo-SecureString -asPlainText -Force\n    $credential = New-Object System.Management.Automation.PSCredential($adminname,$password)\n    Add-computer -DomainName <EXAMPLE.COM> -OUPath <OU=FOO> -Server \"<DC1.EXAMPLE.COM>'} -Credential $credential -force -Options JoinWithNewName,AccountCreate -PassThru\n\n\n## Ubuntu\n\nad-join can join ubuntu machines to active directory. (experimental. Bug reports / pull requests encouraged)\nIt does not reboot or manage any of the additional files that might be required for a complete ad join\n\n```ruby\ndomain_join 'foobar' do\n  domain          'EXAMPLE.COM'\n  domain_user     'binduser'\n  domain_password 'correct-horse-battery-staple'\n  ou              'OU=US,OU=West,OU=Web,DC=example,DC=com'\n  server          'DC01'\n  hide_sensitive true\n  action :join\nend\n```\n\nCommon pitfalls\n\n- Hostnames longer than 15 characters will be truncated\n- NetBios names are not supported (Windows 2000 domain controllers )\n- Domain is cAsE SenSITive. In most cases this needs to be all UPPERCASE.\n- Debugging can be difficult, temporarily set `'hide_sensitive' false` to get additional information. domain_password will be shown in plain text.\n\n**The ad-join cookbook is as unopinionated as possible. It will not configure `sudoers` file, `/etc/pam.d` or `/etc/krb5.conf`. Use the sudoers cookbook in your wrapper cookbook to manage those services. See [test/cookbooks/ad-join-linux directory](./test/cookbooks/ad-join-linux) for examples on how to manage those files**\n\nThis cookbook basically runs this bash command\n\n    echo \"correct-horse-battery-staple\" | sudo realm join --verbose EXAMPLE.COM --user bob@EXAMPLE.COM --computer-ou OU=foobar --install=/\n\n\n## Troubleshooting\n\n### Ubuntu\n\n\n```\nrealm: No such realm found\n```\n\nRealm is case sensitive. Try EXAMPLE.COM instead of example.com\n\n```\nrealm: Not authorized to perform this action\n```\n\nNot all packages installed successfully. Verify `adcli` and `packagekit` are installed. Please open github issue if you find missing packages.\n\n```\n! Couldn't get kerberos ticket for: foo@example.com: KDC reply did not match expectations\nadcli: couldn't connect to example.com domain: Couldn't get kerberos ticket for: foo@example.com: KDC reply did not match expectations\n```\n\nThe domain is case sensitive. Try changing `example.com` to `EXAMPLE.COM`\n\n```\nDNS update failed: NT_STATUS_INVALID_PARAMETER\n```\n\nMake sure a fqdn is setup `hostname -f`\n\nhttps://wiki.samba.org/index.php/Troubleshooting_Samba_Domain_Members\n\nLicense and Authors\n-------------------\nAuthors:  \nVolodymyr Babchynskyy vbabch@softserveinc.com  \nSpencer Owen sowen@netdocuments.com  \n",
+  "maintainer": "NetDocuments",
+  "maintainer_email": "sowen@netdocuments.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 1.36.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "5.1.0",
+  "source_url": "https://github.com/NetDocuments/ad-join-cookbook",
+  "issues_url": "https://github.com/NetDocuments/ad-join-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "< 13.0.0",
+      ">= 12.7.0"
+    ],
+    [
+      "<= 13.6.4",
+      ">= 13.4.19"
+    ],
+    [
+      "> 13.8.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

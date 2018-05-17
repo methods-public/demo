@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: freebsd-9.3
+  - name: freebsd-10.1
+
+suites:
+  - name: default
+    run_list:
+      - recipe[fish-shell::default]
+    attributes:
+  - name: source
+    run_list:
+      - recipe[fish-shell::default]
+    attributes: {
+      "fish-shell": {
+        "install_method": 'source'
+    }
+  }
+

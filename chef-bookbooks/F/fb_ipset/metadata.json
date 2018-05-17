@@ -1,0 +1,51 @@
+{
+  "name": "fb_ipset",
+  "description": "Installs/Configures ipset",
+  "long_description": "fb_ipset Cookbook\n====================\nBasic cookbook to manage ipsets.\n\nRequirements\n------------\nRHEL like system, with ipset support in kernel/modules\n\nAttributes\n----------\n* node['fb_ipset']['enable']\n* node['fb_ipset']['manage_packages']\n* node['fb_ipset']['auto_cleanup']\n* node['fb_ipset']['sets'][$SET_NAME]['members']\n* node['fb_ipset']['sets'][$SET_NAME]['type']\n* node['fb_ipset']['sets'][$SET_NAME]['family']\n* node['fb_ipset']['sets'][$SET_NAME]['hashsize']\n* node['fb_ipset']['sets'][$SET_NAME]['maxelem']\n\nUsage\n-----\nInclude `fb_ipset` to manage ipset on a machine. This cookbook manages the ipset\npackage by default; set `node['fb_ipset']['manage_packages']` to `false` if\nyou'd rather do that yourself.\n\n### Sets\nThe \"name\" of a set is arbitrary, it's simply there so it can be\nmodified/reference later from iptables.\n\nAll attributes except for `members` are passed through to the ipset create\ncommand. For example, if you have the following:\n\n```ruby\ninclude_recipe 'fb_ipset'\n\nnode.default['fb_ipset']['enable'] = true\nnode.default['fb_ipset']['sets']['rfc1918'] = {\n  'type' => 'hash:net',\n  'family' => 'inet',\n  'hashsize' => '64',\n  'maxelem' => '4',\n  'members' => ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16']\n}\n```\n\nThe command that will be used to create the ipset is:\n`ipset create rfc1918 hash:net family inet hashsize 64 maxelem 4`\n\nThe commands that will be used to add the members to the ipset are:\n```\nipset add rfc1918 10.0.0.0/8\nipset add rfc1918 172.16.0.0/12\nipset add rfc1918 192.168.0.0/16\n```\n\nSee `ipset help` for more information of possible set types and their parameters\n\n### Reload triggers\nYou can subscribe to `fb_ipset[fb_ipset]` if you need to trigger on ipsets\nreloading.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

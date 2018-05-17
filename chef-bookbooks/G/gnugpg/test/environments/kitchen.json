@@ -1,0 +1,27 @@
+{
+	"name": "kitchen",
+	"description": "My Chef environment",
+	"cookbook_versions": {
+		
+	},
+	"json_class": "Chef::Environment",
+	"chef_type": "environment",
+	"default_attributes": {
+		"chef_client": {
+			"interval": 300,
+			"splay": 60
+		}
+	},
+	"override_attributes": {
+		"gnugpg": {
+			"key": {
+				"public": 300,
+				"private": 300,
+				"passphrase": 60
+			},
+			"keys" : {
+				"file" : [ "secret-key-896546AE.asc" ]
+			}
+		}
+	}
+}

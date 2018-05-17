@@ -1,0 +1,121 @@
+#
+# "$Id: cupsd.conf.in 7199 2008-01-08 00:16:30Z mike $"
+#
+#   Sample configuration file for the Common UNIX Printing System (CUPS)
+#   scheduler.  See "man cupsd.conf" for a complete description of this
+#   file.
+#
+
+# Log general information in error_log - change "info" to "debug" for
+# troubleshooting...
+LogLevel <%= node['cups']['loglevel'] %>
+
+# Administrator user group...
+SystemGroup <%= node['cups']['systemgroups'] %>
+
+<% node['cups']['server_aliases'].each do |server_alias| -%>
+ServerAlias <%= server_alias %>
+<% end -%>
+
+<% if !node['cups']['share_printers'].empty? -%>
+# Allow remote access
+<% node['cups']['ports'].each do |port| -%>
+Port <%= port %>
+<%- end %>
+<% else -%>
+# Only listen for connections from the local machine.
+<% node['cups']['ports'].each do |port| -%>
+Listen localhost:<%= port %>
+<%- end %>
+<% end -%>
+Listen /var/run/cups/cups.sock
+
+<% if node['cups']['require_encryption'] -%>
+# Require SSL/TLS for printer sharing
+Encryption Required
+ServerCertificate <%= node['cups']['cert_file'] %>
+ServerKey <%= node['cups']['key_file'] %>
+<% end -%>
+
+<% if !node['cups']['share_printers'].empty? -%>
+# Show shared printers on the local network.
+Browsing On
+BrowseLocalProtocols dnssd CUPS
+BrowseRemoteProtocols dnssd CUPS
+<% else -%>
+# Disable printer sharing.
+Browsing Off
+<% end -%>
+BrowseOrder allow,deny
+# (Change '@LOCAL' to 'ALL' if using directed broadcasts from another subnet.)
+BrowseAllow @LOCAL
+
+# Default authentication type, when authentication is required...
+DefaultAuthType Basic
+
+<% if node['cups']['hostname_lookups'] -%>
+HostNameLookups On
+<% end -%>
+
+# Restrict access to the server...
+<Location />
+<% if node['cups']['require_authentication'] -%>
+  AuthType Default
+<% end -%>
+  Order allow,deny
+<% node['cups']['share_printers'].each do |acl| -%>
+  Allow <%= acl %>
+<% end -%>
+</Location>
+
+# Restrict access to the admin pages...
+<Location /admin>
+  Encryption Required
+  Order allow,deny
+</Location>
+
+# Restrict access to configuration files...
+<Location /admin/conf>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+</Location>
+
+# Set the default printer/job policies...
+<Policy default>
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+
+MaxLogSize 2000000000
+
+#
+# End of "$Id: cupsd.conf.in 7199 2008-01-08 00:16:30Z mike $".
+#

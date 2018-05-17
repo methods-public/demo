@@ -1,0 +1,22 @@
+{
+  "name": "cassandra-platform-kitchen",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "cassandra-platform": {
+      "role": "cassandra-platform-kitchen",
+      "size": 3
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[cassandra-platform]",
+    "recipe[cassandra-platform::exporter]",
+    "recipe[cassandra-platform::backup]"
+  ],
+  "env_run_lists": {
+
+  }
+}

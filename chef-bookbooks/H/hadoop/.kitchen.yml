@@ -1,0 +1,52 @@
+---
+driver:
+  name: vagrant
+  # customize:
+  #   cpus: 2
+  #   memory: 4096
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-6.7
+  - name: centos-7.3
+  - name: debian-6.0.10
+    run_list:
+    - apt::default
+  - name: ubuntu-12.04
+    run_list:
+    - apt::default
+  - name: ubuntu-14.04
+    run_list:
+    - apt::default
+  - name: ubuntu-16.04
+    run_list:
+    - apt::default
+
+suites:
+  - name: default
+    run_list:
+      - recipe[java::default]
+      - recipe[hadoop::default]
+      - recipe[hadoop::hbase]
+      - recipe[hadoop::hive]
+      - recipe[hadoop::oozie]
+      - recipe[hadoop::pig]
+      - recipe[hadoop::spark]
+      - recipe[hadoop::storm]
+      - recipe[hadoop::zookeeper]
+    attributes:
+      hadoop:
+        hdfs_site:
+         'dfs.datanode.max.transfer.threads': 4096
+      hive:
+        hive_site:
+         'hive.support.concurrency': true
+         'hive.zookeeper.quorum': 'localhost'
+      java:
+        jdk_version: '7'

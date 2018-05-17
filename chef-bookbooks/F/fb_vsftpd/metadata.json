@@ -1,0 +1,53 @@
+{
+  "name": "fb_vsftpd",
+  "description": "Installs/Configures vsftpd",
+  "long_description": "fb_vsftpd Cookbook\n====================\nThis cookbook installs and configures vsftpd, the lightweight FTP server.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_vsftpd']['config']\n* node['fb_vsftpd']['enable']\n* node['fb_vsftpd']['ftpusers']\n* node['fb_vsftpd']['user_list']\n\nUsage\n-----\nInclude `fb_vsftpd::default` to install vsftpd. The daemon is enabled and \nstarted by default; this can be controlled with `node['fb_vsftpd']['enable']`.\nThe daemon is configured via the `node['fb_vsftpd']['config']` attribute, \nwhich will be used to render the main configuration file `vsftpd.conf`. Please\nrefer to the\n[upstream documentation](http://vsftpd.beasts.org/vsftpd_conf.html)\nfor the available options. The default configuration mimics the upstream Debian\nsettings and is listed in the [attributes file](attributes/default.rb). Use the\n`node['fb_vsftpd']['ftpusers']` to control which users will be denied access at\nPAM stage. Use `node['fb_vsftpd']['user_list']` to populate the vsftpd user\nlist, which by default is the same as ftpusers and set to deny mode.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,8 @@
+LineLength:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+ClassLength :
+  Enabled: false

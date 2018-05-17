@@ -1,0 +1,48 @@
+{
+  "name": "spree",
+  "description": "Installs and configures Spree",
+  "long_description": "# Spree Cookbook\n\n[![Dependency Status](https://gemnasium.com/devloft/spree.svg)](https://gemnasium.com/devloft/spree)\n\nDescription\n===========\nA [Chef](http://getchef.com/) Cookbook installs Spree and prepares the RVM environment, optionally with database, Unicorn and NGINX proxy.\n\nMissing: Serverspec tests, SSL for NGINX, Ubuntu platform\n\nRequirements\n===========\n\nCookbooks\n---------\n* nginx\n* rvm\n* unicorn\n* database\n* mysql\n* mysql2_chef_gem\n* selinux\n* yum-epel\n\n## Supported Platforms\n\nRHEL is the only platform currently supported, Ubuntu on its way.\n\n## Supported Spree Branches\n\n3,2.4\n\n## Usage\n\n### spree::default\n\nInclude `spree` cookbook in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[spree::default]\"\n  ]\n}\n```\n\nOr just app node:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[spree::app]\"\n    \"recipe[spree::bundle]\"\n    \"recipe[spree::unicorn]\"\n  ]\n}\n```\n## License and Authors\n\nAuthor:: Alex Naumchenko (<alex@devloft.com>)\nCopyright (C) Devloft Solutions, Inc.\n",
+  "maintainer": "Devloft Solutions, Inc.",
+  "maintainer_email": "info@devloft.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "nginx": ">= 0.0.0",
+    "rvm": ">= 0.0.0",
+    "mysql": ">= 0.0.0",
+    "unicorn": ">= 0.0.0",
+    "mysql2_chef_gem": ">= 0.0.0",
+    "database": ">= 0.0.0",
+    "selinux": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.9",
+  "source_url": "",
+  "issues_url": ""
+}

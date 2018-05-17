@@ -1,0 +1,2 @@
+
+default['blog']['hostname'] = nil

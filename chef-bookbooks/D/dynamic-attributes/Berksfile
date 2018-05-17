@@ -1,0 +1,4 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'test-da', path: 'test/cookbooks/test-da'
+metadata

@@ -1,0 +1,33 @@
+{
+  "name": "kaltura",
+  "description": "Installs and configures Kaltura",
+  "long_description": "\n## Description\n\nInstalls and configures Kaltura - the Open Source Video Platform.\n\nThis cookbook deploys (installs and configures) complete Kaltura clusters and all required nodes and packages. It can be used to install and maintain Kaltura clusters,and to simplify deployment scaling.\nRead more at -\nhttps://github.com/kaltura/platform-install-packages/blob/master/doc/rpm-chef-cluster-deployment.md\n\nAbout Kaltura:  \n\nKaltura's mission is to power any video experience. Provider of the world's first Open Source Online Video Platform, Kaltura simplifies the creation of video experiences, and provides tools that facilitate innovative and engaging experiences that create value. The Kaltura platform engages hundreds of millions of viewers by providing media companies with advanced video management, publishing, and monetization tools that increase their reach and monetization and simplify their video operations. Kaltura improves productivity and interaction among millions of employees by providing enterprises with powerful online video tools for boosting internal knowledge sharing, training, and collaboration, and for more effective marketing. Kaltura offers next generation learning for millions of students and teachers by providing educational institutions with disruptive online video solutions for improved teaching, learning, student retention and increased engagement across campuses and beyond.  For more information: www.kaltura.com, to join Kaltura's community visit: www.kaltura.org and www.html5video.org.\n\n\n## Requirements\n\n* RHEL/CentOS - 6.0 and above\n* MySQL/MariaDB 5.1 and above\n\nIt is recommended, although not a must, that you use:\n\nhttp://community.opscode.com/cookbooks/mysql\n\nhttp://community.opscode.com/cookbooks/nfs\n\nIn order to setup your MySQL and NFS servers.\n\n## License and Author\n\nAuthor: Jess Portnoy <jess.portnoy@kaltura.com> \n\nCopyright Kaltura, Inc.\n\nLicensed under the AGPLv3+.\n\nyou may not use this file except in compliance with the License.\n\nYou may obtain a copy of the License at:\n\nhttp://www.gnu.org/licenses/agpl-3.0.html\n\n",
+  "maintainer": "Jess Portnoy, Kaltura, Inc.",
+  "maintainer_email": "jess.portnoy@kaltura.com",
+  "license": "AGPLv3+",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+    "nfs": ">= 0.0.0",
+    "mysql": ">= 0.0.0"
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "24.4.0"
+}

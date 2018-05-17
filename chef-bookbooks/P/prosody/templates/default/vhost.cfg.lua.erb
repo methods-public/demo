@@ -1,0 +1,32 @@
+VirtualHost "<%= @config['vhost'] %>"
+
+  enabled = <%= @config['enabled'] %>
+
+<% unless @config['admins'].empty? %>
+  admins = {
+  <% @config['admins'].each do |admin| %>
+    "<%= admin %>";
+  <% end %>
+  }
+<% end %>
+
+<% unless @config['modules_enabled'].empty? %>
+  modules_enabled = {
+  <% @config['modules_enabled'].each do |mod| %>
+    "<%= mod %>";
+  <% end %>
+  };
+<% end %>
+
+<% if @config['ssl'] %>
+  ssl = {
+    key = "<%= ::File.join(node['prosody']['ssl_dir'], "#{@config['vhost']}.key") %>";
+    certificate = "<%= ::File.join(node['prosody']['ssl_dir'], "#{@config['vhost']}.crt") %>";
+  }
+<% end %>
+
+<% if @config['muc'] %>
+Component "<%= @config['muc'] %>" "muc"
+<% end %>
+
+

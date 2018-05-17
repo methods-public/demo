@@ -1,0 +1,84 @@
+#
+# Default Bacula Storage Daemon Configuration file
+#
+#  For Bacula release 5.2.5 (26 January 2012) -- ubuntu 12.04
+#
+# You may need to change the name of your tape drive
+#   on the "Archive Device" directive in the Device
+#   resource.  If you change the Name and/or the 
+#   "Media Type" in the Device resource, please ensure
+#   that dird.conf has corresponding changes.
+#
+
+Storage {                             # definition of myself
+  Name = <%= node['fqdn'] %>-sd
+  SDPort = 9103                  # Director's port      
+  WorkingDirectory = "/var/lib/bacula"
+  Pid Directory = "/var/run/bacula"
+  Maximum Concurrent Jobs = 20
+  SDAddress = <%= node['bacula']['sd']['address'] %>
+}
+#
+# List Directors who are permitted to contact Storage daemon
+#
+Director {
+  Name = backup-dir
+  Password = "<%= node['bacula']['sd']['password'] %>"
+}
+
+#
+# Restricted Director, used by tray-monitor to get the
+#   status of the storage daemon
+#
+Director {
+  Name = backup-mon
+  Password = "<%= node['bacula']['sd']['password_monitor'] %>"
+  Monitor = yes
+}
+
+#
+# Devices supported by this Storage daemon
+# To connect, the Director's bacula-dir.conf must have the
+#  same Name and MediaType. 
+#
+
+Device {
+  Name = FileStorage
+  Media Type = File
+  Archive Device = <%= node['bacula']['sd']['backup_dir'] %>
+  LabelMedia = yes;                   # lets Bacula label unlabeled media
+  Random Access = Yes;
+  AutomaticMount = yes;               # when device opened, read it
+  RemovableMedia = no;
+  AlwaysOpen = no;
+  Maximum Network Buffer Size = <%= node['bacula']['sd']['file_max_net_buffer'] %>
+<% if @remote_mount %>
+  RequiresMount = yes
+  MountPoint = <%= node['bacula']['sd']['backup_dir'] %>
+  Mount Command = "/etc/bacula/scripts/storage_remote_mount"
+  Unmount Command = "fusermount -u %m"
+<% end %>
+}
+
+# Any additional storage devices configured under node['sd']['devices'] will be
+# enumerated here<% if node['bacula']['sd']['autochangers'] %><% node['bacula']['sd']['autochangers'].each do |autochanger| %>
+Autochanger {<% autochanger.each do |key, value| %>
+  <%= key %> = <%= value %><% end %>
+}
+<% end %>
+<% end %><% if node['bacula']['sd']['devices'] %><% node['bacula']['sd']['devices'].each do |device| %>
+Device {<% device.each do |key, value| %>
+  <%= key %> = <%= value %><% end %>
+}
+<% end %>
+<% end %>
+
+# 
+# Send all messages to the Director, 
+# mount messages also are sent to the email address
+#
+Messages {
+  Name = Standard
+  director = backup-dir = all
+}
+

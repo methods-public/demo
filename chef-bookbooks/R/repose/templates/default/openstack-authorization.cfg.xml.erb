@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<% if !@version.nil? && @version.split('.')[0].to_i < 7 %>
+<rackspace-authorization xmlns="http://openrepose.org/components/openstack-identity/auth-z/v1.0">
+<% else %>
+<rackspace-authorization xmlns="http://openrepose.org/repose/openstack-identity/auth-z/v1.0">
+<% end %>
+
+
+    <authentication-server
+        username="<%= @username %>"
+        password="<%= @password %>"
+        href="<%= @auth_uri %>"
+        <% if @tenant_id_admin != nil %>tenantId="<%= @tenant_id_admin %>" <% end %>
+        <% if @endpoint_list_ttl != nil %>endpoint-list-ttl="<%= @endpoint_list_ttl %>" <% end %>
+        <% if @connection_pool_id != nil %>connectionPoolId="<%= @connection_pool_id %>" <% end %>
+    />
+    <service-endpoint href="<%= @service_endpoint %>"
+        <% if @service_region != nil %>region="<%= @service_region %>" <% end %>
+        <% if @service_name != nil %>name="<%= @service_name %>" <% end %>
+        <% if @service_type != nil %>type="<%= @service_type %>" <% end %>
+    />
+    <% if not @ignore_tenant_roles.empty? %>
+        <ignore-tenant-roles>
+        <% for @tenant in @ignore_tenant_roles %>
+            <ignore-tenant-role><%= @tenant %></ignore_tenant_role>
+        <% end %>
+        <% for @role in @roles %>
+            <role><%= @role %></role>
+        <% end %>
+        </ignore-tenant-roles>
+    <% end %>
+    <% if @delegating_quality != nil %>
+    <delegating quality="<%= @delegating_quality %>" />
+    <% end %>
+</rackspace-authorization>

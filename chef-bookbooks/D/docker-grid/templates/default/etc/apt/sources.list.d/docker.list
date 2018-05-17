@@ -1,0 +1,27 @@
+<%
+platform = node['platform']
+arch = nil
+case node['kernel']['machine']
+when 'x86_64'
+  arch = 'amd64'
+when 'armv7l', 'armv6l'
+  arch = 'armhf'
+end
+enable_new_repo = node['docker-grid']['dockerproject']['enable_new_repo']
+override_apt_line = node['docker-grid']['apt_repo']['override_apt_line']
+if !override_apt_line.nil? && !override_apt_line.empty?
+-%>
+<%= override_apt_line %>
+<%
+else
+  if enable_new_repo
+-%>
+deb [arch=<%= arch %>] <%= node['docker-grid']['apt_repo']['url'] %> <%= node['lsb']['codename'] %> <%= node['docker-grid']['dockerproject']['apt_new_repo_sections'] %>
+<%
+  else
+-%>
+deb <%= node['docker-grid']['apt_repo']['url'] %> <%= platform %>-<%= node['lsb']['codename'] %> main
+<%
+  end
+end
+-%>

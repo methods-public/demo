@@ -1,0 +1,96 @@
+<%
+cloud_config = node['dcos-grid']['cloud-config']
+dcos_config = node['dcos-grid']['bootstrap']['config']
+-%>
+#cloud-config
+
+hostname: <%= cloud_config['hostname'] %>
+timezone: <%= cloud_config['timezone'] %>
+
+# include one or more SSH public keys for the core user
+ssh_authorized_keys:
+<%
+cloud_config['ssh_authorized_keys'].each {|key|
+-%>
+  - "<%= key %>"
+<%
+}
+-%>
+
+<%
+case cloud_config['target_platform']
+when 'coreos' then
+-%> 
+coreos:
+  units:
+    - name: systemd-networkd.service
+      command: stop
+    - name: 10-static.network
+      runtime: true
+      content: |
+        [Match]
+        Name=enp0s8
+
+        [Network]
+        Address=<ip_address>/24
+        #Gateway=192.168.56.1
+    - name: 20-dhcp.network
+      runtime: true
+      content: |
+        [Match]
+        Name=en*
+
+        [Network]
+        DHCP=yes
+    - name: down-interfaces.service
+      command: start
+      content: |
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/ip link set enp0s8 down
+        ExecStart=/usr/bin/ip addr flush dev enp0s8
+    - name: systemd-networkd.service
+      command: restart
+<%
+end
+-%>
+
+write_files:
+  - path: "/etc/resolv.conf"
+    permissions: "0644"
+    owner: "root"
+    content: |
+<%
+dcos_config['resolvers'].each {|resolv|
+-%>
+      nameserver <%= resolv %>
+<%
+}
+-%>
+<%
+indent_space = ' ' * 6
+-%>
+  - path: "<%= cloud_config['target_dir'] %>/genconf/config.yaml"
+    permissions: "0644"
+    owner: "<%= cloud_config['target_owner'] %>"
+    content: |
+<%= render('opt/dcos-grid/genconf/config.yaml').gsub!(/^/, indent_space) -%>
+<%
+[
+  'genconf/ip-detect',
+  'bootstrap_setup.sh',
+  'bootstrap_upgrade.sh',
+  'cli_setup.sh',
+  'node_setup.sh',
+  'node_upgrade.sh',
+  'uninstall.sh',
+].each {|script|
+-%>
+  - path: "<%= "#{cloud_config['target_dir']}/#{script}" %>"
+    permissions: "0755"
+    owner: "<%= cloud_config['target_owner'] %>"
+    content: |
+<%= render("opt/dcos-grid/#{script}").gsub!(/^/, indent_space) -%>
+<%
+}
+-%>

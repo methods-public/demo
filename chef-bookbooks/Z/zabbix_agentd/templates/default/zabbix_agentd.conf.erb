@@ -1,0 +1,31 @@
+# Zabbix Agent configuration file
+# This file was automatically generated and dropped off by chef!
+# Please refer to the Zabbix documentation for details on
+# configuration settings.
+
+PidFile=<%= node['zabbix_agentd']['pid_dir'] %>/zabbix_agentd.pid
+
+LogFile=<%= node['zabbix_agentd']['log_dir'] %>/zabbix_agentd.log
+
+LogFileSize=<%= node['zabbix_agentd']['logfile_size'] %>
+
+DebugLevel=<%= node['zabbix_agentd']['debug_level'] %>
+
+Server=<%= node['zabbix_agentd']['servers'].join(',') %>
+
+ListenPort=<%= node['zabbix_agentd']['listen_port'] %>
+
+ServerActive=<%= node['zabbix_agentd']['servers_active'].join(',') %>
+
+Hostname=<%= node['zabbix_agentd']['hostname'] %>
+
+<% if node['zabbix_agentd']['enable_remote_command'] %>
+EnableRemoteCommands=1
+LogRemoteCommands=1
+<% end %>
+
+Timeout=<%= node['zabbix_agentd']['timeout'] %>
+
+StartAgents=<%= node['zabbix_agentd']['start_agents'] %>
+
+Include=/etc/zabbix/zabbix_agentd.d/*.conf

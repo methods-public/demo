@@ -1,0 +1,5 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'ugid-test', path: 'test/cookbooks/ugid-test'
+cookbook 'docker-platform', '= 1.0.1'
+metadata

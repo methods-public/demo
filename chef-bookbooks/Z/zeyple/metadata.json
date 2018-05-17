@@ -1,0 +1,40 @@
+{
+  "name": "zeyple",
+  "description": "Installs/Configures Zeyple",
+  "long_description": "Zeyple Cookbook\n===============\n[![Cookbook](https://img.shields.io/cookbook/v/zeyple.svg)](https://supermarket.getchef.com/cookbooks/zeyple)\n[![Build Status](https://travis-ci.org/infertux/chef-zeyple.svg?branch=master)](https://travis-ci.org/infertux/chef-zeyple)\n\nThis cookbook downloads, installs and configures [Zeyple](https://github.com/infertux/zeyple).\n\nRequirements\n------------\n\n- Postfix\n\nUsage\n-----\n\nConfigure the list of key IDs to encrypt email with:\n\n```json\n\"zeyple\": {\n  \"gpg\": {\n    \"keys\": [\"0xEEC73D5809A98A9B\"]\n  }\n}\n```\n\nAdd the `zeyple` recipe to your run list:\n\n```json\n\"recipe[zeyple]\"\n```\n\nLicense\n-------\nMIT\n",
+  "maintainer": "Cédric Félizard",
+  "maintainer_email": "cedric@felizard.fr",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "postfix": ">= 5.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.2",
+  "source_url": "https://github.com/infertux/chef-zeyple",
+  "issues_url": "https://github.com/infertux/chef-zeyple/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

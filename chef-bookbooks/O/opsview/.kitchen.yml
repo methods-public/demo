@@ -1,0 +1,35 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list:
+      - recipe[opsview::default]
+    attributes:
+      opsview:
+        commands:
+          check_load:
+            name: "check_load"
+            plugin: "check_load"
+            plugin_dir: "/usr/local/nagios/libexec"
+  - name: server
+    run_list:
+      - recipe[opsview::core]
+      - recipe[opsview::check_mongodb]
+      - recipe[opsview::check_mssql]
+      - recipe[opsview::check_mysql]
+      - recipe[opsview::check_netscaler]
+      - recipe[opsview::check_vmware]
+      - recipe[opsview::pagerduty]
+    attributes:
+      dev_mode: true
+      opsview:
+        mysql_vault: opsview_mysql

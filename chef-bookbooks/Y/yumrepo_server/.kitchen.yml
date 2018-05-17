@@ -1,0 +1,28 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: latest
+
+provisioner:
+  name: chef_zero
+
+# Let's make it a policy that we'll keep no more than
+# 3 major revs of a given platform. That should fall
+# close to, or better than, the version support provided by
+# the distribution (ex. remove Centos 5 when Centos 8 is added)
+platforms:
+  - name: centos-6.5
+  - name: centos-7.0
+
+suites:
+  - name: default
+    run_list:
+      - recipe[yumrepo_server::default]
+    attributes:
+  - name: custom_port
+    run_list:
+      - recipe[yumrepo_server::default]
+    attributes:
+      yum:
+        server:
+          http_port: '*:9090'

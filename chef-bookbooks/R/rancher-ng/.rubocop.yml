@@ -1,0 +1,14 @@
+Metrics/LineLength:
+  Max: 160
+
+Metrics/MethodLength:
+  Max: 30
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/SpaceBeforeFirstArg:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 50

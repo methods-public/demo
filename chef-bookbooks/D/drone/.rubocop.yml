@@ -1,0 +1,22 @@
+AllCops:
+  Exclude:
+    - 'test/cookbooks/**/*'
+
+LineLength:
+  Max: 150
+
+AlignParameters:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+StringLiterals:
+  Enabled: false
+
+Style/SpaceBeforeFirstArg:
+  Exclude:
+    - metadata.rb
+
+WordArray:
+  Enabled: false

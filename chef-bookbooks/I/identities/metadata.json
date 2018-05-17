@@ -1,0 +1,51 @@
+{
+  "name": "identities",
+  "description": "Installs/Configures identities",
+  "long_description": "Installs/Configures identities",
+  "maintainer": "Jean-Francois Theroux",
+  "maintainer_email": "me@failshell.io",
+  "license": "MIT",
+  "platforms": {
+
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.2",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,9 @@
+#
+# This file is managed by Chef, using the denyhosts cookbook.
+# Editing this file by hand is highly discouraged!
+#
+
+<% node['denyhosts']['config'].each do |key,value| %>
+<%= key %>=<%= value %>
+<% end %>
+

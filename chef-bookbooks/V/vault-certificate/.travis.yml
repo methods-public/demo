@@ -1,0 +1,28 @@
+sudo: required
+dist: trusty
+
+services:
+  - docker
+
+language: ruby
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+install: echo "skip bundle install"
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef gem install kitchen-docker
+  - source setupVault.sh
+  - echo $VAULT_TOKEN
+  
+script:
+  - foodcritic -f any .
+  - cookstyle -D
+  - kitchen converge all

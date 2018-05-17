@@ -1,0 +1,41 @@
+{
+  "name": "webinar1-infra",
+  "description": "Installs/Configures Google Cloud Platform for Chef Webinar #1",
+  "long_description": "Installs/Configures Google Cloud Platform for Chef Webinar #1",
+  "maintainer": "Nelson Araujo",
+  "maintainer_email": "nelsona@google.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.0.0"
+  },
+  "dependencies": {
+    "webinar1-myapp": "~> 0.1.0",
+    "google-gauth": "~> 0.1.0",
+    "google-gcompute": "~> 0.1.1",
+    "google-gdns": "~> 0.1.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/nelsonjr/chef-webinars",
+  "issues_url": "https://github.com/nelsonjr/chef-webinars/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

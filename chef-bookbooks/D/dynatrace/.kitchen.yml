@@ -1,0 +1,340 @@
+---
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.19.36
+
+driver:
+  name: docker
+  # In case of error "Message: You must first install the Docker CLI tool" try uncommenting following line
+#  use_sudo: false
+
+# NOTE: To speed up test kitchen execution time:
+# * Run the docker_images/build_images.sh script
+# * Uncomment "image: ..." lines in the 'platforms' section
+# * Setup a cache server with Dynatrace installers downloaded locally using for example python e.g. python -m SimpleHTTPServer 8000
+# * Uncomment and update the file_url attributes in the 'suites' section
+
+platforms:
+  - name: centos-7
+    driver_config:
+      #image: centos-7-chef
+      provision_command:
+        - yum update -y
+        - yum install -y net-tools tar initscripts #initscipts - needed to manage services
+    attributes:
+      dynatrace:
+        apache_wsagent:
+          apache:
+            config_file_path: /etc/httpd/conf/httpd.conf
+            init_script_path: /etc/init.d/httpd
+
+  - name: debian-8.8
+    driver_config:
+     #image: debian-8.8-chef
+      provision_command:
+        - apt-get update
+        - apt-get install -y net-tools tar
+        - echo "deb http://ftp.de.debian.org/debian jessie-backports main" >> /etc/apt/sources.list # needed to install java 8
+        - apt-get update
+        - apt-get install -y net-tools tar
+    run_list:
+      - recipe[apt]
+    attributes:
+      dynatrace:
+        apache_wsagent:
+          apache:
+            config_file_path: '/etc/apache2/apache2.conf'
+          linux:
+            apache_daemon: 'apache2'
+
+  - name: ubuntu-16.04
+    driver_config:
+      image: ubuntu-16.04-chef
+      provision_command:
+        - apt-get update
+        - apt-get install -y net-tools tar
+    run_list:
+      - recipe[apt]
+    attributes:
+      dynatrace:
+        apache_wsagent:
+          apache:
+            config_file_path: '/etc/apache2/apache2.conf'
+          linux:
+            apache_daemon: 'apache2'
+
+suites:
+  - name: apache_wsagent
+    run_list:
+      - recipe[apache2]
+      - recipe[dynatrace::apache_wsagent]
+    attributes:
+      dynatrace:
+        apache_wsagent:
+          linux:
+            # WORKAROUND: see description of apache_daemon attribute in dynatrace cookbook.
+            apache_daemon: ''
+#        wsagent_package:
+#          linux:
+#            installer:
+#              file_url:  http://192.168.1.2:8000/dynatrace-wsagent-linux-x86-64.tar
+    excludes:
+      - centos-7   #excluded because of problems with cookbook apache2 (only for centos-7 distribution)
+
+  - name: apache_wsagent_uninstall
+    run_list:
+      - recipe[apache2]
+      - recipe[dynatrace::apache_wsagent]
+      - recipe[dynatrace::apache_wsagent_uninstall]
+    attributes:
+      dynatrace:
+        apache_wsagent:
+          linux:
+            # WORKAROUND: see description of apache_daemon attribute in dynatrace cookbook.
+            apache_daemon: ''
+#        wsagent_package:
+#          linux:
+#            installer:
+#              file_url:  http://192.168.1.2:8000/dynatrace-wsagent-linux-x86-64.tar
+    excludes:
+      - centos-7   #excluded because of problems with cookbook apache2 (only for centos-7 distribution)
+
+  - name: agents_package
+    run_list:
+      - recipe[dynatrace::agents_package]
+#    attributes:
+#      dynatrace:
+#        agents_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-agent-unix.jar
+
+  - name: agents_package_uninstall
+    run_list:
+      - recipe[dynatrace::agents_package]
+      - recipe[dynatrace::agents_package_uninstall]
+#    attributes:
+#      dynatrace:
+#        agents_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-agent-unix.jar
+
+  - name: collector
+    run_list:
+      - recipe[dynatrace::collector]
+    attributes:
+      dynatrace:
+        collector:
+          jvm:
+            xms: 256M
+            xmx: 1024M
+            perm_size: 256m
+            max_perm_size: 384m
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-collector-linux-x86.jar
+
+  - name: collector_uninstall
+    run_list:
+      - recipe[dynatrace::collector]
+      - recipe[dynatrace::collector_uninstall]
+#    attributes:
+#      dynatrace:
+#        collector:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-collector-linux-x86.jar
+
+  - name: agents_package
+    run_list:
+      - recipe[dynatrace::agents_package]
+#    attributes:
+#      dynatrace:
+#        agents_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-agent-unix.jar
+
+  - name: dynatrace_user
+    run_list:
+      - recipe[dynatrace::dynatrace_user]
+
+  - name: dynatrace_user_uninstall
+    run_list:
+      - recipe[dynatrace::dynatrace_user]
+      - recipe[dynatrace::dynatrace_user_uninstall]
+
+  - name: host_agent
+    run_list:
+      - recipe[dynatrace::host_agent]
+    attributes:
+      dynatrace:
+        host_agent:
+          host_agent_name:
+            myhostagent
+          collector:
+            myhostaddr
+#          installer:
+#            file_url: http://192.168.1.2:8000/dynatrace-hostagent-linux-x86-64.tar
+
+  - name: host_agent_uninstall
+    run_list:
+      - recipe[dynatrace::host_agent]
+      - recipe[dynatrace::host_agent_uninstall]
+#    attributes:
+#      dynatrace:
+#        host_agent:
+#          installer:
+#            file_url: http://192.168.1.2:8000/dynatrace-hostagent-linux-x86-64.tar
+
+  - name: java_agent
+    run_list:
+      - recipe[dynatrace::java_agent]
+    attributes:
+      dynatrace:
+        java_agent:
+          env_var:
+            file_name: /tmp/environment
+#        agents_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-agent-unix.jar
+
+  - name: memory_analysis_server
+    run_list:
+      - recipe[dynatrace::memory_analysis_server]
+    attributes:
+      dynatrace:
+        memory_analysis_server:
+          jvm:
+            xms: 256M
+            xmx: 1024M
+            perm_size: 256m
+            max_perm_size: 384m
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-analysisserver-linux-x86.jar
+
+  - name: one_agent
+    run_list:
+      - recipe[dynatrace::one_agent]
+#    attributes:
+#      dynatrace:
+#        one_agent:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-one-agent-linux-x86.tgz
+#          windows:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-one-agent-x86.msi
+
+
+  - name: server
+    run_list:
+      - recipe[dynatrace::server]
+      - recipe[dynatrace::server_pwh_connection]
+      - recipe[dynatrace::server_ldap_config]
+      - recipe[dynatrace::server_user_groups]
+      - recipe[dynatrace::server_users]
+    attributes:
+      dynatrace:
+        server:
+          pwh_connection:
+            # Allow error 500 (connection failed) to pass our test
+            success_codes: ['200', '500']
+          sizing: small
+          user_config:
+            groups:
+              group1:
+                description: 'some description 1'
+                managementrole: 'Guest'
+                ldapgroup: false
+              group2 :
+                description: 'some description 2'
+                managementrole: 'Administrator'
+                ldapgroup: true
+            users:
+              newuserid:
+                fullname: 'New User'
+                email: new@user.com
+                password: SecretPassword
+          ldap:
+            addr: 'localhost'
+            port: 1234
+            binddn: 'LDAP_Dynasprint'
+            bindpassword: 'secretpassword'
+            basedn: 'DC=dynatrace,DC=org'
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-server-linux-x86.jar
+
+  - name: server_uninstall
+    run_list:
+      - recipe[dynatrace::server]
+      - recipe[dynatrace::server_uninstall]
+#    attributes:
+#      dynatrace:
+#        server:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-server-linux-x86.jar
+
+  - name: server_update
+    run_list:
+      - recipe[dynatrace::server]
+      - recipe[dynatrace::server_update]
+    attributes:
+      dynatrace:
+        server:
+          collector_port: 6698 # on version 6.3 (default is 6699 on version 6.5)
+          linux:
+            # TODO: currently no update available on version 6.5 thus testing version 6.3
+            installer:
+              file_url: http://downloads.dynatracesaas.com/6.3/dynatrace-server-linux-x86.jar
+            update:
+              update_file_url: https://files.dynatrace.com/downloads/fixpacks/dynaTrace-6.3.10.1010.zip
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-server-linux-x86.jar
+#            update:
+#              update_file_url: http://192.168.1.2:8000/dynaTrace-6.3.10.1010.zip
+
+  - name: wsagent_package
+    run_list:
+      - recipe[dynatrace::wsagent_package]
+#    attributes:
+#      dynatrace:
+#        wsagent_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-wsagent-linux-x86-64.tar
+    excludes:
+      - ubuntu-16.04    # excluded due to error with enabling server using chef resource - service.
+                        # Possible workarounds for this distribution:
+                        #         - enable server using execute resource:
+                        #             execute 'enable dtWsAgent do
+                        #                  command 'sudo systemctl enable dynaTraceWebServerAgent'
+                        #             end
+
+                        #         - enable server using service resource with systemd provider (in fact there will be used sysv - systemd is not support in docker containers)
+                        #             service name.to_s do
+                        #               service_name service
+                        #                provider     Chef::Provider::Service::Systemd
+                        #                supports     :status => true
+                        #                action       [:enable]
+                        #             end
+                        #         - Chef::Provider::Service::Systemd provider does not handle starting service, it can be used only for enabling/disabling service (also for checking if service is enable)
+
+
+  - name: wsagent_package_uninstall
+    run_list:
+      - recipe[dynatrace::wsagent_package]
+      - recipe[dynatrace::wsagent_package_uninstall]
+#    attributes:
+#      dynatrace:
+#        wsagent_package:
+#          linux:
+#            installer:
+#              file_url: http://192.168.1.2:8000/dynatrace-wsagent-linux-x86-64.tar
+    excludes:
+      - ubuntu-16.04

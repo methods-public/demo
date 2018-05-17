@@ -1,0 +1,14 @@
+# Managed by Chef.  Changes will be overwritten.
+
+# whether or not to autogenerate the stackdriver collectd config file
+AUTOGENERATE_COLLECTD_CONFIG="<% if @collectd %>yes<% else %>no<% end %>"
+<% if @api_key -%>
+
+# your stackdriver api key
+STACKDRIVER_API_KEY="<%= @api_key %>"
+<% end -%>
+<% if @gcm -%>
+
+# write to the GCM API instead of the legacy SD path
+DETECT_GCM="yes"
+<% end -%>

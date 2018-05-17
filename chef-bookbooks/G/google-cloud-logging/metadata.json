@@ -1,0 +1,46 @@
+{
+  "name": "google-cloud-logging",
+  "description": "Installs/Configures google-cloud-logging",
+  "long_description": "google-cloud-logging Cookbook\n================\nThis cookbook installs package for Google Cloud Logging and starts the agent (google-fluentd).\n\n This cookbook does the following:\n\n   1. Configures the required apt or yum repository.\n      The environment variable REPO_SUFFIX can be set to alter which\n      repository is used.  A dash (-) will be inserted prior to the supplied\n      suffix. Example values are 'unstable' or '20151027-1'.\n   2. Installs the logging agent.\n   3. Installs \"catch-all\" configuration files (unless the environment\n      variable DO_NOT_INSTALL_CATCH_ALL_CONFIG is set to suppress this.)\n   4. Starts the logging agent.\n   5. Sends a test message which should be visible in the log viewer.\n\nGoogle Cloud Logging collects and stores logs from applications and services on the Google Cloud Platform:\n\n   * View your logs with the Logs Viewer, including third-party logs from your virtual machine instances.\n   * Export your logs to Google Cloud Storage, Google BigQuery, or Google Cloud Pub/Sub.\n   * Create logs-based metrics to use for monitoring and alerting in Google Cloud Monitoring.\n   * Get immutable audit logs for auditing and compliance.\n   * Use the Cloud Logging API to read, write, and configure logs.\n\n\nRequirements\n------------\n\n### Platform\nThe platforms supported are Amazon Linux, Debian/Ubuntu, Redhat/CentOS\n\n### Packages\nThe cookbook uses default package managers for the platform\n\nAttributes\n----------\nNone\n\nLicense and Authors\n-------------------\nAuthors: Vipin Thomas, Karthik Subramanian\n",
+  "maintainer": "vipinthomas",
+  "maintainer_email": "vipinthomaskc@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "amazonlinux": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 12.04",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.7",
+  "source_url": "https://github.com/vipinthomas/google-cloud-logging",
+  "issues_url": "",
+  "privacy": false
+}

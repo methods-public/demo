@@ -1,0 +1,58 @@
+<%
+os_user = ENV['OS_USERNAME']
+os_api_key = ENV['OS_PASSWORD']
+os_tenant = ENV['OS_TENANT_NAME']
+os_project = ENV['OS_TENANT_NAME']
+os_auth_url = "#{ENV['OS_AUTH_URL']}/tokens"
+
+# change these
+my_os_keypair = nil
+my_private_key = '/full/path/to/private/key'
+os_flavor = 'm1.tiny'
+os_net_name = 'a5e990ef-3571-4b8e-b31f-3cfadfceef65'
+os_secgroups = 'default'
+os_floating_pool = 'floating-pool'
+os_centos_img = 'cf289a95-5533-40c8-8656-2015e1b4983f'
+os_debian_img = 'cc2d277e-545c-4419-a327-7c79690ac199'
+os_fedora_img = '3fb46ffd-ddde-48c8-9a45-b536ee551239'
+os_ubuntu_img = 'f508ab88-8f4c-4379-b6ef-130a87b0a580'
+%>
+---
+driver:
+  name: openstack
+  flavor_ref: '<%= os_flavor %>'
+  openstack_username: '<%= os_user %>'
+  openstack_api_key: '<%= os_api_key %>'
+  openstack_auth_url: '<%= os_auth_url %>'
+  openstack_tenant: '<%= os_tenant %>'
+  key_name: '<%= my_os_keypair %>'
+  network_ref: '<%= os_net_name %>'
+  security_groups: '<%= os_secgroups %>'
+  floating_ip_pool: '<%= os_floating_pool %>'
+  openstack_project_name: '<%= os_project %>'
+  private_key_path: '<%= my_private_key %>'
+
+transport:
+  ssh_key: '<%= my_private_key %>'
+
+platforms:
+  - name: centos
+    driver_config:
+      image_ref: '<%= os_centos_img %>'
+  - name: debian
+    driver_config:
+      image_ref: '<%= os_debian_img %>'
+  - name: fedora
+    driver_config:
+      image_ref: '<%= os_fedora_img %>'
+    transport:
+      username: 'fedora'
+  - name: ubuntu
+    driver_config:
+      image_ref: '<%= os_ubuntu_img %>'
+
+suites:
+  - name: default
+    run_list:
+      - recipe[os_floating_lo]
+      - recipe[export_node]

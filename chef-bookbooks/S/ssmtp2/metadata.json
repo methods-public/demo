@@ -1,0 +1,55 @@
+{
+  "name": "ssmtp2",
+  "description": "Installs/Configures ssmtp",
+  "long_description": "ssmtp2 Cookbook\n===================\nA cookbook to configure the ssmtp utility. The ssmtp tool is a mail transfer agent (MTA), whose only function is to send messages from the local system to a proper mail relay.  The means that systems which previously used full-blown MTAs like sendmail/postfix/exim/etc... to send mail off to other systems, but never had a requirement to receive or process mail, can use ssmtp as a drop-in replacement; with a much simpler configuration, and likely less security concerns.  This cookbook provides access to all documented configuration variables, and will generated a revaliases file, if the attribute is set.  The data bag used by this cookbook will allow easy swapping of upstream mail host configuration by simply changing the mail host attribute. This could be handy in multi-region AWS deployments where you are using Amazon's SES service and want to swap between the SES servers in different regions, without the need to updated attributes for the entire mail server configuration.\n\nRequirements\n------------\nRuby 1.9 or later\n\n#### cookbooks\n- `yum` - to configure the epel repo on REHL-ish platforms\n\n#### platforms\n- RHEL/CentOS\n- Fedora\n- Ubuntu\n- Debian\n\n#### data bags\nA data bag (encrypted, or not) can be used to hold mail host configuration, including sensitive authentication credentials. The data bag format uses keys which are the names of the upstream mail host, and the values are hashes of configuration information for the specific mail host.  The recipe's data bag hash key lookup logic uses the value of the ['ssmtp']['mailhub']['host'] attribute. Valid keys for the values hash are (none are required, but storing the 'username' and 'password' in an encrypted data bag is _highly_ recommended):\n\n- **port** (the port to connect to the mail host, overrides the value of attribute ['ssmtp']['mailhub']['port'])\n- **username** (the username to use to authenticate to this mail host, overrides the value of attribute ['ssmtp']['auth']['username'])\n- **password** (the password to use to authenticate to this mail host, overrides the value of attribute ['ssmtp']['auth']['password'])\n- **auth\\_method** (the authorization method to use, only supported value is cram-md5, overrides the value of attribute ['ssmtp']['auth']['method']\n- **use\\_tls** (a boolean to enable TLS communication with the mail host, overrides the value of attribute ['ssmtp']['tls']['use\\_tls'])\n- **use\\_starttls** (a boolean to determine if the STARTTLS command is sent to the mail host, overrides the value of attribute ['ssmtp']['tls']['use\\_starttls'])\n- **tls\\_auth\\_cert** (the path to the file which contains the TLS authorization certificate, if the mail host requires one; overrides the value of attribute ['ssmtp']['tls']['tls\\_auth\\_cert'])\n- **tls\\_auth\\_key** (the path to the file which contains the TLS authorization key, if the mail host requires one; overrides the value of attribute ['ssmtp']['tls']['tls\\_auth\\_key'])\n\nAttributes\n----------\n\n#### ssmtp2::default\n\n*  **['ssmtp']['conf\\_dir']**  \n    _Type:_ String  \n    _Description:_ The location of the ssmtp configuration files  \n    _Default:_ /etc/ssmtp\n\n*  **['ssmtp']['debug']**  \n    _Type:_ Boolean  \n    _Description:_ Enable the Debug setting in the ssmtp.conf file  \n    _Default:_ false\n\n*  **['ssmtp']['mailhub']['host']**  \n    _Type:_ String  \n    _Description:_ The host name of the upstream mail server  \n    _Default:_ localhost\n\n*  **['ssmtp']['mailhub']['port']**  \n    _Type:_ Integer  \n    _Description:_ The port number of the upstream mail server  \n    _Default:_ 25\n\n*  **['ssmtp']['hostname']**  \n    _Type:_ String  \n    _Description:_ The hostname of the local system  \n    _Default:_ the value of the node['hostname'] attribute\n\n*  **['ssmtp']['rewrite\\_domain']**  \n    _Type:_ String  \n    _Description:_ The domain name to masquerade outgoing mail as  \n    _Default:_ the value of the node['domain'] attribute\n\n*  **['ssmtp']['from\\_line\\_override']**  \n    _Type:_ Boolean  \n    _Description:_ Specifies whether the From header of an email, if any, may override the default domain  \n    _Default:_ true\n\n*  **['ssmtp']['root']**  \n    _Type:_ String  \n    _Description:_ The user that gets all mail for userids less than 1000. If blank, address rewriting is disabled.  \n    _Default:_\n\n*  **['ssmtp']['auth']['enabled']**  \n   _Type:_ Boolean  \n   _Description:_ If false, do not put authentication credentials in config file (no authentication will be attempted with the mail server)  \n   _Default:_ true\n\n*  **['ssmtp']['auth']['username']**  \n    _Type:_ String  \n    _Description:_ The username to use for authentication with the upstream mail server  \n    _Default:_\n\n*  **['ssmtp']['auth']['password']**  \n    _Type:_ String  \n    _Description:_ The password to use for authentication with the upstream mail server  \n    _Default:_\n\n*  **['ssmtp']['auth']['method']**  \n    _Type:_ String  \n    _Description:_ The authentication method to use with the upstream mail server  \n    _Default:_ no default, only supported value is cram-md5\n\n*  **['ssmtp']['tls']['tls\\_ca\\_file']**  \n    _Type:_ String  \n    _Description:_ The location of the CA certificate bundle to validate the mail server's SSL cert  \n    _Default:_ Attempt to find the file in common OS locations if no value is specified\n\n*  **['ssmtp']['tls']['tls\\_ca\\_dir']**  \n    _Type:_ String  \n    _Description:_ The location of a directory containing trusted CA certificates to validate the mail server's SSL cert  \n    _Default:_ Attempt to find the file in common OS locations if no value is specified\n\n*  **['ssmtp']['tls']['use\\_tls']**  \n    _Type:_ Boolean\n    _Description:_ If true, use TLS/SSL to communication with the upstream mail server  \n    _Default:_ true\n\n*  **['ssmtp']['tls']['use\\_starttls']**  \n    _Type:_ Boolean  \n    _Description:_ If true, will send the STARTTLS command to the upstream mail server  \n    _Default:_ false\n\n*  **['ssmtp']['tls']['tls\\_auth\\_cert']**  \n    _Type:_ String  \n    _Description:_ The path to the file containing the authentication certificate for the upstream mail server, if required  \n    _Default:_\n\n*  **['ssmtp']['tls']['tls\\_auth\\_key']**  \n    _Type:_ String  \n    _Description:_ The path to the file containing the authentication key for the upstream mail server, if required  \n    _Default:_\n\n*  **['ssmtp']['data\\_bag']['name']**  \n    _Type:_ String  \n    _Description:_  The name of the data bag that contains mail host configuration  \n    _Default:_ mail\n\n*  **['ssmtp']['data\\_bag']['item']**  \n    _Type:_ String  \n    _Description:_ The name of the data bag item that contains the mail host configuration  \n    _Default:_ ssmtp\n\n*  **['ssmtp']['data\\_bag']['format']**  \n    _Type:_ String  \n    _Description:_ Specifies whether or not the data bag is encrypted.  A value of 'plain' will use an unencrypted data bag  \n    _Default:_ encrypted\n\n*  **['ssmtp']['aliases']**  \n    _Type:_ Hash  \n    _Description:_ A hash of os_user => mail_alias entries, to be put in the revaliases file  \n    _Default:_ empty hash\n\nUsage\n-----\n\n#### ssmtp2::default\n\nJust include `ssmtp2` in your node's `run_list` or in a `include_recipe` directive within a recipe\n\nLicense and Authors\n-------------------\n\nAuthors: Michael Morris  \nLicense: 3-clause BSD\n",
+  "maintainer": "Michael Morris",
+  "maintainer_email": "michael.m.morris@gmail.com",
+  "license": "3-clause BSD",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

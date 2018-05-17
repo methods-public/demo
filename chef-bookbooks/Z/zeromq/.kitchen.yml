@@ -1,0 +1,45 @@
+---
+driver_plugin: docker
+driver_config:
+  use_sudo: false
+  require_chef_omnibus: true
+  customize:
+    memory: 256
+    cpus: 2
+platforms:
+- name: debian-8.4
+  run_list:
+  - recipe[apt]
+- name: ubuntu-14.04
+  run_list:
+  - recipe[apt]
+- name: centos-7.2
+suites:
+- name: source_v41
+  run_list:
+    - recipe[zeromq]
+  attributes:
+    zeromq:
+      version: v4.1.4
+      src_url: https://github.com/zeromq/zeromq4-1.git
+- name: source_v40
+  run_list:
+    - recipe[zeromq]
+  attributes:
+    zeromq:
+      version: v4.0.7
+      src_url: https://github.com/zeromq/zeromq4-x.git
+- name: source_custom_dir
+  run_list:
+  - recipe[zeromq]
+  attributes:
+    zeromq:
+      dir: /opt/zeromq
+  includes: ["ubuntu-12.04"]
+- name: package
+  run_list:
+    - recipe[zeromq]
+  attributes:
+    zeromq:
+      install_method: package
+  excludes: ["centos-7.2"]

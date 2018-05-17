@@ -1,0 +1,33 @@
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+pkg/
+
+# Berkshelf
+.vagrant
+/cookbooks
+Berksfile.lock
+berkflow_out/
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+
+# Test-Kitchen
+.kitchen
+.kitchen/
+.kitchen.local.yml
+
+# Eclipse
+.buildpath
+.project
+
+# rbenv
+.ruby-version
+
+# versioning
+VERSION

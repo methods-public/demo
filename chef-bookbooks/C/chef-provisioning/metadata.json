@@ -1,0 +1,33 @@
+{
+  "name": "chef-provisioning",
+  "version": "0.1.2",
+  "description": "Provides a recipe for configuring the Chef Provisioning gem.",
+  "long_description": "Provides a recipe for configuring the Chef Provisioning gem.",
+  "maintainer": "John Bellone",
+  "maintainer_email": "jbellone@bloomberg.net",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": "~> 5.8",
+    "centos": "~> 5.8",
+    "ubuntu": "= 12.04"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

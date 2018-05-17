@@ -1,0 +1,39 @@
+{
+  "name": "sbp_treesizefree",
+  "description": "Installs/Configures TreeSizeFree",
+  "long_description": "sbp_treesizefree Cookbook\n=========================\nThis cookbook will download and put treesizefree-utility in the defined working dir\n\n\nRequirements\n------------\nThe cookbook depends on the windows cookbook\n\n\nAttributes\n----------\ndefault['treesizefree']['url']          = 'http://www.jam-software.de/treesize_free/TreeSizeFreeSetup.zip'\ndefault['treesizefree']['install_dir']  = 'C:\\TreeSizeFreeSetup'\n\n\nUsage\n-----\nInclude `sbp_treesizefree` in your node's `run_list`\n\n\nContributing\n------------\n\t1. Fork the repository on Github\n\t2. Create a named feature branch (i.e. `add-new-recipe`)\n\t3. Write you change\n\t4. Write tests for your change (if applicable)\n\t5. Run the tests, ensuring they all pass\n\t6. Submit a Pull Request\n\n\nLicense and Authors\n-------------------\nAuthors: Sander van Harmelen, Ane van Straten\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n",
+  "maintainer": "Ane van Straten",
+  "maintainer_email": "avanstraten@schubergphilis.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "cobblerd",
+  "description": "Installs/Configures cobbler",
+  "long_description": "Installs/Configures cobbler",
+  "maintainer": "John Bellone",
+  "maintainer_email": "jbellone@bloomberg.net",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": "~> 7.0",
+    "redhat": "~> 7.0",
+    "ubuntu": "= 14.04"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "chef-sugar": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

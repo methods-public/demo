@@ -1,0 +1,5 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'test-aerospike', path: 'test/cookbooks/test-aerospike'
+
+metadata

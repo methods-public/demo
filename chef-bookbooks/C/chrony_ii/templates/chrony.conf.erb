@@ -1,0 +1,7 @@
+# Chef managed -- changes will be overwritten
+
+<% if node[cookbook_name]['amazon_time_sync_service'] %>
+server 169.254.169.123 prefer iburst
+<% end %>
+
+<%= @config_content %>

@@ -1,0 +1,9 @@
+{
+  "id": "node-04",
+  "run_list": [ "role[ip]" ],
+  "automatic": {
+    "fqdn": "node-04",
+    "ipaddress": "10.0.0.4",
+    "roles": ["ip"]
+  }
+}

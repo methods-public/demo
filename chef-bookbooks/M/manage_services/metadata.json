@@ -1,0 +1,65 @@
+{
+  "name": "manage_services",
+  "description": "Manage system services through attributes while providing all service resource options provided by Chef.",
+  "long_description": "# manage_services\n\nManage system services through attributes while providing all [service resource](https://docs.chef.io/resource_service.html) options provided by Chef. \n\n---\n\n\n## Usage\n\n### manage_services::default\n\nJust include `manage_services` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[manage_services]\"\n  ]\n}\n```\n\nThen move on to filling out some attributes.\n\n## Attributes\n\n### Ignore Failures\n\nThis set the ignore_failures default value for each service you define.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['manage_services']['ignore_failures'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"manage_services\": {\n    \"ignore_failures\": true\n  }\n}\n```\n\n### Services\n\nThe set of services that you intend to manage.\n\n\nRuby usage:\n\n```ruby\nnode['manage_services']['services'] = [\n    \"nscp\" => [\n      \"action\" => ['enable', 'start'],\n      \"ignore_failure\" => false, # Overriding the global settings set earlier\n      \"retries\" => 3,\n      \"retry_delay\" => 5,\n      \"timeout\" => 30,\n      \"notifies\" => [\n        \"action\" => \"some_action\",\n        \"resource\" => \"some[resource]\",\n        \"timer\" => \"immediate\"\n      ],\n      \"subscribes\" => [\n        \"action\" => \"some_action\",\n        \"resource\" => \"some[resource]\",\n        \"timer\" => \"immediate\"\n      ],\n      \"supports\" => [\n        \"restart\" => false,\n        \"reload\" => false,\n        \"status\" => true\n      ]\n    ]\n]\n```\n\nJSON usage:\n\n```json\n{\n  \"manage_services\": {\n    \"services\": {\n      \"nscp\": {\n        \"action\": [\"enable\", \"start\"],\n        \"ignore_failure\": false,\n        \"retries\": 3,\n        \"retry_delay\": 5,\n        \"timeout\": 30,\n        \"notifies\": {\n          \"action\": \"some_action\",\n          \"resource\": \"some[resource]\",\n          \"timer\": \"immediate\"\n        },\n        \"subscribes\": {\n          \"action\": \"some_action\",\n          \"resource\": \"some[resource]\",\n          \"timer\": \"immediate\"\n        },\n        \"supports\": {\n          \"restart\": false,\n          \"reload\": false,\n          \"status\": true\n        }\n      }\n    }\n  }\n}\n```\n\n#### Service Caveats:\n\n###### Note: The `action`, `notifies`, `subscribes`, and `supports` directives are defined differently here than they would be when calling the directives directly within a service resource in ruby.\n\n- The `action` directive should always be defined as an array of strings, even if only one action is desired. If no `action` is supplied this will be interpreted as `:nothing` and a warning will be thrown.  \n\n- The `notifies` directive should always be defined as an object with string properties. It will be converted into the correct format within the default recipe.\n\n- The `subscribes` directive should always be defined as an object with string properties. It will be converted into the correct format within the default recipe.\n\n- The `supports` directive should always be defined as an object with boolean properties. It will be converted into the correct format within the default recipe.\n\nAll available service properties are defined in the [Chef docs](https://docs.chef.io/resource_service.html) and their types remain the same besides the four mentioned above.\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "aix": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "opensuse": ">= 0.0.0",
+    "opensuseleap": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "zlinux": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.0",
+  "source_url": "https://github.com/MelonSmasher/chef_manage_services",
+  "issues_url": "https://github.com/MelonSmasher/chef_manage_services/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

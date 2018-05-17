@@ -1,0 +1,44 @@
+{
+  "name": "packetbeat",
+  "description": "Installs/Configures Elastic Packetbeat",
+  "long_description": "Installs/Configures Elastic Packetbeat",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "elastic_beats_repo": ">= 0.0.0",
+    "yum-plugin-versionlock": ">= 0.1.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/vkhatri/chef-packetbeat",
+  "issues_url": "https://github.com/vkhatri/chef-packetbeat/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

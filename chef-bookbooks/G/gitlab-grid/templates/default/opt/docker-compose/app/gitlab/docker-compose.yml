@@ -1,0 +1,9 @@
+<%
+config = node['gitlab-grid']['docker-compose']['config'].to_hash
+#gitlab_rb = render('etc/gitlab/gitlab.rb').force_encoding("UTF-8")
+#config['services']['gitlab']['environment']['GITLAB_OMNIBUS_CONFIG'] = gitlab_rb
+
+require 'yaml'
+yaml_str = config.to_yaml
+-%>
+<%= yaml_str %>

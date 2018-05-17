@@ -1,0 +1,53 @@
+{
+  "name": "schannel",
+  "description": "Chef cookbook to manage your windows security channels.",
+  "long_description": "# schannel Cookbook\n\nThis cookbook manage the windows security channels.\n\n## Requirements\n\n### Platforms\n\n- Windows 2008+\n\n### Chef\n\n- Chef 12.6+\n\n### Recipes\n\n- `default`: The default recipe configure the security channel.\n- `unset`: This recipe restore the default windows configuration.\n\n### Usage\n\nThis cookbook provides a default recipe to manage security channels on windows servers:\n- Protocols (SSL, TLS)\n- Ciphers (rc2, rc4, AES, DES)\n- Hashes (MD5, SHA)\n- Key Exchange Algorithms (PCKS,ECDH, Diffie-Hellman)\n\nAdd the schannel::default recipe in your run list to set the security best practises configuration.\nUse the schannel::unset to restore the default windows configuration.\nCustomize your security configuration using attributes.\n\n## Attributes\n\nHere the main attributes to manage windows schannel:\n\nAttribute                                         | Default Value | Description\n------------------------------------------------- | ------------- | ------------------------------------------------------\n`default['schannel']['event_logging']['level']`   | 1             | The level of schannel logging in Windows Event Viewer.\n`default['schannel']['cipher_order']['secure']`   | true          | Apply a secure list of ciphers.\n`default['schannel']['protocols_client_side']`    | true          | Apply the protocol configuration at the client side.\n\nOthers available attributes are used to enable/disable a protocol, cipher, hash or exchange key algorithm:\n\nAttribute                                                   | Default Value | Description\n----------------------------------------------------------- | ------------- | -----------------------------------------------------\n`default['schannel']['protocols']['mupuh']['enable']`       | false         | Enable/Disable protocol Multi-Protocol Unified Hello.\n`default['schannel']['protocols']['pct10']['enable']`       | false         | Enable/Disable protocol PCT 1.0.\n`default['schannel']['protocols']['ssl30']['enable']`       | false         | Enable/Disable protocol SSL 3.0.\n`default['schannel']['protocols']['ssl20']['enable']`       | false         | Enable/Disable protocol SSL 2.0.\n`default['schannel']['protocols']['tls10']['enable']`       | true          | Enable/Disable protocol SSL/TLS 1.0.\n`default['schannel']['protocols']['tls11']['enable']`       | true          | Enable/Disable protocol SSL/TLS 1.1.\n`default['schannel']['protocols']['tls12']['enable']`       | true          | Enable/Disable protocol SSL/TLS 1.2.\n`default['schannel']['ciphers']['aes_128128']['enable']`    | true          | Enable/Disable cipher AES 128/128.\n`default['schannel']['ciphers']['aes_256256']['enable']`    | true          | Enable/Disable cipher AES 256/256.\n`default['schannel']['ciphers']['3des_168168']['enable']`   | true          | Enable/Disable cipher 3DES 168/168.\n`default['schannel']['ciphers']['rc2_40128']['enable']`     | false         | Enable/Disable cipher RC2 40/128.\n`default['schannel']['ciphers']['rc2_56128']['enable']`     | false         | Enable/Disable cipher RC2 56/128.\n`default['schannel']['ciphers']['rc2_128128']['enable']`    | false         | Enable/Disable cipher RC2 128/128.\n`default['schannel']['ciphers']['rc4_40128']['enable']`     | false         | Enable/Disable cipher RC4 40/128.\n`default['schannel']['ciphers']['rc4_56128']['enable']`     | false         | Enable/Disable cipher RC4 56/128.\n`default['schannel']['ciphers']['rc4_64128']['enable']`     | false         | Enable/Disable cipher RC4 64/128.\n`default['schannel']['ciphers']['rc4_128128']['enable']`    | false         | Enable/Disable cipher RC4 128/128.\n`default['schannel']['ciphers']['des_5656']['enable']`      | false         | Enable/Disable cipher DES 56/56.\n`default['schannel']['ciphers']['null']['enable']`          | false         | Enable/Disable cipher NULL.\n`default['schannel']['hashes']['md5']['enable']`            | false         | Enable/Disable hash MD5.\n`default['schannel']['hashes']['sha']['enable']`            | true          | Enable/Disable hash SHA-1.\n`default['schannel']['hashes']['sha256']['enable']`         | true          | Enable/Disable hash SHA-256.\n`default['schannel']['hashes']['sha384']['enable']`         | true          | Enable/Disable hash SHA-384.\n`default['schannel']['hashes']['sha512']['enable']`         | true          | Enable/Disable hash SHA-512.\n`default['schannel']['keyexch']['diffiehellman']['enable']` | true          | Enable Diffie-Hellman.\n`default['schannel']['keyexch']['pkcs']['enable']`          | true          | Enable PKCS.\n`default['schannel']['keyexch']['ecdh']['enable']`          | true          | Enable ECDH.\n\nYou can also define your own list of ciphers via `default['schannel']['cipher_order']['list']` attribute:\n\n```\ndefault['schannel']['cipher_order']['list'] = %w(\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P521\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P521\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P521\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P384\n  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P256\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P521\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P384\n  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P256\n  TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P521\n  TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P384\n  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P521\n  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384\n  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256\n  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P521\n  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P384\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P521\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256\n  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P521\n  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384\n  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P521\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384\n  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256\n  TLS_RSA_WITH_AES_256_GCM_SHA384\n  TLS_RSA_WITH_AES_128_GCM_SHA256\n  TLS_RSA_WITH_AES_256_CBC_SHA256\n  TLS_RSA_WITH_AES_128_CBC_SHA256\n  TLS_RSA_WITH_AES_256_CBC_SHA\n  TLS_RSA_WITH_AES_128_CBC_SHA\n  TLS_RSA_WITH_3DES_EDE_CBC_SHA\n)\n```\n\nPlease check `defaut.rb` attribute file for a global view of attributes.\n\n## Run list\n\n### schannel::default\nJust include `schannel` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[schannel]\"\n  ]\n}\n```\n\n## License and Authors\n\n- Author: Pierre DEPREY (pdeprey@gmail.com)\n\n```text\nCopyright:: 2016-2017, pde159\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```",
+  "maintainer": "pde159",
+  "maintainer_email": "pdeprey@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/pde159/schannel",
+  "issues_url": "https://github.com/pde159/schannel/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.6"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,18 @@
+<VirtualHost *:<%= @port %>>
+
+    ServerAdmin <%= @email %>
+    ServerName <%= @fqdn %>
+
+    ProxyPreserveHost on
+    ProxyPass / ajp://localhost:8019/artifactory/
+    ProxyPassReverse / <%= @url %>/artifactory/
+    ProxyPassReverseCookiePath /artifactory /
+
+    CustomLog "/var/log/apache2/<%= @fqdn %>_access.log" combined
+    ErrorLog "/var/log/apache2/<%= @fqdn %>_error.log"
+
+    <Location />
+      Require all granted
+    </Location>
+
+</VirtualHost>

@@ -1,0 +1,57 @@
+{
+  "name": "spacewalk-server",
+  "description": "Installs/Configures a Spacewalk Server",
+  "long_description": "# Spacewalk Server Cookbook #\n\nThis cookbook installs and configures a node as a [Spacewalk](http://spacewalk.redhat.com/)\nserver.\nIt also sets up Errata support if you like.\n\n### Requirements ###\n* RHEL / CentOS  > 6\n\n### Recipes ###\n\nInclude `spacewalk-server::default` for basic Spacewalk installation.\n\nInclude `spacewalk-server::ubuntu` for setting up repo-sync and errata import for Ubuntu channels.\n\nInclude `spacewalk-server::rhel` for setting up repo-sync and errata import for CentOS/RHEL channels. ( write this recipe and PR please )\n\nInclude `spacewalk-server::iptables` to configure iptables for Spacewalk.\n\n### Attributes ###\n\n```\ndefault['spacewalk']['server']['db']['type'] = 'postgres'\ndefault['spacewalk']['server']['errata'] = true # configure errata import scripts+crons\ndefault['spacewalk']['hostname'] = node['hostname']\n\n# Answer file configuration\ndefault['spacewalk']['server']['admin_email'] = 'root@localhost'\ndefault['spacewalk']['server']['ssl']['org'] = 'Spacewalk Org'\ndefault['spacewalk']['server']['ssl']['org_unit'] = 'spacewalk'\ndefault['spacewalk']['server']['ssl']['city'] = 'My City'\ndefault['spacewalk']['server']['ssl']['state'] = 'My State'\ndefault['spacewalk']['server']['ssl']['country'] = 'US'\ndefault['spacewalk']['server']['ssl']['password'] = 'spacewalk'\ndefault['spacewalk']['server']['ssl']['email'] = 'root@localhost'\ndefault['spacewalk']['server']['ssl']['config_vhost'] = 'Y'\ndefault['spacewalk']['server']['enable_tftp'] = 'Y'\n\n# ::ubuntu configuration\n# login for Spacewalk\ndefault['spacewalk']['errata']['user'] = 'admin'\ndefault['spacewalk']['errata']['password'] = 'admin'\n# channels to be excluded from errata, like base which doesnt have updates\ndefault['spacewalk']['errata']['exclude-channels'] = \"'precise'\" # multiple = \"'precise','trusty'\"\n# when should errata be imported. should be AFTER 4:30 GMT+1 because mailinglist gzip gets updaten then\ndefault['spacewalk']['errata']['cron']['h'] = '6'\ndefault['spacewalk']['errata']['cron']['m'] = '0'\n```\n\n\n### Author ###\n\nPhil Schuler http://devops-blog.net\n\nBased on https://github.com/yacn/spacewalk-server-chef by \"Yet Another Clever Name\" (<admin@yacn.pw>)\n",
+  "maintainer": "Phil Schuler",
+  "maintainer_email": "schuler.philipp@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0",
+    "iptables": ">= 0.0.0",
+    "yum": "> 3.0.0",
+    "yum-epel": ">= 0.0.0",
+    "yum-fedora": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.4.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

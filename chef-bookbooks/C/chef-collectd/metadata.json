@@ -1,0 +1,44 @@
+{
+  "name": "chef-collectd",
+  "description": "Installs/Configures collectd",
+  "long_description": "",
+  "maintainer": "Robert Veznaver",
+  "maintainer_email": "rv@bidmotion.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.0",
+    "redhat": ">= 7.0",
+    "oracle": ">= 7.0",
+    "fedora": ">= 15.0",
+    "debian": ">= 8.0",
+    "ubuntu": ">= 15.04",
+    "opensuseleap": ">= 42.1"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/Hydrane/chef-collectd",
+  "issues_url": "https://github.com/Hydrane/chef-collectd/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19.36"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

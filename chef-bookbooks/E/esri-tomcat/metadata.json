@@ -1,0 +1,43 @@
+{
+  "name": "esri-tomcat",
+  "description": "Installs/Configures esri-tomcat",
+  "long_description": "esri-tomcat cookbook\n====================\n\nThis cookbook installs and configures Apache Tomcat for using with ArcGIS Web Adaptor.\n\nRequirements\n------------\n\n### Platforms\n* Rhel 6, 7\n* Ubuntu 14.04\n\n### Dependencies\nThe following cookbooks are required:\n* Tomcat v 2.1\n* Java v 1.31\n* OpenSSL v 4.0\n\nAttributes\n----------\n#### General\n* `node['tomcat']['version']` = Tomcat version to install. Default is 8.0.33.\n* `node['tomcat']['instance_name']` = Default is 'arcgis'.\n* `node['tomcat']['instance_path']` = Default is '/opt/tomcat_INSTANCENAME_VERSION'.\n\n#### SSL/TLS\n* `node['tomcat']['keystore_file']` = Optional: Path to the keystore file. If not provided, a new file and a self-signed certificate will be created.\n* `node['tomcat']['keystore_password']` = Optional: Password to the keystore.\n* `node['tomcat']['ssl_enabled_protocols']` = Default is 'TLSv1.2,TLSv1.1,TLSv1'\n* `node['tomcat']['domain_name']` = Default is 'Fully Qualified Domain Name'\n\n## Issues\n\nFind a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/Esri/arcgis-cookbook/issues).\n\n## Contributing\n\nEsri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).\n\nLicensing\n---------\n\nCopyright 2016 Esri\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nA copy of the license is available in the repository's [License.txt](https://github.com/Esri/arcgis-cookbook/blob/master/License.txt?raw=true) file.\n\n[](Esri Tags: ArcGIS Chef Cookbook Tomcat)\n[](Esri Language: Ruby)\n\n",
+  "maintainer": "Esri",
+  "maintainer_email": "contracts@esri.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "tomcat": ">= 2.5.2",
+    "java": ">= 0.0.0",
+    "openssl": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/Esri/arcgis-cookbook",
+  "issues_url": "https://github.com/Esri/arcgis-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "< 14.0",
+      ">= 12.6"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

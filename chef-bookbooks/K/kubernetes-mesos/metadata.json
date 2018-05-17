@@ -1,0 +1,42 @@
+{
+  "name": "kubernetes-mesos",
+  "description": "Installs/Configures Kubernetes on Mesos",
+  "long_description": "Kubernetes-Mesos Cookbook\n=========================\n[![Cookbook](http://img.shields.io/cookbook/v/kubernetes-mesos.svg)](https://supermarket.chef.io/cookbooks/kubernetes-mesos)\n[![Build Status](https://travis-ci.org/ndobson/kubernetes-mesos.svg?branch=master)](https://travis-ci.org/ndobson/kubernetes-mesos)\n\nCookbook to build and install Kubernetes-Mesos per the [install instructions](http://kubernetes.io/v1.0/docs/getting-started-guides/mesos.html#run-the-example-guestbook-app)\n\n## Platform\n\nTested on\n* CentOS 6.5, 6.6\n\n## Attributes\n\n## Recipes\n\n### default\n\n### etcd\n\n### docker_service\nStarts a basic docker service\n",
+  "maintainer": "Nick Dobson",
+  "maintainer_email": "nick.dobson@me.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "docker": "= 0.43.0",
+    "github": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": ""
+}

@@ -1,0 +1,16 @@
+[Unit]
+Description = Elasticsearch daemon.
+
+[Service]
+User = <%= node.elastic.user %>
+PIDFile = /tmp/elasticsearch.pid
+ExecStart = <%= @start_script %>
+ExecStop = <%= @stop_script %>
+WorkingDirectory=<%= @install_dir %>
+LimitNOFILE=<%= @nofile_limit %>
+LimitMEMLOCK=<%= @memlock_limit %>
+
+Type = forking
+
+[Install]
+WantedBy = multi-user.target

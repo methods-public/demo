@@ -1,0 +1,10 @@
+source 'https://supermarket.chef.io'
+
+metadata
+
+group :test do
+  cookbook(
+    'dataloop_chef_client_test',
+    path: 'test/fixtures/cookbooks/dataloop_chef_client_test'
+  )
+end

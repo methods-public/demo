@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: centos-5.11 
+  - name: centos-6.6
+
+suites:
+  - name: default
+    run_list:
+      - recipe[yum-vmware-tools::default]
+    attributes:
+      yum:
+        vmware:
+          enabled: true
+  - name: undo
+    run_list:
+      - recipe[yum-vmware-tools::default]
+      - recipe[yum-vmware-tools::undo]
+    attributes:
+      yum:
+        vmware:
+          enabled: true

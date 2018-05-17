@@ -1,0 +1,44 @@
+{
+  "name": "rancher-ha",
+  "description": "Installs Rancher Server",
+  "long_description": "Installs/Configures Rancher Server",
+  "maintainer": "Aaron Jones",
+  "maintainer_email": "akjones mail box org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-vault": "~> 3.0.0",
+    "openssl": "~> 8.1.2",
+    "docker": "~> 4.2.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/aaronkjones/chef-rancher-ha/",
+  "issues_url": "https://github.com/aaronkjones/chef-rancher-ha/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "iptables-services",
+  "description": "Install/Configure iptables-services on linux nodes",
+  "long_description": "Iptables Services\n=================\n\nDescription\n-----------\n\nInstall and configure *iptables-services*, an easy and clear way to manage\niptables firewall with save/restore feature.\n\nAlso ensure that configured rules are effectively the same that iptable\nuses. Any rules added directly on a configured chain will be removed and\nany removed rule will be readded. Save and restore rules on restart.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\n- RHEL Family 7, tested on Centos\n\nIt should work with other systemd platform by configuring attributes like\npackage name.\n\nComplete support and tests will come if requested.\n\nUsage\n-----\n\n### Setup\n\nAdd `recipe[iptables-services]` in your run-list to install *iptables-services*\nusing the official distribution package.\n\nBy default rules are saved on stop and restored when ip(6)tables service\nstarts. No chain configuration is enforced by default.\n\nIPV4 and IPV6 are both activated by default.\n\n### Configure a chain\n\nConfigure `node['iptables-services'][ip(6)tables]['tables'][table][chain]`.\nRead [attributes/default.rb](attributes/default.rb) for more details and look\nat an example in\n[test/integration/roles/iptables-services-kitchen.json](this role).\n\nOnce a chain has been configured, this cookbook will ensure that the rules are\nalways exactly as defined.\n\n### Groups\n\nSometimes you want to apply a given rule to a set of IPs. For instance to\nwhitelist access to a database from a list of nodes. You can do that by\ndefining a group of machines in `node['iptables-services'][groups]`: either by\nlisting the IPs or by setting a node to search.\n\nYou'll find more details in [attributes/default.rb](attributes/default.rb) and\na example in tests ([.kitchen.yml](.kitchen.yml) and [test](test)).\n\n### Test\n\nThis cookbook is fully tested by kitchen and a vagrant box.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `install` and `config` recipes.\n\n### install\n\nInstall **iptables-services** by using package. Save current rules at\ninstallation.\n\n### config\n\nConfigure ip(6)tables services from attributes.\n\n### service\n\nEnable and start ip(6)tables services.\n\n### update\n\nApply chain configuration from attributes. If there is any modification from\ncurrent rules and attributes, the chain is flushed and reconfigured.\n\nLook at [attributes/default.rb](attributes/default.rb) for more info on how\nto configure a chain.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Vincent Baret (<vbaret@gmail.com>)\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2017-2018 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "cluster-search": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.2.0",
+  "source_url": "https://gitlab.com/chef-platform/iptables-services",
+  "issues_url": "https://gitlab.com/chef-platform/iptables-services/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

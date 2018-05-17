@@ -1,0 +1,43 @@
+{
+  "name": "ratpoison",
+  "description": "Installs/Configures ratpoison window manager",
+  "long_description": "ratpoison Cookbook\n===========================\nInstalls the Ratpoison window manager for X11.\n\nThe `default` recipe of this cookbook will install Xvfb\nto provide a X11 implementation for Ratpoison to run on.\nIf you already have a X11 server running, use the\n`windowmanager` recipe that only installs and runs\nRatpoison.\n\nBuild\n-----\n\n[![Build Status](https://travis-ci.org/miguelaferreira/ratpoison.svg?branch=setup-travis-ci)](https://travis-ci.org/miguelaferreira/ratpoison)\n\nRequirements\n------------\n#### packages\n- `yum-epel` - to provide the yum repositories\n- `xvfb`     - to provide a X11 implementation\n\nAttributes\n----------\n\nThe ratpoison pacckage is not available in Epel repository for CentOS 7.\nThe cookbook provides the attribute `default['ratpoison']['rpm']['url']` and to specify the location where to download the ratpoison rpm from.\nThis attribute is needed for CentOS verions above 6.\n\nUsage\n-----\n#### ratpoison::default\nInclude `ratpoison` in your node's `run_list` to have Xvfb and Ratpoison installed and running.\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[ratpoison]\"\n  ]\n}\n```\n\n#### ratpoison::windowmanager\nIf you have a X11 implementation running on\nyour node, include `ratpoison::windowmanager` in your node's\n`run_list` to have Ratpoison installed and running.\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[ratpoison::windowmanager]\"\n  ]\n}\n```\n\nContributing\n------------\n\n1. Fork the repository\n2. Make your contribution\n3. Make a pull request\n\nLicense and Authors\n-------------------\nAuthors: Miguel Ferreira\n\nLicense\n-------\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Miguel Ferreira",
+  "maintainer_email": "mferreira@schubergphilis.com",
+  "license": "Apache License, Version 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum-epel": ">= 0.3.6",
+    "xvfb": ">= 2.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

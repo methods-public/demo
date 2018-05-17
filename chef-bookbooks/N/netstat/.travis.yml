@@ -1,0 +1,74 @@
+rvm:
+- 2.2
+- 2.3
+
+sudo: required
+
+services: docker
+
+env:
+  matrix:
+  - TESTS="style unit" CHEF_VERSION="~> 12.0"
+  - TESTS="integration[default-centos-5,verify]"
+  - TESTS="integration[default-centos-6,verify]"
+  - TESTS="integration[default-centos-7,verify]"
+  - TESTS="integration[default-debian-7,verify]"
+  - TESTS="integration[default-debian-8,verify]"
+  - TESTS="integration[default-fedora-24,verify]"
+  - TESTS="integration[default-fedora-25,verify]"
+  - TESTS="integration[default-oraclelinux-6,verify]"
+  - TESTS="integration[default-ubuntu-1204,verify]"
+  - TESTS="integration[default-ubuntu-1404,verify]"
+  - TESTS="integration[default-ubuntu-1604,verify]"
+  - TESTS="integration[default-ubuntu-1610,verify]"
+  - TESTS="integration[default-scientific-68,verify]"
+  - TESTS="integration[default-scientific-72,verify]"
+  - TESTS="integration[chef13-centos-7,verify]"
+
+matrix:
+  exclude:
+  - rvm: 2.2
+    env: TESTS="integration[default-centos-5,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-centos-6,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-centos-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-debian-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-debian-8,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-fedora-24,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-fedora-25,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-oraclelinux-6,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-ubuntu-1204,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-ubuntu-1404,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-ubuntu-1604,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-ubuntu-1610,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-scientific-68,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[default-scientific-72,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[chef13-centos-7,verify]"
+
+before_install:
+- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+install:
+- chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
+
+before_script:
+- sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+- chef --version
+- cookstyle --version
+- foodcritic --version
+
+script: travis_retry chef exec bundle exec rake $TESTS

@@ -1,0 +1,17 @@
+.bundle
+.gems
+.vagrant
+Cheffile.lock
+Gemfile.lock
+Berksfile.lock
+.librarian
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+tmp
+.kitchen/
+.kitchen.local.yml

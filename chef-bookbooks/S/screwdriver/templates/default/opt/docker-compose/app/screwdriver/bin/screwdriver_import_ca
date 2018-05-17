@@ -1,0 +1,12 @@
+#!/bin/sh
+
+<%
+node['screwdriver']['ssl_cert']['ca_names'].each {|ca_name|
+-%>
+if ! cat /etc/ca-certificates.conf | grep <%= ca_name %>; then
+  echo <%= ca_name %>.crt >> /etc/ca-certificates.conf
+fi
+<%
+}
+-%>
+update-ca-certificates

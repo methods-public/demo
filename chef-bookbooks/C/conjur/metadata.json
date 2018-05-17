@@ -1,0 +1,41 @@
+{
+  "name": "conjur",
+  "description": "Installs/Configures conjur",
+  "long_description": "",
+  "maintainer": "Conjur, Inc",
+  "maintainer_email": "support@conjur.net",
+  "license": "MIT License",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": "~> 5.1.0",
+    "yum": "~> 4.2.0",
+    "sshd-service": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "conjur::install": "Installs Conjur base packages and configuration, suitable for a foundation image."
+  },
+  "version": "0.4.5",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

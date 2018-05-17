@@ -1,0 +1,174 @@
+#!/bin/bash
+#
+# Startup script for the Agent
+#
+# chkconfig: 345 80 20
+# description: serenaDA agent process
+# processname: sdaagent
+### BEGIN INIT INFO
+# Provides: sraagent
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Required-Start: $remote_fs $syslog $network
+# Required-Stop: $remote_fs $syslog $network
+# Short-Description: serenaDA agent process
+# Description: serenaDA agent process
+### END INIT INFO
+
+AGENT_HOME="<%= node['sda-agent']['agent_dir'] %>"
+AGENT_USER="<%= node['sda-agent']['user'] %>"
+AGENT_GROUP="<%= node['sda-agent']['group'] %>"
+GROOVY_HOME="$AGENT_HOME/opt/groovy-1.8.6"
+SCRIPT="$AGENT_HOME/bin/sraagent"
+
+# detect lock dir
+if [ -d /run/lock ]; then
+  agent_lock=/run/lock/sraagent
+elif [ -f /etc/redhat-release ]; then
+  agent_lock=/var/lock/subsys/sraagent
+elif [ -f /etc/debian_version ]; then
+  agent_lock=/var/lock/sraagent
+else
+  agent_lock=$AGENT_HOME/bin/sraagent_lock
+fi
+
+# detect pid dir
+if [ -d /run ]; then
+  agent_pid=/run/sraagent.pid
+else
+  agent_pid=/var/run/sraagent.pid
+fi
+
+if [ -x /etc/rc.d/init.d/functions ]; then
+  . /etc/rc.d/init.d/functions
+else
+  # Check if any of $pid (could be plural) are running
+  checkpid() {
+
+          for i in $* ; do
+                  [ -d "/proc/$i" ] && return 0
+          done
+          return 1
+  }
+fi
+
+retval=0
+
+# -- Option Implementations ----------------------------------------------------
+
+start() {
+  touch $agent_pid
+  echo -n "Starting sdaagent: "
+
+# AMD -- Made lock location variable.
+  if [ -f $agent_lock ]; then
+    if [ -f $agent_pid ]; then
+      read kpid < $agent_pid
+      if checkpid $kpid 2>&1; then
+        echo "process already running"
+        return -1
+      else
+        echo "lock file found but no process running for pid $kpid, continuing"
+      fi
+    fi
+  fi
+
+  if [ ! -z "$AGENT_GROUP" ]; then
+    chown "$AGENT_USER:$AGENT_GROUP" $agent_pid
+  else
+    chown "$AGENT_USER" $agent_pid
+  fi
+
+  if [ -x /etc/rc.d/init.d/functions ]; then
+    daemon --user "$AGENT_USER" "$SCRIPT" start $agent_pid
+  elif [ -x /sbin/start-stop-daemon ]; then
+    usergroup="$AGENT_USER"
+    if [ ! -z "$AGENT_GROUP" ]; then
+      usergroup="$usergroup:$AGENT_GROUP"
+    fi
+    start-stop-daemon --start --oknodo --chuid "$usergroup" --pidfile "$agent_pid" --startas "$SCRIPT" -- start "$agent_pid"
+  else
+    su - "$AGENT_USER" -c "\"$SCRIPT\" start $agent_pid"
+  fi
+
+  retval=$?
+  echo
+  [ $retval = 0 ] && touch $agent_lock
+  return $retval
+}
+
+stopMe() {
+  shutdown_wait=5
+  echo -n "Stopping sdaagent: "
+
+  if [ -f $agent_lock ] ; then
+    if [ -x /etc/rc.d/init.d/functions ]; then
+      daemon --force --user "$AGENT_USER" "$SCRIPT" stop $agent_pid
+    elif [ -x /sbin/start-stop-daemon ]; then
+      start-stop-daemon --stop --oknodo --pidfile "$agent_pid" --retry 5
+    else
+      su - "$AGENT_USER" -c "\"$SCRIPT\" stop $agent_pid"
+    fi
+    retval=$?
+
+    sleep 3
+
+    if [ $retval = 0 ]; then
+      count=0;
+
+      if [ -f $agent_pid ]; then
+
+        read kpid < $agent_pid
+        kwait=$shutdown_wait
+
+        until [ `ps -p $kpid | grep -c $kpid` = '0' ] || [ $count -gt $kwait ]; do
+          echo "waiting for processes to exit";
+          sleep 2
+          count=`expr $count + 1`;
+        done
+
+        if [ $count -gt $kwait ]; then
+          echo "didn't stop after $((shutdown_wait*2)) seconds; force killing process"
+          kill -9 $kpid
+        fi
+      fi
+      rm -f "$agent_lock" "$agent_pid"
+    fi
+  fi
+  echo
+}
+
+# -- Execute -------------------------------------------------------------------
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stopMe
+    ;;
+  restart)
+    stopMe
+    sleep 2
+    start
+    ;;
+  status)
+    if [ -f $agent_pid ]; then
+      echo "service is running"
+      exit 0
+    fi
+    echo "service is not running"
+    exit 4
+    ;;
+  condrestart)
+    if [ -f $agent_pid ]; then
+      stopMe
+      start
+    fi
+    ;;
+  *)
+    echo "Usage: sdaagent {start|stop|restart|condrestart}"
+    exit 1
+esac
+
+exit $retval

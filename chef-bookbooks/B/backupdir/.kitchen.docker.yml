@@ -1,0 +1,20 @@
+---
+driver:
+  name: docker
+driver_config:
+  use_sudo: false
+  socket: tcp://192.168.59.103:2376
+  provision_command: "curl -L https://www.opscode.com/chef/install.sh | bash"
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+  - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+      - recipe[backupdir::default]
+    attributes:

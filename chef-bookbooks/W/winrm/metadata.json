@@ -1,0 +1,38 @@
+{
+  "name": "winrm",
+  "description": "Installs and configures WinRM",
+  "long_description": "# WinRM Cookbook\n\n[![Build Status](https://travis-ci.org/sous-chefs/winrm.svg?branch=master)](https://travis-ci.org/sous-chefs/winrm) [![Cookbook Version](https://img.shields.io/cookbook/v/winrm.svg)](https://supermarket.chef.io/cookbooks/winrm)\n\nInstalls and configures WinRM on a Windows System \n\n## Requirements\n\n### Platforms\n\n- Windows 2008 R2\n- Windows 2012 R2\n\nIf you would like support for your preferred platform. Please think about creating a Vagrant Box and adding test platforms\n\n### Chef\n\n- Chef 12.7+\n\n## Known Limitations\n\n- Does not install powershell, must be already installed.\n\n## Recipes\n\n### default\n\nInstalls and configures WinRM on the windows system.  Ensures firewall rules allow traffic to WinRM. \n\nThe recipe does the following:\n\n1. Search for thumbprint for the FQDN of the node, if found use it.  Otherwise create a new self signed SSL certificate if SSL is enabled.\n2. Install WinRM via quick configure\n3. Configure listeners, HTTP and/or HTTPS \n4. Configure additional options\n5. Create firewall rules\n\n## Resources\n\n### Server\n\n```ruby\nwinrm 'default' do\n  Hostname # Used for creating the listeners and finding the certificate thumbprint or creating a new one, default node['fqdn']\n  TrustedHosts # Trusted hosts to allow connections from, default '*'\n  MaxMemoryPerShellMB # Max memory allowed for each remote shell, default 1024\n  Thumbprint # Specify a certificate thumbprint to use, if `nil` will looks for certificate matching hostname, default nil\n  HTTP # Enable HTTP listener, default true\n  HTTPS # Enable HTTPS listener, default true\n  AllowUnencrypted # Wether to allow unencrypted WinRM connections, default true\n  BasicAuth # Enable Basic Authentication, default true\n  GenerateCert # Wether to generate a cert if none is found, default true\nend\n```\n\n## Usage\n\nThe `winrm::default` recipe includes the winrm resource using defaults\n\nCreate a cookbook with the `winrm` resource as if you were using any other Chef resource.\n\nFor examples see the `test/fixtures/cookbooks/test` directory.\n\n## License\n\nCopyright 2014-2015, Webtrends Inc.\n\n```text\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[user resource]: https://docs.chef.io/resource_user.html",
+  "maintainer": "Webtrends, Inc.",
+  "maintainer_email": "Peter Crossley <peter.crossley@webtrends.com>",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.0",
+  "source_url": "https://github.com/sous-chefs/winrm",
+  "issues_url": "https://github.com/sous-chefs/winrm/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.7"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

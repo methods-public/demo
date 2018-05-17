@@ -1,0 +1,56 @@
+{
+  "name": "yum_repositories",
+  "description": "Cookbook that wraps the yum_repository resource allowing one to define repositories in attributes.",
+  "long_description": "# Yum Repositories\n\nCookbook that wraps the [yum_repository resource](https://docs.chef.io/resource_yum_repository.html) allowing one to define repositories in attributes.\n\n---\n\n## Usage\n\n### yum_repositories::default\n\nJust include `yum_repositories` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[yum_repositories]\"\n  ]\n}\n```\n\nThen move on to filling out some attributes.\n\n## Attributes\n\n### Ignore Failures\n\nThis set the ignore_failures default value for each repo you define.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['yum_repositories']['ignore_failures'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"yum_repositories\": {\n    \"ignore_failures\": true\n  }\n}\n```\n\n### Repositories\n\nThe set of repositories that you intend to manage.\n\n\nRuby usage:\n\n```ruby\nnode['yum_repositories']['repositories'] = [\n  \"elastic-5.x\" => [\n    \"baseurl\" => \"https://artifacts.elastic.co/packages/5.x/yum\",\n    \"gpgcheck\" => true,\n    \"gpgkey\" => \"https://artifacts.elastic.co/GPG-KEY-elasticsearch\",\n    \"enabled\" => true,\n    \"action\" => \"create\"\n  ],\n  \"influxdb\" => [\n    \"name\" => \"InfluxDB\",\n    \"ignore_failures\" => false, # Overriding the global settings set earlier\n    \"baseurl\" => \"https://repos.influxdata.com/rhel/\\\\$releasever/\\\\$basearch/stable\",\n    \"gpgcheck\" => true,\n    \"gpgkey\" => \"https://repos.influxdata.com/influxdb.key\",\n    \"enabled\" => true,\n    \"action\" => \"create\"\n  ]\n]\n```\n\nJSON usage:\n\n```json\n{\n  \"yum_repositories\": {\n    \"repositories\": {\n      \"elastic-5.x\": {\n        \"baseurl\": \"https://artifacts.elastic.co/packages/5.x/yum\",\n        \"gpgcheck\": true,\n        \"gpgkey\": \"https://artifacts.elastic.co/GPG-KEY-elasticsearch\",\n        \"enabled\": true,\n        \"action\": \"create\"\n      },\n      \"influxdb\": {\n        \"name\": \"InfluxDB\",\n        \"ignore_failures\": false,\n        \"baseurl\": \"https://repos.influxdata.com/rhel/\\\\$releasever/\\\\$basearch/stable\",\n        \"gpgcheck\": true,\n        \"gpgkey\": \"https://repos.influxdata.com/influxdb.key\",\n        \"enabled\": true,\n        \"action\": \"create\"\n      }\n    }\n  }\n}\n```\n\nEach repository declaration you define wraps around the `yum_repository` resource built into Chef. More information that resource can be found [here](https://docs.chef.io/resource_yum_repository.html).",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/MelonSmasher/chef_yum_repositories",
+  "issues_url": "https://github.com/MelonSmasher/chef_yum_repositories/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

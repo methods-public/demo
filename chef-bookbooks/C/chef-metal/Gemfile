@@ -1,0 +1,22 @@
+source 'https://rubygems.org'
+gem 'berkshelf'
+gem 'chef-metal'
+gem 'rake'
+gem 'rspec'
+gem 'rubocop'
+gem 'foodcritic'
+gem 'tailor'
+gem 'coveralls', require: false
+
+group :test, :integration do
+  gem 'awesome_print'
+  gem 'chefspec'
+  gem 'guard-kitchen'
+  gem 'guard-foodcritic'
+  gem 'kitchen-vagrant'
+  gem 'pry'
+  gem 'pry-debugger'
+  gem 'pry-stack_explorer'
+  gem 'serverspec'
+  gem 'test-kitchen'
+end

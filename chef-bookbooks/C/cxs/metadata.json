@@ -1,0 +1,55 @@
+{
+  "name": "cxs",
+  "description": "Manages and Installs ConfigServer Xploit Scanner",
+  "long_description": "# cxs Cookbook\n\nThis cookbook will install and configure your CXS plugin.\nIt will check if you have a valid license and install it.\n\n\n## Requirements\n\nThis cookbook requires no extra libraries. Though requires valid license.\n\n### Platforms\n\n- CentOS\n- CloudLinux\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `default` - installs and manages cxs\n- `_config` - manages cxs configs\n- `_semicolon_config` - manages the configs like ignore and xtra, using semicolon arrangement\n\n## Attributes\n\n| Attribute                                         | Default                    | Description                    |\n|:--------------------------------------------------|:---------------------------|:-------------------------------|\n| `node['cxs']['config']['mail']`                 | `'root'`                | The e-mail\n| `node['cxs']['config']['options']`              | `'mLScehnwROfGZxdMDuW'` | Exploit scan options\n| `node['cxs']['config']['filemax']`              | `'0'`                   | Skip dir if > than [num] resources\n| `node['cxs']['config']['voptions']`             | `'mfuhexT'`             | Virus scan specified file types only\n| `node['cxs']['config']['qoptions']`             | `'MvB'`                 | Delete specified file types only\n| `node['cxs']['config']['quarantine']`           | `'/home/quarantine'`    | Quarantine Folder\n| `node['cxs']['config']['ignore']`               | `'/etc/cxs/cxs.ignore'` | CXS ignore matching file\n| `node['cxs']['config']['xtra']`                 | `'/etc/cxs/cxs.xtra'`   | CXS xtra fingerprints file\n- More parameter can be found at CXS's url\n\n- For cxs.ignore and cxs.xtra please check the attributes as set under `attributes/`\n\n\n## Usage\n\n### cxs::default\n\nTODO: Write usage instructions for each cookbook.\n\ne.g.\nJust include `cxs` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[cxs]\"\n  ]\n}\n```\n\nand on your cookbook installation:\n\n```ruby\ncxs 'install cxs'\n```\n\nUninstall:\n```ruby\ncxs 'uninstall' do\n    action :uninstall\nend\n```\n\n\n## Contributing\n\nTODO:\n\n- Add all the remaining configs (except ignore,xtra)\n- Make cxswatch management better\n- Cronjobs support\n- Other tweaks like: FTP fo cpanel etc\n\n## License and Authors\n\nLicense and Author\n==================\n\n|                      |                                          |\n|:---------------------|:-----------------------------------------|\n| **Author:**          | [Vassilis Aretakis](https://gitlab.com/billias) (<vassilis@aretakis.eu)\n\n\n\n\n      Licensed under the Apache License, Version 2.0 (the \"License\");\n      you may not use this file except in compliance with the License.\n      You may obtain a copy of the License at\n\n          http://www.apache.org/licenses/LICENSE-2.0\n\n      Unless required by applicable law or agreed to in writing, software\n      distributed under the License is distributed on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n      See the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Vassilis Aretakis",
+  "maintainer_email": "vassilis@onlab.xyz",
+  "license": "APACHE License 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "cloudlinux": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.5.1",
+  "source_url": "https://gitlab.com/billias/cxs",
+  "issues_url": "https://gitlab.com/billias/cxs/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "~> 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

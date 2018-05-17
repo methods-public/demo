@@ -1,0 +1,70 @@
+---
+driver:
+  name: vagrant
+  customize:
+    memory: 5000
+    ioapic: 'on'
+    natdnshostresolver1: "on"
+    natdnsproxy1: "on"
+    nictype1: "virtio"
+
+  network:
+  #- ["forwarded_port", {guest: 8080, host: 9991}]
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 12.4.3
+
+
+platforms:
+  - name: ubuntu-14.04
+  - name: ubuntu-15.04
+  - name: centos-7.0
+
+suites: 
+  - name: default
+    run_list:
+      - recipe[kagent::install]
+      - recipe[kzookeeper::install]
+      - recipe[kkafka::install]
+#      - recipe[apache_hadoop::install]
+      - recipe[kzookeeper::default]
+      - recipe[kkafka::default]
+#      - recipe[apache_hadoop::nn]
+#      - recipe[apache_hadoop::dn]
+#      - recipe[apache_hadoop::rm]
+#      - recipe[apache_hadoop::nm]
+#      - recipe[apache_hadoop::jhs]
+#      - recipe[kkafka::monitor]
+    attributes:
+         kzookeeper:
+            default:
+               private_ips: ["10.0.2.15"]
+         private_ips: ["10.0.2.15"]
+         public_ips: ["10.0.2.15"]
+         vagrant: "enabled"
+         kkafka:
+            ulimit_file: 128000
+            broker:
+              log_dirs: ['/mnt/kafka-logs-1', '/mnt/kafka-logs-2']
+            default:
+                private_ips: ["10.0.2.15"]
+         apache_hadoop:
+            version: 2.7.1
+            group: hadoop
+            hdfs:
+               user: hdfs
+            yarn:
+               user: yarn
+            nn:
+               private_ips: ["10.0.2.15"]
+            dn:
+               private_ips: ["10.0.2.15"]
+            rm:
+               private_ips: ["10.0.2.15"]
+               public_ips: ["10.0.2.15"]
+            nm:
+               private_ips: ["10.0.2.15"]
+            jhs:
+               private_ips: ["10.0.2.15"]
+

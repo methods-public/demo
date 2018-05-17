@@ -1,0 +1,32 @@
+{
+  "name": "chef-metadata",
+  "description": "Installs/Configures chef-metadata service for client download link creation",
+  "long_description": "chef-metadata\n===========\nServer side metadata module to determine client downloads based on URL targeting.\n\nRequirements\n------------\n\n### Platform:\n\n* Linux\n\nUsage\n-----\n\nAdd the default recipe to the runlist of your artifact server from where you want to distribute your chef clients\n\nAttributes\n----------\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['version']</tt></td>\n    <td>String</td>\n    <td>Package version</td>\n    <td><tt>0.3.0</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['install_dir']</tt></td>\n    <td>String</td>\n    <td>Installation path</td>\n    <td><tt>/opt/chef-metadata</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['url']</tt></td>\n    <td>String</td>\n    <td>Download URL</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['md5']</tt></td>\n    <td>String</td>\n    <td>Download md5</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['sha']</tt></td>\n    <td>String</td>\n    <td>Download sha</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['config']['listen']</tt></td>\n    <td>String</td>\n    <td>IP to listen on</td>\n    <td><tt>127.0.0.1</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['config']['port']</tt></td>\n    <td>String</td>\n    <td>Port to listen on</td>\n    <td><tt>8090</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['config']['path']</tt></td>\n    <td>String</td>\n    <td>Path to the chef client sources</td>\n    <td><tt>/path/to/your/sources</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['config']['url']</tt></td>\n    <td>String</td>\n    <td>URL where to download the chef clients</td>\n    <td><tt>http://your.server.com/artifacts/chef</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['chef-metadata']['params']</tt></td>\n    <td>Array</td>\n    <td>Program parameters</td>\n    <td><tt>computed</tt></td>\n  </tr>\n</table>\n\nRecipes\n-------\n\n### chef-metadata::default\n\nInstalls the chef-metadata service and configuration\n\nVersioning\n----------\nThis cookbook uses [Semantic Versioning 2.0.0](http://semver.org/)  \n\n    Given a version number MAJOR.MINOR.PATCH, increment the:  \n    MAJOR version when you make functional cookbook changes,\n    MINOR version when you add functionality in a backwards-compatible manner,\n    PATCH version when you make backwards-compatible bug fixes.\n\nTesting\n-------\n\n[![Build Status](https://travis-ci.org/mlafeldt/skeleton-cookbook.png?branch=master)](https://travis-ci.org/mlafeldt/skeleton-cookbook)\n\nThe cookbook provides the following Rake tasks for testing:\n\n    rake foodcritic                   # Lint Chef cookbooks\n    rake integration                  # Alias for kitchen:all\n    rake kitchen:all                  # Run all test instances\n    rake kitchen:default-centos-64    # Run default-centos-64 test instance\n    rake kitchen:default-ubuntu-1204  # Run default-ubuntu-1204 test instance\n    rake rubocop                      # Run RuboCop style and lint checks\n    rake spec                         # Run ChefSpec examples\n    rake test                         # Run all tests\n\nLicense and Author\n------------------\n\nAuthor: Sander Botman (sander.botman@gmail.com)\n\nCopyright (c) 2014, Sander Botman All Rights Reserved.\n\nContributing\n------------\n\nWe welcome contributed improvements and bug fixes via the usual workflow:\n\n1. Fork this repository\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Add some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create a new pull request\n",
+  "maintainer": "Sander Botman",
+  "maintainer_email": "sander.botman@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.4"
+}

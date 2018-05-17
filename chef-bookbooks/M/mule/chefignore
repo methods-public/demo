@@ -1,0 +1,5 @@
+.kitchen
+.testcache
+.DS_Store
+.git
+.gitignore

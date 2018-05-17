@@ -1,0 +1,20 @@
+/* This configuration file is handled by chef.
+   You can find an example configuration file in /etc/ganglia/gmond-example.conf */
+
+<% @sections.each do |name, section| %>
+<%= name.gsub(/#.+$/, '')%> {
+<% section.each do |key,value|
+  printed_value = case value
+                  when String
+                    %Q("#{value}")
+                  else
+                    value
+                  end
+%>
+  <%= key %> = <%= printed_value %>
+<% end %>
+}
+
+<% end %>
+
+/* don't report metrics from the collector daemons */

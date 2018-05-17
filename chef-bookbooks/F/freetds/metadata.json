@@ -1,0 +1,109 @@
+{
+  "name": "freetds",
+  "description": "Installs/Configures FreeTDS",
+  "long_description": "Description\n===========\n\n[![Build Status](https://travis-ci.org/aioi/chef-freetds.png?branch=master)](https://travis-ci.org/aioi/chef-freetds)\n\nThis cookbook install and configure FreeTDS\n\nPlatform\n--------\n\n* CentOS (tested on 6.6 - source only)\n* Debian (tested on 7.4)\n* Ubuntu (tested on 12.04 and 14.04)\n\nMay work with or without modification on other distributions.\n\nUsage\n-----\nJust include `freetds` in your node's `run_list`.\n\nIf you want to configure some server add them to your node's attributes:\n\n```ruby\n    node['freetds']['servers'] = [\n      {\n        'name' => 'egServer70',\n        'description' => 'A typical Microsoft server',\n        'host'=> 'ntmachine.domain.com',\n        'port' => 1433,\n        'tds_version' => '7.0',\n        'text_size' => 1024,\n        'client_charset' => 'UTF-8',\n        'encryption' => 'off' # require/request/off\n      }\n    ]\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write you change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: [Olivier Brisse](https://github.com/ouranos)\n",
+  "maintainer": "Olivier Brisse",
+  "maintainer_email": "obrisse@aioinissaydowa.com.au",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "version": {
+      "display_name": "Version",
+      "description": "The version of FreeTDS to install",
+      "default": "0.91",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "checksum": {
+      "display_name": "Checksum",
+      "description": "checksum of the FreeTDS archive",
+      "required": "optional",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "recipes": [
+
+      ]
+    },
+    "tds_version": {
+      "display_name": "TDS Version",
+      "description": "TDS protocol version",
+      "default": "7.1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "odbc": {
+      "display_name": "ODBC support",
+      "description": "Select wether or not to build the ODBC driver",
+      "default": "false",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "servers": {
+      "display_name": "Server list",
+      "description": "See README",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.0"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "keytool",
+  "description": "Installs/Configures keytool",
+  "long_description": "Cookbook exposing a LWRP to manage Java keystores with the ```keytool``` utility.\n\n# Usage\nSee the ```test``` recipe for examples.\n\n# Author\n\nAuthor:: Jean-Francois Theroux (<me@failshell.io>)\n",
+  "maintainer": "Jean-Francois Theroux",
+  "maintainer_email": "me@failshell.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.7.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  network:
+    - ["forwarded_port", {guest: 9000, host: 9000}]
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[minio-server::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+      minio:
+        access_key: foo
+        secret_key: 123456789

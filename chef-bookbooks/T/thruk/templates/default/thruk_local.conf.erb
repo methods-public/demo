@@ -1,0 +1,53 @@
+#
+# This file is managed by Chef.  Local modifications will be overwritten.
+#
+############################################
+# put your own settings into this file
+# settings from this file will override
+# those from the thruk.conf
+############################################
+<% node['thruk']['conf'].each do |k,v| %>
+<%= k %> = <%= v %>
+<% end %>
+<% if node['thruk'].key?('shinken_priorities') %>
+
+<priorities>
+<% node['thruk']['shinken_priorities'].each do |k,v| %>
+   <%= k %> = <%= v %>
+<% end %>
+</priorities>
+<% end %>
+<% if node['thruk'].key?('cmd_defaults') %>
+
+<cmd_defaults>
+<% node['thruk']['cmd_defaults'].each do |k,v| %>
+   <%= k %> = <%= v %>
+<% end %>
+</cmd_defaults>
+<% end %>
+<% unless node['thruk']['backends'].nil? %>
+
+<% node['thruk']['backends'].each do |id,backend| %>
+# <%= id %>
+<Component Thruk::Backend>
+    <peer>
+        name   = <%= backend['name'] %>
+        type   = <%= backend['type'] %>
+<% unless backend['options'].nil? %>
+        <options>
+<% backend['options'].each do |optname,optvalue| %>
+            <%= optname %> = <%= optvalue %>
+<% end %>
+       </options>
+<% end %>
+<% unless backend['configtool'].nil? %>
+       <configtool>
+<% backend['configtool'].each do |confname,confvalue| %>
+            <%= confname %> = <%= confvalue %>
+<% end %>
+       </configtool>
+<% end %>
+    </peer>
+</Component>
+<% end %>
+<% end %>

@@ -1,0 +1,55 @@
+{
+  "name": "dynamic_motd",
+  "description": "Configures a dynamic MOTD on linux systems.",
+  "long_description": "# dynamic_motd\n\nShows system statistics and a static message at logon.\n\n\n```\nThis is a message!\n\n                _  _____     _                       _       _\n  ___ ___ _ __ | ||___  |   | |_ ___ _ __ ___  _ __ | | __ _| |_ ___\n / __/ _ \\ '_ \\| __| / /____| __/ _ \\ '_ ` _ \\| '_ \\| |/ _` | __/ _ \\\n| (_|  __/ | | | |_ / /_____| ||  __/ | | | | | |_) | | (_| | ||  __/\n \\___\\___|_| |_|\\__/_/       \\__\\___|_| |_| |_| .__/|_|\\__,_|\\__\\___|\n                                              |_|\n\nWelcome to \"CentOS Linux release 7.3.1611 (Core) \" (3.10.0-514.10.2.el7.x86_64).\n\nSystem information as of: Tue Mar  7 12:53:38 EST 2017\n\nSystem Load:\t0.00, 0.01, 0.05\tSystem Uptime:\t\t3 days 21 hours 9 min 45 sec\nMemory Usage:\t0.0%\t\t\tSwap Usage:\t\t0.0%\nUsage On /:\t48G\t\t\tAccess Rights on /:\t(rw\nLocal Users:\t1\t\t\tWhoami:\t\t\troot\nProcesses:\t107\n\nInterface\t        MAC Address\t\tIP Address\neno16777984\t\t00:50:56:80:5b:11\t192.168.0.2/24\n```\n\n\n## Usage\n\n### dynamic_motd::default\n\nJust include `dynamic_motd` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[dynamic_motd]\"\n  ]\n}\n```\n## Attributes \n\n### Message\n\nStatic message to display with the system statistics\n\nDefault Value:\n\n- `''`\n\nRuby usage:\n\n```ruby\nnode['dynamic_motd']['message'] = 'This is a message!'\n```\n\nJSON usage:\n\n```json\n{\n  \"dynamic_motd\": {\n    \"message\": \"This is a message!\"\n  }\n}\n```",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.5",
+  "source_url": "https://github.com/MelonSmasher/chef_dynamic_motd",
+  "issues_url": "https://github.com/MelonSmasher/chef_dynamic_motd/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

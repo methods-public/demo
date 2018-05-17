@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+
+verifier:
+  name: inspec
+  sudo: true
+
+platforms:
+- name: ubuntu-14.04
+  driver_config:
+    box: bento/ubuntu-14.04
+  run_list:
+  - recipe[apt::default]
+- name: centos-7
+  driver_config:
+    box: bento/centos-7
+  run_list:
+  - recipe[yum::default]
+
+suites:
+- name: default
+  run_list:
+    - recipe[avahi::default]
+  attributes:
+    avahi:
+      hostname: "avahi-test-kitchen"

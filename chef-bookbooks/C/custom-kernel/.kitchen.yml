@@ -1,0 +1,43 @@
+#
+# Copyright (c) 2017 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+driver:
+  name: vagrant
+  require_chef_omnibus: true
+
+transport:
+  name: ssh
+  connection_retries: 12
+  connection_retry_sleep: 10
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  retry_on_exit_code:
+    - 35 # exit code signaling that the node is rebooting
+  client_rb:
+    client_fork: false # forked instances don't return the real exit code
+
+platforms:
+  - name: centos-7
+    driver:
+      box: centos/7
+
+suites:
+  # Get a server with test rules
+  - name: custom-kernel
+    run_list:
+      - role[custom-kernel]

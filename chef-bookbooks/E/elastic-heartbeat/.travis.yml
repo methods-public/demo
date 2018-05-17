@@ -1,0 +1,72 @@
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+# Don't run bundle install
+install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+    - /^(?i:travis).*$/
+
+services: docker
+
+env:
+  matrix:
+    - INSTANCE=chef12v6-ubuntu-16
+    - INSTANCE=chef12v6-centos-7
+    - INSTANCE=chef12v6-amazon
+    - INSTANCE=chef12v6-amazon2
+    - INSTANCE=chef13v6-ubuntu-16
+    - INSTANCE=chef13v6-centos-7
+    - INSTANCE=chef13v6-amazon
+    - INSTANCE=chef13v6-amazon2
+    - INSTANCE=chef14v6-ubuntu-16
+    - INSTANCE=chef14v6-debian-9
+    - INSTANCE=chef14v6-centos-6
+    - INSTANCE=chef14v6-centos-7
+    - INSTANCE=chef14v6-fedora-26
+    - INSTANCE=chef14v6-amazon
+    - INSTANCE=chef14v6-amazon2
+
+script:
+  - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+  - cat .kitchen/logs/kitchen.log
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+
+
+matrix:
+  allow_failures:
+    - env: INSTANCE=default-centos-68
+    - env: INSTANCE=chef12v6-ubuntu-16
+    - env: INSTANCE=chef12v6-centos-7
+    - env: INSTANCE=chef12v6-amazon
+    - env: INSTANCE=chef12v6-amazon2
+    - env: INSTANCE=chef13v6-ubuntu-16
+    - env: INSTANCE=chef13v6-centos-7
+    - env: INSTANCE=chef13v6-amazon
+    - env: INSTANCE=chef13v6-amazon2
+    - env: INSTANCE=chef14v6-ubuntu-16
+    - env: INSTANCE=chef14v6-debian-9
+    - env: INSTANCE=chef14v6-centos-6
+    - env: INSTANCE=chef14v6-centos-7
+    - env: INSTANCE=chef14v6-fedora-26
+    - env: INSTANCE=chef14v6-amazon
+    - env: INSTANCE=chef14v6-amazon2
+  include:
+    - script:
+      - /opt/chefdk/bin/chef exec rake
+      env: UNIT_AND_LINT=1

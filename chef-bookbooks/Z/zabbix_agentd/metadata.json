@@ -1,0 +1,52 @@
+{
+  "name": "zabbix_agentd",
+  "description": "Installs/Configures zabbix_agentd",
+  "long_description": "Installs/Configures zabbix_agentd",
+  "maintainer": "cduong13",
+  "maintainer_email": "chris.duong83@gmail.com",
+  "license": "mit",
+  "platforms": {
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/chrisduong/chef-zabbix_agentd",
+  "issues_url": "https://github.com/chrisduong/chef-zabbix_agentd/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

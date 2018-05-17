@@ -1,0 +1,81 @@
+#!/bin/bash
+# chkconfig: 345 20 80
+# description: Play start/shutdown script
+# processname: <%= @name %>
+#
+
+# Path to play install directory
+PLAY_DIST_HOME="<%= @home %>"
+PLAY="<%= @exec %>"
+
+# User running the Play process
+USER="<%= @user %>"
+
+PID_PATH="<%= @pid_dir %>"
+PID_FILE="${PID_PATH}/play.pid"
+
+if [[ ! -e ${PID_PATH} ]]; then
+  mkdir -p ${PID_PATH}
+  chown ${USER}:${USER} ${PID_PATH}
+fi
+
+CONFIG_FILE="<%= @config %>"
+APP_ARGS="<%= @args %>"
+
+# source function library
+. /etc/init.d/functions
+RETVAL=0
+
+start() {
+  echo -n "Starting <%= @name %> service: "
+  su -s /bin/sh ${USER} -c "( ${PLAY} -Dpidfile.path=${PID_FILE} -Dconfig.file=${CONFIG_FILE} ${APP_ARGS} & )"
+  RETVAL=$?
+
+  if [ ${RETVAL} -eq 0 ]; then
+    echo_success
+  else
+    echo_failure
+  fi
+  echo
+}
+stop() {
+  echo -n "Shutting down <%= @name %> service: "
+  kill $(pgrep <%= @home %> -f)
+  RETVAL=$?
+  if [ ${RETVAL} -eq 0 ]; then
+    echo_success
+  else
+    echo_failure
+  fi
+  echo
+}
+status() {
+  ps $(cat ${PID_FILE})
+  RETVAL=$?
+}
+clean() {
+  rm -fr ${PID_FILE}
+}
+case "$1" in
+  start)
+    clean
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart|reload)
+    stop
+    sleep 10
+    start
+    ;;
+  status)
+    status
+    ;;
+  clean)
+    clean
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+esac
+exit 0

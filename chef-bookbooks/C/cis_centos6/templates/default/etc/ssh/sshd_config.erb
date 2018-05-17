@@ -1,0 +1,81 @@
+# !!! WARNING !!!
+#
+# This file is managed using Chef. Any changes will be overwritten.
+#
+# !!! WARNING !!!
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# CIS Benchmark 6.2.1 Set SSH Protocol to 2
+Protocol 2
+
+# CIS Benchmark 6.2.2 Set LogLevel to INFO
+LogLevel INFO
+
+# CIS Benchmark 6.2.4 Disable SSH X11 Forwarding
+X11Forwarding no
+
+# CIS Benchmark 6.2.5 Set SSH MaxAuthTries to 4 or Less
+MaxAuthTries 4
+
+# CIS Benchmark 6.2.6 Set SSH IgnoreRHosts to Yes
+IgnoreRhosts yes
+
+# CIS Benchmark 6.2.7 Set SSH HostbasedAuthentication to No
+HostbasedAuthentication no
+
+# CIS Benchmark 6.2.8 Set SSH PermitRootLogin to No
+PermitRootLogin no
+
+# CIS Benchmark 6.2.9 Set SSH PermitEmptyPasswords to No
+PermitEmptyPasswords no
+
+# CIS Benchmark 6.2.10 Do Not Allow Users to Set Environment Options
+PermitUserEnvironment no
+
+# CIS Benchmark 6.2.12 Set Idle Timeout Interval for User Login
+ClientAliveInterval 300
+ClientAliveCountMax 0
+
+<% if @allow_users.length > 0 %>
+AllowUsers <%= @allow_users.join(' ') %>
+<% end %>
+<% if @allow_groups.length > 0 %>
+AllowGroups <%= @allow_groups.join(' ') %>
+<% end %>
+<% if @deny_users.length > 0 %>
+DenyUsers <%= @deny_users.join(' ') %>
+<% end %>
+# CIS Benchmark 6.2.13 Limit Access via SSH
+<% if @deny_groups.length > 0 %>
+DenyGroups <%= @deny_groups.join(' ') %>
+<% end %>
+
+# CIS Benchmark 6.2.11 Use Only Approved Cipher in Counter Mode
+Ciphers <%= @ciphers.join(',') %>
+
+<% if @macs.length > 0 %>
+MACs <%= @macs.join(',') %>
+<% end %>
+
+# CIS Benchmark 6.2.14 Set SSH Banner
+Banner /etc/issue.net
+
+# Other default configuration
+
+SyslogFacility AUTHPRIV
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+UsePAM yes
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+
+# override default of no subsystems
+Subsystem       sftp    /usr/libexec/openssh/sftp-server

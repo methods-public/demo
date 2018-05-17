@@ -1,0 +1,56 @@
+{
+  "name": "docker-etcd-registrator",
+  "description": "Installs/Configures docker-etcd-registrator",
+  "long_description": "docker-etcd-registrator Cookbook\n================================\nChef cookbook for the docker-etcd-registrator for Vulcand made by @psi-4ward.\n\nRequirements\n------------\n- `git` - pulls the fresh version from git since the npm published one is outdated\n- `nodejs`\n- `poise-service`\n\nAttributes\n----------\nMost of the provided attributes are passed as the `env` variables, so in principle\nit's not really needed to specify anything to get the basic config.\nAll the attributes have a `['docker-etcd-registrator']` root, e.g. `['attribute1']`\nin the following table means `['docker-etcd-registrator']['attribute1']`.\n\n#### docker-etcd-registrator::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Resource</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['conf_dir']</tt></td>\n    <td>String</td>\n    <td><tt>:conf_dir</tt></td>\n    <td>Config directory</td>\n    <td><tt>/etc/docker-etcd-registrator</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['binary']</tt></td>\n    <td>String</td>\n    <td><tt>:binary</tt></td>\n    <td>Binary to run</td>\n    <td><tt>/usr/local/bin/docker-etcd-registrator</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['run_user']</tt></td>\n    <td>String</td>\n    <td><tt>:run_user</tt></td>\n    <td>User to run</td>\n    <td><tt>root</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['hostname']</tt></td>\n    <td>String</td>\n    <td><tt>:hostname</tt></td>\n    <td>Hostname of the system</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['register']</tt></td>\n    <td>String</td>\n    <td><tt>:register</tt></td>\n    <td>If 'public' - register only the port which binds to the host interface (docker -p)</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['register_public_ip']</tt></td>\n    <td>String</td>\n    <td><tt>:register_public_ip</tt></td>\n    <td>Binding IP if it was not specified explicitly in the docker run opts</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['force_public_ip']</tt></td>\n    <td>String</td>\n    <td><tt>:force_public_ip</tt></td>\n    <td>Force using the specified IP even if the binding IP was specified in the docker run opts</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['skydns_prefix']</tt></td>\n    <td>String</td>\n    <td><tt>:skydns_prefix</tt></td>\n    <td>Etcd prefix for SkyDNS</td>\n    <td><tt>/skydns</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['vulcand_prefix']</tt></td>\n    <td>String</td>\n    <td><tt>:vulcand_prefix</tt></td>\n    <td>Etcd prefix for Vulcand</td>\n    <td><tt>/vulcand</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['docker_host']</tt></td>\n    <td>String</td>\n    <td><tt>:docker_host</tt></td>\n    <td>Docker socket to listen</td>\n    <td><tt>/var/run/docker.sock</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['docker_tls_verify']</tt></td>\n    <td>String</td>\n    <td><tt>:docker_tls_verify</tt></td>\n    <td>Use TLS to communicate with docker (used for docker-modem)</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['docker_cert_path']</tt></td>\n    <td>String</td>\n    <td><tt>:docker_cert_path</tt></td>\n    <td>Directory that contains ca.pem, cert.pem and key.pem (names hardcoded)</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['etcd_endpoints']</tt></td>\n    <td>String</td>\n    <td><tt>:etcd_endpoints</tt></td>\n    <td>Connection endpoints for Etcd</td>\n    <td><tt>http://127.0.0.1:4001</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['etcd_cafile']</tt></td>\n    <td>String</td>\n    <td><tt>:etcd_cafile</tt></td>\n    <td>CA certificate for Etcd</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['etcd_certfile']</tt></td>\n    <td>String</td>\n    <td><tt>:etcd_certfile</tt></td>\n    <td>Client certificate for Etcd</td>\n    <td><tt></tt></td>\n  </tr>\n  <tr>\n    <td><tt>['etcd_keyfile']</tt></td>\n    <td>String</td>\n    <td><tt>:etcd_keyfile</tt></td>\n    <td>Client key for Etcd</td>\n    <td><tt></tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n###Install\nInclude `docker-etcd-registrator` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[docker-etcd-registrator]\"\n  ]\n}\n```\n\n###Config\nTwo different approaches can be used to set the parameters\n\n####JSON attributes\nInclude in your node description\n```json\n{\n  \"docker-etcd-registrator\": {\n    \"Attribute1\": \"Value1\"\n  }\n}\n```\n\n####Resource-based\nIn your recipe include\n\n```ruby\ndocker-etcd-registrator 'config' do\n  Attribute1 Value1\nend\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like <tt>add_component_x</tt>)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: \nPetr Belyaev <upcfrost@gmail.com>\n",
+  "maintainer": "Petr Belyaev",
+  "maintainer_email": "upcfrost@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "nodejs": ">= 0.0.0",
+    "git": ">= 0.0.0",
+    "poise-service": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/upcFrost/chef_corosync_cookbook",
+  "issues_url": "https://github.com/upcFrost/chef_corosync_cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

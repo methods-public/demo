@@ -1,0 +1,45 @@
+{
+  "name": "vsts_agent",
+  "description": "Installs/Configures visualstudio team services build agents",
+  "long_description": "Visual Studio Team Services Build and Release Agent Cookbook\n================\n\n[![Join the chat at https://gitter.im/Microsoft/vsts-agent-cookbook](https://badges.gitter.im/Microsoft/vsts-agent-cookbook.svg)](https://gitter.im/Microsoft/vsts-agent-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![Build Status](https://travis-ci.org/Microsoft/vsts-agent-cookbook.svg?branch=master)](https://travis-ci.org/Microsoft/vsts-agent-cookbook)\n[![Cookbook Version](https://img.shields.io/cookbook/v/vsts_agent.svg)](https://supermarket.chef.io/cookbooks/vsts_agent)\n\nInstalls and configures Visual Studio Team Services [Build and Release Agent](https://github.com/Microsoft/vsts-agent/)\n\nPlease check [Wiki](https://github.com/Microsoft/vsts-agent-cookbook/wiki) for more examples\n\nRequirements\n------------\n- Chef 12.5.0 or higher\n\n### Platforms\nThe following platforms are tested and supported:\n- Debian 8 x64 (Jessie)\n- Debian 9 x64 (Stretch)\n- Ubuntu 16.04 (Xenial Xerus)\n- Ubuntu 17.10 (Artful Aardvark)\n- CentOS 7\n- Windows 10\n- Windows Server 2012 R2\n- OS X 10.10.5\n- OS X 10.11.4\n\nAttributes\n----------\n* `node['vsts_agent']['binary']['version']` - set version of package to install\n* `node['vsts_agent']['prerequisites']['redhat']['install']` - control dependencies installation for redhat based distros(redhat, centos etc.) . Default true\n* `node['vsts_agent']['prerequisites']['debian']['install']` - control dependencies installation for debian based distros(debian, ubuntu etc.). Default true\n\nResource/Provider\n-----------------\n### vsts_agent\nThis resource installs and configures the vsts build and release agent\n#### Actions\n- `:install`: Install and configure the agent\n- `:remove`: Remove the agent and unregister it from VSTS\n- `:restart`: Restart the agent service\n\n#### Parameters\n- `agent_name`: Name attribute. The name of the vsts agent\n- `version`: an agent version to install. Default version from an attribute\n- `install_dir`: A target directory to install the vsts agent\n- `path`: Overwrite system PATH environment variable values. Linux and macOS only\n- `env`: Additional environment variables. Linux and macOS only\n- `user`: Set a local user to run the vsts agent\n- `group`: Set a local group to run the vsts agent\n- `runasservice`: run agent as a service. Default 'true'\n- `windowslogonaccount`: Set a user name to run a windows service. Possible values are \"NT AUTHORITY\\NetworkService\", \"NT AUTHORITY\\LocalService\" or any system valid username\n- `windowslogonpassword`: Set password for windowslogonaccount unless it is equal to NetworkService or LocalService\n- `vsts_url`: url to VSTS instance\n- `vsts_pool`: A pool to connect an agent\n- `vsts_auth`: Authentication type. Default PAT auth. Valid options are:\n  * PAT - Personal Access Token (requires vsts_token),\n  * Negotiate - Kerberos or NTLM (requires vsts_username and vsts_password),\n  * ALT - Alternate Credentials (requires vsts_username and vsts_password),\n  * Integrated - Windows default credentials (doesn't require any credentials).\n- `vsts_token`: A personal access token for VSTS. Used with PAT auth type. [See](http://roadtoalm.com/2015/07/22/using-personal-access-tokens-to-access-visual-studio-online/)\n- `vsts_username`: A user to connect to VSTS. Used with Negotiate and ALT auth\n- `vsts_password`: A user to connect to VSTS. Used with Negotiate and ALT auth\n- `work_folder`: Set different workspace location. Default is \"install_dir/\\_work\"\n\n#### Examples\nInstall, configure, restart and remove an agent.\nCheck [windows](test/cookbooks/windows-basic/recipes/default.rb), [linux](test/cookbooks/linux-basic/recipes/default.rb) or [osx](test/cookbooks/osx-basic/recipes/default.rb) tests for more examples.\n\n```ruby\ninclude_recipe 'vsts_agent::default'\n\nif platform_family?('windows')\n  dir = 'c:\\\\agents'\nelse\n  dir = '/tmp/agents'\nend\n\nvsts_agent 'agent_01' do\n  install_dir dir\n  user 'vagrant'\n  group 'vagrant'\n  path '/usr/local/bin/:/usr/bin:/opt/bin/' # only works on nix systems\n  env('M2_HOME' => '/opt/maven', 'JAVA_HOME' => '/opt/java') # only works on nix systems\n  vsts_url 'https://contoso.visualstudio.com'\n  vsts_pool 'default'\n  vsts_token 'my_secret_token_from_vsts'\n  windowslogonaccount 'builder' # will be used only on windows\n  windowslogonpassword 'Pas$w0r_d' # will be used only on windows\n  action :install\nend\n\nvsts_agent 'agent_01' do\n  action :restart\nend\n\nvsts_agent 'agent_01' do\n  vsts_token 'my_secret_token_from_vsts'\n  action :remove\nend\n```\n\n# How to contribute\nCheck [Contribution Guide](CONTRIBUTING.md) and [Testing Guide](TESTING.md)\n",
+  "maintainer": "Microsoft",
+  "maintainer_email": "dmivanov@microsoft.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0",
+    "ark": ">= 0.0.0",
+    "seven_zip": "~> 2.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.2",
+  "source_url": "https://github.com/Microsoft/vsts-agent-cookbook",
+  "issues_url": "https://github.com/Microsoft/vsts-agent-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.4"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

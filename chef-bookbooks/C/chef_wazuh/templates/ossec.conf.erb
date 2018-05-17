@@ -1,0 +1,138 @@
+<!--
+  Wazuh - Agent - Configuration for <%= @platform %>
+  Managed by Chef - DO NOT MODIFY MANUALLY - Changes will be overwritten!
+-->
+
+<ossec_config>
+  <client>
+    <server>
+      <address><%= @config['client']['server']['address'] %></address>
+      <port><%= @config['client']['server']['port'] %></port>
+      <protocol><%= @client_server_protocol %></protocol>
+    </server>
+    <config-profile><%= @client_config_profile %></config-profile>
+    <notify_time><%= @config['client']['notify_time'] %></notify_time>
+    <time-reconnect><%= @config['client']['time_reconnect'] %></time-reconnect>
+    <auto_restart><%= @config['client']['auto_restart'] ? 'yes' : 'no' %></auto_restart>
+  </client>
+
+  <client_buffer>
+    <!-- Agent buffer options -->
+    <disabled><%= @config['client_buffer']['disabled'] ? 'yes' : 'no' %></disabled>
+    <queue_size><%= @config['client_buffer']['queue_size'] %></queue_size>
+    <events_per_second><%= @config['client_buffer']['events_per_second'] %></events_per_second>
+  </client_buffer>
+
+  <!-- Policy monitoring -->
+  <rootcheck>
+    <disabled><%= @config['rootcheck']['disabled'] ? 'yes' : 'no' %></disabled>
+    <check_unixaudit><%= @config['rootcheck']['check_unixaudit'] ? 'yes' : 'no' %></check_unixaudit>
+    <check_files><%= @config['rootcheck']['check_files'] ? 'yes' : 'no' %></check_files>
+    <check_trojans><%= @config['rootcheck']['check_trojans'] ? 'yes' : 'no' %></check_trojans>
+    <check_dev><%= @config['rootcheck']['check_dev'] ? 'yes' : 'no' %></check_dev>
+    <check_sys><%= @config['rootcheck']['check_sys'] ? 'yes' : 'no' %></check_sys>
+    <check_pids><%= @config['rootcheck']['check_pids'] ? 'yes' : 'no' %></check_pids>
+    <check_ports><%= @config['rootcheck']['check_ports'] ? 'yes' : 'no' %></check_ports>
+    <check_if><%= @config['rootcheck']['check_if'] ? 'yes' : 'no' %></check_if>
+
+    <frequency><%= @config['rootcheck']['frequency'] %></frequency>
+
+    <rootkit_files><%= @config['rootcheck']['rootkit_files'] %></rootkit_files>
+    <rootkit_trojans><%= @config['rootcheck']['rootkit_trojans'] %></rootkit_trojans>
+
+    <% @config['rootcheck']['system_audits'].each do |system_audit| %>
+      <system_audit><%= system_audit %></system_audit>
+    <% end %>
+
+    <skip_nfs><%= @config['rootcheck']['skip_nfs'] ? 'yes' : 'no' %></skip_nfs>
+  </rootcheck>
+
+  <wodle name="open-scap">
+    <disabled><%= @config['wodle']['open-scap']['disabled'] ? 'yes' : 'no' %></disabled>
+    <timeout><%= @config['wodle']['open-scap']['timeout'] %></timeout>
+    <interval><%= @config['wodle']['open-scap']['interval'] %></interval>
+    <scan-on-start><%= @config['wodle']['open-scap']['scan_on_start'] ? 'yes' : 'no' %></scan-on-start>
+    <% unless @config['wodle']['open-scap']['contents'].nil? %>
+      <% @config['wodle']['open-scap']['contents'].each do |content| %>
+        <% if content[:profiles].empty? %>
+          <content type="<%= content[:type] %>" path="<%= content[:path] %>"/>
+        <% else %>
+          <content type="<%= content[:type] %>" path="<%= content[:path] %>">
+            <% content[:profiles].each do |profile| %>
+              <profile><%= profile %></profile>
+            <% end %>
+          </content>
+        <% end %>
+      <% end %>
+    <% end %>
+  </wodle>
+
+  <wodle name="cis-cat">
+    <disabled><%= @config['wodle']['cis-cat']['disabled'] ? 'yes' : 'no' %></disabled>
+    <timeout><%= @config['wodle']['cis-cat']['timeout'] %></timeout>
+    <interval><%= @config['wodle']['cis-cat']['interval'] %></interval>
+    <scan-on-start><%= @config['wodle']['cis-cat']['scan_on_start'] ? 'yes' : 'no' %></scan-on-start>
+
+    <java_path><%= @config['wodle']['cis-cat']['java_path'] %></java_path>
+    <ciscat_path><%= @config['wodle']['cis-cat']['ciscat_path'] %></ciscat_path>
+  </wodle>
+
+  <!-- File integrity monitoring -->
+  <syscheck>
+    <disabled><%= @config['syscheck']['disabled'] ? 'yes' : 'no' %></disabled>
+
+    <frequency><%= @config['syscheck']['frequency'] %></frequency>
+
+    <scan_on_start><%= @config['syscheck']['scan_on_start'] ? 'yes' : 'no' %></scan_on_start>
+
+    <!-- Directories to check  (perform all possible verifications) -->
+    <% @config['syscheck']['directories'].each do |directory| %>
+      <directories check_all="<%= directory[:check_all] ? 'yes' : 'no' %>"><%= directory[:content].join(',') %></directories>
+    <% end %>
+
+    <!-- Files/directories to ignore -->
+    <% @config['syscheck']['ignores'].each do |ignore| %>
+      <ignore><%= ignore %></ignore>
+    <% end %>
+
+    <!-- Check the file, but never compute the diff -->
+    <nodiff><%= @config['syscheck']['nodiff'] %></nodiff>
+
+    <skip_nfs><%= @config['syscheck']['skip_nfs'] ? 'yes' : 'no' %></skip_nfs>
+  </syscheck>
+
+  <!-- Log analysis -->
+  <% @config['log_analysis']['localfiles'].each do |localfile| %>
+    <localfile>
+      <log_format><%= localfile[:log_format] %></log_format>
+      <command><%= localfile[:command] %></command>
+      <% if localfile[:alias] %>
+        <alias><%= localfile[:alias] %></alias>
+      <% end %>
+      <frequency><%= localfile[:frequency] %></frequency>
+    </localfile>
+  <% end %>
+
+  <!-- Active response -->
+  <active-response>
+    <disabled><%= @config['active_response']['disabled'] ? 'yes' : 'no' %></disabled>
+    <ca_store><%= @config['active_response']['ca_store'] %></ca_store>
+  </active-response>
+
+  <!-- Choose between "plain", "json", or "plain,json" for the format of internal logs -->
+  <logging>
+    <log_format><%= @config['logging']['log_format'] %></log_format>
+  </logging>
+
+</ossec_config>
+
+<ossec_config>
+
+  <% @config['localfiles'].each do |localfile| %>
+    <localfile>
+      <log_format><%= localfile[:log_format] %></log_format>
+      <location><%= localfile[:location] %></location>
+    </localfile>
+  <% end %>
+
+</ossec_config>

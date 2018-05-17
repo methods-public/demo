@@ -1,0 +1,56 @@
+{
+  "name": "sickrage",
+  "description": "Installs/Configures sickrage",
+  "long_description": "sickrage Cookbook\n=================\n[![Build Status](https://travis-ci.org/som3guy/sickrage.svg?branch=master)](https://travis-ci.org/som3guy/sickrage)\n[![Code Climate](https://codeclimate.com/github/som3guy/sickrage/badges/gpa.svg)](https://codeclimate.com/github/som3guy/sickrage)\n\nThis cookbook will be designed to install and allow you to configure sickrage a well maintained fork of sickbeard.\n\nRequirements\n------------\n### Platforms Supported\n- CentOS, RHEL, Fedora\n\n### Required cookbooks:\n- Git\n- Build Essentials\n- yum-epel\n\n\nAttributes\n----------\nAll Default attributes should work at this point for supported operating systems.\n\n\nUsage\n-----\n#### sickrage::default\n\ne.g.\nJust include `sickrage` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[sickrage]\"\n  ]\n}\n```\n\nLicense and Authors\n-------------------\nAuthors: TODO: Jeremy Miller\n",
+  "maintainer": "Jeremy Miller",
+  "maintainer_email": "jmiller3346@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 6.7",
+    "fedora": ">= 6.7",
+    "redhat": ">= 6.7",
+    "scientific": ">= 6.7"
+  },
+  "dependencies": {
+    "git": "~> 5.0.0",
+    "build-essential": "~> 6.0.4",
+    "yum-epel": "~> 1.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/som3guy/sickrage.git",
+  "issues_url": "https://github.com/som3guy/sickrage/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

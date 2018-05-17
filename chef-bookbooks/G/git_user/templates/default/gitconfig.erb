@@ -1,0 +1,11 @@
+[user]
+  name = <%= @name %>
+  email = <%= @email %>
+
+<% node['git_user']['gitconfig'].each do |config, _settings| -%>
+[<%= config %>]
+<%  node['git_user']['gitconfig'][config].each do |k, v| -%>
+  <%= k %> = <%= v %>
+<%  end -%>
+
+<% end -%>

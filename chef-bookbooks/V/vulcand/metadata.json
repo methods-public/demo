@@ -1,0 +1,54 @@
+{
+  "name": "vulcand",
+  "description": "Installs/Configures vulcand",
+  "long_description": "vulcand Cookbook\n================\nThis cookbook installs and configures Vulcand load-balancer/proxy\n\nRequirements\n------------\n#### Cookbooks\n- `docker` - If the `docker` or `source_docker` install method is chosen\n- `golang` - If the `source` install method is chosen\n\n#### Packages\n- `etcd` - Vulcand use Etcd to store its configuration\n\nAttributes\n----------\n#### vulcand::default\nJSON: `['value']` == `node['vulcand']['value']`\n\n<table>\n  <caption>Docker-specific options</caption>\n  <tr>\n    <th>Resource</th>\n    <th>JSON</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>:vulcand_docker_repo</tt></td>\n    <td><tt>['vulcand_docker_repo']</tt></td>\n    <td>String</td>\n    <td>Docker repo</td>\n    <td><tt>'mailgun/vulcand'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:vulcand_docker_tag</tt></td>\n    <td><tt>['vulcand_docker_tag']</tt></td>\n    <td>String</td>\n    <td>Docker tag to pull</td>\n    <td><tt>'v0.8.0-beta.2'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:golang_docker_repo</tt></td>\n    <td><tt>['golang_docker_repo']</tt></td>\n    <td>String</td>\n    <td>Golang repo for <tt>source_docker</tt></td>\n    <td><tt>'golang'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:golang_docker_tag</tt></td>\n    <td><tt>['golang_docker_tag']</tt></td>\n    <td>String</td>\n    <td>Golang tag for <tt>source_docker</tt></td>\n    <td><tt>'latest'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:bin_path</tt></td>\n    <td><tt>['bin_path']</tt></td>\n    <td>String</td>\n    <td>Bin directory for service</td>\n    <td><tt>'/usr/local/bin'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:conf_dir</tt></td>\n    <td><tt>['conf_dir']</tt></td>\n    <td>String</td>\n    <td>Conf directory for service</td>\n    <td><tt>'/etc/vulcand'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:install_method</tt></td>\n    <td><tt>['install_method']</tt></td>\n    <td>String</td>\n    <td>See Usage section</td>\n    <td><tt>'source_docker'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:src_command</tt></td>\n    <td><tt>['src_command']</tt></td>\n    <td>String</td>\n    <td>Compile command for <tt>source_docker</tt></td>\n    <td>See attributes.rb</td>\n  </tr>\n</table>\n\n<table>\n  <caption>General run options</caption>\n  <tr>\n    <th>Resource</th>\n    <th>JSON</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>:apiInterface</tt></td>\n    <td><tt>['run_opts']['apiInterface']</tt></td>\n    <td>String</td>\n    <td>Interface to for API to bind to</td>\n    <td><tt>'0.0.0.0'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:apiPort</tt></td>\n    <td><tt>['run_opts']['apiPort']</tt></td>\n    <td>String</td>\n    <td>Port to provide api on</td>\n    <td><tt>'8182'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:certPath</tt></td>\n    <td><tt>['run_opts']['certPath']</tt></td>\n    <td>String</td>\n    <td>KeyPair to use (enables TLS)</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:default_listener</tt></td>\n    <td><tt>['run_opts']['default_listener']</tt></td>\n    <td>String</td>\n    <td>Enables the default listener on startup</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:endpointDialTimeout</tt></td>\n    <td><tt>['run_opts']['endpointDialTimeout']</tt></td>\n    <td>String</td>\n    <td>Endpoint dial timeout</td>\n    <td><tt>'5s'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:endpointReadTimeout</tt></td>\n    <td><tt>['run_opts']['endpointReadTimeout']</tt></td>\n    <td>String</td>\n    <td>Endpoint read timeout</td>\n    <td><tt>'50s'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcd</tt></td>\n    <td><tt>['run_opts']['etcd']</tt></td>\n    <td>String</td>\n    <td>Etcd discovery service API endpoints</td>\n    <td><tt>['http://localhost:4001']</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdCaFile</tt></td>\n    <td><tt>['run_opts']['etcdCaFile']</tt></td>\n    <td>String</td>\n    <td>Path to CA file for etcd communication</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdCertFile</tt></td>\n    <td><tt>['run_opts']['etcdCertFile']</tt></td>\n    <td>String</td>\n    <td>Path to cert file for etcd communication</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdConsistency</tt></td>\n    <td><tt>['run_opts']['etcdConsistency']</tt></td>\n    <td>String</td>\n    <td>Etcd consistency</td>\n    <td><tt>'STRONG'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdKey</tt></td>\n    <td><tt>['run_opts']['etcdKey']</tt></td>\n    <td>String</td>\n    <td>Etcd key for storing configuration</td>\n    <td><tt>'vulcand'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdKeyFile</tt></td>\n    <td><tt>['run_opts']['etcdKeyFile']</tt></td>\n    <td>String</td>\n    <td>Path to key file for etcd communication</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:etcdSyncIntervalSeconds</tt></td>\n    <td><tt>['run_opts']['etcdSyncIntervalSeconds']</tt></td>\n    <td>String</td>\n    <td>Interval between updating etcd cluster information. 0 to disable sync</td>\n    <td><tt>0</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:interface</tt></td>\n    <td><tt>['run_opts']['interface']</tt></td>\n    <td>String</td>\n    <td>Interface to bind to</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:log</tt></td>\n    <td><tt>['run_opts']['log']</tt></td>\n    <td>String</td>\n    <td>Logging to use (console, json, syslog or logstash)</td>\n    <td><tt>'console'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:logSeverity</tt></td>\n    <td><tt>['run_opts']['logSeverity']</tt></td>\n    <td>String</td>\n    <td>logs at or above this level to the logging output</td>\n    <td><tt>'warning'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:pidPath</tt></td>\n    <td><tt>['run_opts']['pidPath']</tt></td>\n    <td>String</td>\n    <td>Path to write PID file to</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:port</tt></td>\n    <td><tt>['run_opts']['port']</tt></td>\n    <td>String</td>\n    <td>Port to listen on</td>\n    <td><tt>'8181'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:readTimeout</tt></td>\n    <td><tt>['run_opts']['readTimeout']</tt></td>\n    <td>String</td>\n    <td>HTTP server read timeout</td>\n    <td><tt>'1m0s'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:sealKey</tt></td>\n    <td><tt>['run_opts']['sealKey']</tt></td>\n    <td>String</td>\n    <td>Seal key used to store encrypted data in the backend</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:serverMaxHeaderBytes</tt></td>\n    <td><tt>['run_opts']['serverMaxHeaderBytes']</tt></td>\n    <td>String</td>\n    <td>Maximum size of request headers</td>\n    <td><tt>1048576</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:serverReadTimeout</tt></td>\n    <td><tt>['run_opts']['serverReadTimeout']</tt></td>\n    <td>String</td>\n    <td>HTTP server read timeout</td>\n    <td><tt>'1m0s'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:serverWriteTimeout</tt></td>\n    <td><tt>['run_opts']['serverWriteTimeout']</tt></td>\n    <td>String</td>\n    <td>HTTP server write timeout</td>\n    <td><tt>'1m0s'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:statsdAddr</tt></td>\n    <td><tt>['run_opts']['statsdAddr']</tt></td>\n    <td>String</td>\n    <td>Statsd address in form of 'host:port'</td>\n    <td><tt>nil</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:statsdPrefix</tt></td>\n    <td><tt>['run_opts']['statsdPrefix']</tt></td>\n    <td>String</td>\n    <td>Statsd prefix will be appended to the metrics emitted by this instance</td>\n    <td><tt>nil</tt></td>\n  </tr>\n</table>\n\n<table>\n  <caption>Run options for docker</caption>\n  <tr>\n    <th>Resource</th>\n    <th>JSON</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>:container_name</tt></td>\n    <td><tt>['container_name']</tt></td>\n    <td>String</td>\n    <td>Vulcand container name</td>\n    <td><tt>'vulcand'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:container_port</tt></td>\n    <td><tt>['container_port']</tt></td>\n    <td>String</td>\n    <td>Vulcand container port mapping</td>\n    <td><tt>['8181:8181', '8282:8282']</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:network_mode</tt></td>\n    <td><tt>['network_mode']</tt></td>\n    <td>String</td>\n    <td>Container network mode</td>\n    <td><tt>'host'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>:vulcand_docker_bin</tt></td>\n    <td><tt>['vulcand_docker_bin']</tt></td>\n    <td>String</td>\n    <td>Exec file location inside the container</td>\n    <td><tt>'/go/bin/vulcand'</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### vulcand::default\nInclude `vulcand` in your node's `run_list` to install the software:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[vulcand]\"\n  ]\n}\n```\n\nPossible install options are\n- `docker` - pulls vulcand docker image\n- `source_docker` - makes use of golang docker container to compile and install\nvulcand since many distros don't provide the version of Go fresh enough to compile vulcand\n- `source` - compiles vulcand using the local golang installation\n\n#### vulcand_docker\nCall vulcand_docker from your cookbook to start the docker container\nwith the run options from `node['vulcand']['run_opts']`\n\n#### vulcand_service\nCreate and configure the systemd service for vulcand.\nRequires env vars patch integration (see https://github.com/vulcand/vulcand/pull/286)\n\nContributing\n------------\nTODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.\n\ne.g.\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors:\n  Petr Belyaev <upcfrost@gmail.com>\n",
+  "maintainer": "Petr Belyaev",
+  "maintainer_email": "upcfrost@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "docker": ">= 0.0.0",
+    "golang": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/upcFrost/chef_vulcand_cookbook",
+  "issues_url": "https://github.com/upcFrost/chef_vulcand_cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

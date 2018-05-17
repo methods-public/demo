@@ -1,0 +1,6 @@
+<% conf = {} %>
+<% conf['server'] = node['spac']['server'] %>
+<% conf['port'] = node['spac']['port'] %>
+<% conf['apps'] = node['spac']['apps'] %>
+<%= JSON.pretty_generate(conf) %>
+

@@ -1,0 +1,38 @@
+{
+  "name": "nxredirect-cookbook",
+  "description": "Install and Configure NXRedirect as a Systemd Service",
+  "long_description": "NXRedirect Cookbook\n===================\n\nDescription\n-----------\n\n[NXRedirect][nxredirect] acts as a DNS Proxy which redirects NXDomain\nresponses from a primary DNS server to a fallback. It is primary used to\ncreate split-view architecture where the primary server is internal and the\nfallback is public.\n\nThis cookbook installs and configures [NXRedirect][nxredirect] as a Systemd\nService. It can (by default) also install *Erlang*, a required dependency.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nA *systemd* managed distribution:\n- RHEL Family 7, tested on Centos\n\nNote: it should work quite fine on Debian 8 (with some attributes tuning) but\nthe official docker image does not allow Systemd to work easily, so it could\nnot be tested.\n\nUsage\n-----\n\n### Quick Setup\n\nConfigure `node['nxredirect-cookbook']['config']` following your needs and\nadd `recipe[nxredirect-cookbook]` to your run\\_list.\n\nA common setup is to collocate [NXRedirect][nxredirect] and a DNS server like\nBind. An example of this setup is presented in [.kitchen.yml](.kitchen.yml) as\nthe first suite.\n\n### Test\n\nThis cookbook is fully tested through test-kitchen and docker.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nExecute the following recipes on a node if\n`node['nxredirect-cookbook']['servers']` is empty or contains its hostname.\n\n### erlang\n\nInstall Erlang from Erlang Solutions repository.\n\n### install\n\nInstall [NXRedirect][nxredirect] in `node['nxredirect-cookbook']['bin']`.\n\n### service\n\nAdd and configure Systemd service for [NXRedirect][nxredirect].\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2016 Sam4Mobile, 2017 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[nxredirect]: https://gitlab.com/samuel.bernard/nxredirect\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.1"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.0",
+  "source_url": "https://gitlab.com/chef-platform/nxredirect-cookbook",
+  "issues_url": "https://gitlab.com/chef-platform/nxredirect-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.9"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

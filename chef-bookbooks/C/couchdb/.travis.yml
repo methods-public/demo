@@ -1,0 +1,17 @@
+language: ruby
+bundler_args: --without guard integration
+rvm:
+  - 2.1.9
+  - 2.3.1
+  - 2.4.1
+before_install:
+  - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+before_script:
+  - bundle install
+script:
+  - bundle exec $TARGET
+env:
+  matrix:
+    - TARGET="rake"
+#    - TARGET="kitchen test source-centos-73"
+#    - TARGET="kitchen test threenodes-centos-73"

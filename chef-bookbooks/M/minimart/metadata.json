@@ -1,0 +1,59 @@
+{
+  "name": "minimart",
+  "description": "Installs/Configures minimart supermarket",
+  "long_description": "# Minimart Cookbook\n\nInstall minimart supermarket for chef cookbooks\n\nhttps://github.com/electric-it/minimart\n\n## Requirements\n\n* Chef 12+\n* Centos 7\n\n## How it's working?\n\nCookbook parse list of tags from repos and generate berks compatible repository\n\nSo you should specify tags for your release commits\n\n```\ngit commit -m \"refactoring\"\n\ngit push\n\ngit tag -a v0.3.2 -m \"version 0.3.2\"\n\ngit push --tags\n```\n\nNext chef run will download tagged cookbook version\n\n## TODO\n\nA lot of things :)\n",
+  "maintainer": "Andrii Veklychev",
+  "maintainer_email": "wzooff@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ruby_rbenv": "~> 1.1.0",
+    "ruby_build": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "minimart::default": "Install everything :)",
+    "minimart::_minimart": "Install minimart supermarket gem and dependencies",
+    "minimart::_repository": "Configures, creates repository and fetch cookbooks",
+    "minimart::_web": "Configures Nginx as a server for supermarket"
+  },
+  "version": "0.4.4",
+  "source_url": "https://github.com/wzooff/minimart-cookbook",
+  "issues_url": "https://github.com/wzooff/minimart-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+    [
+      "git"
+    ]
+  ]
+}

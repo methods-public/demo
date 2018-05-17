@@ -1,0 +1,11 @@
+.coverage/
+metadata.json
+*.lock
+.kitchen/
+.kitchen.local.yml
+*.swp
+checkstyle.xml
+Vagrantfile
+
+#IDE
+.idea

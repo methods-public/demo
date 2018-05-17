@@ -1,0 +1,38 @@
+{
+  "name": "windows_schannel",
+  "description": "Configures windows schannel security support provider (SSP). Use it to disable support for the protocols like SSL and the RC4 Cipher. One step towards meeting CIS PCI FIPS compliance.",
+  "long_description": "Windows Schannel Cookbook\n=========================\n\nDescription\n-------------\nA cookbook to configure the windows Secure Channel [(Schannel)](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380123) security support provider (SSP).\nThis SSP contains a set of security protocols and ciphers suites commonly used for HTTPS communications.  Many of the microsoft provided services and 3rd party software make use of Schannel for their communication so by removing support for a given protocol, removes it for all components.\n\nThis can be a double-edge sword, restricting a protocol might be fine for one service and end up breaking another.\n\nAlways make sure you __test__ these settings __before__ deploying into __production__ as you could end up __shooting yourself in the foot__\n\nUsing this cookbook should help improve your security posture for the following microsoft services and help towards meeting regulatory compliance (PCI CIS FIPS) \n\n* Internet Information Services (IIS)\n* Microsoft Remote Desktop (RDP) _when configured to use TLS_\n* LDAPS (Active Directory)\n* Global Catalog SSL (Active Directory)\n* WinRM/HTTPS (Windows Remote Management)\n\nTODO : Insert image of external scan before and after.\n\nSupport for managing the following\n----------------\n### Protocols\n+ Transport Layer Security (TLS) - v1.0, v1.1, v1.2\n+ Secure Socket Layer (SSL) - v2.0, v3.0\n+ Private Communications Technology (PCT) - v1.0\n\n### Cipher Suites\n+ NULL, DES, RC2, RC4, 3DES, AES\n\n### Hashes\n+ MD5, SHA\n\n### Key Exchanges\n+ Diffie-Hellman (DH)\n\nRequirements\n------------\n#### Platforms\n* Windows Server 2008 (R1, R2)\n* Windows Server 2012 (R1, R2)\n\nAttributes\n----------\n* `node['windows_schannel']['allow_reboot']` = `false` \n_changes made to protocols won't take affect until after a restart, this doesn't apply to ciphers and hashes. The default is false change this to true to initiate a reboot after the run._\n\nOther than the `allow_reboot` attribute all the others are controlled by either setting it to either `enable` or `disable`\n_this is CaSe Sensitive_\n\n#### Protocols\n* `node['windows_schannel']['pct_v1.0']` = `disable`\n* `node['windows_schannel']['ssl_v2.0']` = `disable`\n* `node['windows_schannel']['ssl_v3.0']` = `disable`\n* `node['windows_schannel']['tls_v1.0']` = `enable`\n* `node['windows_schannel']['tls_v1.1']` = `enable`\n* `node['windows_schannel']['tls_v1.2']` = `enable`\n\n#### Ciphers\n* `node['windows_schannel']['cipher_null']` = `disable`\n* `node['windows_schannel']['cipher_des']` = `disable`\n* `node['windows_schannel']['cipher_rc2']` = `disable`\n* `node['windows_schannel']['cipher_rc4']` = `disable`\n* `node['windows_schannel']['cipher_3des']` = `enable`\n* `node['windows_schannel']['cipher_aes']` = `enable`\n\n#### Hashes\n* `node['windows_schannel']['hash_md5']` = `enable`\n* `node['windows_schannel']['hash_sha']` = `enable`\n\n#### Key Exchanges\n* `node['windows_schannel']['keyEx_dh']` = `enable`\n\nLicense & Authors\n-----------------\n- Author:: Gary Bright (<digitalgaz@hotmail.com>)\n\n```text\nCopyright 2017, Gary Bright\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```",
+  "maintainer": "digitalgaz",
+  "maintainer_email": "digitalgaz@hotmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/digitalGaz/windows_schannel",
+  "issues_url": "https://github.com/digitalGaz/windows_schannel/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,24 @@
+dependencies: 
+  - recipe: hops::ndb
+    global:  
+      - ndb::mysqld
+  - recipe: hops::nn
+    local:  
+      - hops::ndb
+  - recipe: hops::rm
+    local:  
+      - hops::ndb
+    global:  
+      - hops::dn
+  - recipe: hops::dn
+    global:  
+      - hops::nn
+  - recipe: hops::nm
+    global:  
+      - hops::rm
+  - recipe: hops::jhs
+    global:  
+      - hops::dn
+  - recipe: hops::client
+    global:  
+      - hops::nn

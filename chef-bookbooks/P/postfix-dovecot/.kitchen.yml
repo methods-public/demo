@@ -1,0 +1,86 @@
+---
+driver:
+  name: vagrant
+  network:
+  - ["forwarded_port", {guest: 80, host: 8080, auto_correct: true}]
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+  # client_rb:
+  #   treat_deprecation_warnings_as_errors: true # WiP on some depends
+
+platforms:
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-16.04
+  run_list: recipe[apt]
+- name: ubuntu-16.10
+  run_list: recipe[apt]
+- name: debian-7.11
+  run_list: recipe[apt]
+- name: debian-8.6
+  run_list: recipe[apt]
+- name: centos-6.8
+  run_list: recipe[selinux::disabled]
+- name: centos-7.3
+  run_list: recipe[selinux::disabled]
+- name: fedora-23
+- name: fedora-24
+  run_list: recipe[selinux::disabled]
+- name: fedora-25
+  run_list: recipe[selinux::disabled]
+
+suites:
+- name: mysql
+  run_list:
+  - recipe[minitest-handler]
+  - recipe[postfix-dovecot_test]
+  excludes:
+  # mysql: No candidate version available for mysql-community-server
+  - centos-7
+  # postfix-full: Starting Postfix Mail Transport Agent: postfix failed
+  - debian-7
+  # postfix-full: * Starting Postfix Mail Transport Agent postfix ...fail!
+  - ubuntu-12.04
+  # postfix-full: * Starting Postfix Mail Transport Agent postfix ...fail!
+  - ubuntu-14.04
+  # apache2: No candidate version available for libapache2-mod-php5
+  - ubuntu-16.04
+  # mysql: undefined method `split' for nil:NilClass
+  - ubuntu-16.10
+  # spamassassin: cpio: cap_set_file failed - Operation not supported
+  - scientific-7.2
+- name: postgresql
+  excludes:
+  - amazon-2011.02.1
+  - amazon-2013.09.2
+  # apache2: cpio: cap_set_file failed - Operation not supported
+  - centos-7
+  # postfix-full: Starting Postfix Mail Transport Agent: postfix failed
+  - debian-7
+  # postfix-full: * Starting Postfix Mail Transport Agent postfix ...fail!
+  - ubuntu-12.04
+  # postfix-full: * Starting Postfix Mail Transport Agent postfix ...fail!
+  - ubuntu-14.04
+  # apache2: No candidate version available for libapache2-mod-php5
+  - ubuntu-16.04
+  # php: No candidate version available for php5-cgi
+  - ubuntu-16.10
+  # spamassassin: cpio: cap_set_file failed - Operation not supported
+  - scientific-7.2
+  run_list:
+  - recipe[minitest-handler]
+  - recipe[postfix-dovecot_test]
+  attributes:
+    postfix-dovecot:
+      database:
+        type: postgresql
+- name: postfixpgsql
+  excludes:
+  - amazon-2011.02.1
+  - amazon-2013.09.2
+  run_list:
+  - recipe[postfix-dovecot_test::postfix_postgresql]

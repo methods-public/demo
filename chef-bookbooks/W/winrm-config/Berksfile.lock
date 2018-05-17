@@ -1,0 +1,15 @@
+DEPENDENCIES
+  winrm-config
+    path: .
+    metadata: true
+  winrm-config-test
+    path: test/cookbooks/winrm-config-test
+
+GRAPH
+  chef_handler (1.2.0)
+  windows (1.38.3)
+    chef_handler (>= 0.0.0)
+  winrm-config (0.2.2)
+    windows (~> 1.38)
+  winrm-config-test (0.1.0)
+    winrm-config (>= 0.0.0)

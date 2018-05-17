@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - metadata.rb
+    - Rakefile
+    - Berksfile
+    - Vagrantfile
+    - Thorfile
+    - Gemfile
+    - '.kitchen/*'
+    - 'spec/**/*'
+    - 'vendor/**/*'
+    - 'test/**/metadata.rb'
+
+Metrics/LineLength:
+  Max: 200
+
+Style/GlobalVars:
+  AllowedVariables: ['$node']

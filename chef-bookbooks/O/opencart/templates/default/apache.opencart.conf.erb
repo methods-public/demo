@@ -1,0 +1,22 @@
+Listen <%=node['opencart']['http_port']%>
+
+<VirtualHost <%=node['opencart']['hostname']%>:<%=node['opencart']['http_port']%>>
+	DirectoryIndex index.php
+
+	<Directory />
+      #Options +ExecCGI
+			#AddHandler fcgid-script .php
+			#FCGIWrapper /usr/lib/cgi-bin/php5 .php
+	  	Require all granted
+  </Directory>
+
+	ServerAdmin <%=node['opencart']['webmaster_email']%>
+	DocumentRoot <%="#{node['opencart']['home_dir']}/releases/#{node['opencart']['release']}/upload"%>
+  #ServerName localhost
+	PHPINIDir <%="#{node['opencart']['home_dir']}/#{node['opencart']['release']}/config/php.ini"%>
+	#ErrorLog ${APACHE_LOG_DIR}/error.log
+	#CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet

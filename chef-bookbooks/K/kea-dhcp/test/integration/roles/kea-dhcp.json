@@ -1,0 +1,106 @@
+{
+  "name": "kea-dhcp",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "kea-dhcp": {
+      "servers": ["server-centos-7"],
+      "services": {
+        "dhcp4": true,
+        "dhcp6": false,
+        "dhcp-ddns": false
+      },
+      "kea-conf": {
+        "Dhcp4": {
+          "interfaces-config": {
+            "interfaces": ["eth1"]
+          },
+          "subnet4": [
+            {
+              "subnet": "10.0.0.0/16",
+              "pools": [{ "pool": "10.0.1.2 - 10.0.127.240" }]
+            }
+          ],
+          "option-def": [
+            {
+              "name": "classless-static-routes",
+              "code": 121,
+              "space": "dhcp4",
+              "type": "record",
+              "record-types": "uint8, uint8, uint8, ipv4-address"
+            }
+          ],
+          "option-data": [
+            {
+              "name": "classless-static-routes",
+              "data": "16, 10, 254, 10.0.0.1"
+            }
+          ]
+        },
+        "Logging": {
+          "loggers": [
+            {
+              "name": "kea-dhcp4",
+              "output_options": [
+                {
+                  "output": "/var/log/kea-dhcp4-role.log",
+                  "maxver": 8,
+                  "maxsize": 204800,
+                  "flush": true
+                }
+              ],
+              "severity": "DEBUG",
+              "debuglevel": 10
+            }
+          ]
+        }
+      },
+      "network-interface": [
+        {
+          "device": "eth0"
+        }
+      ],
+      "routes": {
+        "eth1": [
+          "10.1.0.0/16 via 10.0.0.1 dev eth1",
+          "10.2.0.0/16 via 10.0.0.1 dev eth1"
+        ]
+      },
+      "client-config": {
+        "network-interface": [
+          {
+            "device": "eth1",
+            "bootproto": "dhcp\"\nLINKDELAY=\"30"
+          }
+        ]
+      },
+      "server-config": {
+        "network-interface": [
+          {
+            "device": "eth1",
+            "bootproto": "static",
+            "address": "10.0.1.1",
+            "netmask": "255.255.0.0"
+          }
+        ]
+      },
+      "exporter": {
+        "timer_unit": {
+          "Timer": {
+            "OnCalendar": "*:0/1"
+          }
+        }
+      }
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[kea-dhcp]",
+    "recipe[kea-dhcp::exporter]"
+  ],
+  "env_run_lists": {
+
+  }
+}

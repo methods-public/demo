@@ -1,0 +1,1 @@
+default[:skype][:source] = 'http://www.skype.com/go/getskype-msi/SkypeSetup.msi'

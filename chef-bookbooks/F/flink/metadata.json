@@ -1,0 +1,181 @@
+{
+  "name": "flink",
+  "description": "Installs/Configures Standalone Apache Flink",
+  "long_description": "Apache Flink Cookbook\n==============\nThis chef cookbook installs Apache Flink on DataNodes/NodeManagers in an Apache YARN environment,\nincluding both flink-config.yml and jar files. The cookbook also provides PaaS support in the\nHops Dashboard.\n",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@sics.se",
+  "license": "Apache v 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apache_hadoop": ">= 0.0.0",
+    "hops": ">= 0.0.0",
+    "kagent": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/user": {
+      "description": "Username to run flink jobmgr/task as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/group": {
+      "description": "Groupname to run flink jobmgr/task as",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/mode": {
+      "description": "Run Flink JobManager in one of the following modes: BATCH, STREAMING",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/jobmanager/heap_mbs": {
+      "description": "Flink JobManager Heap Size in MB",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/taskmanager/heap_mbs": {
+      "description": "Flink TaskManager Heap Size in MB",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/dir": {
+      "description": "Root directory for flink installation",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/taskmanager/num_taskslots": {
+      "description": "Override the default number of task slots (default = NoOfCPUs)",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "flink/hadoop/distribution": {
+      "description": "apache_hadoop (default) or hops",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "install": "Installs Apache Flink",
+    "jobmanager": "Starts a Flink JobManager in standalone mode",
+    "yarn": "Sets up flink for running on YARN",
+    "taskmanager": "Starts a Flink Slave in standalone mode",
+    "wordcount": "Prepares wordcount example using HDFS",
+    "purge": "Remove and delete Flink"
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/hopshadoop/flink-chef",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

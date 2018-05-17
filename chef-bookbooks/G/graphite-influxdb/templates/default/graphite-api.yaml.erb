@@ -1,0 +1,43 @@
+######################################################
+# This file is managed by chef - Do not edit by hand #
+######################################################
+
+search_index: <%= @node['graphite_api']['search_index'] %>
+time_zone: <%= @node['graphite_api']['time_zone'] %>
+finders:
+  <% @node['graphite_api']['finders'].each do |finder| -%>
+  - <%= finder %>
+  <% end -%>
+
+functions:
+  <% @node['graphite_api']['functions'].each do |function| -%>
+  - <%= function %>
+  <% end -%>
+
+<% if @node['graphite_api']['whisper']['enabled'] == true -%>
+whisper:
+  directories:
+    <% @node['graphite_api']['whisper']['directories'].each do |directory| -%>
+    - <%= directory %>
+    <% end -%>
+<% end -%>
+
+<% if @node['graphite_influxdb']['influxdb']['enabled'] == true -%>
+influxdb:
+  host: <%= @node['graphite_influxdb']['influxdb']['host'] %>
+  port: <%= @node['graphite_influxdb']['influxdb']['port'] %>
+  user: <%= @node['graphite_influxdb']['influxdb']['user'] %>
+  pass: <%= @node['graphite_influxdb']['influxdb']['pass'] %>
+  db: <%= @node['graphite_influxdb']['influxdb']['db'] %>
+  ssl: <%= @node['graphite_influxdb']['influxdb']['ssl'] %>
+  schema:
+    <% @node['graphite_influxdb']['influxdb']['schema'].each do |schema| -%>
+    - ['<%= schema[0] %>', <%= schema[1] %>]
+    <% end -%>
+<% end -%>
+
+<% if @node['graphite_api']['cache']['enabled'] == true -%>
+cache:
+  type: <%= @node['graphite_api']['cache']['type'] %>
+  dir: <%= @node['graphite_api']['cache']['dir'] %>
+<% end -%>

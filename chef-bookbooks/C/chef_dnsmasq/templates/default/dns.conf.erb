@@ -1,0 +1,16 @@
+<% @variables.each do |k, v| -%>
+<% case v -%>
+<% when TrueClass -%>
+<%= k %>
+<% when Array, Hash, Mash -%>
+<% if k == "address" -%>
+<%= k %>=<% v.each do |addr, host| -%>/<%= host.join('/') -%>/<%= addr %>
+<% v.each do |e| -%>
+<%= k %>=<%= e %>
+<% end -%>
+<% end -%>
+<% else -%>
+<%= k %>=<%= v %>
+<% end -%>
+<% end -%>
+<% end -%>

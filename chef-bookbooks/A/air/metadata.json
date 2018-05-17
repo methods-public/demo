@@ -1,0 +1,39 @@
+{
+  "name": "air",
+  "description": "Installs/Configures Adobe AIR",
+  "long_description": "# AIR Cookbook\n\n[![Cookbook Version](http://img.shields.io/cookbook/v/air.svg?style=flat-square)][supermarket]\n[![Build Status](http://img.shields.io/travis/dhoer/chef-air.svg?style=flat-square)][travis]\n\n[supermarket]: https://supermarket.chef.io/cookbooks/air\n[travis]: https://travis-ci.org/dhoer/chef-air\n\nInstalls/Configures Adobe AIR Runtime and AIR Application (if path specified).\n\nPlease submit a Pull Request if you would like to add support for Mac OS X, Linux, SDK, or ARH.\n\n## Requirements\n\n- Chef 11+\n\n### Platforms\n\n- Windows\n\n### Cookbooks\n\n- windows\n\n## Usage\n\nBy including this cookbook in a recipe or a run list, your organization has agreed to the \n[Adobe end-user license agreement (EULA)](http://www.adobe.com/products/eula/tools/flashplayer_usage.html).\n\n### Attributes\n* `node['air']['update_disabled']` - Disable the AIR update feature.  Default `false`.\n* `node['air']['path']` - Specifies the URI to the AIR file to install. The AIR application \ninstaller installs the correct version of Adobe AIR on the target computer, as required by the AIR application \nto be installed. To install or update the runtime only, don't specify a path.\n* `node['air']['pingback_allowed']` - Allows the installer to check for updates to the AIR runtime and report a \nsuccessful install to Adobe over the Internet. No identifying information is transmitted.  Ignored if path \nattribute is not specified. Default `true`.\n* `node['air']['location']` - Provides the location (an absolute file system path) to install the AIR \napplication. The default location is the standard application installation location. Ignored if path attribute\nis not specified.\n* `node['air']['desktop_shortcut']` - Install a desktop shortcut for the installed AIR application. Ignored if\npath attribute is not specified. Default `true`.\n* `node['air]['program_menu']` - Install a program menu shortcut for the installed application \n(on Windows). Ignored if path attribute is not specified. Default `true`.\n\n### Examples\n\nInstall Adobe AIR Runtime only\n\n```ruby\ninclude_recipe 'air'\n```\n\nInstall Adobe AIR Runtime, Bee [sample app](http://www.adobe.com/devnet/air/samples_javascript.html), and disable \nAIR updates\n\n```ruby\nnode.set['air']['path'] = 'http://download.macromedia.com/pub/developer/air/sample_apps/Bee.air'\nnode.set['air']['location'] = 'C:\\air\\sample_apps' \nnode.set['air']['update_disabled'] = true\n        \ninclude_recipe 'air'\n```\n\n## Getting Help\n\n- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/air).\n- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-air/issues).\n\n## Contributing\n\nPlease refer to [CONTRIBUTING](https://github.com/dhoer/chef-air/blob/master/CONTRIBUTING.md).\n\n## License\n\nMIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-air/blob/master/LICENSE.md) file for details.\n",
+  "maintainer": "Dennis Hoer",
+  "maintainer_email": "dennis.hoer@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": "~> 1.39"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0"
+}

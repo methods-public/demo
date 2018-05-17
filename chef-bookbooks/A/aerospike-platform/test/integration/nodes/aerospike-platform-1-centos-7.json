@@ -1,0 +1,8 @@
+{
+  "id": "aerospike-platform-01-centos-7",
+  "run_list": [ "role[aerospike-platform-kitchen]" ],
+  "automatic": {
+    "fqdn": "aerospike-platform-01-centos-7",
+    "roles": ["aerospike-platform-kitchen"]
+  }
+}

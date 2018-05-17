@@ -1,0 +1,9 @@
+{
+  "id": "auser",
+  "comment": "A user",
+  "groups": [ "kitchenusers" ],
+  "uid": 2001,
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAw== auser_fakekey"
+  ]
+}

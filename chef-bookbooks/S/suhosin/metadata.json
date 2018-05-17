@@ -1,0 +1,45 @@
+{
+  "name": "suhosin",
+  "description": "Installs/Configures suhosin",
+  "long_description": "",
+  "maintainer": "Yosuke INOUE",
+  "maintainer_email": "inoue@fieldweb.co.jp",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0",
+    "apache2": ">= 0.0.0",
+    "php": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.2",
+  "source_url": "",
+  "issues_url": ""
+}

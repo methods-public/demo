@@ -1,0 +1,56 @@
+{
+  "name": "h2o",
+  "description": "Installs/Configures h2o",
+  "long_description": "H2O Cookbook\n============\n\nInstalls/configures [H2O][h2o].\n\n[![Supermarket](https://img.shields.io/cookbook/v/h2o.svg?style=flat-square)][supermarket]\n[![Travis](https://img.shields.io/travis/linyows/h2o-cookbook.svg?style=flat-square)][travis]\n[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)][license]\n\n[h2o]: https://github.com/h2o/h2o\n[travis]: https://travis-ci.org/linyows/h2o-cookbook\n[supermarket]: https://supermarket.chef.io/cookbooks/h2o\n[license]: https://github.com/linyows/h2o-cookbook/blob/master/LICENSE\n\nUsage\n-----\n\nsee attributes/default.rb\n\n```ruby\ninclude_recipe 'h2o'\n```\n\nRecipeDSL\n---------\n\nTODO...\n\nContributing\n------------\n\nBug reports and pull requests are welcome on GitHub at https://github.com/linyows/h2o-cookbook.\n\nLicense and Author\n------------------\n\nMIT License\n\n- [linyows][linyows]\n\n[linyows]: https://github.com/linyows\n\n",
+  "maintainer": "linyows",
+  "maintainer_email": "linyows@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0",
+    "cmake": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "h2o": "Installs and configures h2o"
+  },
+  "version": "0.4.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

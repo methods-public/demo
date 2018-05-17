@@ -1,0 +1,65 @@
+{
+  "name": "encrypted_volume",
+  "description": "Installs/Configures encrypted_volume",
+  "long_description": "encrypted_volume Cookbook\n=========================\nEncrypt your disks! Onetime, persist reboots and be restricted to host, or\npersist and possibly be mountable on different hosts.\n\nAttributes\n----------\n\n#### encrypted_volume::default\n * vault - name of default `chef-vault` vault; where we keep the\n   passphrases\n * mounts - hash of any mounts to encrypt. if you don't wish to use\n   the LWRP\n   \n#### LWRP\n\n * mount_point - name_attribute - where you want to mount your volume\n   to\n * volume - volume you want to encrypt and mount\n * fstype - filesystem to use for volume - default: ext2\n * mount_options - any special mount(5) options - default: rw\n * mode - normal, or onetime. Onetime does not save the key anywhere,\n   effectively making the mount usable for one boot\n * vault - what `chef-vault` to store/get passphrase in/from\n * vault_tag - what `chef-vault` item to store/get the passphrase\n   in/from. By default we generate this so that it belongs to the\n   host. This means you can reboot to your heart's content and use the\n   mount. Setting it to a pre-created vault item is useful for volumes\n   you might need to move between hosts, like EBS mounts.\n * passphrase - don't use except for testing. I'm looking at you Dave.\n\nUsage\n-----\n#### encrypted_volume::default\n\nIf you wish to encrypt volumes based on configuration, without using\nthe LWRP. Just include `encrypted_volume` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[encrypted_volume]\"\n  ],\n  \"default_attributes\":{\n    \"encrypted_volume\":{\n      \"mounts\":{\n        \"/encrypted\":{\n        \"volume\":\"/dev/sda2\",\n        \"fstype\":\"ext2\"\n      }\n    }\n  }\n}\n```\n\n#### LWRP\n\n```ruby\nencrypted_volume \"/encrypted\" do\n  volume      \"/raw_test_volume.img\"\n  fstype      \"ext3\"\nend\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: Jason Rohwedder <jro@risk.io>\n",
+  "maintainer": "Risk I/O",
+  "maintainer_email": "jro@risk.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "arch": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-vault": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "vault": {
+      "display_name": "Vault",
+      "description": "Default chef-vault Vault to store/fetch passphrases from",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "mounts": {
+      "display_name": "Mounts",
+      "description": "Hash of volumes to encrypt and mount",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

@@ -1,0 +1,53 @@
+{
+  "name": "fb_ethers",
+  "description": "Installs/Configures /etc/ethers",
+  "long_description": "fb_ethers Cookbook\n====================\nThis cookbook configures `/etc/ethers` and provides an API for modifying all\naspects of the `/etc/ethers` file.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_ethers']['entries']\n\nUsage\n-----\nAdd MAC address to hostname mappings using the `node['fb_ethers']['entries']`\nattribute. Example:\n\n    node.default['fb_ethers']['entries'] = {\n      'fc:15:b4:8f:3b:34' => 'foo01',\n      '94:de:80:69:dc:01' => 'foo02',\n      '50:e5:49:2f:75:c6' => 'foo03',\n    }\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

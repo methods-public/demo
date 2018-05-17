@@ -1,0 +1,187 @@
+#
+# Copyright (c) 2015-2017 Sam4Mobile, 2017-2018 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Config initialization
+include_recipe "#{cookbook_name}::init"
+config = node.run_state[cookbook_name]['config']
+
+# Load our library
+::Chef::Recipe.send(:include, BindDdns)
+::Chef::Resource.send(:include, BindDdns)
+
+# Keep track of any key files
+key_files = []
+
+# Write key files
+config['keys'].each do |key|
+  key = key.dup
+  key['algorithm'] ||= config['default_key_algorithm']
+  filename = "named-#{key['name'].tr('.', '-')}.key"
+
+  template ::File.join(config['config_dir'], filename) do
+    source 'key.erb'
+    owner config['user']
+    group config['user']
+    mode '0644'
+    variables 'key' => key
+    notifies :run, 'execute[named-checkconf]', :delayed
+  end
+
+  key_files << filename
+end
+
+# Write named configuration
+named_conf = ::File.join(config['config_dir'], 'named.conf')
+
+template named_conf do
+  source 'named.conf.erb'
+  mode '0644'
+  variables(
+    'options' => config['options'],
+    'channels' => config['channels'],
+    'statistics_channels' => config['statistics-channels'],
+    'categories' => config['categories'],
+    'zones' => config['zones'],
+    'included_files' => config['default_files'].dup +
+      config['included_files'] + key_files,
+    'config_dir' => config['config_dir']
+  )
+  notifies :run, 'execute[named-checkconf]', :delayed
+end
+
+# Write zone files
+config['zones'].each do |zone| # rubocop:disable Metrics/BlockLength
+  # Check configuration completeness
+  prefix = "#{cookbook_name}::#{recipe_name}: zone #{zone['name']}:"
+
+  %w[name config].each do |field|
+    raise "#{prefix} mandatory field '#{field}' is nil" if zone[field].nil?
+  end
+
+  # We need the type
+  if zone['config']['type'].nil?
+    raise "#{prefix} mandatory field 'config/#{field}' is nil"
+  end
+
+  # file entry is mandatory for master and hint and optional - but highly
+  # recommended - for slave and not required for forward zones.
+  if %w[master hint].include?(zone['config']['type'])
+    if zone['config']['file'].nil?
+      raise "#{prefix} mandatory field 'config/#{field}' is nil"
+    end
+  # We can quit this block if there is no zone file (slave or forward type)
+  elsif zone['config']['file'].nil?
+    next
+  end
+
+  # For a master zone, we need A and NS records
+  if zone['config']['type'] == 'master'
+    # special case for reverse master zone
+    is_arpa = zone['name'].chomp('.').split('.').last.casecmp('arpa')
+
+    %w[ns a].each do |field|
+      next if field == 'a' && is_arpa
+      raise "#{prefix} mandatory field '#{field}' is nil" if zone[field].nil?
+    end
+
+    # NS entries must have a match in A records
+    unless is_arpa || zone['ns'].map { |ns| zone['a'].keys.include?(ns) }.all?
+      raise "#{prefix} some nameservers defined in 'ns' does not" \
+        'have a corresponding A entry'
+    end
+
+    raise "No nameserver defined for zone #{zone['name']}" if zone['ns'].empty?
+  end
+
+  filename = zone['config']['file'].gsub(/\'|\"/, '')
+  filepath = ::File.join(config['var_dir'], filename)
+
+  rndc = node[cookbook_name]['rndc_bin']
+  status = Mixlib::ShellOut.new("#{rndc} status")
+  z_exists = if ::File.exist?('/etc/rndc.key') && ::File.exist?(filepath)
+               status.run_command
+               !status.error?
+             else false
+             end
+
+  # Freeze and reload the zone if it exists (condition in notifies)
+  execute "freeze #{zone['name']}" do
+    command "#{rndc} freeze #{zone['name']}"
+    action :nothing
+  end
+
+  execute "restart #{zone['name']}" do
+    command "#{rndc} reload #{zone['name']} && #{rndc} thaw #{zone['name']}"
+    action :nothing
+  end
+
+  # Change the serial only if the rest has changed
+  template filename do
+    path filepath
+    source "#{filepath}.erb"
+    local true
+    owner config['user']
+    group config['user']
+    mode '0644'
+    variables serial: zone['serial'] || Time.now.to_i
+    action :nothing
+  end
+
+  # Remove zone journal if named is stopped and the zone has been modified
+  file "#{filepath}.jnl" do
+    action :nothing
+  end
+
+  default = config['zones_default']
+
+  # Create a template with everything except the serial
+  next if zone['name'] == '"." IN'
+
+  template "#{filepath}.erb" do
+    source 'zone.erb'
+    owner config['user']
+    group config['user']
+    mode '0644'
+    variables(
+      lazy do
+        {
+          'global_ttl' => zone['global_ttl'] || default['global_ttl'],
+          'contact' => zone['contact'] || 'hostmaster',
+          'ns' => zone['ns'],
+          'a' => hash_resolve_iface(zone['a']),
+          'ptr' => zone['ptr'] || [],
+          'refresh' => zone['refresh'] || default['refresh'],
+          'retry' => zone['retry'] || default['retry'],
+          'expire' => zone['expire'] || default['expire'],
+          'negcachettl' => zone['negcachettl'] || default['negcachettl'],
+          'extra_records' => zone['extra_records'] || default['extra_records']
+        }
+      end
+    )
+    notifies :delete, "file[#{filepath}.jnl]", :immediately unless z_exists
+    notifies :run, "execute[freeze #{zone['name']}]", :immediately if z_exists
+    notifies :create, "template[#{filename}]", :immediately
+
+    notifies :run, "execute[restart #{zone['name']}]", :immediately if z_exists
+    notifies :run, 'execute[named-checkconf]', :delayed
+  end
+end
+
+# Check if the configuration is OK
+execute 'named-checkconf' do
+  command "/usr/sbin/named-checkconf -z #{named_conf}"
+  action :nothing
+end

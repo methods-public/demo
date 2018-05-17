@@ -1,0 +1,61 @@
+{
+  "name": "firewall_rules",
+  "description": "Configures firewall rules through attributes.",
+  "long_description": "# Firewall Rules\n\nConfigures firewall rules through attributes. Wraps the [firewall cookbook](https://supermarket.chef.io/cookbooks/firewall#berkshelf).\n\n## Supports:\n\n- amazon\n- centos\n- debian\n- fedora\n- oracle\n- redhat\n- scientific\n- ubuntu\n- windows\n\n## Usage\n\n### firewall_rules::default\n\nJust include `firewall_rules` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[firewall_rules]\"\n  ]\n}\n```\n\n\n## Attributes \n\n### Rules:\n\nDefine firewall rules.\n\nDefault Value: \n\n- `[]`\n\nRuby usage:\n\n```ruby\nnode['firewall']['rules'] = [\n    \"http\" => [\n      \"port\" => 80,\n      \"protocol\" => \"tcp\",\n      \"command\" => \"allow\"\n    ],\n    \"https\" => [\n      \"port\" => 443,\n      \"protocol\" => \"tcp\",\n      \"command\" => \"allow\"\n    ],\n    \"nrpe\" => [\n      \"port\" => 5666,\n      \"protocol\" => \"tcp\",\n      \"command\" => \"allow\"\n    ]\n]\n```\n\nJSON usage:\n\n```json\n{\n  \"firewall\": {\n    \"rules\": {\n        \"http\": {\n          \"port\": 80,\n          \"protocol\": \"tcp\",\n          \"command\": \"allow\"\n        },\n        \"https\": {\n          \"port\": 443,\n          \"protocol\": \"tcp\",\n          \"command\": \"allow\"\n        },\n        \"nrpe\": {\n          \"port\": 5666,\n          \"protocol\": \"tcp\",\n          \"command\": \"allow\"\n        }\n    }\n  }\n}\n```\n\n\n### Allow VRRP:\n\nAllow the VRRP protocol.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['firewall']['allow_vrrp'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"firewall\": {\n    \"allow_vrrp\": true\n  }\n}\n```\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "firewall": ">= 2.6.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/MelonSmasher/chef_firewall_rules",
+  "issues_url": "https://github.com/MelonSmasher/chef_firewall_rules/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

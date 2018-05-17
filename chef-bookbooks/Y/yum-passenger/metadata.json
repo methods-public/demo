@@ -1,0 +1,44 @@
+{
+  "name": "yum-passenger",
+  "description": "Installs/Configures yum-passenger",
+  "long_description": "Installs/Configures yum-passenger",
+  "maintainer": "Jason Barnett",
+  "maintainer_email": "chef@mynameisjason.com",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": "~> 3.2"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": ""
+}

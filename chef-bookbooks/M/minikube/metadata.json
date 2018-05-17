@@ -1,0 +1,40 @@
+{
+  "name": "minikube",
+  "description": "Installs/Configures minikube",
+  "long_description": "Installs/Configures minikube",
+  "maintainer": "Dave Newman",
+  "maintainer_email": "newman.de+minikub@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "ubuntu": ">= 16.04"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/davidnewman/chef_minikube",
+  "issues_url": "https://github.com/davidnewman/chef_minikube/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

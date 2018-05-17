@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+#  - name: centos-7.1
+
+suites:
+  - name: default
+    run_list:
+#      - recipe[as-lap-asset::create]
+      - recipe[as-lap-asset::install]
+    attributes:
+      php:
+        version: '5.4'
+        date.timezone: 'Asia/Tokyo'
+        xdebug:
+          remote_enable: false
+      httpd:
+#        DocumentRoot: '/var/app'
+#        Alias:
+#          - name: '/ts/'
+#            source: '/var/www/html/sub/'
+      asset:
+        root_path: '/var/app'

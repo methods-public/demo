@@ -1,0 +1,49 @@
+{
+  "name": "dataloop_chef_client",
+  "description": "Dataloop plugin for the chef-client in Nagios format",
+  "long_description": "# dataloop_chef_client\n\n[![Build Status](https://travis-ci.org/miroswan/dataloop_chef_client.svg?branch=master)](https://travis-ci.org/miroswan/dataloop_chef_client)\n![Project Status](https://img.shields.io/badge/status-incubating-blue.svg)\n\nThis cookbook provides a dataloop plugin that monitors the last check-in time\nfrom chef clients. Please note that it does *not* install dataloop. It does,\nhowever, expect that dataloop is installed in order for its file-based plugin\ndeployment to work properly.\n\n### Deployment\nSimply add dataloop_chef_client the run-list. It will deploy a three resources:\n\n* script: Executable file responsible for querying the ChefSever for the\nohai_time and writing plugin output to file (/var/opt/dataloop_chef_client.out\nby default)\n* plugin: Executable file resopnsible for reading the contents of the output\nfile to be interpreted by dataloop, stored by default in /opt/dataloop/plugins\n* cron: Executes the script on a given interval\n\n## Important attributes:\n\n* default['dataloop-chef-client']['warning']: default 3600 seconds (1 hour)\n* default['dataloop-chef-client']['critical']: default 86400 (1 day)\n\n## Tested Operating Systems\n* Ubuntu 12.04\n* Ubuntu 14.04\n* Centos 6.7\n* Centos 7.2\n\n## Tested Chef Clients\n* 11.18.0\n* 12.6.0\n\n### Development\nBe sure to have a docker instance running. docker-machine is a good way to\nensure this. Installation instructions can be found\n[here](https://www.docker.com/docker-toolbox)\n\nNext, execute the following in the root of this project:\n\n```\ndocker-machine start\neval $(docker-machine env)\ngem install bundler\nbundle install\n```\n\nIf all is well, you should have all dependencies installed. To test, simply\nrun rake. Integration tests are run under [test-kitchen](http://kitchen.ci/)\nusing the [kitchen-docker](https://github.com/portertech/kitchen-docker)\nprovider.\n\n### Why a leverage a cron job?\nThe Chef-API needs read access to sensitive files, namely client.rb and\nclient.pem. Instead of granting the dataloop user access to these files, this\ncookbook run the script under root and simply allows the dataloop user to read\nthe output of the script.\n",
+  "maintainer": "miroswan",
+  "maintainer_email": "demitriswan@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": "= 14.04",
+    "centos": "= 7.2"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.17",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ]
+}

@@ -1,0 +1,7 @@
+source 'https://supermarket.chef.io'
+
+metadata
+
+group :integration do
+  cookbook 'conjur_test', path: 'test/cookbooks/conjur_test'
+end

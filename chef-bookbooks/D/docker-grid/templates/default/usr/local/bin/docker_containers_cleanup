@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PATH=.:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
+
+sudo='sudo'
+if id $(whoami) | grep docker > /dev/null 2>&1; then
+  sudo=''
+fi 
+[ `whoami` = 'root' ] && sudo=''
+
+if ! tty -s; then
+  echo `date '+%Y-%m-%d %H:%M:%S %z'`' Removing exited and dead containers ...'
+fi
+$sudo docker ps -q -f status=exited -f status=dead | awk '{print $1}' | $sudo xargs --no-run-if-empty docker rm

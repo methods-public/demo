@@ -1,0 +1,46 @@
+source "https://rubygems.org"
+
+group :lint do
+  gem "foodcritic"
+end
+
+group :lint, :development do
+  gem "rubocop"
+end
+
+group :unit do
+  gem "rspec"
+  gem "berkshelf"
+  gem "chefspec"
+end
+
+group :kitchen_common do
+  gem "test-kitchen"
+  gem "busser"
+end
+
+group :kitchen_docker do
+  gem "kitchen-docker"
+end
+
+group :kitchen_vagrant do
+  gem "kitchen-vagrant"
+end
+
+group :kitchen_cloud do
+  gem "kitchen-digitalocean"
+  gem "kitchen-ec2", "~> 0.9.2"
+end
+
+group :development do
+  gem "rb-fsevent"
+  gem "guard"
+  gem "guard-kitchen"
+  gem "guard-foodcritic"
+  gem "guard-rspec"
+  gem "guard-rubocop"
+  gem "rake"
+  gem "serverspec"
+  gem "rspec_junit_formatter"
+  gem "rubocop-junit-formatter"
+end

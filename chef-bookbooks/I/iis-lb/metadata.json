@@ -1,0 +1,53 @@
+{
+  "name": "iis-lb",
+  "description": "Installs/Configures IIS as a web load-balancer",
+  "long_description": "Creates an IIS Server Farm and adds Servers to the farm.",
+  "maintainer": "Bakh Inamov",
+  "maintainer_email": "b@chef.io",
+  "license": "all_rights",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "webpi": "= 3.0.0",
+    "iis": ">= 0.0.0",
+    "compat_resource": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.5",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

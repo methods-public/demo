@@ -1,0 +1,18 @@
+# Managed by Chef.  Local changes will be overwritten.
+LoadPlugin mongodb
+
+<Plugin "mongodb">
+  Host "<%= @host %>"
+  Port "<%= @port %>"
+  <% if @username -%>
+  User "<%= @usernmae %>"
+  <% end -%>
+  <% if @password -%>
+  Password "<%= @password %>"
+  <% end -%>
+  <% if @secondary_query -%>
+
+  # For performance/eventually consistent trade-offs
+  AllowSecondaryQuery true
+  <% end -%>
+</Plugin>

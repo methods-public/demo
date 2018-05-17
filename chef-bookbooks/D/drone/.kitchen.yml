@@ -1,0 +1,101 @@
+---
+driver:
+  name: vagrant
+  customize:
+    memory: 1024
+  require_chef_omnibus: true
+
+verifier:
+  name: inspec
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      box: bento/ubuntu-16.04
+    run_list:
+      - recipe[ubuntu::default]
+      - recipe[chef-apt-docker::default]
+  - name: centos
+    driver:
+      box: bento/centos-7.2
+    run_list:
+      - recipe[yum-epel::default]
+      - recipe[chef-yum-docker::default]
+    attributes:
+      jmccann-docker-host:
+        docker:
+          service:
+            storage_opts: overlay2.override_kernel_check=1
+
+suites:
+  - name: drone
+    run_list:
+      - recipe[drone::standalone_server]
+      - recipe[drone::agent]
+    attributes:
+      drone:
+        agent:
+          config:
+            drone_server: 10.0.2.15:9000
+        server:
+          config:
+            drone_host: http://10.0.2.15
+            drone_github: true
+            drone_github_client: GH_CLIENT
+            drone_github_secret: GH_SECRET
+
+  - name: drone-docker-overrides
+    run_list:
+      - recipe[drone::standalone_server]
+      - recipe[drone::agent]
+    attributes:
+      drone:
+        agent:
+          config:
+            drone_server: 10.0.2.15:9000
+          network_mode: host
+        docker:
+          log_driver: syslog
+        server:
+          config:
+            drone_host: http://10.0.2.15
+            drone_github: true
+            drone_github_client: GH_CLIENT
+            drone_github_secret: GH_SECRET
+            drone_server_addr: :80
+          network_mode: host
+
+  - name: drone-custom
+    excludes:
+      - centos
+    driver:
+      network:
+        - ["forwarded_port", {guest: 8080, host: 8080}]
+        - ["forwarded_port", {guest: 9080, host: 9080}]
+    run_list:
+      - recipe[gogs::default]
+      - recipe[fake::gogs]
+      - recipe[drone::standalone_server]
+      - recipe[drone::agent]
+    attributes:
+      drone:
+        agent:
+          config:
+            drone_server: 10.0.2.15:9000
+        server:
+          config:
+            drone_host: http://10.0.2.15:9080
+            drone_debug: true
+            drone_gogs: true
+            drone_gogs_url: http://10.0.2.15:8080
+            drone_open: true
+          port: '9080:8000'
+      gogs:
+        config:
+          server:
+            DOMAIN: 10.0.2.15
+            HTTP_ADDR: 10.0.2.15
+        version: '0.9.97'

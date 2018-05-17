@@ -1,0 +1,35 @@
+  <Manager className="<%=@resource.className%>"
+    memcachedNodes="<%=@resource.memcachedNodes%>"
+    <% if @resource.failoverNodes %>
+    failoverNodes="<%=@resource.failoverNodes%>"
+    <% end %>
+    <% if @resource.username %>
+    username="<%=@resource.username%>"
+    <% end %>
+    <% if @resource.password %>
+    password="<%=@resource.password%>"
+    <% end %>
+    memcachedProtocol="<%=@resource.memcachedProtocol%>"
+    sticky="<%=@resource.sticky%>"
+    lockingMode="<%=@resource.lockingMode%>"
+    <% if @resource.requestUriIgnorePattern %>
+    requestUriIgnorePattern="<%=@resource.requestUriIgnorePattern%>"
+    <% end %>
+    sessionBackupAsync="<%=@resource.sessionBackupAsync%>"
+    <% if @resource.backupThreadCount %>
+    backupThreadCount="<%=@resource.backupThreadCount%>"
+    <% end %>
+    sessionBackupTimeout="<%=@resource.sessionBackupTimeout%>"
+    operationTimeout="<%=@resource.operationTimeout%>"
+    storageKeyPrefix="<%=@resource.storageKeyPrefix%>"
+    <% if @resource.sessionAttributeFilter %>
+    sessionAttributeFilter="<%=@resource.sessionAttributeFilter%>"
+    <% end %>
+    transcoderFactoryClass="<%=@resource.transcoderFactoryClass%>"
+    copyCollectionsForSerialization="<%=@resource.copyCollectionsForSerialization%>"
+    <% if @resource.customConverter %>
+    customConverter="<%=@resource.customConverter%>"
+    <% end %>
+    enableStatistics="<%=@resource.enableStatistics%>"
+    enabled="<%=@resource.enabled%>"
+    />

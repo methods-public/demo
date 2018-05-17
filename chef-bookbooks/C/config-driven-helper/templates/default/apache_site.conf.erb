@@ -1,0 +1,227 @@
+<% if @protocol == 'https' %>
+<VirtualHost <%= @params['secure_ip'] || '*' %>:<%= @params['secure_port'] %>>
+  SSLEngine on
+  SSLCertificateKeyFile <%= @params['ssl']['keyfile'] %>
+  SSLCertificateFile <%= @params['ssl']['certfile'] %>
+  <%= "SSLCACertificateFile #{@params['ssl']['cacertfile']}" if defined?(@params['ssl']['cacertfile']) and !@params['ssl']['cacertfile'].nil? %>
+  <%= "SSLCertificateChainFile #{@params['ssl']['certchainfile']}" if defined?(@params['ssl']['certchainfile']) and !@params['ssl']['certchainfile'].nil? %>
+  SSLProtocol <%= @params['ssl']['protocols'] %>
+  SSLCipherSuite <%= @params['ssl']['ciphersuite'] %>
+<% else %>
+<VirtualHost *:<%= @params['insecure_port'] %>>
+<% end %>
+
+  ServerName <%= @params['server_name'] %>
+  <% if @params['server_aliases'] and !@params['server_aliases'].empty? %>
+  ServerAlias <%= @params['server_aliases'].join(" ") %>
+  <% end %>
+
+  DocumentRoot <%= @params['docroot'] %>
+
+  LogLevel info
+  ErrorLog <%= @type['log_dir'] %>/<%= @params['server_name'] %>-error.log
+  CustomLog <%= @type['log_dir'] %>/<%= @params['server_name'] %>-access.log combined
+
+  ServerSignature Off
+
+  <IfModule mod_rewrite.c>
+    ############################################
+    ## enable rewrite log at vhost level
+    # RewriteEngine on
+    # RewriteLog <%= @type['log_dir'] %>/<%= @params['server_name'] %>-rewrite.log
+    # RewriteLogLevel 9
+  </IfModule>
+
+  <% if @params['request_header_proxy_hide'] -%>
+  RequestHeader unset Proxy early
+  <% end -%>
+
+  # Include any additional configuration for the project
+  <%= (@params['includes_first'] || []).map{ |i| "Include #{i}" }.join("\n  ") %>
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Directory <%= @params['docroot'] %>>
+    Options FollowSymLinks
+
+    EnableMMAP <%= @params['enable_mmap'] || 'On' %>
+    EnableSendfile <%= @params['enable_sendfile'] || 'On' %>
+
+<% if @params['http_auth']['type'] != 'none' %>
+    <%= "Satisfy Any" if !@type['version'] || @type['version'] == '2.2' %>
+    AuthUserFile <%= @params['http_auth']['file'] || "#{@params['docroot']}/.htpasswd" %>
+    AuthType <%= @params['http_auth']['type'].capitalize %>
+    AuthName "<%= @params['http_auth']['realm'] %>"
+    Require valid-user
+
+    <% if @params['probe_url'] %>
+    SetEnvIf Request_URI ^<%= Regexp.escape(@params['probe_url']) %>$ noauth=1
+      <% if !@type['version'] || @type['version'] == '2.2' %>
+    Allow from env=noauth
+      <% else %>
+    Require env noauth
+      <% end %>
+    <% end %>
+<% end  %>
+
+    AllowOverride <%= @params['parse_htaccess'] ? "All" : "None" %>
+
+<% if !@type['version'] || @type['version'] == '2.2' %>
+    <%= @params['allow_from'] ? @params['allow_from'].map { |ip| "    Allow from #{ip}\n" }.join("\n") : "" %>
+    <%= 'Order allow,deny' if @params['allow_from'] || @params['http_auth']['type'] != 'none' %>
+<% else %>
+    <%= @params['allow_from'] ? @params['allow_from'].map { |ip| "    Require ip #{ip}" }.join("\n") : '' %>
+    <%= 'Require all granted' unless @params['allow_from'] || @params['http_auth']['type'] != 'none' %>
+<% end %>
+
+    DirectoryIndex index.php
+
+    <% (@params['php_server_variables'] || []).each do |header, value| %>
+    SetEnv <%= header %> <%= value %>
+    <% end %>
+
+    <IfModule mod_security.c>
+        ###########################################
+        # disable POST processing to not break multiple image upload
+
+        SecFilterEngine Off
+        SecFilterScanPOST Off
+    </IfModule>
+
+    <IfModule mod_deflate.c>
+
+        ############################################
+        ## enable apache served files compression
+        ## http'//developer.yahoo.com/performance/rules.html#gzip'
+
+        # Insert filter on all content
+        ###SetOutputFilter DEFLATE
+        # Insert filter on selected content types only
+        AddOutputFilterByType DEFLATE text/css application/x-javascript text/javascript text/x-component text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon
+        #
+        # Netscape 4.x has some problems...
+        BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+        # Netscape 4.06-4.08 have some more problems
+        BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+        # MSIE masquerades as Netscape, but it is fine
+        BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+        # Don't compress images
+        SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+        # Make sure proxies don't deliver the wrong content
+        Header append Vary User-Agent env=!dont-vary
+
+    </IfModule>
+
+    <IfModule mod_ssl.c>
+
+        ############################################
+        ## make HTTPS env vars available for CGI mode
+
+        SSLOptions StdEnvVars
+
+    </IfModule>
+
+    <IfModule mod_rewrite.c>
+
+        ############################################
+        ## enable rewrites
+
+        Options +FollowSymLinks
+        RewriteEngine on
+
+        ############################################
+        ## you can put here your magento root folder
+        ## path relative to web root
+
+        #RewriteBase /
+
+        <%= (@params['rewrites'] || []).join("\n       ") %>
+
+        RewriteRule ^server-status - [L]
+
+        ############################################
+        ## workaround for HTTP authorization
+        ## in CGI environment
+
+        RewriteRule .* - [E=HTTP_AUTHORIZATION'%{HTTP:Authorization}']
+
+        ############################################
+        ## never rewrite for existing files, directories and links
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-l
+
+        ############################################
+        ## rewrite everything else to index.php
+
+        RewriteRule .* <%= @params['endpoint'] || "index.php" %> [L]
+
+    </IfModule>
+
+    AddType application/x-font-woff woff
+
+    ############################################
+    ## Prevent character encoding issues from server overrides
+    ## If you still have problems, use the second line instead
+
+    AddDefaultCharset Off
+    #AddDefaultCharset UTF-8
+
+    ############################################
+    ## If running in cluster environment, uncomment this
+    ## http'//developer.yahoo.com/performance/rules.html#etags'
+
+    FileETag MTime Size
+
+  </Directory>
+
+  <% Hash[(@params['locations'] || {}).sort].each do |location, data|
+    next unless data
+    data = {'mode' => data } unless data.is_a?(Hash)
+    if data['type'] == 'regex'
+      location = "~ #{location}"
+    end
+  %>
+  <Location <%= location %>>
+    <% case data['mode']
+       when 'static' %>
+    SetHandler None
+    <% when 'restricted' %>
+      <% if @type['version'] == '2.2' %>
+        Order deny,allow
+        Deny from all
+      <% else %>
+        Require all denied
+      <% end %>
+    <% end %>
+  </Location>
+  <% end %>
+
+  <% (@params['restricted_dirs'] || []).each do |dir| %>
+  <Directory <%= @params['docroot'] %>/<%= dir %>>
+    <% if @type['version'] == '2.2' %>
+      Order deny,allow
+      Deny from all
+    <% else %>
+      Require all denied
+    <% end %>
+  </Directory>
+  <% end %>
+
+  <% (@params['static_dirs'] || []).each do |dir| %>
+  <Directory <%= @params['docroot'] %>/<%= dir %>>
+      SetHandler None
+  </Directory>
+  <% end %>
+
+  # Include any additional configuration for the project
+  <%= (@params['includes_last'] || @params['includes'] || []).map{ |i| "Include #{i}" }.join("\n  ") %>
+</VirtualHost>

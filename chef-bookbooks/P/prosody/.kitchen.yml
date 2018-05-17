@@ -1,0 +1,68 @@
+---
+driver_plugin: vagrant
+driver_config:
+    require_chef_omnibus: true
+
+platforms:
+- name: ubuntu-12.04
+  run_list:
+  - recipe[apt]
+- name: ubuntu-14.04
+  run_list:
+  - recipe[apt]
+- name: debian-7
+  driver_config:
+    box: opscode-debian-7.1
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_debian-7.1.0_provisionerless.box
+  run_list:
+  - recipe[apt]
+- name: centos-6.4
+- name: fedora-19
+  driver_config:
+    box: opscode-fedora-18
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode-fedora-19_provisionerless.box
+
+suites:
+- name: from_package
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+      install_type: "package"
+
+- name: ldap_auth
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody::ldap]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "package"
+      authentication: "ldap"
+#      catchall: "myCatchall"
+
+- name: from_source_webgz
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "source"
+      source:
+        origin: "web"
+
+- name: from_source_mercurial
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "source"
+      source:
+        origin: "mercurial"
+
+

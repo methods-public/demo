@@ -1,0 +1,57 @@
+{
+  "name": "flywaydb",
+  "description": "Installs and configures flywaydb database migration tool",
+  "long_description": "# Flywaydb Cookbook\n\n[![Cookbook Version](http://img.shields.io/cookbook/v/flywaydb.svg?style=flat-square)][supermarket]\n[![linux](http://img.shields.io/travis/dhoer/chef-flywaydb/master.svg?label=linux&style=flat-square)][linux]\n[![win](https://img.shields.io/appveyor/ci/dhoer/chef-flywaydb/master.svg?label=windows&style=flat-square)][win]\n\n[supermarket]: https://supermarket.chef.io/cookbooks/flywaydb\n[linux]: https://travis-ci.org/dhoer/chef-flywaydb\n[win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb\n\nInstalls [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via resource \nactions.  \n\nConnector/J Drivers\n\n- To use a MariaDB Connector/J driver version other than the one that ships with flywaydb, set\n`node['flywaydb']['mariadb']['version']` attribute to \n[version](http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/) desired. \n- To use MySQL Connector/J driver instead of MariaDB Connector/J driver for jdbc:mysql: connections, \nset `mysql_driver` attribute to true.\n\n## Requirements\n\n- Chef 11+\n\n### Platforms\n\n- CentOS/RedHat\n- Debian/Ubuntu\n- Windows\n\n## Usage\n\nUse migrate, info, validate, baseline, or repair actions to _install_ \nflywaydb (if not installed) and _execute_ associated flyway command. \nAn install action is also available if you just want to install \nflywaydb but not execute any flyway commands.\n\n### Attributes\n\n* `flyway_conf` - Configuration path or settings to copy or \ncreate `conf/flyway.conf`.  The flyway.conf file will be \nregenerated for each flywaydb execution and will be blanked out if \nflyway_conf is nil to prevent alt_conf from inadvertently inheriting \nits settings. Settings in alt_conf override settings in flyway.conf. \nSettings in parameters override all settings. Default: `nil`.\n* `alt_conf` -  Alternative configuration path or settings. An array\ncontaining paths and/or settings is also supported.  Each path and \nsettings are written as `conf/#{name}[_#{i + 1}].conf` \nwhere name is the resource name and i is the index in array. Each item \nin array will result in an independent execution of Flyway. Settings in \nalt_conf override settings in flyway.conf. Settings in parameters override \nall settings. Default: `nil`. \n* `parameters` - Command-line parameters to pass to flyway command. \nSettings in parameters override all settings. Default: `{}`.\n* `mysql_driver` - MariaDB Connector/J driver is the default driver \nfor *jdbc:mysql:* connections.  Set to true to download and install \nMySQL Connector/J driver under `drivers` directory. This will then \nbecome the default driver for *jdbc:mysql:* connections. \nDefault: `false`.\n* `name` - Name of the alternative conf file when alt_conf is defined. \nDefaults to resource block name.\n* `install_dir` - The base install directory. Default Linux: `/opt/flywaydb` \nWindows: `#{ENV['SYSTEMDRIVE']}/flywaydb`.\n* `debug` - Print debug output during execution of flyway commands. \nDefault: `false`.\n* `user` -  The owner of flywaydb. Creates a flyway user when nil or uses \nvalue passed in. Default `nil`.\n* `group` - The group of flywaydb. Creates flyway or modifies Administrators \ngroup when nil (or set to Administrators on Windows for backwards \ncompatibility) or uses value passed in. Default `nil`.\n* `password` - Required only on Windows Servers that throw 'The \npassword does not meet the password policy requirements.' error when \ncreating flyway user. Default: `nil`.\n* `sensitive` - Suppress logging the Flyway command executed to hide \nsensitive information but still log Flyway stdout and stderr to \nChef-client.  Writing of conf files will also be suppressed when\nexecuting with Chef-client versions that support sensitive. \nDefault: `true`.\n* `timeout` - Number of seconds to wait on flyway process before \nraising an Exception. Default: `259_200` (72hrs).\n\n### Examples\n\n#### Single migration using settings\n\n```ruby\nflywaydb 'myapp' do\n  flyway_conf(\n    url: 'jdbc:mysql//localhost/mydb',\n    user: 'root',\n    locations: 'filesystem:/opt/myapp/db/migration',\n    cleanDisabled: true\n  )\n  action :migrate\nend\n```\n\n#### Single migration using file path\n\n```ruby\nflywaydb 'myapp' do\n  flyway_conf(\n    '/opt/myapp/db/flyway.conf'\n  )\n  action :migrate\nend\n```\n\n#### Multiple migrations using settings   \n\n```ruby\nflywaydb 'myapp' do\n  flyway_conf(\n    user: 'root',\n    url: 'jdbc:mysql//localhost/mysql'\n  )\n  alt_conf([\n    {\n      schemas: 'custA',\n      locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'\n    },\n    {\n       schemas: 'custB',\n       locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'\n    }\n  ])\n  parameters(\n    password: password   \n  )\n  action :migrate\nend\n```\n\n#### Multiple migrations using file paths\n\n```ruby\nflywaydb 'myapp' do\n  flyway_conf(\n    '/opt/myapp/db/flyway.conf'\n  )\n  alt_conf([\n    '/opt/myapp/db/custA.conf',\n    '/opt/myapp/db/custB.conf'\n  ])\n  parameters(\n    password: password   \n  )\n  action :migrate\nend\n```\n\n## ChefSpec Matchers\n\nThis cookbook includes custom [ChefSpec](https://github.com/sethvargo/chefspec) matchers you can use to test \nyour own cookbooks.\n\nExample Matcher Usage\n\n```ruby\nexpect(chef_run).to migrate_flywaydb('flyway').with(\n  flyway_conf: {\n      'user' => 'root',\n      'url' => 'jdbc:mysql://localhost/mysql'\n  }\n  alt_conf: [\n    {\n      'schemas' => 'custA',\n      'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'\n    },\n    {\n      'schemas' => 'custB',\n      'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'\n    }\n  ],\n  parameters: {\n      'password' => 'password'\n  }\n  debug: false,\n  sensitive: true\n)\n```\n      \nCookbook Matchers\n\n- migrate_flywaydb(resource_name)\n- clean_flywaydb(resource_name)\n- baseline_flywaydb(resource_name)\n- info_flywaydb(resource_name)\n- repair_flywaydb(resource_name)\n- validate_flywaydb(resource_name)\n- install_flywaydb(resource_name)\n\n## Getting Help\n\n- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/flyway).\n- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-flywaydb/issues).\n\n## Contributing\n\nPlease refer to [CONTRIBUTING](https://github.com/dhoer/chef-flywaydb/blob/master/CONTRIBUTING.md).\n\n## License\n\nMIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-flywaydb/blob/master/LICENSE.md) file for details.\n",
+  "maintainer": "Dennis Hoer",
+  "maintainer_email": "dennis.hoer@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "7.2.0",
+  "source_url": "https://github.com/dhoer/chef-flywaydb",
+  "issues_url": "https://github.com/dhoer/chef-flywaydb/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 11.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

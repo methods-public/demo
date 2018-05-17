@@ -1,0 +1,58 @@
+{
+  "name": "ganeti",
+  "description": "Installs/Configures ganeti",
+  "long_description": "Installs/Configures ganeti",
+  "maintainer": "Oregon State University",
+  "maintainer_email": "chef@osuosl.org",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": "~> 14.04",
+    "centos": "~> 7.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "kernel-modules": ">= 0.0.0",
+    "lvm": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "yum-elrepo": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "hostsfile": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.4.2",
+  "source_url": "https://github.com/osuosl-cookbooks/ganeti",
+  "issues_url": "https://github.com/osuosl-cookbooks/ganeti/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,23 @@
+init_config:
+  min_collection_interval: <%= @mongo_collection_interval %>
+instances:
+  - server: <%= @mongo_url %>
+<%- if @mongo_timeout -%>
+    timeout: <%= @mongo_timeout %>
+<%- end -%>  
+<%- if @mongo_ssl -%>
+    ssl: <%= @mongo_ssl %>
+<%- if @mongo_ssl_keyfile -%>
+    ssl_keyfile: <%= @mongo_ssl_keyfile %>
+<%- end -%>
+<%- if @mongo_ssl_cert -%>
+    ssl_certfile: <%= @mongo_ssl_cert %>
+<%- end -%>
+<%- if @mongo_ssl_cert_reqs -%>
+    ssl_cert_reqs: <%= @mongo_ssl_cert_reqs %>
+<%- end -%>
+<%- if @mongo_ssl_ca_certs -%>
+    ssl_cert_reqs: <%= @mongo_ssl_cert_reqs %>
+<%- end -%>
+<%- end -%>
+

@@ -1,0 +1,11 @@
+{
+  "name": "custom-kernel",
+  "description": "Configure and run custom-kernel",
+  "json_class": "Chef::Role",
+  "default_attributes": {},
+
+  "chef_type": "role",
+  "run_list": [
+    "recipe[custom-kernel]"
+  ]
+}

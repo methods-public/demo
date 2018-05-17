@@ -1,0 +1,33 @@
+{
+  "name": "yum_mesosphere",
+  "version": "1.0.0",
+  "description": "Installs/Configures yum_mesosphere",
+  "long_description": "Installs/Configures yum_mesosphere",
+  "maintainer": "David Petzel",
+  "maintainer_email": "davidpetzel@gmail.com",
+  "license": "apache2",
+  "platforms": {
+    "redhat": "~> 6.0",
+    "centos": "~> 6.0",
+    "scientific": "~> 6.0"
+  },
+  "dependencies": {
+    "yum": "~> 3.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,11 @@
+  <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+    <triggers>
+      <% @pipeline_triggers_job['triggers'].each do |trigger, options| %>
+      <<%= trigger %>>
+      <% options.each do |option, value| %>
+      <<%= option %>><%= value %></<%= option %>>
+      <% end %>
+      </<%= trigger %>>
+      <% end %>
+    </triggers>
+  </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>

@@ -1,0 +1,7 @@
+DEPENDENCIES
+  client_bootstrap
+    path: .
+    metadata: true
+
+GRAPH
+  client_bootstrap (0.1.4)

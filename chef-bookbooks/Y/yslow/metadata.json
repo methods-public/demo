@@ -1,0 +1,32 @@
+{
+  "name": "yslow",
+  "description": "Installs/Configures yslow",
+  "long_description": "[![Build Status](https://travis-ci.org/bendodd/yslow-cookbook.png)](https://travis-ci.org/bendodd/yslow-cookbook)\n\nYSlow cookbook\n==========\nInstall Yslow for PhantomJS\n\nRequirements\n------------\nPhantomJS Cookbook\n\nAttributes\n----------\n\n#### yslow::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['yslow']['version']</tt></td>\n    <td>String</td>\n    <td>Version to install</td>\n    <td><tt>3.1.8</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['yslow']['checksum']</tt></td>\n    <td>String</td>\n    <td>Files checksum</td>\n    <td><tt>648d7ac9daf16836a9d17c7cbb4b7e73</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['yslow']['install_dir']</tt></td>\n    <td>String</td>\n    <td>Install directory</td>\n    <td><tt>/opt/yslow</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['yslow']['base_url']</tt></td>\n    <td>String</td>\n    <td>URL form which to get the library</td>\n    <td><tt>http://yslow.org</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### yslow::default\n\n    {\n      \"name\":\"my_node\",\n      \"run_list\": [\n        \"recipe[yslow]\"\n      ]\n    }\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write you change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthor:: Benedict Dodd (benedict.dodd@gmail.com)\n",
+  "maintainer": "Benedict Dodd",
+  "maintainer_email": "benedict.dodd@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "ubuntu": ">= 10.04",
+    "centos": ">= 5.9"
+  },
+  "dependencies": {
+    "phantomjs": "~> 1.0.3"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

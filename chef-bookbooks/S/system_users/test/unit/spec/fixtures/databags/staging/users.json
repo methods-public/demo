@@ -1,0 +1,47 @@
+{
+  "id": "users",
+  "newuser1": {
+    "sudo": {
+
+    },
+    "node_groups": [
+      "web",
+      "marketing",
+      "staging"
+    ],
+    "groups": [
+      "marketing",
+      "facilities"
+    ]
+  },
+  "newuser2": {
+    "sudo": {
+      "node_groups": [
+        "inventory"
+      ]
+    },
+    "node_groups": [
+      "web",
+      "marketing",
+      "staging"
+    ],
+    "groups": [
+      "marketing",
+      "facilities"
+    ]
+  },
+  "newuser3": {
+    "sudo": {
+
+    },
+    "node_groups": [
+      "inventory",
+      "production"
+    ]
+  },
+  "olduser": {
+    "node_groups": [
+      "oldtag"
+    ]
+  }
+}

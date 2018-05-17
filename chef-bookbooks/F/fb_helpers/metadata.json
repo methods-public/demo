@@ -1,0 +1,54 @@
+{
+  "name": "fb_helpers",
+  "description": "Helper methods for Facebook open-source cookbooks",
+  "long_description": "fb_helpers Cookbook\n===================\nNode helper methods for Facebook open-source cookbooks.\n\nRequirements\n------------\n\nAttributes\n----------\n\nUsage\n-----\n### node methods\nSimply depend on this cookbook from your metadata.rb to get these methods in\nyour node.\n\n* `node.centos?`\n    Is CentOS\n\n* `node.centos5?`\n    Is CentOS5\n\n* `node.centos6?`\n    Is CentOS6\n\n* `node.centos7?`\n    Is CentOS7\n\n* `node.debian?`\n    Is Debian\n\n* `node.ubuntu?`\n    Is Ubuntu\n\n* `node.linux?`\n    Is Linux\n\n* `node.macosx?`\n    Is Mac OS X\n\n* `node.windows?`\n    Is Windows\n\n* `node.aristaeos?`\n    Is network switch running Arista EOS\n\n* `node.embedded?`\n    Is embedded Linux, implies 'node.aristaeos?'. These devices likely have\n    minimal packages installed, little space, and/or some non-persistent\n    filesystems.\n\n* `node.systemd?`\n    True if the node uses systemd as their init system.\n\n* `node.container?`\n    True if the node is in a container.\n\n* `node.virtual?`\n    Is a guest.\n\n* `node.efi?`\n    Is an EFI machine\n\n* `node.aarch64?`\n    Is an ARM64 machine\n\n* `node.x64?`\n    Is an x86_64 machine\n\n* `node.cgroup_mounted?`\n    Returns true if the cgroup hierarchy is mounted at `/sys/fs/cgroup`\n\n* `node.cgroup1?`\n    Returns true if the legacy cgroup hierarchy (cgroup v1) is in use\n\n* `node.cgroup2?`\n    Returns true if the unified cgroup hierarchy (cgroup v2) is in use\n\n* `node.device_of_mount(m)`\n    Take a string representing a mount point, and return the device it resides\n    on.\n\n* `node.device_formatted_as?(device, fstype)`\n    Returns true if device is formatted with the given filesystem type.\n\n* `node.fs_size_kb(mount_point)`\n    Returns the size of a filesystem mounted at `mount_point` in KB.\n\n* `node.fs_size_gb(mount_point)`\n    Returns the size of a filesystem mounted at `mount_point` in GB.\n\n* `node.fs_available_kb(mount_point)`\n    Returns the available size of a filesystem mounted at `mount_point` in KB.\n\n* `node.fs_available_gb(mount_point)`\n    Returns the available size of a filesystem mounted at `mount_point` in GB.\n\n* `node.fs_value(mount_point, value)`\n    Returns information about a filesystem mounted at `mount_point`, where\n    information is defined by `value`. Allowed values for `value` are:\n      `size` - size in KB\n      `available` - available space in KB\n      `used` - used space in KB\n      `percent` - used space as a percent (returned as a whole number, i.e. 15)\n\n*  `node.resolve_dns_name(hostname, brackets, force_v4)`\n    Resolves hostname and returns back one IP address.\n    If the host is IPv6-capable, IPv6 address is returned. The default is to\n    return IP address only, but if the second parameter (brackets) is set to\n    true, the IPv6 address gets wrapped in square brackets. If DNS name does\n    not exist or only resolves to an ipv6 address while your host is not\n    IPv6-capable, a `SocketError` is raised.\n    `force_v4` is set to false by default, if set to true then the IPv4 address\n    will be returned.\n\n*  `node.get_flexible_shard(shard_size)`\n    Returns the node's shard in a flexible shard setup.  These shards allow you\n    to specify an arbitrary size (limited to 2^28) for the number of possible\n    buckets.  Let's say that you want a consistent shard that correlates a\n    minute in the whole day (1,400 min/day).  You would use this in your code:\n    ```\n      node.get_flexible_shard(1440)\n    ```\n    This helps also to release code to shards smaller than 1% of the fleet,\n    e.g. `node.get_flexible_shard(10000)` for getting your shard in steps\n    of one ten-thousandth.\n\n*  `node.in_flexible_shard?(shard, shard_size)`\n    True if the flexible shard we are in is less-than-or-equal to `shard`.  In\n    other words, `node.in_flexible_shard?(24, 1000)` is true if you are in\n    shards 0-24 per-thousandth (the equivalent to 0%-2.4%).  This sharding is\n    *not* compatible with the `node.in_shard?()` implementation, so please choose\n    one or the other when starting your experiment.\n\n*  `node.get_shard()`\n    Wrapper around `node.get_flexible_shard` that sets `shard_size` to 100. This\n    is the \"basic\" shard that roughly maps to a percentage.\n\n*  `node.in_shard?(shard)`\n    Wrapper around `node.in_flexible_shard?` that sets `shard_size` to 100.\n    Shards are 0-indexed, so the valid shards are 0-99. As such, shard `N` is\n    approximately `(N+1)%`, so shard 0 is approximately 1%.\n\n### FB::Helpers\nThe following methods are available:\n\n*  `FB::Helpers.commentify(comment, arg)`\n    Commentify takes the string in `comment` and wraps it appropriately\n    for being a comment. By default it'll comment it ruby-style (leading \"# \")\n    with a width of 80 chars, but the arg hash can specify `start`, `finish`,\n    and `width` to adjust it's behavior.\n*  `FB::Version.new(version)`\n   Helper class to compare software versions. Sample usage:\n\n      FB::Version.new('1.3') < FB::Version.new('1.21')\n      => true\n      FB::Version.new('4.5') < FB::Version.new('4.5')\n      => false\n      FB::Version.new('3.3.10') > FB::Version.new('3.4')\n      => false\n      FB::Version.new('10.2') >= FB::Version.new('10.2')\n      => true\n      FB::Version.new('1.2.36') == FB::Version.new('1.2.36')\n      => true\n      FB::Version.new('3.3.4') <= FB::Version.new('3.3.02')\n      => false\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "freebsd": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

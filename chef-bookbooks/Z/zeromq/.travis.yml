@@ -1,0 +1,11 @@
+---
+sudo: required
+services:
+  - docker
+language: ruby
+rvm:
+- 2.1.5
+script:
+- bundle exec rake foodcritic
+- bundle exec rake -T
+- bundle exec rake kitchen:all

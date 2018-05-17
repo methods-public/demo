@@ -1,0 +1,33 @@
+<?php
+$CFG->dbtype    = '<%= @dbtype %>';      // 'pgsql', 'mysqli', 'mssql' or 'oci'
+$CFG->dblibrary = 'native';     // 'native' only at the moment
+$CFG->dbhost    = '<%= @dbhost %>';  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->dbname    = '<%= @dbname %>';     // database name, eg moodle
+$CFG->dbuser    = '<%= @dbuser %>';   // your database username
+$CFG->dbpass    = '<%= @dbpass %>';   // your database password
+$CFG->prefix    = '<%= @dbprefix %>';       // prefix to use for all table names
+$CFG->dboptions = array(
+    'dbpersist' => <%= @dbpersist %> ,       // should persistent database connections be
+                                //  used? set to 'false' for the most stable
+                                //  setting, 'true' can improve performance
+                                //  sometimes
+    'dbsocket'  => <%= @dbsocket %>,       // should connection via UNIX socket be used?
+                                //  if you set it to 'true' or custom path
+                                //  here set dbhost to 'localhost',
+                                //  (please note mysql is always using socket
+                                //  if dbhost is 'localhost' - if you need
+                                //  local port connection use '127.0.0.1')
+    'dbport'    => '<%= @dbport %>',          // the TCP port number to use when connecting
+                                //  to the server. keep empty string for the
+                                //  default port
+);
+
+$CFG->passwordsaltmain = '<%= @passwordsaltmain %>';
+$CFG->passwordsaltalt1 = '<%= @passwordsalt1 %>';
+$CFG->admin = '<%= @admin %>';
+$CFG->wwwroot   = '<%= @server_name %>';
+$CFG->dataroot = '<%= @web_root %>';
+$CFG->libdir = '<%= @web_root %>/lib';
+$CFG->dirroot = '<%= @web_root %>';
+
+require_once(dirname(__FILE__) . '/lib/setup.php');

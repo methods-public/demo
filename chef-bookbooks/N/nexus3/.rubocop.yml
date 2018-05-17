@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - '.kitchen/*'
+
+LineLength:
+  Max: 120
+
+MethodLength:
+  Max: 60
+
+AbcSize:
+  Max: 60
+
+BlockLength:
+  Max: 130

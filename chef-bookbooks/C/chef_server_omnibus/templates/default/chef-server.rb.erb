@@ -1,0 +1,36 @@
+# This file is managed by Chef, using the chef_server_omnibus cookbook.
+# Editing this file by hand is highly discouraged!
+
+api_fqdn '<%= node['chef_server_omnibus']['api_fqdn'] %>'
+<% if node['chef_server_omnibus']['topology'] -%>
+topology '<%= node['chef_server_omnibus']['topology'] %>'
+<% end -%>
+<%
+if node['chef_server_omnibus']['bootstrap'].is_a?(TrueClass) ||
+  node['chef_server_omnibus']['bootstrap'].is_a?(FalseClass)
+-%>
+bootstrap <%= node['chef_server_omnibus']['bootstrap'] %>
+<% end -%>
+<% if node['chef_server_omnibus']['ip_version'] -%>
+ip_version '<%= node['chef_server_omnibus']['ip_version'] %>'
+<% end -%>
+<% if node['chef_server_omnibus']['notification_email'] -%>
+notification_email '<%= node['chef_server_omnibus']['notification_email'] %>'
+<% end -%>
+
+<%
+node['chef_server_omnibus']['config'].sort.each do |component, config|
+  config.sort.each do |key, raw_value|
+    value = if raw_value.is_a?(String)
+              "'#{raw_value}'"
+            elsif raw_value.nil?
+              'nil'
+            else
+              raw_value
+            end
+-%>
+<%= component %>['<%= key %>'] = <%= value %>
+<%
+  end
+end
+-%>

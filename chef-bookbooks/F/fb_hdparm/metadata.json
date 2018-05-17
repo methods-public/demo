@@ -1,0 +1,53 @@
+{
+  "name": "fb_hdparm",
+  "description": "Installs/Configures hdparm",
+  "long_description": "fb_hdparm Cookbook\n==================\nAllows setting of specific hdparm parameters that we support at FB.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_hdparm']['enforce']\n* node['fb_hdparm']['settings']\n\nUsage\n-----\nThis recipe is automatically included on all platforms except\nmacos. However, by default this cookbook is not enabled. (See below)\n\n`node['fb_hdparm']['enforce']` (Boolean)\nThis determines if Chef will actually try to set any settings specified\nfor the role. Defaults to false to be safe.\n\n`node['fb_hdparm']['settings']` (Hash)\nThis is a hash of key/value pairs. Each key is an option to the hdparm\ncommand that you would like to set, and value is the value to set the\nparam to.\n\nNOTE: hdparm in general is capable of dangerous and destructive\n      operations. Thus, we only allow a specific subset of options.\n      These are hard-coded in the default hdparm recipe.\n\nExample:\n```\nnode.default['fb_hdparm']['enforce'] = true\nnode.default['fb_hdparm']['settings']['-W'] = 1\n```\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

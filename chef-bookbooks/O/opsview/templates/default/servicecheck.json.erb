@@ -1,0 +1,69 @@
+{
+  "list": [
+<% @values.each do |sc| -%>
+    {
+      "args": "<%= sc['args'] %>",
+      "check_attempts": "<%= sc['check_attempts'] || node['opsview']['check_attempts_default'] %>",
+      "check_interval": "<%= sc['check_interval'] || node['opsview']['check_interval_default'] %>",
+      "checktype" : {
+        "name" : "Active Plugin"
+      },
+<% if sc['dependencies'] -%>
+      "dependencies" : [
+<% sc['dependencies'].each do |d| -%>
+        {
+          "name" : "<%= d %>"
+        }<% unless d == sc['dependencies'].last -%>,<% end -%>
+<% end -%>
+      ],
+<% end -%>
+      "description" : "<%= sc['description'] %>",
+      "event_handler": "<%= sc['event_handler'] %>",
+<% if sc['hosts'] -%>
+      "hosts" : [
+<% sc['hosts'].each do |h| -%>
+        {
+          "name" : "<%= h %>"
+        }<% unless h == sc['hosts'].last -%>,<% end -%>
+<% end -%>
+      ],
+<% end -%>
+<% if sc['hosttemplates'] -%>
+      "hosttemplates" : [
+<% sc['hosttemplates'].each do |ht| -%>
+        {
+          "name" : "<%= ht %>"
+        }<% unless ht == sc['hosttemplates'].last -%>,<% end -%>
+<% end -%>
+      ],
+<% end -%>
+<% if sc['keywords'] -%>
+      "keywords" : [
+<% sc['keywords'].each do |k| -%>
+        {
+          "name" : "<%= k %>"
+        }<% unless k == sc['keywords'].last -%>,<% end -%>
+<% end -%>
+      ],
+<% elsif node['opsview']['default_keywords'] -%>
+      "keywords" : [
+<% node['opsview']['default_keywords'].each do |k| -%>
+        {
+          "name" : "<%= k %>"
+        }<% unless k == node['opsview']['default_keywords'].last -%>,<% end -%>
+<% end -%>
+      ],
+<% end -%>
+      "name": "<%= sc['name'] %>",
+      "notification_options" : "<%= sc['notification_options'] || node['opsview']['notification_options_default'] %>",
+      "plugin" : {
+        "name" : "<%= sc['plugin'] %>"
+      },
+      "retry_check_interval" : "<%= sc['retry_check_interval'] || node['opsview']['retry_check_interval_default'] %>",
+      "servicegroup" : {
+        "name" : "<%= sc['servicegroup'] %>"
+      }
+    }<% unless sc == @values.last -%>,<% end -%>
+<% end -%>
+  ]
+}

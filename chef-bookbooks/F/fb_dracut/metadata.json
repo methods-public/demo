@@ -1,0 +1,51 @@
+{
+  "name": "fb_dracut",
+  "description": "Installs/Configures dracut",
+  "long_description": "fb_dracut Cookbook\n====================\nThis cookbook installs and configures Dracut, the initramfs generator.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_dracut']['conf']['add_dracutmodules']\n* node['fb_dracut']['conf']['drivers']\n* node['fb_dracut']['conf']['add_drivers']\n* node['fb_dracut']['conf']['omit_drivers']\n* node['fb_dracut']['conf']['filesystems']\n* node['fb_dracut']['conf']['drivers_dir']\n* node['fb_dracut']['conf']['fw_dir']\n* node['fb_dracut']['conf']['do_strip']\n* node['fb_dracut']['conf']['hostonly']\n* node['fb_dracut']['conf']['mdadmconf']\n* node['fb_dracut']['conf']['lvmconf']\n* node['fb_dracut']['conf']['kernel_only']\n* node['fb_dracut']['conf']['no_kernel']\n\nUsage\n-----\nYou can add any valid `dracut.conf` entry under `node['fb_dracut']['conf']`\nIf an attribute is set to `nil` or an empty list, the `dracut.conf` entry\nfor that attribute will not be written out. In this case the system\nwill use the default specified by dracut. See `man dracut.conf` on your\nsystem to find out what that is.\n\nThe following are pre-initialized for you as noted:\n\n* `node['fb_dracut']['conf']['add_dracutmodules']`\n  Specify a list of dracut modules to add in the initramfs.\n  (Should be array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['drivers']`\n  Specify a list of kernel modules to exclusively include in the initramfs.\n  The kernel modules have to be specified without the `.ko` suffix.\n  (Should be array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['add_drivers']`\n  Specify a list of kernel modules to add to the initramfs.\n  The kernel modules have to be specified without the `.ko` suffix.\n  (Should be array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['omit_drivers']`\n  Specify a list of kernel modules to omit from the\n  initramfs. The kernel modules have to be specified without the `.ko` suffix.\n  Regular expressions are also allowed like `.*/fs/foo/.* .*/fs/bar/.*`.\n  (Should be array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['filesystems']`\n  Specify a list of kernel filesystem modules to exclusively\n  include in the generic initramfs.  (Should be array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['drivers_dir']`\n  Specify the directory, where to look for kernel modules.  (Should be a string)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['fw_dir']`\n  Specify a list of additional directories as strings, where to look for\n  firmwares.  (Should be an array of strings)\n  (default=empty)\n\n* `node['fb_dracut']['conf']['do_strip']`\n  Strip binaries in the initramfs.  (true|false|nil)\n  (default=nil)\n\n* `node['fb_dracut']['conf']['hostonly']`\n  Host-Only mode: Install only what is needed for booting the local host\n  instead of a generic host.  (true|false|nil)\n  (default=true)\n\n* `node['fb_dracut']['conf']['mdadmconf']`\n  Include local `/etc/mdadm.conf`.  (true|false|nil)\n  (default=true)\n\n* `node['fb_dracut']['conf']['lvmconf']`\n  Include local `/etc/lvm/lvm.conf`.  (true|false|nil)\n  (default=true)\n\n* `node['fb_dracut']['conf']['kernel_only']`\n  Only install kernel drivers and firmware files.  (true|false|nil)\n  (default=nil)\n\n* `node['fb_dracut']['conf']['no_kernel']`\n  Do not install kernel drivers and firmware files.  (true|false|nil)\n  (default=nil)\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

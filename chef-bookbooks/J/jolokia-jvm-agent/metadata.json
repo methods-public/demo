@@ -1,0 +1,49 @@
+{
+  "name": "jolokia-jvm-agent",
+  "description": "Installs/Configures jolokia-jvm-agent",
+  "long_description": "jolokia-jvm-agent Cookbook\n==========================\n\nThis cookbook install [jolokia-jvm-agent](http://www.jolokia.org/download.html)\n\nInstall to `/opt/jolokia/jolokia-jvm-agent.jar`\n\nAttributes\n----------\n\n#### jolokia-jvm-agent::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['jolokia-jvm-agent']['version]</tt></td>\n    <td>String</td>\n    <td>viersion number</td>\n    <td><tt>1.2.3</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['jolokia-jvm-agent']['dir]</tt></td>\n    <td>String</td>\n    <td>Install directory</td>\n    <td><tt>/opt/jolokia</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### jolokia-jvm-agent::default\n\nJust include `jolokia-jvm-agent` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[jolokia-jvm-agent]\"\n  ]\n}\n```\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nLicense: MIT\nAuthors: hirocaster\n",
+  "maintainer": "hirocaster",
+  "maintainer_email": "hohtsuka@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/hirocaster/chef-jolokia-jvm-agent",
+  "issues_url": "https://github.com/hirocaster/chef-jolokia-jvm-agent/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ]
+}

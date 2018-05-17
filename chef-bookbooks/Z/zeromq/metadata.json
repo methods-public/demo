@@ -1,0 +1,59 @@
+{
+  "name": "zeromq",
+  "description": "Installs/Configures zeromq",
+  "long_description": "# zeromq-cookbook [![Build Status](https://api.travis-ci.org/plu/zeromq-cookbook.png)](https://travis-ci.org/plu/zeromq-cookbook)\n\n## DESCRIPTION\n\nInstalls zeromq.\n\n## REQUIREMENTS\n\n### Platform\n\n* Tested on\n  * Debian 8.4\n  * Ubuntu 14.04\n  * CentOS 7.2\n\n### Cookbooks\n\n* apt\n* build-essential\n* git\n* yum\n\n## ATTRIBUTES\n\nSee [attributes/default.rb](attributes/default.rb) for defaults.\n\nNote: If you want to install a different version than v4.1.4, just\nchange the `src_url` and `version` attributes.\n\nIf the `source` installation method is being used, the recipe uses the `creates` attribute\nto be idempotent. If a newer version of zeromq does not create `lib/libzmq.so`\nanymore, you can change this attribute.\n\n## USAGE\n\nInclude the zeromq recipe to install zeromq on your system based on the default installation method:\n\n```ruby\ninclude_recipe 'zeromq'\n```\n\nCurrently the only installation method that is supported is: source\n\n## LICENSE/AUTHOR\n\nAuthor:: Johannes Plunien (plu@pqpq.de)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Johannes Plunien",
+  "maintainer_email": "plu@pqpq.de",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "git": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "build-essential": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+    "zeromq": ">= 0.0.0"
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "zeromq": "Installs zeromq based on the default installation method",
+    "zeromq::install_from_package": "Installs zeromq from packages",
+    "zeromq::install_from_source": "Installs zeromq from source"
+  },
+  "version": "1.1.0",
+  "source_url": "https://github.com/plu/zeromq-cookbook",
+  "issues_url": "https://github.com/plu/zeromq-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

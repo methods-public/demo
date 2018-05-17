@@ -1,0 +1,10 @@
+source "https://supermarket.getchef.com"
+
+cookbook 'mysql-test-schema'
+cookbook 'rngd-tools'
+
+# Local cookbooks
+cookbook 'mysql_server_client_test',  path: 'test/fixtures/cookbooks/mysql_server_client_test'
+cookbook 'test-helper',               path: 'test/fixtures/cookbooks/test-helper'
+
+metadata

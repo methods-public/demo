@@ -1,0 +1,32 @@
+{
+  "name": "lv",
+  "description": "Installs lv",
+  "long_description": "lv cookbook [![Build Status](https://travis-ci.org/poppen/chef-lv.png?branch=master)](https://travis-ci.org/poppen/chef-lv)\n===========\n\nDescription\n-----------\nInstalls [lv - a Powerful Multilingual File Viewer / Grep](http://www.ff.iij4u.or.jp/~nrt/lv/)\n\nRequirements\n------------\n\n### Platforms\n- ubuntu\n- centos\n\n### Cookbooks\nThere are no external cookbook dependencies.\n\nUsage\n-----\nJust include `lv` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[lv]\"\n  ]\n}\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write you change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthor:: MATSUI Shinsuke poppen.jp@gmail.com\n\nCopyright 2014, MATSUI Shinsuke\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "MATSUI Shinsuke",
+  "maintainer_email": "poppen.jp@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "lv": "Installs lv"
+  },
+  "version": "0.2.0"
+}

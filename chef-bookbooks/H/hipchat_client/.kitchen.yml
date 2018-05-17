@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 12.21.20
+
+platforms:
+  - name: geerlingguy/centos7
+  - name: fso/artful64-desktop
+  - name: fso/xenial64-desktop
+  - name: fso/zesty64-desktop
+  - name: jhcook/macos-sierra
+  - name: jhcook/osx-elcapitan-10.11
+
+suites:
+  - name: hc
+    run_list:
+      - recipe[hipchat_client::default]
+    attributes:

@@ -1,0 +1,37 @@
+{
+  "name": "icinga-ng",
+  "version": "0.1.7",
+  "description": "Installs/Configures icinga v1 server",
+  "long_description": "# chef-icinga-cookbook\nCookbook install's Icinga server on Debian/Ubuntu OS from source.\nAs default used latest icinga, v.1.11.7\n\n## Depends\n* Apache2 cookbook.\n* Apt cookbook.\n* Yum cookbook.\n* Checkinstall cookbook.\n\n## Supported Platforms\n* Ubuntu 12.04\n* Ubuntu 14.04\n* Debian 6\n* Debian 7\n* CentOS 6\n\n## Attributes\n\n| Key | Type | Description | Example |\n|-----|------|-------------|---------|\n| set['apache']['default_site_enabled'] | boolean | Enables default apache site. (Needed if you haven't any enabled sites.) | true/false |\n| default['icingaadmin']['name'] | text | Sets icinga admin username | 'Admin' |\n| default['icingaadmin']['password'] | text | Sets icinga admin password | 'Password' |\n| default['icinga']['root'] | text | Sets icinga root directory | '/opt/icinga' |\n| default['icinga_sys']['user'] | text | Name of user that will be added in system. | 'icinga' |\n| default['icinga_sys']['password'] | text | Password of icinga user | 'icinga' |\n| default['icinga_sys']['group'] | text | Group for icinga command line tools. | 'icinga-cmd' |\n| default['nagios_plugins']['root'] | text | Nagios plugin directory. By default in Debian/Ubuntu plugins stores in '/usr/lib/nagios/plugins' | '/usr/lib/nagios/plugins' |\n| default['icinga']['source']['version'] | text | Icinga version. | '1.11.7' |\n\n## Usage\n\n### icinga-ng::default\n\nInclude `icinga-ng` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[icinga-ng::default]\"\n  ]\n}\n```\n## License and Authors\n\nAuthor:: Denis Chekirda (<dchekirda@gmail.com>)\n```text\nCopyright (C) 2014 Denis Chekirda (Rocklviv) (https://github.com/Rocklviv)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Denis Chekirda",
+  "maintainer_email": "dchekirda@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "apache2": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "checkinstall": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

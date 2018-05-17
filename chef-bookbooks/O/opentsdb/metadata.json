@@ -1,0 +1,52 @@
+{
+  "name": "opentsdb",
+  "description": "Application cookbook which installs and configures OpenTSDB.",
+  "long_description": "# OpenTSDB Cookbook\n[![Build Status](https://img.shields.io/travis/acaiafa/opentsdb-cookbook.svg)](https://travis-ci.org/acaiafa/opentsdb-cookbook)\n[![Code Quality](https://img.shields.io/codeclimate/github/acaiafa/opentsdb-cookbook.svg)](https://codeclimate.com/github/acaiafa/opentsdb-cookbook)\n[![Cookbook Version](https://img.shields.io/cookbook/v/opentsdb.svg)](https://supermarket.chef.io/cookbooks/opentsdb)\n[![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)\n\n[Application cookbook][0] which installs and configures [OpenTSDB][1].\n\nThis cookbook provides a dead-simple installation and configuration of\nOpenTSDB. It provides a single resource for\n[an instance of tsdb](libraries/opentsdb_instance.rb). The default recipe\nwill quickly get you started.\n\n## Basic Usage\nThe [default recipe](recipes/default.rb) installs Java 8 and\nconfigures OpenTSDB on a node using the\n[opentsdb_instance resource](libraries/opentsdb_instance.rb).below.\n\n## Advanced Usage\nFor a more granular configuration\n[take a look at the resource](libraries/opentsdb_instance.rb).\n```ruby\nopentsdb_instance \"test\" do\n  bind '127.0.0.1'\n  port 5012\n  core_auto_create_metrics true\n  search_enable true\nend\n```\n\n[0]: http://blog.vialstudios.com/the-environment-cookbook-pattern#theapplicationcookbook\n[1]: http://opentsdb.net/\n[2]: http://opentsdb.net/docs/build/html/user_guide/configuration.html\n",
+  "maintainer": "Anthony Caiafa",
+  "maintainer_email": "acaiafa1@bloomberg.net",
+  "license": "All rights reserved",
+  "platforms": {
+    "redhat": ">= 5.8",
+    "centos": ">= 5.8",
+    "ubuntu": ">= 12.04"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "poise": "~> 2.2",
+    "poise-service": "~> 1.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.8",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ]
+}

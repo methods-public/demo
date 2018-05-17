@@ -1,0 +1,11 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.2.5
+bundler_args: --without integration
+before_script:
+  - bundle exec berks
+install:
+  - travis_wait bundle install
+script:
+  - bundle exec rake

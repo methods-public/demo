@@ -1,0 +1,54 @@
+{
+    "adminInterface": "<%= node['syncGateway']['adminInterface'] %>"
+    , "adminUI": "<% node['syncGateway']['adminUI'] %>"
+    , "compressResponses": <%= node['syncGateway']['compressResponses'] %>
+    <% unless node['syncGateway']['configServer'].nil? %>
+        , "configServer": "<%= node['syncGateway']['configServer'] %>
+    <% end %>
+    <% unless node['syncGateway']['CORS'].nil? %>
+        , "CORS": "<%= node['syncGateway']['CORS'] %>
+    <% end %>
+    <% unless node['syncGateway']['CouchbaseKeepaliveInterval'].nil? %>
+        , "CouchbaseKeepaliveInterval": <%= node['syncGateway']['CouchbaseKeepaliveInterval'] %>
+    <% end %>
+    <% unless node['syncGateway']['databases'].nil? %>
+        , "databases": <%= node['syncGateway']['databases'].to_json %>
+    <% end %>
+    <% unless node['syncGateway']['facebook'].nil? %>
+        , "facebook": <%= node['syncGateway']['facebook'].to_json %>
+    <% end %>
+    , "interface": "<%= node['syncGateway']['interface'] %>"
+    , "log": <%= node['syncGateway']['log'] %>
+    , "logFilePath": "<%= node['syncGateway']['logFilePath'] %>"
+    <% unless node['syncGateway']['maxCouchbaseOverflow'].nil? %>
+        , "maxCouchbaseOverflow": <%= node['syncGateway']['maxCouchbaseOverflow'] %>
+    <% end %>
+    , "maxFileDestriptors": <%= node['syncGateway']['maxFileDescriptors'] %>
+    <% unless node['syncGateway']['maxHeartbeat'].nil? %>
+        , "maxHeartbeat": <%= node['syncGateway']['maxHeartbeat'] %>
+    <% end %>
+    <% unless node['syncGateway']['maxIncomingConnections'].nil? %>
+        , "maxIncomingConnections": <%= node['syncGateway']['maxIncomingConnections'] %>
+    <% end %>
+    <% unless node['syncGateway']['persona'].nil? %>
+        , "persona": <%= node['syncGateway']['persona'].to_json %>
+    <% end %>
+    , "pretty": <%= node['syncGateway']['pretty'] %>
+    <% unless node['syncGateway']['profileInterface'].nil? %>
+        , "profileInterface": "<%= node['syncGateway']['profileInterface'] %>"
+    <% end %>
+    <% unless node['syncGateway']['serverReadTimeout'].nil? %>
+        , "serverReadTimeout": <%= node['syncGateway']['serverReadTimeout'] %>
+    <% end %>
+    <% unless node['syncGateway']['serverWriteTimeout'].nil? %>
+        , "serverWriteTimeout": <%= node['syncGateway']['serverWriteTimeout'] %>
+    <% end %>
+    , "slowServerCallWarningThreshold": <%= node['syncGateway']['slowServerCallWarningThreshold'] %>
+    <% unless node['syncGateway']['SSLCert'].nil? %>
+        , "SSLCert": "<%= node['syncGateway']['SSLCert'] %>"
+    <% end %>
+    <% unless node['syncGateway']['SSLKey'].nil? %>
+        , "SSLKey": "<%= node['syncGateway']['SSLKey'] %>"
+    <% end %>
+}
+

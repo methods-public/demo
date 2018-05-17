@@ -1,0 +1,12 @@
+dependencies: 
+  - recipe: hopsworks::install
+    local:  
+      - ndb::install
+      - hops::install
+  - recipe: hopsworks
+    local:  
+      - hopsworks::install
+    global:  
+      - ndb::mysqld
+      - hops::dn
+      - hops::nn

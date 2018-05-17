@@ -1,0 +1,31 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[libffi::dev] # https://github.com/sstephenson/ruby-build/issues/690
+  - name: centos-7.0
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[ruby_build]
+      - recipe[rbenv::system]
+      - recipe[tar]
+      - recipe[mecab]
+      - recipe[mecab-ruby]
+    attributes:
+      rbenv:
+        rubies:
+          - name: 2.2.0
+            environment:
+              CONFIGURE_OPTS: --disable-install-rdoc
+        global: 2.2.0
+

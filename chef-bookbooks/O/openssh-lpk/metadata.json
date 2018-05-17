@@ -1,0 +1,34 @@
+{
+  "name": "openssh-lpk",
+  "version": "0.1.0",
+  "description": "Installs/Configures openssh-lpk",
+  "long_description": "Installs/Configures openssh-lpk",
+  "maintainer": "John Bellone",
+  "maintainer_email": "jbellone@bloomberg.net",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 6.4",
+    "redhat": ">= 6.4",
+    "ubuntu": "= 14.04"
+  },
+  "dependencies": {
+    "chef-sugar": ">= 0.0.0",
+    "openssh": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "linux_basic",
+  "description": "Basic DevOps for single machine",
+  "long_description": "linux_basic Cookbook\n================\n[![Build Status](https://travis-ci.org/DennyZhang/linux_basic.svg?branch=master)](https://travis-ci.org/DennyZhang/linux_basic)\nBasic common configuration for linux machines\n\nRequirements\n------------\n### Platform\n- Debian/Ubuntu\n- RHEL/CentOS/Scientific\n- Fedora\n- ArchLinux\n- FreeBSD\n\nRecipes\n-------\n* default\nLinux basic configure: install packages, improve security level, add OS users, enable coredump, change repo, etc.\n\n* security\nApply system patch; Switch whether sshd allow password authentication; on-demand configure for iptables; etc\n\nUsage\n-----\nUse the cookbook by `recipe[linux_basic]`.\n\nAttributes List\n---------------\n\n* `node['basic']['readonly_user]` - If given, create an OS normal user accordingly. Otherwise skip\n* `node['basic'][admin_user]` - If given, create an OS admin user accordingly. Otherwise skip\n* `node['basic'][security]` - enforcing means apply security change, otherwise disable security setting\n\nLicense & Authors\n-----------------\n- Author:: DennyZhang001 <denny@dennyzhang.com>\n- Copyright:: 2015, http://DennyZhang.com\n\n```text\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "DennyZhang",
+  "maintainer_email": "denny@dennyzhang.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "ubuntu": ">= 12.04",
+    "debian": ">= 6.0",
+    "centos": ">= 6.5"
+  },
+  "dependencies": {
+    "ntp": ">= 0.0.0",
+    "timezone-ii": ">= 0.0.0",
+    "openssh": ">= 0.0.0",
+    "selinux": ">= 0.0.0",
+    "systempatch": ">= 1.1.2",
+    "apt": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.3.2",
+  "source_url": "",
+  "issues_url": ""
+}

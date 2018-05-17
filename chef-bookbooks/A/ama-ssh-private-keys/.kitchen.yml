@@ -1,0 +1,134 @@
+---
+keys:
+  alpha: &alpha
+    private_key: &alpha_private |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIBywIBAAJhAOu3rO3cbTxfCm+YTXgrG5b4pk7wYp0rcIeeP5XIkmrqPhgu17sj
+      bkmm5WRZ2yBaxuU35VC+bucdaWXviUMn+234tvoXrkA/woxIBcN/anGjwY4T752K
+      T1BmI+HSFQ1TRQIDAQABAmEArXRx2m8UKxK8+TWX/E+sc8Hxj7Ewv/tRSVrX6362
+      z9oja2Q898awx536u4eryflBbXMJX9Tu66TVF9XCWXCk1ol6sh1FNXK23RlzcYkR
+      B2ORCm1xYDIDx5eQyy24IQFZAjEA/qiyPK+KlqDHHvN9z1YnIu4Ci1Q8ypHP0hbk
+      cpdfUhXyExR5dK9cbisiW5nnDxIzAjEA7PVxw+aOGpkPu1FOaoOgFauKfQLe72D/
+      LoGvxqn2+GrusYs4d83byK37iFRWubynAjAd+XlRT1A+vpnxeLOcTgW5RM6j27x0
+      E4mkrvEg09RycwbVXBmXtHRqu0UGBy19RqUCMQDGDBJssGr+0gTzA26t2ZtX4Urb
+      VyXrHr/JJ/045t+TGxSq8XhdsYHLhZagiBUAIisCMBp3eHtccMYfOZURY+UhS761
+      G52+1EBYZtt1BvFcwTmDPsJYmR/Li9IiFO6i6u6DSA==
+      -----END RSA PRIVATE KEY-----
+    public_key: &alpha_public AAAAB3NzaC1yc2EAAAADAQABAAAAYQDrt6zt3G08XwpvmE14KxuW+KZO8GKdK3CHnj+VyJJq6j4YLte7I25JpuVkWdsgWsblN+VQvm7nHWll74lDJ/tt+Lb6F65AP8KMSAXDf2pxo8GOE++dik9QZiPh0hUNU0U=
+    passphrase: &alpha_passphrase ~
+  beta: &beta
+    private_key: &beta_private |
+      -----BEGIN RSA PRIVATE KEY-----
+      Proc-Type: 4,ENCRYPTED
+      DEK-Info: AES-128-CBC,C87308057B7B93891079F7BBEDD841B9
+
+      AUFHzZOXamOWIrngZkHBWAtcLEhDHDog6Usp2AxOcYFrTgmfVbIKiNgaKUO5vXHp
+      6fkDpWIEFRquCf5zfprA1fYZ1e2fX/2KyR9XrGnCyUser2yytS0ws0OOkOFSGKPf
+      GYZJE005wFsi8I3pz1IZQX9J25Mh+WVlQ4M/10l7OK0yNfIMUabqbvU8cxiyQqsW
+      /82ePzKDcmfBoUicOYnUB1SZG+WWGasmb8bf3Qjqo7iawAJlsx4jmOjljdf+9fto
+      wA2zJMvG+Pi3HVJcZxBAtaJs1WC1g2Xbdvx6SryFqz9YIqVAY6Fs/CHnYLGABcNu
+      2g7p4tpDp5fteFfc2FOePi/gmi8FFaiSDBGwEIzuRB5zcZnkehc68Tjo7LdhWzYQ
+      +fczcM4xPpiqXxZyS698TU4IXNQp1AV5nHDRsNRz7aNiCVwmtoae+qOrxr/Zyk7R
+      fS5bjts6mFOOcjM8eT45TubmO2f3fZ3gcRij3DpVY6orxvPxSjpVC7XhsQzCGGJo
+      20aW+S2UoetgxWRop13xIk7ZTVtMSE5dpFXUKaBaRAh1YxgQUXDlLxTIiN6I2cwQ
+      vKbSueIdHt4+iqk3GXtGXPQmT82EzwvMEXZeTQCbLg4=
+      -----END RSA PRIVATE KEY-----
+    public_key: &beta_public AAAAB3NzaC1yc2EAAAADAQABAAAAYQDCLY+8qnsrW/RrjDgz1b026hg9Lb78KV2c00sA4v6iSHVZoRKdnoIFr3dnWwV5Urt1U9fJJVy0fPLDWnAdYtI7U37k0GLpZhPS3ps/W9j1ZgslEQMQpvAD19yuJG/NXzk=
+    passphrase: &beta_passphrase passphrase
+  gamma: &gamma
+    private_key: &gamma_private |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIBzAIBAAJhAPYC5Y/f1GydsdsxDld3gcILOn7hUIsShvEv8W2wo1RFHZGBKMqa
+      4qonXRNijz6S5GXBH5liOd8kwZJ1FYXGTaSGlI/t86hXAxkGXvn0a0TOoKpH0Fd4
+      t5WkS1R5/gkQzQIDAQABAmAdWc0ftDm417ufhiPK5bQyfXp2JtWgMg6teeXZC2kB
+      JdnYQUunmIEQge/F301tzsJ7SJmjHEQokCduqG9wAyplzWqwDqC4syLluBfrtBfh
+      e5ApDUYi9qZMsCyCQA/j3gECMQD/5romxTUF0Cg+tI52BasFD9NHmNSLGeGNZR/u
+      9qH2PAzkd4w1mIOz5y0Cvs22/4ECMQD2GzFd299VaF/fjzeFApgt/ZC+xzr3Q6B8
+      cD7BQjpoStI40U7D6rQuiHcABjnZt00CMQDErM7LN2wOALK9psWK/cY4CLaoY1SP
+      aB/LLTqCzXkjJ3n9KchP9NzcKsOURZMTn4ECMQDQi+R+Y6ZR6ntrpyHl7XflaPxy
+      HcOi6kShjkAvZh62Z8jSatNzA30h/XPRqnT1P/UCMQCCxmy42EaisPHQxWCxvYDr
+      +kBx8m82w4A/3ODRAZqUX/8HnRut1JSFrfW+N61IUU0=
+      -----END RSA PRIVATE KEY-----
+    public_key: &gamma_public AAAAB3NzaC1yc2EAAAADAQABAAAAYQD2AuWP39RsnbHbMQ5Xd4HCCzp+4VCLEobxL/FtsKNURR2RgSjKmuKqJ10TYo8+kuRlwR+ZYjnfJMGSdRWFxk2khpSP7fOoVwMZBl759GtEzqCqR9BXeLeVpEtUef4JEM0=
+    passphrase: &gamma_passphrase ~
+
+attributes: &attributes
+  ama-ssh-private-keys:
+    basic:
+      content: *alpha_private
+      install_public_key: true
+    unprotected:
+      content: *alpha_private
+      public_key: *alpha_public
+      perform_validation: true
+      install_public_key: true
+    passphrased:
+      content: *beta_private
+      public_key: *beta_public
+      passphrase: *beta_passphrase
+      perform_validation: true
+      install_public_key: true
+    public_key_generation:
+      content: *alpha_private
+      install_public_key: true
+    type_mismatch:
+      type: ssh-dss
+      content: *alpha_private
+      public_key: *alpha_public
+      expects_failure: true
+      perform_validation: true
+    invalid_passphrase:
+      content: *beta_private
+      public_key: *beta_public
+      passphrase: invalid
+      expects_failure: true
+      perform_validation: true
+    key_mismatch:
+      content: *gamma_private
+      public_key: *alpha_public
+      expects_failure: true
+      perform_validation: true
+    disabled_validation:
+      type: ssh-rsa
+      content: *gamma_private
+      public_key: *alpha_public
+      perform_validation: false
+      install_public_key: true
+
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+  attributes: *attributes
+  format: <% if ENV['INSPEC_DEBUG']%>documentation<% else %>junit<% end %>
+  output: <% if ENV['INSPEC_DEBUG']%>'-'<% else %>test/metadata/junit/acceptance/TEST-%{suite}-on-%{platform}.xml<% end %>
+  inspec_tests:
+    - path: test/suites/acceptance/default
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: debian-7.3
+  - name: debian-7.11
+  - name: debian-8.7
+  - name: centos-6.0
+  - name: centos-6.9
+  - name: centos-7.9
+  - name: fedora-24
+  - name: fedora-25
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ama-ssh-private-keys-acceptance::default]
+    attributes: *attributes

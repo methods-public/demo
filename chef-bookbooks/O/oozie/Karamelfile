@@ -1,0 +1,4 @@
+dependencies: 
+  - recipe: oozie::install
+    global:  
+      - hopsworks::default

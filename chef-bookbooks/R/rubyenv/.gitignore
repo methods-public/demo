@@ -1,0 +1,23 @@
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+pkg/
+knifeit.sh
+
+# Berkshelf
+.vagrant
+/cookbooks
+
+# Bundler
+bin/*
+.bundle/*
+
+# Test Kitchen
+.kitchen/
+.kitchen.local.yml
+/test-reports
+
+.env.private

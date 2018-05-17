@@ -1,0 +1,53 @@
+{
+  "name": "fb_limits",
+  "description": "Installs/Configures /etc/security/limits.conf",
+  "long_description": "fb_limits Cookbook\n====================\nThis cookbook allows `/etc/security/limits.conf` to be changed. This controls\nlimits for PAM sessions (via the `pam_limits` module). Note that on hosts using\nsystemd, the limits set here will not apply to system services; you should set\nany defaults you want using `node['fb_systemd']['system']`.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_limits']\n\nUsage\n-----\nIn limits.conf, each line describes a limit for a user in the form:\n\n    <domain>        <type>  <item>  <value>\n\nWhere:\n`domain` can be:\n\n* a user name\n* a group name, with `@group` syntax\n* the wildcard `*`, for default entry\n* the wildcard `%`, can be also used with `%group` syntax for `maxlogin` limit\n\n`type` can have one of this two values:\n\n* `soft` for enforcing the soft limits\n* `hard` for enforcing hard limits\n\n`item` can be one of the following:\n\n* `core` - limits the core file size (KB)\n* `data` - max data size (KB)\n* `fsize` - maximum filesize (KB)\n* `memlock` - max locked-in-memory address space (KB)\n* `nofile` - max number of open files\n* `rss` - max resident set size (KB)\n* `stack` - max stack size (KB)\n* `cpu` - max CPU time (MIN)\n* `nproc` - max number of processes\n* `as` - address space limit\n* `maxlogins` - max number of logins for this user\n* `priority` - the priority to run user process with\n* `locks` - max number of file locks the user can hold\n* `sigpending` - max number of pending signals\n* `msgqueue` - max memory used by POSIX message queues (bytes)\n\nExample:\n\n    node.default['fb_limits']['DOMAIN'] = {\n        'ITEM' => {\n          'TYPE' => VALUE,\n          'TYPE' => VALUE,\n        }\n    }\n\nBy default we will assign:\n\n    root nofile soft 65535\n    root nofile hard 65535\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

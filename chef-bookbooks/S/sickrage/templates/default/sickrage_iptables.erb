@@ -1,0 +1,2 @@
+# Port for sickrage
+-A INPUT -P ACCEPT -p tcp -m tcp --dport <%= node['sickrage']['listen_port'] %> -j ACCEPT

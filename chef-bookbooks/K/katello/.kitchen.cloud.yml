@@ -1,0 +1,44 @@
+---
+driver_config:
+  digitalocean_client_id: <%= ENV['DIGITAL_OCEAN_CLIENT_ID'] %>
+  digitalocean_api_key: <%= ENV['DIGITAL_OCEAN_API_KEY'] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+
+- name: centos-6.5
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 1646467
+    flavor_id: 64
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+
+- name: fedora-19
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 696598
+    flavor_id: 64
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+  attributes:
+    java:
+      jdk_version: 7
+
+suites:
+- name: server
+  run_list:
+  - recipe[katello]
+  attributes: {}
+
+- name: server-with-foreman
+  run_list:
+  - recipe[katello]
+  attributes:
+    katello:
+      enable_foreman: true

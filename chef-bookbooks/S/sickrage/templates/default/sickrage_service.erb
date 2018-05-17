@@ -1,0 +1,92 @@
+#!/bin/bash
+# Copyright (c) 2015 Jeremy Miller
+# All rights reserved.
+#
+# Author: Jeremy Miller, 2015
+#
+# /etc/init.d/sickrage
+# chkconfig: 345 70 30
+
+. /etc/init.d/functions
+
+RETVAL=0
+prog="sickrage"
+LOCKFILE=/var/lock/subsys/$prog
+
+start() {
+        echo -n "Starting $prog: "
+        `<%= node['sickrage']['python']['binary'] %> <%= node['sickrage']['binary'] %> --daemon -p <%= node['sickrage']['listen_port'] %> <%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid`
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+start() {
+        # Start daemon.
+        echo -n $"Starting $prog: "
+        daemon --user=<%= default['sickrage']['user'] %> --pidfile=<%= default['sickrage']['directory']['pid_dir'] %>/sickbeard.pid <%= node['sickrage']['python']['binary'] %> <%= node['sickrage']['binary'] %> --daemon -p <%= node['sickrage']['listen_port'] %> --pidfile=<%= node['sickrage']['directory']['pid_dir'] %>/sickbeard.pid
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch $lockfile
+        return $RETVAL
+}
+
+stop() {
+        pid=`ps -ef |grep -i sick |grep -v grep |cut -d ' ' -f6`
+        echo -n "Shutting down $prog: "
+        kill -9 $pid
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+status() {
+        echo -n "Checking $prog status:"
+        echo
+        sickrage=`ps -ef |grep -i sick |grep -v grep |cut -d '/' -f7`
+        SR=`echo $sickrage |cut -d ' ' -f1`
+        if [ "$SR" == "sickbeard" ]
+        then
+          echo "The sickrage service is running"
+        else
+          echo "The sickrage service is not running"
+        fi
+        RETVAL=$?
+        return $RETVAL
+}
+
+restart() {
+        echo -n "Shutting down $prog: "
+        pid=`ps -ef |grep -i sick |grep -v grep |cut -d ' ' -f6`
+        kill -9 $pid
+
+        echo -n "Starting $prog: "
+        `<%= node['sickrage']['python']['binary'] %> <%= node['sickrage']['binary'] %> --daemon -p <%= node['sickrage']['listen_port'] %> --pidfile=/var/run/sickbeard/sickbeard.pid`
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL

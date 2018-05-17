@@ -1,0 +1,33 @@
+{
+  "name": "midokura",
+  "version": "0.1.0",
+  "description": "Installs/Configures midokura",
+  "long_description": "Installs/Configures midokura",
+  "maintainer": "Vic Iglesias",
+  "maintainer_email": "viglesias@eucalyptus.com",
+  "license": "Apache 2",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0",
+    "cassandra": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,92 @@
+##########################################################################
+# Copyright 2017 ThoughtWorks, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
+
+---
+driver:
+  name: docker
+  privileged: true
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.19.36
+
+platforms:
+- name: centos-6.4
+- name: centos-7
+  driver:
+    provision_command:
+      - "yum install -y initscripts && yum clean all" #for starting services
+- name: ubuntu-12.04
+  driver:
+    provision_command:
+      - "apt-get install -y net-tools" # netstat, needed to run specs
+      - "apt-get install -y libfuse2"
+      - "mkdir -p /tmp/fuse"
+      - "cd /tmp/fuse ; apt-get download fuse"
+      - "cd /tmp/fuse ; dpkg-deb -x fuse_* ."
+      - "cd /tmp/fuse ; dpkg-deb -e fuse_*"
+      - "cd /tmp/fuse ; rm fuse_*.deb"
+      - "cd /tmp/fuse ; echo '#!/bin/bash\\nexit 0\\n' > DEBIAN/postinst"
+      - "cd /tmp/fuse ; cat DEBIAN/postinst"
+      - "cd /tmp/fuse ; dpkg-deb -b . /tmp/fuse.deb"
+      - "cd /tmp/fuse ; dpkg -i /tmp/fuse.deb"
+- name: ubuntu-14.04
+  driver:
+    provision_command:
+      - "apt-get install -y net-tools" # netstat, needed to run specs
+      - "apt-get install -y libfuse2"
+      - "mkdir -p /tmp/fuse"
+      - "cd /tmp/fuse ; apt-get download fuse"
+      - "cd /tmp/fuse ; dpkg-deb -x fuse_* ."
+      - "cd /tmp/fuse ; dpkg-deb -e fuse_*"
+      - "cd /tmp/fuse ; rm fuse_*.deb"
+      - "cd /tmp/fuse ; echo '#!/bin/bash\\nexit 0\\n' > DEBIAN/postinst"
+      - "cd /tmp/fuse ; cat DEBIAN/postinst"
+      - "cd /tmp/fuse ; dpkg-deb -b . /tmp/fuse.deb"
+      - "cd /tmp/fuse ; dpkg -i /tmp/fuse.deb"
+
+suites:
+- name: default
+  run_list:
+  - recipe[gocd]
+  attributes:
+    gocd:
+      server:
+        max_mem: '2048m'
+        min_mem: '512m'
+      agent:
+        count: 2 # good test for agent lwrp
+        autoregister:
+          key: 'auto-register-key'
+          environments: ['staging', 'perf']
+          resources: ['foo', 'bar', 'baz']
+          hostname: 'example-host'
+- name: package_file
+  run_list:
+  - recipe[gocd]
+  attributes:
+    gocd:
+      install_method: 'package_file'
+      server:
+        max_mem: '2048m'
+        min_mem: '512m'
+      agent:
+        autoregister:
+          key: 'auto-register-key'
+          environments: ['staging', 'perf']
+          resources: ['foo', 'bar', 'baz']
+          hostname: 'example-host'

@@ -1,0 +1,45 @@
+{
+  "name": "kafka-manager",
+  "description": "Installs/Configures kafka-manager",
+  "long_description": "Installs/Configures kafka-manager",
+  "maintainer": "Spencer Owen",
+  "maintainer_email": "owenspencer@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "packagecloud": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.3",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

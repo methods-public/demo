@@ -1,0 +1,47 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+  - name: debian-7.8
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[ruby_build]
+      - recipe[rbenv::system]
+      - recipe[tar]
+      - recipe[mecab]
+      - recipe[mecab-ruby]
+    #attributes: {rbenv: {rubies: { name: "2.1.1", environment: { CONFIGURE_OPTS: "--disable-install-rdoc" }}, "global": "2.1.1"}}
+    attributes:
+      rbenv:
+        rubies:
+        - name: "2.1.1"
+        environment:
+          CONFIGURE_OPTS: "--disable-install-rdoc"
+      global: 2.1.1
+
+  - name: ruby18
+    run_list:
+      - recipe[apt]
+      - recipe[build-essential]
+      - recipe[ruby_build]
+      - recipe[rbenv::system]
+      - recipe[tar]
+      - recipe[mecab]
+      - recipe[mecab-ruby]
+    attributes:
+      rbenv:
+        rubies:
+        - name: "1.8.6-p420"
+        environment:
+          CONFIGURE_OPTS: "--disable-install-rdoc"
+      global: 1.8.6-p420

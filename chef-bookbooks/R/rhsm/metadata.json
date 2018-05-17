@@ -1,0 +1,79 @@
+{
+  "name": "rhsm",
+  "description": "Provides recipes to manage registration using RedHat Subscription Manager",
+  "long_description": "# rhsm cookbook\n\n[![Cookbook](https://img.shields.io/cookbook/v/rhsm.svg?style=flat)][cookbook]\n[![Release](https://img.shields.io/github/release/rightscale-cookbooks/rhsm.svg?style=flat)][release]\n[![Build Status](https://img.shields.io/travis/rightscale-cookbooks/rhsm.svg?style=flat)][travis]\n\n[cookbook]: https://supermarket.getchef.com/cookbooks/rhsm\n[release]: https://github.com/rightscale-cookbooks/rhsm/releases/latest\n[travis]: https://travis-ci.org/rightscale-cookbooks/rhsm\n\nCookbook to handle RedHat Subscription Management.\n\nGithub Repository: [https://github.com/rightscale-cookbooks/rhsm](https://github.com/rightscale-cookbooks/rhsm)\n\n# Requirements\n\n* Chef 11 or higher\n* Platform\n  * RHEL 6\n  * RHEL 7\n\n# Usage\n\nTo register the instance with the RedHat subscription service, run the `rhsm::register` recipe with the following attributes set:\n\n- `node['rhsm']['username']` - RedHat account username\n- `node['rhsm']['password']` - RedHat account password\n\nTo unregister the instance, run the `rhsm::unregister` recipe.\n\nTo register the instance and to unregister at shutdown, run the `rhsm::default` recipe setting the same attributes required for `rhsm::register`.\n\n# Attributes\n\n- `node['rhsm']['username']` - RedHat account username\n- `node['rhsm']['password']` - RedHat account password\n\n# Recipes\n\n## `rhsm::default`\n\nRuns `rhsm::register` and setups a service to unregister the instance at shutdown.\n\n## `rhsm::register`\n\nRegisters instance with the RedHat subscription service.\n\n## `rhsm::unregister`\n\nUnregisters instance with the RedHat subscription service.\n\n# Author\n\nAuthor:: RightScale, Inc. (<cookbooks@rightscale.com>)\n",
+  "maintainer": "RightScale, Inc.",
+  "maintainer_email": "cookbooks@rightscale.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-sugar": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "rhsm/username": {
+      "display_name": "RedHat Account Username",
+      "description": "RedHat Account Username",
+      "required": "optional",
+      "recipes": [
+        "rhsm::default",
+        "rhsm::register"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "rhsm/password": {
+      "display_name": "RedHat Account Password",
+      "description": "RedHat Account Password",
+      "required": "optional",
+      "recipes": [
+        "rhsm::default",
+        "rhsm::register"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "rhsm/additional_repos": {
+      "display_name": "Additional RHEL Repos",
+      "description": "Additional RHEL repos to enabled",
+      "required": "optional",
+      "type": "array",
+      "default": [
+
+      ],
+      "recipes": [
+        "rhsm::default",
+        "rhsm::register"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "rhsm::default": "Register instance and add code to unregister at shutdown",
+    "rhsm::register": "Register instance",
+    "rhsm::unregister": "Unregister instance"
+  },
+  "version": "1.0.0"
+}

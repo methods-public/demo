@@ -1,0 +1,39 @@
+################################################################################
+# ~~ WARNING THIS FILE IS MANAGED BY CHEF YOUR CHANGES WILL BE OVERWRITTEN! ~~ #
+################################################################################
+
+# Secret key
+# ~~~~~
+# The secret key is used to secure cryptographics functions.
+# If you deploy your application to several instances be sure to use the same key!
+application.secret="<%= node['cerebro']['config']['application.secret'] %>"
+
+# The application languages
+# ~~~~~
+application.langs="<%= node['cerebro']['config']['application.langs'] %>"
+
+hosts = [
+  #{
+  #  host = "http://some-authenticated-host:9200",
+  #  auth = {
+  #    username = "username"
+  #    password = "secret-password"
+  #  }
+  #},
+  {
+    host = "<%= node['cerebro']['config']['host'] %>"
+  }
+]
+
+# Logger
+# ~~~~~
+# You can also configure logback (http://logback.qos.ch/), by providing a logger.xml file in the conf directory .
+
+# Root logger:
+logger.root=<%= node['cerebro']['config']['logger.root'] %>
+
+# Logger used by the framework:
+logger.play=<%= node['cerebro']['config']['logger.play'] %>
+
+# Logger provided to your application:
+logger.application=<%= node['cerebro']['config']['logger.application'] %>

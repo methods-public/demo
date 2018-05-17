@@ -1,0 +1,16 @@
+[Unit]
+Description=SickBeard Daemon
+
+[Service]
+User=sickbeard
+Group=sickbeard
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/sickbeard/SickBeard.py -q --daemon --nolaunch
+# -- added below to be less priority -- #
+Nice=15
+IOSchedulingClass=2
+IOSchedulingPriority=5
+
+[Install]
+WantedBy=multi-user.target

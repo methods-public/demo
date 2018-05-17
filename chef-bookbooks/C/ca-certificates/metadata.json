@@ -1,0 +1,43 @@
+{
+  "name": "ca-certificates",
+  "description": "Installs/Configures ca-certificates",
+  "long_description": "ca-certificates Cookbook\n========================\n\nThis cookbook installs ca-certificates.\n\nHow to generate the base ca-bundle.pem\n--------------------------------------\n    git clone https://github.com/agl/extract-nss-root-certs.git\n    cd extract-nss-root-certs\n    curl https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt -o certdata.txt\n    go run convert_mozilla_certdata.go -to-files=true\n    [[ -f ca-bundle.pem ]] && rm -f ca-bundle.pem || touch ca-bundle.pem\n    for cert in `ls *.pem`; do openssl x509 -text -in ${cert} >> ca-bundle.pem; done\n\nRequirements\n------------\n\n#### OS\nMust be running a RHEL distro. I added debian support recently, but it's testing is very limited.\n\nAttributes\n----------\n### package\n\nThis is the name of the package to be installed by the package manager.\n\n### ca-bundle_path\n\nThis is the location of the actual ca-bundle.crt that is installed by the package manager.\n\nUsage\n-----\n#### ca-certificates::default\nJust include `ca-certificates` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[ca-certificates]\"\n  ]\n}\n```\n\nLicense and Authors\n-------------------\nAuthors: Jason Barnett (<J@sonBarnett.com>)\n",
+  "maintainer": "Jason Barnett",
+  "maintainer_email": "J@sonBarnett.com",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "oracle": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/jasonwbarnett/ca-certificates-cookbook",
+  "issues_url": "https://github.com/jasonwbarnett/ca-certificates-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 11.8.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

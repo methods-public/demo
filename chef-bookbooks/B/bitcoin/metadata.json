@@ -1,0 +1,41 @@
+{
+  "name": "bitcoin",
+  "description": "Installs and configures Bitcoin",
+  "long_description": "Bitcoin Cookbook\n================\n[![Cookbook](https://img.shields.io/cookbook/v/bitcoin.svg)](https://supermarket.getchef.com/cookbooks/bitcoin)\n[![Build Status](https://travis-ci.org/infertux/chef-bitcoin.svg?branch=master)](https://travis-ci.org/infertux/chef-bitcoin)\n\nThis cookbook downloads, installs and configures Bitcoin as a full node.\n\nRequirements\n------------\n\n### network\nIn order to actively contribute to the Bitcoin network, you will need to open your TCP port 8333.\nThis cookbook does *not* make sure your port 8333 is open since this is very much dependant on your networking setup.\n\nUsage\n-----\n\n### Comparison table\n\n| recipe:                             | package                | binary                              | source                              | git                   |\n| :---                                | :---:                  | :---:                               | :---:                               | :---:                 |\n| support most distributions          | only RHEL & CentOS     | **yes**                             | **yes**                             | **yes**               |\n| support ARM and other architectures | only x86_64            | only x86_64                         | **yes**                             | probably (not tested) |\n| variants available                  | Core & XT              | **Core, Unlimited & ABC**           | **Core, Unlimited & ABC**           | btcd                  |\n| proper packaging                    | **yes**                | no                                  | no                                  | no                    |\n| SELinux support                     | **yes**                | no                                  | no                                  | no                    |\n\nThe matrix of available configurations can be found [there](https://travis-ci.org/infertux/chef-bitcoin).\n\n### `bitcoin::package` recipe\n\nConfigures repository from http://www.ringingliberty.com/bitcoin/ and installs pre-packaged binary with `bitcoin` systemd service.\n\nYou can run a Bitcoin fork/variant like this:\n\n```\n    \"bitcoin\": {\n      \"variant\": \"unlimited\"\n    }\n```\n\nThe valid variants are `core`, `unlimited`, `abc`, `xt` and `btcd`.\n\n### `bitcoin::binary` recipe\n\nDownloads the binary and copies it along with an systemd service script.\n\n### `bitcoin::source` recipe\n\nDownloads the release from GitHub and compiles it along with an systemd service script.\n\nCaution: you'll need at least 1 GB of free RAM to compile it (setting `make_options` to `-j1` can help too).\n\n### `bitcoin::git` recipe\n\nDownloads the latest commit from GitHub and compiles it along with an systemd service script.\n\nCaution: this will fetch the `HEAD` revision and might break without warnings.\n\nLicense\n-------\nMIT\n",
+  "maintainer": "Cédric Félizard",
+  "maintainer_email": "cedric@felizard.fr",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "freebsd": ">= 0.0.0"
+  },
+  "dependencies": {
+    "golang": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.6.0",
+  "source_url": "https://github.com/infertux/chef-bitcoin",
+  "issues_url": "https://github.com/infertux/chef-bitcoin/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,9 @@
+=======================
+Cookbook Summary Report
+=======================
+<% cookbooks.each do |cookbook| %>
+<%= cookbook %> at version <%= version(cookbook) %> (<%= maintainer(cookbook) %>)
+  Contains <%= recipes(cookbook).count %> recipes, <%= loaded_recipes(cookbook).count %> loaded
+  <%= description(cookbook)[0,76] %>
+
+<%end%>

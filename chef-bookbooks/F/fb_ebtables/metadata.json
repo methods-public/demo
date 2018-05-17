@@ -1,0 +1,51 @@
+{
+  "name": "fb_ebtables",
+  "description": "Installs/Configures ebtables",
+  "long_description": "fb_ebtables Cookbook\n====================\nBasic cookbook to manage ebtables.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_ebtables']['enable']\n* node['fb_ebtables']['manage_packages']\n* node['fb_ebtables']['sysconfig'][$KEY]\n\nUsage\n-----\nInclude `fb_ebtables` to manage ebtables on a machine. By default, the cookbook\nwill manage the ebtables packages; this can be opted out of by setting\n`node['fb_ebtables']['manage_packages']`. The ebtables service itself is\ndisabled by default; to enable it set `node['fb_ebtables']['enable']` to true.\n\n### Sysconfig\nThe `/etc/sysconfig/ebtables-config` config file can be configured using \n`node['fb_ebtables']['sysconfig']`. This hash will be translated to key-value \npairs in the config file. The keys will automatically be upper-cased and \nprefixed with `EBTABLES_` as necessary. For example:\n\n```\nnode.default['fb_ebtables']['sysconfig']['modules'] = 'nat'\n```\n\nwould translate to:\n\n```\nEBTABLES_MODULES=\"nat\"\n```\n\n### Unsupported features\nThis cookbook does not manage the ebtables ruleset.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

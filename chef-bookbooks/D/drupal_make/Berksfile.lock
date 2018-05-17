@@ -1,0 +1,7 @@
+DEPENDENCIES
+  drupal_make
+    path: .
+    metadata: true
+
+GRAPH
+  drupal_make (0.1.0)

@@ -1,0 +1,48 @@
+{
+  "name": "wazuh",
+  "description": "Installs and onfigures ossec",
+  "long_description": "Wazuh cookbook (Manager, Agent, API)\n====================================\n\nRequirements\n------------\n#### Platforms\nTested on Ubuntu and CentOS, but should work on any Unix/Linux platform supported by Wazuh. Installation by default is done from packages.\n\nThis cookbook doesn't configure Windows systems yet. For manual agent installation on Windows, check the [documentation](https://documentation.wazuh.com/current/installation-guide/installing-wazuh-agent/wazuh_agent_windows.html)\n\n#### Chef\n- Chef 12+\n\n#### Cookbooks\n- apt\n- yum\n\nAttributes\n----------\n\n* `node['ossec']['agent_server_ip']` - Manager server IP address. The client recipe will attempt to determine this value via search. Default is nil, only required for agent installations.\n\n### ossec.conf\n\nOSSEC's configuration is mainly read from an XML file called `ossec.conf`. You can directly control the contents of this file using node attributes under `node['ossec']['conf']`. These attributes are mapped to XML using Gyoku. See the [Gyoku site](https://github.com/savonrb/gyoku) for details on how this works.\n\nChef applies attributes from all attribute files regardless of which recipes were executed. In order to make wrapper cookbooks easier to write, `node['ossec']['conf']` is divided into the three installation types mentioned below, `local`, `server`, and `agent`. You can also set attributes under `all` to apply settings across all installation types. The typed attributes are automatically deep merged over the `all` attributes in the normal Chef manner.\n\n`true` and `false` values are automatically mapped to `\"yes\"` and `\"no\"` as OSSEC expects the latter.\n\n`ossec.conf` makes use of XML attributes so you can generally construct nested hashes in the usual fashion. Where an attribute is required, you can do it like this:\n\n    default['ossec']['conf']['all']['syscheck']['directories'] = [\n      { '@check_all' => true, 'content!' => '/bin,/sbin' },\n      '/etc,/usr/bin,/usr/sbin'\n    ]\n\nThis produces:\n\n    <syscheck>\n      <directories check_all=\"yes\">/bin,/sbin</directories>\n      <directories>/etc,/usr/bin,/usr/sbin</directories>\n    </syscheck>\n\n### agent.conf\n\nWazuh managers can also distribute configuration to agents using the centralized configuration located in the XML file called `agent.conf`. It as well support groups granularity for different configurations.\nSince Chef can as well distribute configuration, the cookbook leaves this file blank by default. In case you want to populate it, you can define the attributes directly under `node['ossec']['agent_conf']`. Unlike conventional XML files, `agent.conf` has multiple root nodes so `node['ossec']['agent_conf']` must be treated as an array like so.\n\n    default['ossec']['agent_conf'] = [\n      {\n        'syscheck' => { 'frequency' => 4321 },\n        'rootcheck' => { 'disabled' => true }\n      },\n      {\n        '@os' => 'Windows',\n        'content!' => {\n          'syscheck' => { 'frequency' => 1234 }\n        }\n      }\n    ]\n\nThis produces:\n\n    <agent_config>\n      <syscheck>\n        <frequency>4321</frequency>\n      </syscheck>\n      <rootcheck>\n        <disabled>yes</disabled>\n      </rootcheck>\n    </agent_config>\n\n    <agent_config os=\"Windows\">\n      <syscheck>\n        <frequency>1234</frequency>\n      </syscheck>\n    </agent_config>\n\nRecipes\n-------\n\n### repository\n\nAdds the Wazuh apt/yum repository. This recipe is included by others and should not be used directly.\n\n### common\n\nThe recipe is used for both Manager and Agents, it generates the configuration files ossec.conf and agent.conf.\nPuts the configuration file in place and starts the (agent or server) service. This recipe is included by other recipes and generally should not be used directly.\n\n### manager\n\nInstall and register a Wazuh manager.\n\n### agent\n\nInstall and register a Wazuh agent.\n\n\nUsage\n-----\n\nThe cookbook is used for installing Wazuh in one of the three types:\n\n* manager - use the wazuh::manager recipe.\n* agent - use the wazuh::agent recipe\n* RESTful API - use the wazuh::wazuh-api recipe\n\nFor the Wazuh server, create a role, `wazuh_manager`. Add attributes per above as needed to customize the installation.\n\n```\n  {\n    \"name\": \"wazuh_manager\",\n    \"description\": \"Wazuh Manager host\",\n    \"json_class\": \"Chef::Role\",\n    \"default_attributes\": {\n\n    },\n    \"override_attributes\": {\n\n    },\n    \"chef_type\": \"role\",\n    \"run_list\": [\n      \"recipe[wazuh::manager]\"\n    ],\n    \"env_run_lists\": {\n\n    }\n  }\n```\n\nIf you want to build a Wazuh cluster, you need to create two roles, one role for the **Master** and another one for **Client**:\n\n**Note**: This Chef cookbook only brings compatibility with **CentOS 7**, we are working on add more distributions soon.\n\n```\n  {\n    \"name\": \"wazuh_manager_master\",\n    \"description\": \"Wazuh Manager master node\",\n    \"json_class\": \"Chef::Role\",\n    \"default_attributes\": {\n\n    },\n    \"override_attributes\": {\n      \"ossec\": {\n        \"cluster_disabled\": \"no\",\n        \"conf\": {\n          \"server\": {\n            \"cluster\": {\n              \"node_name\": \"node01\",\n              \"node_type\": \"master\",\n              \"disabled\": \"no\",\n              \"nodes\": {\n                \"node\": [\"172.16.10.10\", \"172.16.10.11\"]\n              \"key\": \"596f6b328c8ca831a03f7c7ca8203e8b\"\n            }\n          }\n        }\n    },\n    \"chef_type\": \"role\",\n    \"run_list\": [\n      \"recipe[wazuh::manager]\"\n    ],\n    \"env_run_lists\": {\n\n    }\n  }\n```\n\n```\n  {\n    \"name\": \"wazuh_manager_client\",\n    \"description\": \"Wazuh Manager client node\",\n    \"json_class\": \"Chef::Role\",\n    \"default_attributes\": {\n\n    },\n    \"override_attributes\": {\n      \"ossec\": {\n        \"cluster_disabled\": \"no\",\n        \"conf\": {\n          \"server\": {\n            \"cluster\": {\n              \"node_name\": \"node02\",\n              \"node_type\": \"client\",\n              \"disabled\": \"no\",\n              \"nodes\": {\n                \"node\": [\"172.16.10.10\", \"172.16.10.11\"]\n              \"key\": \"596f6b328c8ca831a03f7c7ca8203e8b\"\n            }\n          }\n        }\n    },\n    \"chef_type\": \"role\",\n    \"run_list\": [\n      \"recipe[wazuh::manager]\"\n    ],\n    \"env_run_lists\": {\n\n    }\n  }\n```\nCheck cluster documentation for more details: https://documentation.wazuh.com/current/user-manual/manager/wazuh-cluster.html\n\n\nFor Wazuh agents, create a role, `wazuh_agent`.\n\n```\n  {\n    \"name\": \"wazuh_agent\",\n    \"description\": \"Wazuh agent\",\n    \"json_class\": \"Chef::Role\",\n    \"default_attributes\": {\n\n    },\n    \"override_attributes\": {\n      \"ossec\": {\n        \"registration_address\": \"manager-master.wazuh-test.com\",\n        \"address\": [\"manager-master.wazuh-test.com\", \"manager-client.wazuh-test.com\"],\n      }\n    },\n    \"chef_type\": \"role\",\n    \"run_list\": [\n      \"recipe[wazuh::agent]\"\n    ],\n    \"env_run_lists\": {\n\n    }\n  }\n```\n\nCustomization\n-------------\n\nThe main configuration file is maintained by Chef as a template, `ossec.conf.erb`.\n",
+  "maintainer": "Wazuh Inc.",
+  "maintainer_email": "info@wazuh.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "oracle": ">= 6.0",
+    "amazon": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "chef-sugar": ">= 0.0.0",
+    "poise-python": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "hostsfile": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.9",
+  "source_url": "https://github.com/wazuh/wazuh-chef",
+  "issues_url": "https://github.com/wazuh/wazuh-chef/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.7"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

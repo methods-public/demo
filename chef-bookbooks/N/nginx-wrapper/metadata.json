@@ -1,0 +1,53 @@
+{
+  "name": "nginx-wrapper",
+  "description": "Install and configure nginx",
+  "long_description": "Nginx wrapper\n=============\n\nDescription\n-----------\n\nCookbook used to install and configure Nginx.\nThis cookbook wrap chef\\_nginx, certificates and nginx\\_conf cookbooks.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nA *systemd* managed distribution:\n- RHEL Family 7, tested on Centos\n\nUsage\n-----\n\nInclude the default recipe in your run\\_list.\n\nResources from chef\\_nginx, certificates and nginx\\_conf cookbooks are\nwrapped.\n\nFor example if you need to deploy a simple config to listen on port 443 for\ntest.local as server name and using ssl certs stored in an encrypted data\\_bag:\n\n```\n\"nginx_conf\": {\n  \"confs\": [\n   \"test.local config\": {\n     \"listen\": \"80\",\n     \"root\": \"/usr/share/nginx/html\"\n     \"server_name\": \"test.local\"\n   }\n  ]\n},\n\"nginx-wrapper\": {\n  \"ssl_configs\": {\n    \"data_bag\": \"nginx-certs\",\n    \"data_bag_type\": \"encrypted\",\n    \"cert_path\": \"/etc/nginx/ssl\",\n    \"nginx_cert\": true,\n    \"create_subfolders\": false\n  }\n}\n```\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `chef_nginx::default`, `nginx-wrapper::ssl_certs` and\n`nginx_conf::default` recipes\n\n### ssl\\_certs\n\nCreate ssl directory for nginx and deploy certs.\n\nThis directory is defined using the following attribute:\n`node['nginx-wrapper']['ssl_certs_dir']`\n\nSSL certificates are deployed through an encrypted data\\_bag.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Florian Philippon (<florian.philippon@s4m.io>)\n\n```text\nCopyright (c) 2016 Sam4Mobile\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Sam4Mobile",
+  "maintainer_email": "dps.team@s4m.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 7.1"
+  },
+  "dependencies": {
+    "chef_nginx": ">= 0.0.0",
+    "nginx_conf": ">= 0.0.0",
+    "certificate": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://gitlab.com/s4m-chef-repositories/nginx-wrapper",
+  "issues_url": "https://gitlab.com/s4m-chef-repositories/nginx-wrapper/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

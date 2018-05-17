@@ -1,0 +1,12 @@
+<%
+config = node['kubernetes-grid']['yum_repo']
+gpgkey = config['gpgkey'] 
+gpgkey = gpgkey.kind_of?(Array) ? gpgkey.join("\n  ") : gpgkey.to_s
+-%>
+[kubernetes]
+name=Kubernetes
+baseurl=<%= config['baseurl'] %>
+enabled=1
+gpgcheck=<%= config['gpgcheck'] %>
+repo_gpgcheck=<%= config['repo_gpgcheck'] %>
+gpgkey=<%= gpgkey %>

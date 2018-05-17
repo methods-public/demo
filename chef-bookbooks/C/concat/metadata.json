@@ -1,0 +1,46 @@
+{
+  "name": "concat",
+  "description": "Builds files out of smaller concatenated fragments",
+  "long_description": "# concat-cookbook\n\n**concat** is a cookbook inspired by the Puppet **concat** module to allow you to build text files out of smaller orderable fragments. Use cases include building firewall rules, fragmenting monolithic configuration files into smaller chunks, etc.\n\n## Supported Platforms\n\nThis was tested on Linux and should work as expected there. No idea whether it will work elsewhere.\n\n## Requirements\n\nChef 12.2.1 or higher\n\n## Usage\n\n1. Require the **concat** cookbook in your own cookbook's `metadata.rb`.\n2. Use the **concat_fragment** resource type to build up the fragments for the target file. At present the fragments will only make use of template files, and not cookbook files.\n3. After all fragment resources have been assembled, use a **concat** resource, ensuring that the **path** attribute of this resource exactly matches the path you supplied for each fragment.\n\n## Example\n\nFrom the test fixture cookbook, this will create two fragments and meld them into a single concatenated file which will appear at `/tmp/test_create1/test`:\n\n```text\nconcat_fragment 'test1.erb' do\n  target '/tmp/test_create1/test'\nend\n\nconcat_fragment 'test2.erb' do\n  target '/tmp/test_create1/test'\n  variables(\n    var1: 'hello'\n  )\nend\n\ndirectory '/tmp/test_create1'\n\nconcat '/tmp/test_create1/test'\n```\n\n## Current features\n\n- allows creation of file fragments and concatenation into final file\n- deletion of individual fragments and fragment directories\n- fragments from cookbook files as well as templates\n- lots of tests courtesy of Test Kitchen\n\n## Upcoming features\n\n- additional features relentlessly cribbed from the Puppet **concat** module\n\n## Acknowledgments\n\n- Thanks to the Puppet concat module (https://github.com/puppetlabs/puppetlabs-concat) for giving me the idea to replicate this in Chef.\n- Thanks to the Chef Nginx cookbook (https://github.com/miketheman/nginx) for giving me something to reference while I cargo culted my way through Berkshelf and Test Kitchen for the first time.\n\n## License and Authors\n\n- Author: Edmund Rhudy <erhudy@gmail.com>\n\n```text\nCopyright 2015, Edmund Rhudy\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Edmund Rhudy",
+  "maintainer_email": "erhudy@gmail.com",
+  "license": "apache2",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.3",
+  "source_url": "https://github.com/erhudy/chef-concat",
+  "issues_url": "https://github.com/erhudy/chef-concat/issues",
+  "privacy": false
+}

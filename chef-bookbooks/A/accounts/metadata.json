@@ -1,0 +1,107 @@
+{
+  "name": "accounts",
+  "version": "0.2.1",
+  "description": "System Accounts management",
+  "long_description": "# accounts cookbook\n\nThis cookbook combines system account management for different services under a single interface.\nIt currently manages users, groups and the associate ssh and sudo settings.\n\nIt provides the following definitions:\n\n- account\n\n- agroup\n\nIt uses the cookbook files directory for all the files used for each account (ssh, etc.), which could be a symlink, \ngit submodule or however you would like to manage that data.\n\n# Requirements\n\n# Usage\n\n  include_recipe \"accounts\"\n\n  # optionally set node[:accounts][:cookbook] to the cookbook that contains the config files\n\n  account \"role\" do\n    uid \"700\"\n    account_type \"role\"\n    comment \"Role Account\"\n    ssh false\n    sudo true\n  end\n  \n  agroup \"users\" do\n    gid \"100\"\n    sudo true\n  end\n\n# Attributes\n\n# Recipes\n\n",
+  "maintainer": "Sander van Zoest",
+  "maintainer_email": "sander@vanzoest.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+    "sudo": ">= 0.0.0"
+  },
+  "providing": {
+    "account::user": ">= 0.0.0",
+    "account::group": ">= 0.0.0",
+    "account::ssh": ">= 0.0.0",
+    "account::sudo": ">= 0.0.0",
+    "agroup::group": ">= 0.0.0",
+    "agroup::sudo": ">= 0.0.0"
+  },
+  "replacing": {
+    "sudo": ">= 0.0.0"
+  },
+  "attributes": {
+    "accounts": {
+      "display_name": "Accounts Hash",
+      "description": "Hash of Accounts attributes",
+      "type": "hash"
+    },
+    "accounts/dir": {
+      "display_name": "Accounts Directory",
+      "description": "Default Home Directory for Accounts",
+      "default": "/home"
+    },
+    "accounts/cookbook": {
+      "display_name": "cookbook that contains the per account files",
+      "description": "The name of the cookbook where the files for each account are stored",
+      "default": "accounts"
+    },
+    "accounts/default": {
+      "display_name": "Accounts Defaults",
+      "description": "Default Settings",
+      "type": "hash"
+    },
+    "accounts/default/shell": {
+      "display_name": "Account Default Shell",
+      "description": "Path to shell set during account creation when none is explicitly provided",
+      "default": "/bin/bash"
+    },
+    "accounts/default/group": {
+      "display_name": "Account Default Group",
+      "description": "Default unix group to use when none is explicitly provided",
+      "default": "users"
+    },
+    "accounts/default/do_ssh": {
+      "display_name": "Account Default SSH setting",
+      "description": "By default manage SSH files",
+      "default": "true"
+    },
+    "accounts/default/do_sudo": {
+      "display_name": "Account Default sudo setting",
+      "description": "By default enable sudo access",
+      "default": "false"
+    },
+    "accounts/default/file_backup": {
+      "display_name": "Account File backups",
+      "description": "Number of files to keep as backup when copying files in place",
+      "default": "2"
+    },
+    "accounts/sudo": {
+      "display_name": "Sudo Account Management",
+      "description": "Hash of attributes",
+      "type": "hash"
+    },
+    "accounts/sudo/groups": {
+      "display_name": "Sudo Groups",
+      "description": "Groups who are allowed sudo ALL",
+      "type": "array",
+      "default": ""
+    },
+    "accounts/sudo/users": {
+      "display_name": "Sudo users",
+      "description": "Users who are allowed to sudo ALL",
+      "type": "array",
+      "default": ""
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "accounts": "Generic Account Setup, users can be added via definition",
+    "accounts::sysadmins": "Shortcut for loading all system administrator accounts",
+    "accounts::apps": "Shortcut for Application Specific Role accounts",
+    "accounts::staff": "Shortcut for loading all staff accounts"
+  }
+}

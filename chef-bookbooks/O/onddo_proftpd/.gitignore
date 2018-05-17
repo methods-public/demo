@@ -1,0 +1,14 @@
+Berksfile.lock
+.bundle
+.cache
+coverage
+doc
+Dockerfile-kitchen-*
+*.gem
+Gemfile.lock
+.kitchen
+.kitchen.local.yml
+metadata.json
+nodes/
+test/kitchen/.kitchen/
+.yardoc

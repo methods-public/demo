@@ -1,0 +1,50 @@
+{
+  "name": "google-cloud",
+  "description": "Bundle cookbook to install all Chef GCP cookbooks.",
+  "long_description": "\n    This cookbook provides the built-in types and services for Chef to manage\n    Google Cloud Engine resources.",
+  "maintainer": "Google",
+  "maintainer_email": "nelsona@google.com",
+  "license": "apachev2",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "opensuse": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "google-gauth": "< 0.2.0",
+    "google-glogging": "< 0.2.0",
+    "google-gcompute": "< 0.2.0",
+    "google-gcontainer": "< 0.2.0",
+    "google-gdns": "< 0.2.0",
+    "google-gsql": "< 0.3.0",
+    "google-gstorage": "< 0.2.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/GoogleCloudPlatform/chef-google",
+  "issues_url": "https://github.com/GoogleCloudPlatform/chef-google/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

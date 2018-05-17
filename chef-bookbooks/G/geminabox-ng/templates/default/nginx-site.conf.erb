@@ -1,0 +1,23 @@
+server {
+    listen 8000 default deferred; # for Linux
+    # listen [::]:80 ipv6only=on; # deferred or accept_filter recommended
+
+    client_max_body_size 4G;
+    server_name _;
+
+    keepalive_timeout 5;
+
+    # path for static files
+    # root /path/to/app/current/public;
+
+    location / {
+      # an HTTP header important enough to have its own Wikipedia entry:
+      #   http://en.wikipedia.org/wiki/X-Forwarded-For
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      proxy_pass             http://127.0.0.1:8080;
+    }
+}

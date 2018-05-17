@@ -1,0 +1,15 @@
+.#*
+*~
+*#
+\#*#
+Berksfile.lock
+bin
+.bundle
+.cache
+Gemfile.lock
+.kitchen
+.kitchen.local.yml
+.*.sw[a-z]
+*.un~
+.vagrant
+.yardoc

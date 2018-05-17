@@ -1,0 +1,54 @@
+{
+  "name": "example_resources",
+  "description": "Provider cookbook that defines an example Chef resource. Integration tests in InSpec.",
+  "long_description": "# example_resources\n\n[![Build Status](https://travis-ci.org/loom-cookbooks/example_resources.svg?branch=master)](https://travis-ci.org/loom-cookbooks/example_resources) [![Cookbook Version](https://img.shields.io/cookbook/v/example_resources.svg)](https://supermarket.chef.io/cookbooks/example_resources)\n\nThis is a resource cookbook that demonstrates how to use InSpec for integration testing.\n\nThe purpose of this cookbook is to illustrate the relationship between a cookbook that defines a new Chef resource, and another cookbook that consumes it.\n\nThis is a simple resource cookbook that defines a Chef resource. I wrote another cookbook called [example], which consumes the resource defined here.\n\n[example]: https://supermarket.chef.io/cookbooks/example\n\n## To test\n\nThis cookbook was tested most recently with ChefDK v0.17.17. It should work with ChefDK v0.12.0 or higher.\n\nIf you're using ChefDK ~> 0.11, look at [v1.0.7] of this cookbook for instructions on testing.\n\n```bash\n$ kitchen verify\n```\n\n## Development\n\n* [GitHub]\n* [Supermarket]\n* [Issues, questions, requests]\n\n## Author\n\nCreated and maintained by Kevin Dickerson of [Loom]. <kevin.dickerson@loom.technology>.\n\n[Loom]: https://loom.technology\n[GitHub]: https://github.com/loom-cookbooks/example_resources\n[Supermarket]: https://supermarket.chef.io/cookbooks/example_resources\n[Issues, questions, requests]: https://github.com/loom-cookbooks/example_resources/issues\n[chefdk]: https://downloads.chef.io/chef-dk/\n[v1.0.7]: https://github.com/loom-cookbooks/example_resources/tree/v1.0.7\n[example_resources]: https://supermarket.chef.io/cookbooks/example_resources\n",
+  "maintainer": "Kevin Dickerson",
+  "maintainer_email": "kevin.dickerson@loom.technology",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 5.11",
+    "debian": ">= 7.9",
+    "fedora": ">= 22.0",
+    "ubuntu": ">= 12.04"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.14",
+  "source_url": "https://github.com/loom-cookbooks/example_resources",
+  "issues_url": "https://github.com/loom-cookbooks/example_resources/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

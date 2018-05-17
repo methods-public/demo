@@ -1,0 +1,25 @@
+---
+<% version = ENV['CHEF_VERSION'] %>
+driver:
+  name: docker
+
+provisioner:
+  name: chef_zero
+  file_atomic_update: false
+  require_chef_omnibus: <%= version %>
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: centos-6.6
+  - name: centos-7.2
+
+suites:
+  - name: default-<%= version.dup.gsub!('.', '-') %>
+    run_list:
+      - recipe[dataloop_chef_client_test::default]
+      - recipe[dataloop_chef_client_test::runner]
+    attributes:
+      dataloop-chef-client:
+        chef-server-url: http://127.0.0.1:8889
+        chef-conf-dir: /tmp/kitchen

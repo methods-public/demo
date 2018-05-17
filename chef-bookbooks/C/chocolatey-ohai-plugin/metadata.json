@@ -1,0 +1,51 @@
+{
+  "name": "chocolatey-ohai-plugin",
+  "description": "Ohai plugin to discover installed Chocolatey packages",
+  "long_description": "# chocolatey-ohai-plugin\n[![Build status](https://ci.appveyor.com/api/projects/status/1uufhsayaglup208/branch/master?svg=true)](https://ci.appveyor.com/project/zl4bv/chocolatey-ohai-plugin/branch/master)\n\n[Ohai](https://github.com/chef/ohai) plugin to discover installed [Chocolatey](https://chocolatey.org/) packages.\n\n## Requirements\n\n### Platforms\n\n- Windows\n\n### Chef\n\n- Chef 12+\n\n### Cookbooks\n\n- ohai\n\n## Usage\n\nAdd the `chocolatey-ohai-plugin::default` recipe to the start of your runlist.\n\nAlternatively, you can manually copy `templates/default/chocolatey.rb` to your\nOhai plugins directory.\n\n## License & Authors\n\n**Author:** Ben Vidulich\n\n**Copyright:** 2016, Ben Vidulich\n\n```\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Ben Vidulich",
+  "maintainer_email": "ben@vidulich.co.nz",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/zl4bv/chocolatey-ohai-plugin",
+  "issues_url": "https://github.com/zl4bv/chocolatey-ohai-plugin/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

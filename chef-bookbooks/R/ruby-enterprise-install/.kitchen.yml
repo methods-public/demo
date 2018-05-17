@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+    driver_config:
+      customize:
+        memory: 4096
+    run_list:
+      - recipe[apt::default]
+      - recipe[ruby-enterprise-install::default]
+  - name: ubuntu-14.04
+    driver_config:
+      customize:
+        memory: 4096
+    run_list:
+      - recipe[apt::default]
+      - recipe[ruby-enterprise-install::default]
+  - name: centos-6.5
+    driver_config:
+      customize:
+        memory: 4096
+    run_list:
+      - recipe[yum::default]
+      - recipe[ruby-enterprise-install::default]
+suites:
+  - name: ruby-enterprise

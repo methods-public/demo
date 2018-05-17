@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+  provider: parallels
+
+
+platforms:
+- name: windows-2012r2
+  driver_config:
+    box: windows-2012r2
+    box_url: http://distrib.prls.net/vagrant_boxes/win-2012r2-base-NEW.box
+
+suites:
+- name: default
+  run_list:
+  - recipe[msoffice]
+  attributes:
+    msoffice:
+      source: "http://distrib.prls.net/windows/msoffice/"

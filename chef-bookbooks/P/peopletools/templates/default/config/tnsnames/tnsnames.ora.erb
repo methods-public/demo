@@ -1,0 +1,10 @@
+<%= @db_name %> =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = <%= @db_protocol %>)(HOST = <%= @db_host %>)(PORT = <%= @db_port %>))
+    )
+    (CONNECT_DATA =
+      (SERVER = <%= @server %>)
+      (SERVICE_NAME = <%= @db_service_name %>)
+    )
+  )

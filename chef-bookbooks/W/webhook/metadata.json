@@ -1,0 +1,40 @@
+{
+  "name": "webhook",
+  "version": "0.2.0",
+  "description": "Installs/configures Webhook",
+  "long_description": "Installs/configures Webhook",
+  "maintainer": "Jonathan Hartman",
+  "maintainer_email": "j@p4nt5.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "smartos": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "dmg": "~> 2.2",
+    "nodejs": "~> 2.1",
+    "windows": "~> 1.34"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

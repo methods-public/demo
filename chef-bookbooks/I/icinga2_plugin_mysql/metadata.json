@@ -1,0 +1,42 @@
+{
+  "name": "icinga2_plugin_mysql",
+  "description": "Installs/Configures icinga2_plugin_mysql",
+  "long_description": "# icinga2_plugin_mysql\n\nInstalls the Nagios MySQL Health Check plugin for Nagios/icinga2 using [lausser/check_mysql_health](https://github.com/lausser/check_mysql_health).\n\n## Usage\n\n### icinga2_plugin_mysql::default\n\nJust include `icinga2_plugin_mysql` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[icinga2_plugin_mysql]\"\n  ]\n}\n```\n\n## Attributes\n\n### Nagios User:\n\nThe user that Nagios runs under\n\nDefault Value: \n\n- `nagios`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['nagios']['user'] = 'nagios'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"nagios\": {\n      \"user\": \"nagios\"\n    }\n  }\n}\n```\n\n### Nagios Group:\n\nThe group that Nagios runs under\n\nDefault Value: \n\n- `nagios`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['nagios']['group'] = 'nagios'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"nagios\": {\n      \"group\": \"nagios\"\n    }\n  }\n}\n```\n\n### Nagios Plugin Dir:\n\nThe full path to nagios's plugin dir\n\nDefault Value: \n\n- `/usr/lib/nagios/plugins`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['nagios']['nagios_plugin_dir'] = '/usr/lib/nagios/plugins'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"nagios\": {\n      \"nagios_plugin_dir\": \"/usr/lib/nagios/plugins\"\n    }\n  }\n}\n```\n\n### Git Repo Path:\n\nThe local path to clone the plugin source\n\nDefault Value: \n\n- `/usr/local/src/icinga2_mysql_health_chef`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['git']['repo_path'] = '/usr/local/src/icinga2_mysql_health_chef'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"git\": {\n      \"repo_path\": \"/usr/local/src/icinga2_mysql_health_chef\"\n    }\n  }\n}\n```\n\n### Plugin Source URL:\n\nThe git repository where this plugin's source should be pulled from\n\nDefault Value: \n\n- `https://github.com/lausser/check_mysql_health.git`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['git']['repo_src_url'] = 'https://github.com/lausser/check_mysql_health.git'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"git\": {\n      \"repo_src_url\": \"https://github.com/lausser/check_mysql_health.git\"\n    }\n  }\n}\n```\n\n### Git Tag:\n\nThe git tag to check this plugin out to.\n\nDefault Value: \n\n- `2.1.2.1`\n\nRuby usage:\n\n```ruby\nnode['icinga2_plugin_mysql']['git']['tag'] = '2.1.2.1'\n```\n\nJSON usage:\n\n```json\n{\n  \"icinga2_plugin_mysql\": {\n    \"git\": {\n      \"tag\": \"2.1.2.1\"\n    }\n  }\n}\n```\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.10",
+  "source_url": "https://github.com/MelonSmasher/icinga2_plugin_mysql_chef",
+  "issues_url": "https://github.com/MelonSmasher/icinga2_plugin_mysql_chef/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

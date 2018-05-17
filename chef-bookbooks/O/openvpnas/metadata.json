@@ -1,0 +1,35 @@
+{
+  "name": "openvpnas",
+  "version": "0.1.4",
+  "description": "OpenVPN Access Server",
+  "long_description": "# OpenVPN Access Server Chef Cookbook\n\n[![Build Status](https://travis-ci.org/rjocoleman/openvpnas.svg?branch=master)](https://travis-ci.org/rjocoleman/openvpnas)\n\nA Chef cookbook to install and do basic configuration OpenVPN Access Server.\n\nIncludes support for:\n\n* Company name via Chef attribute\n* Logo, png format base64 encoded set as a Chef attribute - `openssl base64 < path/to/file.png | tr -d '\\n' | pbcopy`\n* Automatic daily backup of database (optional)\n* Restoration of backed up database on Chef run (optional)\n* SSL Certificate via https://github.com/balanced-cookbooks/citadel\n* IAM roles for storing secrets and backups in S3\n\nDesigned (very loosly) for use in AWS.\n\n\n# Attributes\n\nAttributes listed with their default values:\n\n```ruby\ndefault['openvpnas']['url'] = 'http://swupdate.openvpn.org/as/openvpn-as-2.0.6-CentOS6.x86_64.rpm'\ndefault['openvpnas']['dir'] = '/usr/local/openvpn_as/'\ndefault['openvpnas']['company_name'] = ''\ndefault['openvpnas']['logo'] = ''\ndefault['openvpnas']['backup']['enabled'] = false\ndefault['openvpnas']['backup']['bucket'] = ''\ndefault['openvpnas']['ssl'] = false\ndefault['citadel']['bucket'] = node['openvpnas']['backup']['bucket']\n```\n\n`default['citadel']['bucket']` is the source for the SSL certificate and private key.\n\n\n# Recipes\n\n* `openvpnas::default` - recipe to install, configures and enables+runs.\n* `openvpnas::backup` - creates backup script and schedules it in the cron.\n* `openvpnas::restore` - restores from backup on convergence.\n\n\n## Contributing\n\n* File bug reports via GitHub issues.\n* Pull requests are welcome.\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Added some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n",
+  "maintainer": "Robert Coleman",
+  "maintainer_email": "github@robert.net.nz",
+  "license": "none",
+  "platforms": {
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0",
+    "chef-sugar": ">= 0.0.0",
+    "line": ">= 0.0.0",
+    "python": ">= 0.0.0",
+    "citadel": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "graphite-influxdb",
+  "description": "Installs/Configures graphite-influxdb",
+  "long_description": "Installs/Configures graphite_influxdb for graphite-api",
+  "maintainer": "Jarrett Hawrylak",
+  "maintainer_email": "jarrett.hawrylak@showclix.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "python": ">= 0.0.0",
+    "git": ">= 0.0.0",
+    "graphite-api": "~> 1.2.3"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.4",
+  "source_url": "https://github.com/jarretth/cookbook-graphite-influxdb",
+  "issues_url": "https://github.com/jarretth/cookbook-graphite-influxdb/issues",
+  "privacy": false
+}

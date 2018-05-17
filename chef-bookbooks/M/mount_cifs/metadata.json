@@ -1,0 +1,35 @@
+{
+  "name": "mount_cifs",
+  "version": "0.3.0",
+  "description": "Installs requires packages to enable mounting over CIFS",
+  "long_description": "Installs requires packages to enable mounting over CIFS",
+  "maintainer": "Ryan Larson",
+  "maintainer_email": "ryan.mango.larson@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 10.04",
+    "centos": ">= 5.10",
+    "debian": ">= 7.4",
+    "fedora": ">= 18.0",
+    "oracle": ">= 6.5"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,106 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  # client_rb:
+    # treat_deprecation_warnings_as_errors: true
+    # resource_cloning: false
+  name: chef_zero
+  # log_file: "/tmp/kitchen/chef-client.log"
+  attributes:
+    apt:
+      confd:
+        install_recommends: false
+    filebeat:
+      config:
+        logging.level: info
+        logging.to_files: true
+        logging.files:
+          name: filebeat
+        output.elasticsearch:
+          hosts: ["127.0.0.1:9200"]
+      prospectors:
+        secure_logs:
+          paths:
+            - /var/log/secure
+          type: log
+          fields:
+            type: secure_logs
+        syslog_logs:
+          paths:
+            - /var/log/syslog
+          type: log
+          fields:
+            type: syslog_logs
+        messages_log:
+          paths:
+            - /var/log/messages
+          type: log
+          fields:
+            type: messages_log
+        extra_log:
+          paths:
+            - /var/log/*.log
+          type: log
+          fields:
+            type: extra_log
+          exclude_files:
+            - /var/log/messages
+            - /var/log/syslog
+            - /var/log/secure
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+    - recipe[apt]
+  - name: centos-6.8
+    run_list:
+    - recipe[yum]
+  - name: centos-7.2
+    run_list:
+    - recipe[yum]
+  - name: windows-2012R2
+    driver:
+      box: mwrock/Windows2012R2
+      guest: windows
+      communicator: winrm
+      gui: false
+
+suites:
+  - name: chef12
+    driver:
+      require_chef_omnibus: 12.21.4
+    run_list:
+      - recipe[filebeat::default]
+      - recipe[filebeat_test::defaultv6]
+
+  - name: chef13
+    driver:
+      require_chef_omnibus: 13.3.42
+    run_list:
+      - recipe[filebeat::default]
+      - recipe[filebeat_test::defaultv6]
+
+  - name: chef14
+    driver:
+      require_chef_omnibus: 14.0.202
+    run_list:
+      - recipe[filebeat::default]
+      - recipe[filebeat_test::defaultv6]
+
+  - name: runit
+    excludes:
+      - windows-2012R2
+    run_list:
+      - recipe[filebeat::default]
+
+  - name: chef13-preview
+    driver:
+      chef_version: 13.3.42
+    run_list:
+      - recipe[filebeat::default]
+      - recipe[filebeat_test::defaultv6]
+    attributes:
+      filebeat:
+        version: 6.0.0-beta2

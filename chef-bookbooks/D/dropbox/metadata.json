@@ -1,0 +1,33 @@
+{
+  "name": "dropbox",
+  "version": "0.1.0",
+  "description": "Installs Dropbox",
+  "long_description": "Installs Dropbox",
+  "maintainer": "Jonathan Hartman",
+  "maintainer_email": "j@p4nt5.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "mac_os_x": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "dmg": "~> 2.2",
+    "windows": "~> 1.36"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

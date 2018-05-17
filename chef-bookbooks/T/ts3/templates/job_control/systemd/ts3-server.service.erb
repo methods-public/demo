@@ -1,0 +1,18 @@
+[Unit]
+Description = TeamSpeak 3 VoIP Server
+After = network.target
+
+[Service]
+Type=forking
+PIDFile = <%= File.join @install_dir, 'ts3server.pid' %>
+WorkingDirectory = <%= @install_dir %>
+ExecStart = <%= "#{File.join @install_dir, 'ts3server_startscript.sh'} start inifile=#{File.join @install_dir, 'ts3server.ini'}" %>
+ExecStop = <%= "#{File.join @install_dir, 'ts3server_startscript.sh'} stop" %>
+TimeoutStartSec = 30
+TimeoutStopSec = 30
+Restart = always
+User = <%= @user %>
+Group = <%= @user %>
+
+[Install]
+WantedBy = multi-user.target

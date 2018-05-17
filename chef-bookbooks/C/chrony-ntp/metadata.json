@@ -1,0 +1,39 @@
+{
+  "name": "chrony-ntp",
+  "description": "Install and configure chrony daemon",
+  "long_description": "Chrony NTP Cookbook\n===================\n\nDescription\n-----------\n\n**[Chrony](https://chrony.tuxfamily.org/)** is a versatile implementation\nof the Network Time Protocol (NTP). It can synchronize the system clock\nwith NTP servers, reference clocks (e.g. GPS receiver), and manual input\nusing wristwatch and keyboard. It can also operate as an NTPv4 (RFC 5905)\nserver and peer to provide a time service to other computers in the network.\n\nThis cookbook is designed to install and configure Chrony daemon.\n\nOptionnally, it can also configure an exporter script to expose Chrony\nmetrics following [Prometheus format][1].\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nA *systemd* managed distribution, tested on:\n\n- RHEL Family 7 (tested on Centos)\n- Debian 8\n\nUsage\n-----\n\n### Test\n\nThis cookbook is fully tested through the installation of a NTP client in\ndocker hosts. This uses kitchen and docker.\n\nIf you run kitchen list, you will see 2 instances, each for a different\noperating system:\n\n- chrony-ntp-centos-7: installation of Chrony daemon and metrics exporter\n- chrony-ntp-debian-8: same but for debian 8\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb) and\n[attributes/exporter.rb](attributes/exporter.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `package`, `config`, `service` recipes.\n\n### package\n\nInstall **Chrony** using package.\n\n### config\n\nGenerate and deploy **Chrony** config: *chrony.conf*.\n\n### service\n\nCreate Systemd unit for **Chrony** and make sure service is started.\n\n### exporter\n\nInstall metrics exporter *chrony_exporter.sh* as a systemd timer unit.\n\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Sylvain Arrambourg (<saye@sknss.net>)\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2017 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[1]: https://prometheus.io/docs/instrumenting/exposition_formats/\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3",
+    "debian": ">= 8.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.0",
+  "source_url": "https://gitlab.com/chef-platform/chrony-ntp",
+  "issues_url": "https://gitlab.com/chef-platform/chrony-ntp/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

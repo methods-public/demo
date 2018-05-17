@@ -1,0 +1,56 @@
+{
+  "name": "stackify_agent",
+  "description": "Installs/Configures Stackify Agent",
+  "long_description": "Installs/Configures Stackify Agent",
+  "maintainer": "Stackify",
+  "maintainer_email": "support@stackify.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "tar": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/stackify/stackify-agent-cookbook",
+  "issues_url": "https://github.com/stackify/stackify-agent-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

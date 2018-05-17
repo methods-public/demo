@@ -1,0 +1,53 @@
+{
+  "name": "fb_sysctl",
+  "description": "Configures sysctl",
+  "long_description": "fb_sysctl Cookbook\n====================\nThis cookbook provides sysctl functionality to Chef users.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_sysctl'][$SYSCTL] = $VALUE\n\nUsage\n-----\nAnywhere, in any cookbook, you can set a sysctl in a RECIPE as follows:\n\n    node.default['fb_sysctl'][$SYSCTL] = $VALUE\n\nFor example:\n\n    node.default['fb_sysctl']['vm.swappiness'] = 70\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

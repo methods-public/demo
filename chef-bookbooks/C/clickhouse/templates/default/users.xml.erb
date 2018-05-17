@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<yandex>
+    <!-- Profiles of settings. -->
+    <profiles>
+        <!-- Default settings. -->
+        <default>
+            <!-- Maximum memory usage for processing single query, in bytes. -->
+            <max_memory_usage><%= @users['profiles']['default']['max_memory_usage'] %></max_memory_usage>
+
+            <!-- Use cache of uncompressed blocks of data. Meaningful only for processing many of very short queries. -->
+            <use_uncompressed_cache><%= @users['profiles']['default']['use_uncompressed_cache'] %></use_uncompressed_cache>
+
+            <!-- How to choose between replicas during distributed query processing.
+                 random - choose random replica from set of replicas with minimum number of errors
+                 nearest_hostname - from set of replicas with minimum number of errors, choose replica
+                  with minumum number of different symbols between replica's hostname and local hostname
+                  (Hamming distance).
+                 in_order - first live replica is choosen in specified order.
+            -->
+            <load_balancing><%= @users['profiles']['default']['load_balancing'] %></load_balancing>
+        </default>
+
+        <!-- Profile that allows only read queries. -->
+        <readonly>
+            <readonly><%= @users['profiles']['readonly']['readonly'] %></readonly>
+        </readonly>
+    </profiles>
+
+    <!-- Users and ACL. -->
+    <users>
+        <!-- If user name was not specified, 'default' user is used. -->
+        <default>
+            <!-- Password could be specified in plaintext or in SHA256 (in hex format).
+
+                 If you want to specify password in plaintext (not recommended), place it in 'password' element.
+                 Example: <password>qwerty</password>.
+                 Password could be empty.
+
+                 If you want to specify SHA256, place it in 'password_sha256_hex' element.
+                 Example: <password_sha256_hex>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5</password_sha256_hex>
+
+                 How to generate decent password:
+                 Execute: PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
+                 In first line will be password and in second - corresponding SHA256.
+            -->
+            <password><%= @users['users']['default']['password'] %></password>
+
+            <!-- List of networks with open access.
+
+                 To open access from everywhere, specify:
+                    <ip>::/0</ip>
+
+                 To open access only from localhost, specify:
+                    <ip>::1</ip>
+                    <ip>127.0.0.1</ip>
+
+                 Each element of list has one of the following forms:
+                 <ip> IP-address or network mask. Examples: 213.180.204.3 or 10.0.0.1/8 or 2a02:6b8::3 or 2a02:6b8::3/64.
+                 <host> Hostname. Example: server01.yandex.ru.
+                     To check access, DNS query is performed, and all received addresses compared to peer address.
+                 <host_regexp> Regular expression for host names. Example, ^server\d\d-\d\d-\d\.yandex\.ru$
+                     To check access, DNS PTR query is performed for peer address and then regexp is applied.
+                     Then, for result of PTR query, another DNS query is performed and all received addresses compared to peer address.
+                     Strongly recommended that regexp is ends with $
+                 All results of DNS requests are cached till server restart.
+            -->
+            <networks incl="<%= @users['users']['default']['networks']['incl'] %>" replace="<%= @users['users']['default']['networks']['replace'] %>">
+              <% @users['users']['default']['networks']['ip'].each do |ip| %>
+                <ip><%= ip %></ip>
+              <% end %>
+            </networks>
+
+            <!-- Settings profile for user. -->
+            <profile><%= @users['users']['default']['profile'] %></profile>
+
+            <!-- Quota for user. -->
+            <quota><%= @users['users']['default']['quota'] %></quota>
+        </default>
+
+        <!-- Example of user with readonly access. -->
+        <readonly>
+            <password><%= @users['users']['readonly']['password'] %></password>
+            <networks incl="<%= @users['users']['readonly']['networks']['incl'] %>" replace="<%= @users['users']['readonly']['networks']['replace'] %>">
+              <% @users['users']['readonly']['networks']['ip'].each do |ip| %>
+                <ip><%= ip %></ip>
+              <% end %>
+            </networks>
+            <profile><%= @users['users']['readonly']['profile'] %></profile>
+            <quota><%= @users['users']['readonly']['quota'] %></quota>
+        </readonly>
+    </users>
+
+    <!-- Quotas. -->
+    <quotas>
+        <!-- Name of quota. -->
+        <default>
+            <!-- Limits for time interval. You could specify many intervals with different limits. -->
+            <interval>
+                <!-- Length of interval. -->
+                <duration><%= @users['quotas']['default']['interval']['duration'] %></duration>
+
+                <!-- No limits. Just calculate resource usage for time interval. -->
+                <queries><%= @users['quotas']['default']['interval']['queries'] %></queries>
+                <errors><%= @users['quotas']['default']['interval']['errors'] %></errors>
+                <result_rows><%= @users['quotas']['default']['interval']['result_rows'] %></result_rows>
+                <read_rows><%= @users['quotas']['default']['interval']['read_rows'] %></read_rows>
+                <execution_time><%= @users['quotas']['default']['interval']['execution_time'] %></execution_time>
+            </interval>
+        </default>
+    </quotas>
+</yandex>

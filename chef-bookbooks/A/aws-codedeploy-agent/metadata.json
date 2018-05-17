@@ -1,0 +1,59 @@
+{
+  "name": "aws-codedeploy-agent",
+  "description": "Installs/Configures aws-codedeploy-agent",
+  "long_description": "aws-codedeploy-agent Cookbook\n===================\nImportant Note: This cookbook is under development. Contribution is welcome!\n\nInstall AWS aws-codedeploy-agent\n\nRequirements\n------------\nThe following platforms are supported by this cookbook.\n\n* Ubuntu 12.04/14.04/16.04\n* CentOs 7 \n* Fedora 21\n* Debian 8 \n* Amazon Linux AMI 2015.03\n\n#### packages\n- `aws-codedeploy-agent` - install aws-codedeploy-agent \n\nAttributes\n----------\nCustomize the version of aws-codedeploy-agent to be installed and the version of the ruby and aws-sdk-core dependencies\n\n#### aws-codedeploy-agent::default\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>node['aws-codedeploy-agent']['rbenv_ruby-version']</tt></td>\n    <td>string</td>\n    <td>Set the default ruby version of code deploy</td>\n    <td><tt>2.1.5</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['aws-codedeploy-agent']['aws_sdk_core-version']</tt></td>\n    <td>string</td>\n    <td>Set the version of aws-sdk-core gem. See <a href=\"https://rubygems.org/gems/aws-sdk-core/versions/2.3.17\">rubygems for alternate release versions.</a></td>\n    <td><tt>2.6.11</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['aws-codedeploy-agent']['aws_codedeploy_agent-version']</tt></td>\n    <td>string</td>\n    <td>Set the version of the code deploy agent to be installed. Tracks master, other options include &quot;v1.0-1011&quot; or see <a href=\"https://github.com/aws/aws-codedeploy-agent/releases\">the release archive for available, tagged versions</a> </td>\n    <td><tt>master</tt></td>\n  </tr>\n</table>\n\n\nUsage\n-----\n#### aws-codedeploy-agent::default\n\nJust include `aws-codedeploy-agent` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[aws-codedeploy-agent]\"\n  ]\n}\n```\n\nTesting\n-------\nDefault .kitchen.yml test the cookbook in docker containers.\n\nTo test locally:\n\n```bash\nkitchen list\nkitchen converge aws-codedeploy-agent-ubuntu-1604\nkitchen verify aws-codedeploy-agent-ubuntu-1604\n``` \n\nTo test the cookbook on AWS instances use:\n\nConfigure the access to your AWS account using the AWS CLI:\n```bash\naws configure --profile=AWS_CLI_PROFILE\n```\n\ncopy the .kitchen-aws.yml to .kitchen-aws.local.yml and configure to suite your AWS account.\n\n```bash\nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen list \n\nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-ubuntu-1604-aws\nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-ubuntu-1404-aws\nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-ubuntu-1204-aws \nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-debian-8-aws \nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-centos-7-aws \nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify aws-codedeploy-agent-amazon-linux\n```\n\nTo test all at once:\n\n```bash\nAWS_PROFILE=AWS_CLI_PROFILE KITCHEN_YAML=.kitchen-aws.local.yml bundle exec kitchen verify -c 5\n```\n\nRefer to the [kitchen-ec2](https://github.com/test-kitchen/kitchen-ec2) documentation\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: \n\n* Oswald De Riemaecker (oswald@continuousphp.com)\n\n```text\nCopyright 2015, Continuous S.A.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n``` \n",
+  "maintainer": "Oswald De Riemaecker",
+  "maintainer_email": "oswald@continuousphp.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "ruby_rbenv": ">= 0.0.0",
+    "ruby_build": ">= 0.0.0",
+    "cloudcli": ">= 0.0.0",
+    "ark": "= 3.1.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.7.1",
+  "source_url": "https://github.com/continuousphp/aws-codedeploy-agent",
+  "issues_url": "https://github.com/continuousphp/aws-codedeploy-agent/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

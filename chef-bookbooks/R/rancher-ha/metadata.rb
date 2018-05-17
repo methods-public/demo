@@ -1,0 +1,20 @@
+name 'rancher-ha'
+maintainer       'Aaron Jones'
+maintainer_email 'akjones mail box org'
+license          'Apache-2.0'
+description 'Installs Rancher Server'
+long_description 'Installs/Configures Rancher Server'
+version '0.1.1'
+chef_version '>= 12.1' if respond_to?(:chef_version)
+issues_url       'https://github.com/aaronkjones/chef-rancher-ha/issues'
+source_url       'https://github.com/aaronkjones/chef-rancher-ha/'
+
+supports 'centos'
+supports 'debian'
+supports 'fedora'
+supports 'redhat'
+supports 'ubuntu'
+
+depends 'chef-vault', '~> 3.0.0'
+depends 'openssl', '~> 8.1.2'
+depends 'docker', '~> 4.2.0'

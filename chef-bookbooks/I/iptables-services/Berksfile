@@ -1,0 +1,5 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'docker-platform'
+cookbook 'test-is', path: 'test/cookbooks/test-is'
+metadata

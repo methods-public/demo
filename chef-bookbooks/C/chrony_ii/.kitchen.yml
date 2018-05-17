@@ -1,0 +1,49 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+  - name: centos-7
+  - name: centos-6
+  - name: amazonlinux
+    driver:
+      box: mvbcoding/awslinux
+  - name: debian-9
+    driver:
+      box: debian/stretch64
+  - name: debian-8
+    driver:
+      box: debian/jessie64
+
+suites:
+  - name: default
+    run_list:
+      - recipe[chrony_ii_test::amazon_latest]
+      - recipe[chrony_ii::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
+  - name: amazon_time
+    run_list:
+      - recipe[chrony_ii_test::amazon_latest]
+      - recipe[chrony_ii::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/amazon_time
+    attributes:
+      chrony_ii:
+        amazon_time_sync_service: true
+    includes:
+      - amazonlinux

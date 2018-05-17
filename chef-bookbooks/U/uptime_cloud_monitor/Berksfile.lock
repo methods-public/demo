@@ -1,0 +1,11 @@
+DEPENDENCIES
+  uptime_cloud_monitor
+    path: .
+    metadata: true
+
+GRAPH
+  apt (3.0.0)
+  curl (2.0.3)
+  uptime_cloud_monitor (1.3.0)
+    apt (= 3.0.0)
+    curl (>= 0.0.0)

@@ -1,0 +1,6 @@
+.bundle
+.DS_Store
+.kitchen
+.vagrant
+Berksfile.lock
+Gemfile.lock

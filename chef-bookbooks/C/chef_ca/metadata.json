@@ -1,0 +1,40 @@
+{
+  "name": "chef_ca",
+  "description": "Adds a certificate bundle to the chef or chefdk cacert file",
+  "long_description": "# chef_ca\n\nChef client code uses a private list of certificate authority credentials.  This cookbook will add a supplied bundle to the chef cacert.pem file.\n\n# Resource\n\nchef_ca\n======\n\nActions\n-------\n*  set - adds the credentials to the cacert.pem file\n\nProperties\n*  chef_type - chef client or chefdk. Allowed values are :chef for :chefdk\n*  ca_bundle - cer (X.509, base 64 encode)  format bundle to add to the cacert.pem file\n*  cacert_path - path to the cacert file to be modified\n\nProcessing\n----------\n\nUse the os type and software type to find the cacert.pem file.  Add the bundle to that file. Currently supports windows, linux and mac servers.\n\nStyle\n====\n\nUse cookstyle for ruby linting.\nUse foodcritic for cookbook checking.\n",
+  "maintainer": "Nordstrom, INC.",
+  "maintainer_email": "itcpmall@nordstrom.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "macos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/nordstrom/chef_ca",
+  "issues_url": "https://github.com/nordstrom/chef_ca/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.10"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

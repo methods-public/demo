@@ -1,0 +1,48 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+
+suites:
+  - name: centos_php56
+    run_list:
+      - recipe[as-lapp-symfony2-asset::create]
+#      - recipe[as-lapp-symfony2-asset::install]
+    attributes:
+      php:
+        version: '5.6'
+        date.timezone: 'Asia/Tokyo'
+        xdebug:
+          remote_enable: true
+      pgsql:
+        version: '9.4'
+        conf:
+          listen_addresses: '*'
+          port: '5432'
+          log_filename: 'postgresql.log'
+          log_line_prefix: '%u%%%d[%s][%c]'
+          log_timezone: 'Asia/Tokyo'
+          log_statement: 'all'
+          log_connections: 'on'
+          log_disconnections: 'on'
+        hba:
+          - type: 'local'
+            database: 'all'
+            user: 'all'
+            address: ''
+            method: 'trust'
+          - type: 'host'
+            database: 'all'
+            user: 'all'
+            address: '0.0.0.0/0'
+            method: 'trust'
+      symfony2:
+        path: '/var/app2'
+      asset:
+        root_path: '/var/app2'

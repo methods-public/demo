@@ -1,0 +1,41 @@
+{
+  "name": "chef_wazuh",
+  "description": "Installs and configures Wazuh on Linux.",
+  "long_description": "# chef_wazuh\n\nInstalls and configures [Wazuh](https://wazuh.com/) on Linux.\n\n# OS Support:\n\n* Ubuntu  >= 16.04\n* Debian  >= 7.0\n* RedHat  >= 7.0\n* CentOS  >= 7.0\n\n# Usage\n\n## Server:\n\n##### Coming soon...\n\n## Agent:\n\n### chef_wazuh::agent\n\nJust include `chef_wazuh::agent` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[chef_wazuh::agent]\"\n  ]\n}\n```\n\nThis will install the Wazuh agent and manage it's configuration going forward.\n\n## Attributes \n\n##### Note: see `attributes/` for all attributes.\n\n### Wazuh Server:\n\nThe Wazuh server the agent should connect to.\n\nDefault Value: \n\n- `nil`\n\nRuby usage:\n\n```ruby\nnode['chef_wazuh']['agent']['server'] = \"wazuh.domain.tld\"\n```\n\nJSON usage:\n\n```json\n{\n  \"chef_wazuh\": {\n    \"agent\": {\n      \"server\": \"wazuh.domain.tld\"\n    }\n  }\n}\n```\n\n### OSSEC Configuration File:\n\nThe OSSEC configuration file location.\n\nDefault Value: \n\n- `/var/ossec/etc/ossec.conf`\n\nRuby usage:\n\n```ruby\nnode['chef_wazuh']['agent']['ossec_conf_path'] = \"/opt/ossec/etc/ossec.conf\"\n```\n\nJSON usage:\n\n```json\n{\n  \"chef_wazuh\": {\n    \"agent\": {\n      \"ossec_conf_path\": \"/opt/ossec/etc/ossec.conf\"\n    }\n  }\n}\n```\n\n### OSSEC Server Address:\n\nThe address of the OSSEC server.\n\nDefault Value: \n\n- `nil`\n\nRuby usage:\n\n```ruby\nnode['chef_wazuh']['agent']['ossec_config']['client']['server']['address'] = \"wazuh.domain.tld\"\n```\n\nJSON usage:\n\n```json\n{\n  \"chef_wazuh\": {\n    \"agent\": {\n      \"ossec_config\": {\n        \"client\": {\n          \"server\": {\n            \"address\": \"wazuh.domain.tld\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n\n### OSSEC Port:\n\nThe OSSEC port.\n\nDefault Value: \n\n- `1514`\n\nRuby usage:\n\n```ruby\nnode['chef_wazuh']['agent']['ossec_config']['client']['server']['port'] = 1515\n```\n\nJSON usage:\n\n```json\n{\n  \"chef_wazuh\": {\n    \"agent\": {\n      \"ossec_config\": {\n        \"client\": {\n          \"server\": {\n            \"port\": 1515\n          }\n        }\n      }\n    }\n  }\n}\n```\n\n### OSSEC Protocol:\n\nThe OSSEC protocol.\n\n###### Needs to be \"tcp\" or \"udp\", default value is \"udp\" if omitted.\n\nDefault Value: \n\n- `udp`\n\nRuby usage:\n\n```ruby\nnode['chef_wazuh']['agent']['ossec_config']['client']['server']['protocol'] = \"tcp\"\n```\n\nJSON usage:\n\n```json\n{\n  \"chef_wazuh\": {\n    \"agent\": {\n      \"ossec_config\": {\n        \"client\": {\n          \"server\": {\n            \"protocol\": \"tcp\"\n          }\n        }\n      }\n    }\n  }\n}\n```",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 16.04",
+    "debian": ">= 7.0",
+    "redhat": ">= 7.0",
+    "centos": ">= 7.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.6",
+  "source_url": "https://github.com/MelonSmasher/chef_wazuh",
+  "issues_url": "https://github.com/MelonSmasher/chef_wazuh/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "chef_blockdev",
+  "description": "Operates on block devices",
+  "long_description": "# cb-blockdevice",
+  "maintainer": "Vasiliy Tolstov",
+  "maintainer_email": "v.tolstov@selfip.ru",
+  "license": "MIT",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "exherbo": ">= 0.0.0",
+    "archlinux": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "blockdev": "manages block devices"
+  },
+  "version": "0.0.2",
+  "source_url": "https://github.com/vtolstov/chef_blockdev",
+  "issues_url": "https://github.com/vtolstov/chef_blockdev/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

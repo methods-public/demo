@@ -1,0 +1,18 @@
+# should be placed in: /usr/lib/systemd/system/mysql-fortify_ssc.service
+[Unit]
+Description=mysql_service[<=% @mysql_service_name =>]
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=mysql
+Group=mysql
+ExecStart=/usr/sbin/mysqld --defaults-file=/etc/<=% @mysql_service_name =>/my.cnf --basedir=/usr
+ExecStartPost=/usr/libexec/<=% @mysql_service_name =>-wait-ready $MAINPID
+TimeoutSec=300
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+

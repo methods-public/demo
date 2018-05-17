@@ -1,0 +1,18 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Includes:
+    - Berksfile
+    - Gemfile
+    - Rakefile
+    - Thorfile
+    - Guardfile
+
+AlignParameters:
+  Enabled: false
+ClassAndModuleChildren:
+  Enabled: false
+Encoding:
+  Enabled: false
+LineLength:
+  Max: 200

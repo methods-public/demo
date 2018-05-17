@@ -1,0 +1,51 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    attributes:
+      test_owner: root
+      test_group: root
+      test_mode: '644'
+  - name: centos-7
+    attributes:
+      test_owner: root
+      test_group: root
+      test_mode: '644'
+  - name: osx-sierra
+    attributes:
+      test_owner: root
+      test_group: wheel
+      test_mode: '644'
+  - name: windows-2012r2
+    driver:
+      name: vagrant
+      customize:
+        rtcuseutc: "off"
+    transport:
+      name: winrm
+    attributes:
+      test_owner: 'Administrator'
+      test_group: 'Administrators'
+      test_mode:
+
+<% s3 = YAML.load(ERB.new(IO.read('.s3.yml')).result) %>
+suites:
+  - name: default
+    run_list:
+      - recipe[remote_file_s3_test::default]
+    attributes:
+      remote_file_s3_test:
+        aws_access_key_id: <%= s3['access_key_id'] %>
+        aws_secret_access_key: <%= s3['secret_access_key'] %>
+        region:
+        bucket: <%= s3['bucket'] %>
+        file: <%= s3['file'] %>

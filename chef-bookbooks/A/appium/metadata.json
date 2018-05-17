@@ -1,0 +1,41 @@
+{
+  "name": "appium",
+  "description": "Installs/Configures Appium",
+  "long_description": "# Appium Cookbook\n\n[![Cookbook Version](http://img.shields.io/cookbook/v/appium.svg?style=flat-square)][supermarket]\n[![Build Status](http://img.shields.io/travis/dhoer/chef-appium.svg?style=flat-square)][travis]\n[![GitHub Issues](http://img.shields.io/github/issues/dhoer/chef-appium.svg?style=flat-square)][github]\n\n[supermarket]: https://supermarket.chef.io/cookbooks/appium\n[travis]: https://travis-ci.org/dhoer/chef-appium\n[github]: https://github.com/dhoer/chef-appium/issues\n\nThis cookbook installs Appium (http://appium.io/).\n\n## Requirements\n\n- Chef 11 or higher\n- XCode 4.5 or higher w/ Command Line Tools\n\n### Platforms\n\n- CentOS, RedHat\n- Mac OS X\n- Ubuntu\n\n### Cookbooks\n\n- nodejs \n\n## Usage\n\nAdd the cookbook to your run_list in a node or role:\n\n```ruby\n\"run_list\": [\n  \"recipe[appium::default]\"\n]\n```\n\nor include it in a recipe:\n\n```ruby\ndepends 'appium'\n```\n\n```ruby\ninclude_recipe 'appium::default'\n```\n\n## Getting Help\n\n- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/chef-appium).\n- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-appium/issues).\n\n## Contributing\n\nPlease refer to [CONTRIBUTING](https://github.com/dhoer/chef-appium/blob/master/CONTRIBUTING.md).\n\n## License\n\nMIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-appium/blob/master/LICENSE.md) file for details.\n",
+  "maintainer": "Dennis Hoer",
+  "maintainer_email": "dennis.hoer@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "nodejs": "~> 2.4"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0"
+}

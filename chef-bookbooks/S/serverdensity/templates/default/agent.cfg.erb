@@ -1,0 +1,75 @@
+#
+# Server Density Agent Config
+# See http://www.serverdensity.com/docs/agent/configvariables/
+
+[Main]
+sd_account: <%= @sd_account %>
+agent_key: <%= @agent_key %>
+<% if @proxy_host %>
+# If you need a proxy to connect to the Internet, provide the settings here
+
+proxy_host: <%= @proxy_host %>
+<% end %>
+<% if @proxy_port %>
+proxy_port: <%= @proxy_port %>
+<% end %>
+<% if @proxy_user %>
+proxy_user: <%= @proxy_user %>
+<% end %>
+<% if @proxy_password %>
+proxy_password: <%= @proxy_password %>
+<% end %>
+<% if @proxy_forbid_method_switch %>
+# To be used with some proxys that return a 302 which make curl switch from POST to GET
+# See http://stackoverflow.com/questions/8156073/curl-violate-rfc-2616-10-3-2-and-switch-from-post-to-get
+proxy_forbid_method_switch: <%= @proxy_forbid_method_switch %>
+<% end %>
+<% if @hostname %>
+# Force the hostname to whatever you want.
+hostname: <%= @hostname %>
+<% end %>
+<% if @plugin_dir %>
+#
+# Plugins
+#
+# Leave blank to ignore.
+# See https://support.serverdensity.com/hc/en-us/articles/213074438-Information-about-Custom-Plugins
+#
+plugin_directory: <%= @plugin_dir  %>
+<% end %>
+<% if @log_level %>
+# ========================================================================== #
+# Logging
+# See https://support.serverdensity.com/hc/en-us/articles/213093038-Log-levels-agent-debug-mode
+# ========================================================================== #
+
+log_level: <%= @log_level %>
+<% end %>
+
+
+<% if @collector_log_file %>
+collector_log_file: <%= @collector_log_file %>
+<% end %>
+<% if @forwarder_log_file %>
+forwarder_log_file: <%= @forwarder_log_file %>
+<% end %>
+<% if @log_to_syslog %>
+# if syslog is enabled but a host and port are not set, a local domain socket
+# connection will be attempted
+log_to_syslog: <%= @log_to_syslog %>
+<% end %>
+<% if @syslog_host %>
+syslog_host: <%= @syslog_host %>
+<% end %>
+<% if @syslog_port %>
+syslog_port: <%= @syslog_port %>
+<% end %>
+<% if @tmp_directory %>
+tmp_directory: <%= @tmp_directory %>
+<% end %>
+<% if @pidfile_directory %>
+pidfile_directory: <%= @pidfile_directory %>
+<% end %>
+<% if @listen_port %>
+listen_port: <%= @listen_port %>
+<% end %>

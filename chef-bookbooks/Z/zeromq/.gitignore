@@ -1,0 +1,16 @@
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+
+# Bundler
+bin/*
+.bundle/*
+
+tmp/
+.kitchen/
+.kitchen.local.yml

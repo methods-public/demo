@@ -1,0 +1,53 @@
+{
+  "name": "fb_hosts",
+  "description": "Installs/Configures /etc/hosts",
+  "long_description": "fb_hosts Cookbook\n====================\nThis cookbook configures /etc/hosts and provides an API for modifying all\naspects of the /etc/hosts file\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_hosts']['primary_ipaddress']\n* node['fb_hosts']['primary_ip6address']\n* node['fb_hosts']['host_aliases']\n* node['fb_hosts']['extra_entries']\n* node['fb_hosts']['enable_hostname_entries']\n\nUsage\n-----\n## Host aliases\nfb_hosts will always include the value of `node['fqdn']` as a hostname, and you\ncan add additional aliases via `host_aliases`:\n\n    node.default['fb_hosts']['host_aliases'] << 'new_host_alias_entry'\n\nWe use `primary_address` and `primary_ip6address` as the addresses to set as\nyourself. If you do not set these, it will use `node['ipaddress']` and\n`node['ip6address']` respectively.\n\n## Other host entries\nYou can add new entries into the hosts like this:\n\n    node.default['fb_hosts']['extra_entries']['10.1.1.1'] = [\n      'somehostname.mydomain.com',\n    ]\n\n## Hostname entries\nBy default, `fb_hosts` will make entries in /etc/hosts pointing your real\nhostname to your primary IPv4/IPv6 addresses. You almost certainly want that.\nHowever, some enterprise applications can't handle these, so you can disable\nthem by setting `enable_hostname_entries` to false:\n\n    node.default['fb_hosts']['enable_hostname_entries'] = false\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

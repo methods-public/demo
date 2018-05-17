@@ -1,0 +1,106 @@
+{
+  "name": "drelephant",
+  "description": "Installs/Configures drelephant",
+  "long_description": "Installs/Configures drelephant",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "",
+  "license": "All rights reserved",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "rhel": ">= 0.0.0"
+  },
+  "dependencies": {
+    "kagent": ">= 0.0.0",
+    "java": ">= 0.0.0",
+    "hadoop_spark": ">= 0.0.0",
+    "apache_hadoop": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "java/jdk_version": {
+      "description": "Jdk version",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "java/install_flavor": {
+      "description": "Oracle (default) or openjdk",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "drelephant/user": {
+      "description": "Username that runs the Dr Elephant server",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "drelephant/port": {
+      "description": "Port for running the Dr Elephant server",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "drelephant::install": "Installs the binaries for Dr Elephant",
+    "drelephant::default": "Starts Dr Elephant server.",
+    "drelephant::purge": "Removes and deletes Dr Elephant server."
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

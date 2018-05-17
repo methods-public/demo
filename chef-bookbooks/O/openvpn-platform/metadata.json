@@ -1,0 +1,38 @@
+{
+  "name": "openvpn-platform",
+  "description": "Install and configure openvpn server",
+  "long_description": "OpenVPN Platform Cookbook\n=========================\n\nDescription\n-----------\n\nOpenVPN is a full-featured open source SSL VPN solution that accommodates\na wide range of configurations, including remote access, site-to-site VPNs,\nWi-Fi security, and enterprise-scale remote access solutions with load\nbalancing, failover, and fine-grained access-controls.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nA *systemd* managed distribution, tested on:\n\n- RHEL Family 7, tested on Centos\n\nUsage\n-----\n\n### Easy Setup\n\nAdd `recipe[openvpn-platform]` in your run-list to install and configure\n**OpenVPN Platform** in client or server mode depending on\n`node['openvpn-platform']['type']` attribute.\n\nServer configuration will be fetched from resulting merge of following\nattributes:\n- `node['openvpn-platform']['config']`\n- `node['openvpn-platform']['server-config']`.\n\nClient configuration will be fetched from resulting merge of following\nattributes:\n- `node['openvpn-platform']['config']`\n- `node['openvpn-platform']['client-config']`.\n\nGeneration of PKI is only handled in server mode with EasyRSA-3. Configuration\ncan be done via environment variables defined in\n`node['openvpn-platform']['easy_rsa']['vars']`\n\nTo see an example, look at [.kitchen.yml](.kitchen.yml).\n\n### Data Bags\n\nAn optional data bag is available to manage VPN users's client configuration.\n\nClient configuration and key generation is entirely managed.\n\nA tarball will be created in home's user with :\n - OpenVPN client configuration file\n - CA certificate\n - Client certificate\n - Client key\n - TLS Pre Shared Key (optional)\n\nThis configuration file is usable with any OpenVPN compatible client for\nexample on linux desktops with Network Manager (requires a plugin).\n\nYou must specify the name of data bag you want to use in\n`node['openvpn-platform']['data_bag']`.\n\n#### Users Data Bag\n\n##### Databag Definition\n\nA sample user object would look like :\n```json\n{\n  \"id\": \"user\",\n  \"vpn\": \"true\",\n}\n\n```\n##### Databag Key Definitions\n\n- `id`: _String_ specifies the username, as well as the data bag object id.\n- `vpn`: _Boolean_ specifies if user should have access to VPN.\n\n### Test\n\nThis cookbook is fully tested through the installation of a OpenVPN server in\na vagrant host. This uses kitchen and vagrant.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `package`, `config`, `service`, `users` recipes.\n\n### package\n\nInstall **OpenVPN** using package.\n\n### config\n\nGenerate and deploy **OpenVPN** client or server config:\n - */etc/openvpn/client/client.conf*\n - */etc/openvpn/server/server.conf*\n\n### service\n\nEnable OpenVPN and make sure service is started.\n\n### users\n\nGenerate VPN users's client configuration from data bag items.\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Sylvain Arrambourg (<saye@sknss.net>)\n- Author:: Samuel Bernard(<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2017-2018 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "yum-epel": ">= 2.1.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://gitlab.com/chef-platform/openvpn-platform",
+  "issues_url": "https://gitlab.com/chef-platform/openvpn-platform/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

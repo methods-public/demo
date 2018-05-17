@@ -1,0 +1,53 @@
+{
+  "name": "azurecli",
+  "description": "Installs/Configures azurecli",
+  "long_description": "# azurecli Cookbook\n\nTODO: Enter the cookbook description here.\n\ne.g.\nThis cookbook makes your favorite breakfast sandwich.\n\n## Requirements\n\nTODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.\n\ne.g.\n### Platforms\n\n- SandwichOS\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `toaster` - azurecli needs toaster to brown your bagel.\n\n## Attributes\n\ndefine version will use azure cli 1.0 or azure cli 2.0 preview\n\n```bash\ndefault['azurecli]['azure']['virtualenv'] = nil\ndefault['azurecli']['azure']['version'] = nil\ndefault['azurecli']['azure']['cli_version'] = nil\ndefault['azurecli']['azure']['python']['version'] = '2'\ndefault['azurecli']['azure']['python']['provider'] = :system\n```\n\n## Usage\n\n### azurecli::default\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[azurecli]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: Alex Tu\n\n",
+  "maintainer": "Alex Tu",
+  "maintainer_email": "alex.lei.tu@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "poise-python": ">= 0.0.0",
+    "nodejs": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/leitu/azure-cli-cookbooks",
+  "issues_url": "https://github.com/leitu/azure-cli-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "nexus_repository_manager",
+  "description": "Installs/Configures Nexus Repository Manager",
+  "long_description": "Installs/Configures Nexus Repository Manager",
+  "maintainer": "Copyright (c) 2017-present Sonatype, Inc.",
+  "maintainer_email": "cloud-ops@sonatype.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 16.04",
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "java": "~> 1.50",
+    "tar": "~> 2.1",
+    "limits": "~> 1.0.0",
+    "poise-python": "~> 1.6.0",
+    "s3_file": "~> 2.8.5"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "nexus_repository_manager::default": "Installs Nexus Repository Manager and starts it as systemd service.",
+    "nexus_repository_manager::docker": "Installs Nexus Repository Manager. Instead of a systemd service start-nexus-repository-manager.sh is provided in SONATYPE_DIR.",
+    "nexus_repository_manager::rh-docker": "Installs Nexus Repository Manager. Customized to run in Red Hat OpenShift and Kubernetes. Instead of a systemd service start-nexus-repository-manager.sh is provided in SONATYPE_DIR."
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/sonatype/chef-nexus",
+  "issues_url": "https://github.com/sonatype/chef-nexus/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

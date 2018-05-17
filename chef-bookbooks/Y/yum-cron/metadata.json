@@ -1,0 +1,51 @@
+{
+  "name": "yum-cron",
+  "description": "Installs/Configures yum-cron",
+  "long_description": "Installs/Configures yum-cron",
+  "maintainer": "Oregon State University",
+  "maintainer_email": "chef@osuosl.org",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": "~> 7.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

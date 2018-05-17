@@ -1,0 +1,48 @@
+{
+  "name": "simple_iptables_ng",
+  "description": "Simple wrapper cookbook for iptales-ng",
+  "long_description": "simple_iptables_ng Cookbook\n===========================\nA simple wrapper book to easily manage iptables. supports also deleting rules\nfrom previous chef runs.\n\nRequirements\n------------\n### Platforms\n- Debian, Ubuntu\n- CentOS 6+, Red Hat 6+, Fedora, Amazon\n\nAttributes\n----------\n * `node['simple_iptables_ng']['data_bags']` - data bags to load for iptables rules\n * `node['simple_iptables_ng']['max_rules']` - maximum rules to support used for\n   deleting rules from previous runs\n\nUsage\n-----\n#### simple_iptables_ng::default\nInclude `simple_iptables_ng` in your node's `run_list` or role's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[simple_iptables_ng]\"\n  ],\n  \"simple_iptables_ng\": {\n    \"entries\": [\n      {\n        \"comment\": \"test comment\",\n        \"rules\": [\n          { \"from_addr\": \"10.0.0.1/32\", \"start_port\": 22 }\n        ]\n      },\n      { \"data_bag\": \"http\" }\n    ]\n  }\n}\n```\n\nA data bag of rules looks similar to:\n```\n{\n  \"id\": \"http\",\n  \"entries\": [\n      {\n          \"comment\": \"http and https rules\",\n          \"rules\": [\n              { \"from_addr\": \"0.0.0.0/0\", \"start_port\": 80 },\n              { \"from_addr\": \"0.0.0.0/0\", \"start_port\": 443 }\n          ]\n      }\n  ]\n}\n```\n\nThe recipe supports both rules in the node definition and in data bags.\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors:: Dan Fruehauf\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n",
+  "maintainer": "Dan Fruehauf",
+  "maintainer_email": "malkodan@gmail.com",
+  "license": "GNU Public License 3.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "gentoo": ">= 0.0.0",
+    "arch": ">= 0.0.0"
+  },
+  "dependencies": {
+    "iptables-ng": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "simple_iptables_ng::default": "Configures iptables"
+  },
+  "version": "1.0.0"
+}

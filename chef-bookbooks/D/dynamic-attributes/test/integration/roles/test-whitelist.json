@@ -1,0 +1,29 @@
+{
+  "name": "test",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "dynamic-attributes": {
+      "replace": {
+        "whitelist": [
+          "dynamic/doesnotexist/novalue",
+          "dynamic/revrec_replace",
+          "dynamic/complex_replace",
+          "dynamic/mixed",
+          "dynamic/override"
+        ]
+      },
+      "eval": {
+        "whitelist": [
+          "dynamic"
+        ]
+      }
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[test-default]"
+  ],
+  "env_run_lists": {
+
+  }
+}

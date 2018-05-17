@@ -1,0 +1,12 @@
+name              'web_platform'
+version           '0.0.0'
+description       'web_platform'
+maintainer        ''
+maintainer_email  ''
+license           'MIT License'
+source_url        ''
+
+supports 'ubuntu'
+supports 'debian'
+supports 'centos'
+supports 'redhat'

@@ -1,0 +1,46 @@
+{
+  "name": "chefdk_bootstrap",
+  "description": "Bootstrap a developer workstation for local Chef development using the ChefDK",
+  "long_description": "",
+  "maintainer": "Nordstrom, Inc.",
+  "maintainer_email": "techcheftm@nordstrom.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef_ca": "= 0.1.1",
+    "chocolatey": "~> 1.0",
+    "git": "~> 8.0",
+    "homebrew": "~> 4.3",
+    "line": "~> 1.0",
+    "vagrant": "~> 0.9",
+    "windows": "~> 3.4",
+    "apt": "~> 6.1"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.4.1",
+  "source_url": "https://github.com/Nordstrom/chefdk_bootstrap",
+  "issues_url": "https://github.com/Nordstrom/chefdk_bootstrap/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      "> 12.5.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

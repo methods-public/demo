@@ -1,0 +1,39 @@
+---
+driver:
+  name: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+provisioner:
+  name: chef_zero
+  client_rb:
+    environment: dev
+  attributes:
+    mysql-multi:
+      master: '192.168.0.1'
+      slaves: ['192.168.0.2', '192.168.0.3']
+      server_repl_password: 'VeryBadReplPasswd'
+      server_root_password: 'SillyRootPasswd'
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: centos-6.7
+<% if ENV['CI'] %>
+  - name: centos-7
+<% else %>
+  - name: centos-7.0
+<% end %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mysql-multi::default]
+
+  - name: master
+    run_list:
+      - recipe[mysql-multi::mysql_master]
+
+  - name: slave
+    run_list:
+      - recipe[mysql-multi::mysql_slave]

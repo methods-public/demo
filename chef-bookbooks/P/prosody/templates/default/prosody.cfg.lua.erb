@@ -1,0 +1,155 @@
+-- according to http://prosody.im/doc/configure
+-- check with luac -p prosody.cfg.lua
+
+---------- Server-wide settings ----------
+-- Settings in this section apply to the whole server and are the default settings
+-- for any virtual hosts
+
+-- This is a (by default, empty) list of accounts that are admins
+-- for the server. Note that you must create the accounts separately
+-- (see http://prosody.im/doc/creating_accounts for info)
+-- Example: admins = { "user1@example.com", "user2@example.net" }
+<% unless node['prosody']['admins'].nil? %>
+admins = {
+<% @admins.each do |admin| %>
+  "<%= admin %>";
+<% end %>
+}
+<% end %>
+
+-- Enable use of libevent for better performance under high load
+-- For more information see: http://prosody.im/doc/libevent
+use_libevent = <%= @use_libevent ? "true" : "false" %>
+
+-- This is the list of modules Prosody will load on startup.
+-- It looks for mod_modulename.lua in the plugins folder, so make sure that exists too.
+-- Documentation on modules can be found at: http://prosody.im/doc/modules
+
+modules_enabled = {
+<% @modules_enabled.each do |mod| %>
+  "<%= mod %>";
+<% end %>
+}
+
+modules_disabled = {
+<% @modules_disabled.each do |mod| %>
+  "<%= mod %>";
+<% end %>
+}
+
+
+plugin_paths = {
+<% @plugin_paths.each do |path| -%>
+  "<%= path %>";
+<% end -%>
+}
+
+daemonize = <%= @daemonize ? "true" : "false" %>
+
+pidfile = "<%= @pidfile %>"
+
+
+
+-- Disable account creation by default, for security
+-- For more information see http://prosody.im/doc/creating_accounts
+allow_registration = <%= @allow_registration ? "true" : "false" %>
+
+-- These are the SSL/TLS-related settings. If you don't want
+-- to use SSL/TLS, you may comment or remove this
+ssl = {
+	key = "certs/localhost.key";
+	certificate = "certs/localhost.crt";
+}
+
+-- Force clients to use encrypted connections? This option will
+-- prevent clients from authenticating unless they are using encryption.
+
+c2s_require_encryption = <%= node['prosody']['c2s_require_encryption'] %>
+
+-- Force certificate authentication for server-to-server connections?
+-- This provides ideal security, but requires servers you communicate
+-- with to support encryption AND present valid, trusted certificates.
+-- NOTE: Your version of LuaSec must support certificate verification!
+-- For more information see http://prosody.im/doc/s2s#security
+
+s2s_secure_auth = <%= node['prosody']['s2s_secure_auth'] %>
+
+-- Many servers don't support encryption or have invalid or self-signed
+-- certificates. You can list domains here that will not be required to
+-- authenticate using certificates. They will be authenticated using DNS.
+<% unless node['prosody']['s2s_insecure_domains'].empty? %>
+s2s_insecure_domains = {
+<% node['prosody']['s2s_insecure_domains'].each do |domain| %>
+  "<%= domain %>";
+<% end %>
+}
+<% end %>
+-- Even if you leave s2s_secure_auth disabled, you can still require valid
+-- certificates for some domains by specifying a list here.
+<% unless node['prosody']['s2s_secure_domains'].empty? %>
+s2s_secure_domains = {
+<% node['prosody']['s2s_secure_domains'].each do |domain| %>
+  "<%= domain %>";
+<% end %>
+}
+<% end %>
+
+-- Select the authentication backend to use. The 'internal' providers
+-- use Prosody's configured data storage to store the authentication data.
+-- To allow Prosody to offer secure authentication mechanisms to clients, the
+-- default provider stores passwords in plaintext. If you do not trust your
+-- server please see http://prosody.im/doc/modules/mod_auth_internal_hashed
+-- for information about using the hashed backend.
+
+
+authentication = "<%= @authentication %>"
+
+-- Select the storage backend to use. By default Prosody uses flat files
+-- in its configured data directory, but it also supports more backends
+-- through modules. An "sql" backend is included by default, but requires
+-- additional dependencies. See http://prosody.im/doc/storage for more info.
+
+storage = "<%= node['prosody']['storage'] %>"
+
+-- For the "sql" backend, you can uncomment *one* of the below to configure:
+--sql = { driver = "SQLite3", database = "prosody.sqlite" } -- Default. 'database' is the filename.
+--sql = { driver = "MySQL", database = "prosody", username = "prosody", password = "secret", host = "localhost" }
+--sql = { driver = "PostgreSQL", database = "prosody", username = "prosody", password = "secret", host = "localhost" }
+
+
+-- Logging configuration
+-- For advanced logging see http://prosody.im/doc/logging
+log = {
+	info = "/var/log/prosody/prosody.log"; -- Change 'info' to 'debug' for verbose logging
+	error = "/var/log/prosody/prosody.err";
+	-- "*syslog"; -- Uncomment this for logging to syslog
+	-- "*console"; -- Log to the console, useful for debugging with daemonize=false
+}
+
+Include "conf.d/*.cfg.lua"
+
+----------- Virtual hosts -----------
+-- You need to add a VirtualHost entry for each domain you wish Prosody to serve.
+-- Settings under each VirtualHost entry apply *only* to that host.
+VirtualHost "localhost"
+Include "vhosts.d/*.lua"
+
+------ Components ------
+-- You can specify components to add hosts that provide special services,
+-- like multi-user conferences, and transports.
+-- For more information on components, see http://prosody.im/doc/components
+
+---Set up a MUC (multi-user chat) room server on conference.example.com:
+--Component "conference.example.com" "muc"
+
+-- Set up a SOCKS5 bytestream proxy for server-proxied file transfers:
+--Component "proxy.example.com" "proxy65"
+
+---Set up an external component (default component port is 5347)
+--
+-- External components allow adding various services, such as gateways/
+-- transports to other networks like ICQ, MSN and Yahoo. For more info
+-- see: http://prosody.im/doc/components#adding_an_external_component
+--
+--Component "gateway.example.com"
+--	component_secret = "password"

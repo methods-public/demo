@@ -1,0 +1,65 @@
+{
+  "name": "iptables-services-kitchen",
+  "description": "Install/Configure iptables-services for kitchen",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "iptables-services": {
+      "groups": {
+        "docker": {
+          "role": "iptables-services-kitchen"
+        }
+      },
+      "iptables": {
+        "tables": {
+          "filter": {
+            "INPUT": {
+              "ACCEPT": 0,
+              "-i eth0 -j ACCEPT": 2,
+              "-m state --state ESTABLISHED -j ACCEPT": 4,
+              "-p icmp -j ACCEPT": 3,
+              "-i lo -j ACCEPT": 1,
+              "-p tcp -m tcp --dport 22 -j ACCEPT": 5,
+              "-j REJECT --reject-with icmp-host-prohibited": 6
+            },
+            "OUTPUT": {
+              "-j ACCEPT": 3,
+              "-p icmp -j ACCEPT": 1
+            },
+            "MINE": {
+              "-j ACCEPT": 2
+            },
+            "PREV-UNDEFINED": "undefined",
+            "UNDEFINED": "undefined",
+            "DOCKER-USER": {
+              "-s %{docker} -j RETURN": 1,
+              "-i eth1 -j REJECT --reject-with icmp-host-prohibited": 2,
+              "-j RETURN": 3
+            }
+          },
+          "mangle": {
+            "PREROUTING": {
+              "ACCEPT": 1
+            }
+          }
+        }
+      },
+      "ip6tables": {
+        "tables": {
+          "filter": {
+            "INPUT": {
+              "-j REJECT --reject-with icmp6-port-unreachable": 1
+            },
+            "FORWARD": {
+              "-j DROP": 2
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "chef_type": "role",
+  "run_list": [
+    "recipe[iptables-services]"
+  ]
+}

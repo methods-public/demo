@@ -1,0 +1,53 @@
+{
+  "name": "windows_tasks",
+  "description": "Manage Windows scheduled tasks through attributes.",
+  "long_description": "# Windows Tasks\n\nManage Windows scheduled tasks through attributes.\n\n---\n\n## Requires\n\n* `platform == 'windows'`\n* `chef_version '>= 12.1'`\n* `cookbook 'windows', '~> 2.1.1'`\n\n## Usage\n\n### manage_windows_tasks::default\n\nJust include `manage_windows_tasks` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[windows_tasks]\"\n  ]\n}\n```\n\nThen move on to filling out some attributes.\n\n## Attributes\n\n### Ignore Failures\n\nThis set the ignore_failures default value for each task you define.\n\nDefault Value: \n\n- `false`\n\nRuby usage:\n\n```ruby\nnode['windows_tasks']['ignore_failures'] = true\n```\n\nJSON usage:\n\n```json\n{\n  \"windows_tasks\": {\n    \"ignore_failures\": true\n  }\n}\n```\n\n### Tasks\n\nThe set of tasks that you intend to manage.\n\nRuby usage:\n\n```ruby\nnode['windows_tasks']['tasks'] = [\n    \"GoogleUpdateTaskMachineCore\" => [\n      \"action\" => 'delete'\n    ],\n    \"Adobe Flash Player Updater\" => [\n      \"action\" => 'delete'\n    ],\n    \"chef-client\" => [\n      \"ignore_failures\" => false, # Overriding the global settings set earlier\n      \"user\" => \"Administrator\",\n      \"password\" => \"$ecR3t\",\n      \"cwd\" => \"C:\\\\chef\\\\bin\",\n      \"command\" => \"chef-client -L C:\\\\tmp\\\\\",\n      \"run_level\" => \"highest\",\n      \"frequency\" => \"minute\",\n      \"frequency_modifier\" => 15\n    ]\n]\n```\n\nJSON usage:\n\n```json\n{\n  \"windows_tasks\": {\n    \"tasks\": {\n      \"GoogleUpdateTaskMachineCore\": {\n        \"action\": \"delete\"\n      },\n      \"Adobe Flash Player Updater\": {\n        \"action\": \"delete\"\n      },\n      \"chef-client\": {\n        \"ignore_failures\": false,\n        \"user\": \"Administrator\",\n        \"password\": \"$ecR3t\",\n        \"cwd\": \"C:\\\\chef\\\\bin\",\n        \"command\": \"chef-client -L C:\\\\tmp\\\\\",\n        \"run_level\": \"highest\",\n        \"frequency\": \"minute\",\n        \"frequency_modifier\": 15\n      }\n    }\n  }\n}\n```\n\nMore examples and task parameters can be extrapolated from [this section](https://supermarket.chef.io/cookbooks/windows/versions/2.1.1/#windows_task) of the `windows` cookbook.",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 2.1.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/MelonSmasher/chef_windows_tasks",
+  "issues_url": "https://github.com/MelonSmasher/chef_windows_tasks/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

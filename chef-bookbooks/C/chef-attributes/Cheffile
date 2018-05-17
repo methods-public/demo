@@ -1,0 +1,2 @@
+# Cheffile
+site 'https://supermarket.chef.io/api/v1'

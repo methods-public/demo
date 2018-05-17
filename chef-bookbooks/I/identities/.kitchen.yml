@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-7.2
+  - name: ubuntu-16.04
+
+suites:
+  - name: manage
+    run_list:
+      - recipe[identities::user_manage_test]
+
+  - name: remove
+    run_list:
+      - recipe[identities::user_remove_test]
+
+  - name: cleanup
+    run_list:
+      - recipe[identities::user_cleanup_test]

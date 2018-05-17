@@ -1,0 +1,48 @@
+---
+driver_plugin: digitalocean
+driver_config:
+  digitalocean_client_id: <%= ENV['DIGITALOCEAN_CLIENT_ID'] %>
+  digitalocean_api_key: <%= ENV['DIGITALOCEAN_API_KEY'] %>
+  ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+  ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEY_IDS'] %>
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-6.5
+    driver_plugin: digitalocean
+    driver_config:
+      image_id: 6372108
+
+suites:
+  - name: default
+    run_list:
+      - recipe[opt-python::default]
+    attributes: {}
+  - name: with-module
+    run_list:
+      - recipe[opt-python::default]
+      - recipe[environment-modules::default]
+      - recipe[opt-python::modulefile]
+    attributes: {}
+  - name: setuptools
+    run_list:
+      - recipe[opt-python::default]
+      - recipe[opt-python::setuptools]
+    attributes: {}
+  - name: pip
+    run_list:
+      - recipe[opt-python::default]
+      - recipe[opt-python::pip]
+    attributes: {}
+  - name: cython
+    run_list:
+      - recipe[opt-python::default]
+      - recipe[opt-python::cython]
+    attributes: {}
+  - name: numpy
+    run_list:
+      - recipe[opt-python::default]
+      - recipe[opt-python::numpy]
+    attributes: {}

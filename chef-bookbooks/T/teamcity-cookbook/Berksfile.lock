@@ -1,0 +1,7 @@
+DEPENDENCIES
+  teamcity-cookbook
+    path: .
+    metadata: true
+
+GRAPH
+  teamcity-cookbook (0.1.0)

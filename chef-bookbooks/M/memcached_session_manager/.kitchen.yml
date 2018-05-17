@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 11.14
+
+platforms:
+  - name: ubuntu-14.04
+  - name: centos-7.1
+
+suites:
+  - name: memcached_session_manager_test
+    run_list:
+      - recipe[java::default]
+      - recipe[tomcat::default]
+      - recipe[memcached_session_manager_test::context_install]
+      - recipe[memcached_session_manager_test::context_update]
+      - recipe[memcached_session_manager_test::context_remove]
+    attributes:
+      java:
+        jdk_version: 7
+      tomcat:
+        base_version: 7
+      memcached_session_manager:
+        tomcat:
+          lib: /usr/share/tomcat7/lib
+

@@ -1,0 +1,24 @@
+AllCops:
+  Include:
+    - Berksfile
+    - Gemfile
+    - Rakefile
+    - Thorfile
+    - Guardfile
+  Exclude:
+    - vendor/**/*
+
+Documentation:
+  Enabled: false
+FileName:
+  Enabled: false
+SignalException:
+  Enabled: false
+Encoding:
+  Enabled: false
+HashSyntax:
+  Enabled: false
+LineLength:
+  Enabled: false
+ExtraSpacing:
+  Enabled: false

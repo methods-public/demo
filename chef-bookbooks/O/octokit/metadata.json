@@ -1,0 +1,43 @@
+{
+  "name": "octokit",
+  "description": "Configures Github resources using Octokit toolkit",
+  "long_description": "# Octokit cookbook\n\nThis cookbook provides Chef resources to communicate with Github using\n[Octokit tookit](https://github.com/octokit/octokit.rb).\n\n## Resources\n\nCurrently the only resource provided by this cookbook\nis Github User SSH Key.\n\n### github_user_key\n\nExample usage:\n```ruby\ngithub_user_key 'key' do\n  login 'login'\n  password 'token'\n  title 'title'\n  key 'ssh-rsa ...'\n  action :create_or_replace\nend\n```\n\nSupported actions:\n*\tThe `create` action uploads key to Github. It gives an error\nif the key is already in use with different title.\n*\tThe `create_or_replace` action upload key to Github. If the key\nis already in use by specified user and the title is different, it\nremoves the key and uploads with the new title.\n*\tThe `remove` action searches for the key in the keys\nof specified user and, if found, removes it.\n\nPRs for other resources are welcome!\n",
+  "maintainer": "Basil Peace",
+  "maintainer_email": "grv87@yandex.ru",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "macosx": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/fidata/cookbook-octokit",
+  "issues_url": "https://github.com/fidata/cookbook-octokit/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+    [
+      "octokit"
+    ]
+  ]
+}

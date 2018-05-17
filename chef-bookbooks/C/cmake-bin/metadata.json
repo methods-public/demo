@@ -1,0 +1,45 @@
+{
+  "name": "cmake-bin",
+  "description": "Installs cmake",
+  "long_description": "Installs cmake from binaries",
+  "maintainer": "Joe Hildebrand",
+  "maintainer_email": "joe-github@cursive.net",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "cmake-bin::default": "Install cmake binaries"
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

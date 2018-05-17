@@ -1,0 +1,42 @@
+{
+  "name": "n98-magerun",
+  "version": "0.2.2",
+  "description": "Installs/Configures n98-magerun.phar",
+  "long_description": "# n98-magerun Chef Cookbook\n\nA Chef cookbook to install [n98-magerun.phar](https://github.com/netz98/n98-magerun) - a CLI for Magento.\n\n\n# Usage\n\n`n98-magerun::default` installs n98-magerun, e.g. place `include_recipe n98-magerun::default` in your recipe.\nn98-magerun is installed prior to compilation so that it *could* be used in later recipes. \n\n\n# Attributes\n\n`node['n98-magerun']['install_dir']` - path to install to (default `/usr/local/bin`)\n`node['n98-magerun']['install_file']` - name of installed binary (default `n98-magerun.phar`)\n`node['n98-magerun']['url']` - url to get binary from (default `https://raw.github.com/netz98/n98-magerun/master/n98-magerun.phar`)\n`node['n98-magerun']['unstable']` - Specify whether to update to unstable version (using self-update) (default `false`)\n\n\n# Recipes\n\n`n98-magerun::default` - Install n98-magerun.\n\n\n### Vagrant\n\nAs an aside - I personally use this with Vagrant and have set up a bash function to use a pseudo-tty with magerun in the vagrant box.\n\ne.g. in `~/.bash_profile` place:\n```bash\nmagerun () {\n  vagrant ssh -- -t n98-magerun.phar --root-dir=/vagrant $@\n}\n```\n\nOpen a new bash prompt at your Vagrant project and interact with n98-magerun as if it were local.\n```\n$ magerun help\n$ magerun cache:clean\n```\n\nYour commands will be run inside the Vagrant box using the n98-magerun config and Magento root defined.\nFor performance reasons you might like to use the `$ magerun shell` feature rather than opening a new ssh connection for each command.\n\n\n## Contributing\n\n* File bug reports via GitHub issues.\n* Pull requests are welcome.\n\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Added some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n",
+  "maintainer": "Robert Coleman",
+  "maintainer_email": "cookbooks@robert.net.nz",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+    "php": ">= 0.0.0"
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "n98-magerun": "Installs n98-magerun"
+  }
+}

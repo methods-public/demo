@@ -1,0 +1,46 @@
+---
+driver:
+  name: vagrant
+  vm_hostname: "boxbilling.local"
+  network:
+  - ["forwarded_port", {guest: 80, host: 8080, auto_correct: true}]
+  - ["forwarded_port", {guest: 443, host: 8443, auto_correct: true}]
+  customize:
+    memory: 512
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+
+platforms:
+- name: centos-6.7
+- name: debian-6.0.10
+  run_list: ["recipe[apt]"]
+- name: debian-7.8
+  run_list: ["recipe[apt]"]
+- name: fedora-19
+  driver_config:
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19_chef-provisionerless.box
+- name: fedora-20
+- name: ubuntu-12.04
+  run_list: ["recipe[apt]"]
+- name: ubuntu-14.04
+  run_list: ["recipe[apt]"]
+
+suites:
+- name: bb3
+  run_list: ["recipe[boxbilling_test]"]
+  attributes:
+    boxbilling:
+      download_url: http://files.zuazo.org/boxbilling-3.6.11.zip
+- name: bb4
+  run_list: ["recipe[boxbilling_test]"]
+- name: nginx
+  excludes:
+  # not supported by php-fpm cookbook
+  - fedora-19
+  - fedora-20
+  run_list: ["recipe[boxbilling_test]"]
+  attributes:
+    boxbilling:
+      web_server: nginx

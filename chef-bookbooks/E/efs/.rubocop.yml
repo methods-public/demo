@@ -1,0 +1,31 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'Berksfile'
+    - 'Gemfile'
+    - 'Vagrantfile'
+    - 'test/integration/**/serverspec/*'
+    - 'test/cookbooks/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 3
+
+RSpec/DescribeClass:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 100
+
+RSpec/ExampleLength:
+  Max: 10

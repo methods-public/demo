@@ -1,0 +1,21 @@
+{
+  "name": "aerospike-platform-kitchen",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "aerospike-platform": {
+      "role": "aerospike-platform-kitchen",
+      "size": 3
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[aerospike-platform]",
+    "recipe[test-aerospike]"
+  ],
+  "env_run_lists": {
+
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "ufw_install",
+  "description": "Installs ufw to centos",
+  "long_description": "ufw_install Cookbook\n====================\n\nThis cookbook installs ufw to centos.\n\nSupports\n------------\n\n- CentOS\n\nRequirements\n------------\n\n- python\n\n\nAttributes\n----------\n\nNothing.\n\nUsage\n-----\n\n#### ufw_install::default\n\nJust include `ufw_install` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[ufw_install]\"\n  ]\n}\n```\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\n\n# Author\n\nAuthor:: HiganWorks LLC (<sawanoboriyu@higanworks.com>)\n\n",
+  "maintainer": "HiganWorks LLC.",
+  "maintainer_email": "sawanoboriyu@higanworks.com",
+  "license": "apache2",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

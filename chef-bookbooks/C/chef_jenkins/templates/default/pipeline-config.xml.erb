@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.9">
+  <actions/>
+  <description><%= @description %></description>
+<% unless @display_name.nil? -%>
+  <displayName><%= @display_name %></displayName>
+<% end -%>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+<% @properties.each do |property, options| %>
+<%= partial_template(property, 'property', options, @cookbook, @include_templates) %>
+<% end %>
+  </properties>
+<% if @scm.empty? %>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
+    <script><%= @script %></script>
+    <sandbox><%= @sandbox %></sandbox>
+<% else %>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.30">
+    <%= partial_template(@scm.keys[0], 'scm', @scm.values[0], @cookbook, @include_templates) %>
+    <scriptPath><%= @script_path %></scriptPath>
+    <lightweight><%= @lightweight %></lightweight>
+<% end %>
+  </definition>
+  <triggers/>
+</flow-definition>

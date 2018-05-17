@@ -1,0 +1,43 @@
+{
+  "name": "r1337-certmanage",
+  "description": "Manages SSL certificates and keys via Chef Vault",
+  "long_description": "This Chef cookbook will manage SSL certificates and keys through the use of Chef Vault.",
+  "maintainer": "Matthew Ahrenstein",
+  "maintainer_email": "matthew@route1337.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-vault": ">= 0.0.0",
+    "managed_directory": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "r1337-certmanage::default": "Call this recipe to load Chef Vault and run the certificate and key management recipes",
+    "r1337-certmanage::prereqs": "Configure the base requirements for Route 1337 style SSL certificate management",
+    "r1337-certmanage::certdeploy": "Deploy the SSL certificates and their corresponding keys from Chef Vault",
+    "r1337-certmanage::maintenance": "Perform cleanup of removed certs and keys as well as unmanaged files in the /data/ssl directory"
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/route1337/chef-cookbook-certmanage",
+  "issues_url": "https://github.com/route1337/chef-cookbook-certmanage/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.6.4"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

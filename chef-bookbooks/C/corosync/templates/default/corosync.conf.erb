@@ -1,0 +1,160 @@
+totem {
+        version: <%= @corosync.totem_version %>
+        crypto_cipher: <%= @corosync.totem_crypto_cipher %>
+        crypto_hash: <%= @corosync.totem_crypto_hash %>
+	secauth: <%= @corosync.totem_secauth %>
+	transport: <%= @corosync.totem_transport %>
+	<% if @corosync.totem_rrp_mode -%>
+	rrp_mode: <%= @corosync.totem_rrp_mode %>
+	<% end -%>
+	<% if @corosync.totem_netmtu -%>
+	netmtu: <%= @corosync.totem_netmtu %>
+	<% end -%>
+	<% if @corosync.totem_cluster_name -%>
+        cluster_name: <%= @corosync.totem_cluster_name %>
+        <% end -%>
+	<% if @corosync.totem_config_version -%>
+	config_version: <%= @corosync.totem_config_version %>
+	<% end -%>
+	<% if @corosync.totem_ip_version -%>
+	ip_version: <%= @corosync.totem_ip_version %>
+	<% end -%>
+	<% if @corosync.totem_token -%>
+	token: <%= @corosync.totem_token %>
+	<% end -%>
+	<% if @corosync.totem_token_coefficient -%>
+	token_coefficient: <%= @corosync.totem_token_coefficient %>
+	<% end -%>
+	<% if @corosync.totem_token_retransmit -%>
+	token_retransmit: <%= @corosync.totem_token_retransmit %>
+	<% end -%>
+	<% if @corosync.totem_hold -%>
+	hold: <%= @corosync.totem_hold %>
+	<% end -%>
+	<% if @corosync.totem_token_retransmits_before_loss_const -%>
+	token_retransmits_before_loss_const: <%= @corosync.totem_token_retransmits_before_loss_const %>
+	<% end -%>
+	<% if @corosync.totem_join -%>
+	join: <%= @corosync.totem_join %>
+	<% end -%>
+	<% if @corosync.totem_send_join -%>
+	send_join: <%= @corosync.totem_send_join %>
+	<% end -%>
+	<% if @corosync.totem_consensus -%>
+	consensus: <%= @corosync.totem_consensus %>
+	<% end -%>
+	<% if @corosync.totem_merge -%>
+	merge: <%= @corosync.totem_merge %>
+	<% end -%>
+	<% if @corosync.totem_downcheck -%>
+	downcheck: <%= @corosync.totem_downcheck %>
+	<% end -%>
+	<% if @corosync.totem_fail_recv_const -%>
+	fail_recv_const: <%= @corosync.totem_fail_recv_const %>
+	<% end -%>
+	<% if @corosync.totem_seqno_unchanged_const -%>
+	seqno_unchanged_const: <%= @corosync.totem_seqno_unchanged_const %>
+	<% end -%>
+        <% if @corosync.totem_heartbeat_failures_allowed -%>
+	heartbeat_failures_allowed: <%= @corosync.totem_heartbeat_failures_allowed %>
+	<% end -%>
+	<% if @corosync.totem_max_network_delay -%>
+	max_network_delay: <%= @corosync.totem_max_network_delay %>
+	<% end -%>
+	<% if @corosync.totem_max_messages -%>
+	max_messages: <%= @corosync.totem_max_messages %>
+	<% end -%>
+	<% if @corosync.totem_miss_count_const -%>
+	miss_count_const: <%= @corosync.totem_miss_count_const %>
+	<% end -%>
+	<% if @corosync.totem_rrp_problem_count_timeout -%>
+	rrp_problem_count_timeout: <%= @corosync.totem_rrp_problem_count_timeout %>
+	<% end -%>
+	<% if @corosync.totem_rrp_problem_count_threshold -%>
+	rrp_problem_count_threshold: <%= @corosync.totem_rrp_problem_count_threshold %>
+	<% end -%>
+	<% if @corosync.totem_rrp_problem_count_mcast_threshold -%>
+	rrp_problem_count_mcast_threshold: <%= @corosync.totem_rrp_problem_count_mcast_threshold %>
+	<% end -%>
+	<% if @corosync.totem_rrp_token_expired_timeout -%>
+	rrp_token_expired_timeout: <%= @corosync.totem_rrp_token_expired_timeout %>
+	<% end -%>
+	<% if @corosync.totem_rrp_autorecovery_check_timeout -%>
+	rrp_autorecovery_check_timeout: <%= @corosync.totem_rrp_autorecovery_check_timeout %>
+	<% end -%>
+	
+        interface {
+                ringnumber: <%= @corosync.totem_interface_ringnumber %>
+                bindnetaddr: <%= @corosync.totem_interface_bindnetaddr %>
+		<% if @corosync.totem_interface_broadcast -%>
+		broadcast: <%= @corosync.totem_interface_broadcast %>
+		<% end -%>
+		<% if @corosync.totem_interface_mcastaddr -%>
+		mcastaddr: <%= @corosync.totem_interface_mcastaddr %>
+		<% end -%>
+		<% if @corosync.totem_interface_mcastport -%>
+                mcastport: <%= @corosync.totem_interface_mcastport %>
+		<% end -%>
+                ttl: <%= @corosync.totem_interface_ttl %>
+        }
+}
+
+logging {
+        fileline: <%= @corosync.log_fileline %>
+	timestamp: <%= @corosync.log_timestamp %>
+	function_name: <%= @corosync.log_function_name %>
+        to_logfile: <%= @corosync.log_to_logfile %>
+        to_syslog: <%= @corosync.log_to_syslog %>
+	to_stderr: <%= @corosync.log_to_stderr %>
+        logfile: <%= @corosync.log_logfile %>
+        debug: <%= @corosync.log_debug %>
+	logfile_priority: <%= @corosync.log_logfile_priority %>
+	syslog_facility: <%= @corosync.log_syslog_facility %>
+	log_syslog_priority: <%= @corosync.log_syslog_priority %>
+        logger_subsys {
+            subsys: <%= @corosync.log_logger_subsys %>
+            debug: <%= @corosync.log_logger_subsys_debug %>
+        }
+}
+
+nodelist {
+  <% @corosync.node_list.each_with_index do |n, idx| -%>
+    node {
+      ring<%= n['ring'] %>_addr: <%= n['node_name'] %>
+      nodeid: <%= idx+1 %>
+    }
+  <% end -%>
+}
+
+quorum {
+    <% if @corosync.quorum_provider -%>
+    provider: <%= @corosync.quorum_provider %>
+    <% end -%>
+    <% if @corosync.quorum_expected_votes -%>
+    expected_votes: <%= @corosync.quorum_expected_votes %>
+    <% end -%>
+    <% if @corosync.quorum_two_node -%>
+    two_node: <%= @corosync.quorum_two_node %>
+    <% end -%>
+    <% if @corosync.quorum_wait_for_all -%>
+    wait_for_all: <%= @corosync.quorum_wait_for_all %>
+    <% end -%>
+    <% if @corosync.quorum_last_man_standing -%>
+    last_man_standing: <%= @corosync.quorum_last_man_standing %>
+    <% end -%>
+    <% if @corosync.quorum_expected_votes -%>
+    expected_votes: <%= @corosync.quorum_expected_votes %>
+    <% end -%>
+    <% if @corosync.quorum_auto_tie_breaker -%>
+    auto_tie_breaker: <%= @corosync.quorum_auto_tie_breaker %>
+    <% end -%>
+    <% if @corosync.quorum_auto_tie_breaker_node -%>
+    auto_tie_breaker_node: <%= @corosync.quorum_auto_tie_breaker_node %>
+    <% end -%>
+    <% if @corosync.quorum_allow_downscale -%>
+    allow_downscale: <%= @corosync.quorum_allow_downscale %>
+    <% end -%>
+    <% if @corosync.quorum_expected_votes_tracking -%>
+    expected_votes_tracking: <%= @corosync.quorum_expected_votes_tracking %>
+    <% end -%>
+}

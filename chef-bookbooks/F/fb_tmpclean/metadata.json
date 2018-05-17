@@ -1,0 +1,54 @@
+{
+  "name": "fb_tmpclean",
+  "description": "Install/Configures tmp file cleaning",
+  "long_description": "fb_tmpclean Cookbook\n====================\nThis cookbook allows you to customize how you would like directories cleaned\nto ensure more appropriate filesystem cleanup.\n\nRequirements\n------------\nSupports three platforms:\n* CentOS = tmpwatch\n* Debian = tmpreaper\n* macOS  = tmpreaper\n\nAttributes\n----------\n* node['fb_tmpclean']['default_files']\n* node['fb_tmpclean']['directories']\n* node['fb_tmpclean']['excludes']\n* node['fb_tmpclean']['timestamptype']\n* node['fb_tmpclean']['extra_lines']\n\nUsage\n-----\nAnywhere, in any cookbook, you can set tmpclean to be tuned to the needs of a\ntier or server. By default, tmpclean takes time in hours, or you may suffix\nwith `m` (minutes), `h` (hours), or `d` (days).\n\nThe attributes are used like this:\n\n### default_files\n\nThis is the lifetime of the files that are cleaned up by default by\nthe respective packages. It defaults to 240, and the files covered are:\n\n* CentOS Includes (if exists)\n  `/var/{cache/man,catman}/{cat?,X11R6/cat?,local/cat?}`\n\n### directories\n\nThis is a hash of directories you'd like cleaned and the lifetime of files.\n\nAdd other entries as you need.\n\n### excludes\n\nThis is an array of files to exclude from cleaning in all directories listed in\n`node['fb_tmpclean']['directories']`.\n\nBoth tmpwatch (CentOS) and tmpreaper (Debian, macOS) use shell patterns for\n`excludes`. However, these \"shell patterns\" differ subtly on the two platforms,\nso test carefully. The defaults for `excludes` change per platform.\n\nWhen the cron job is built, each of the excludes is appended to the list of\ndirectories with a slash appended to the directory name. An exclusion of\n`/tmp/file` with a directory of `/tmp` will result in a `-X` of\n`/tmp//tmp/file`. The way the options are constructed, each exclusion is\nappended to each directory to create absolute paths.\n\n    for dir in directories:\n        for exclusion in exclusions:\n            print '-X ' + dir + '/' + exclusions\n\n### timestamptype\n\nBy default we tell tmpwatch (on CentOS) and tmpreaper (on Debian and macOS) to\nuse mtime, but you can change this by setting\n`node['fb_tmpclean']['timestamptype']` to `atime`.\n\nTo ensure that empty directories get removed, we still force tmpreaper to use\nmtime on directories even when using atime for files, since directories' atime\nget updated when their contents get tested.\n\n### extra_lines\n\nAn array of extra lines that will be put, verbatim, into the config file.\n\nExamples:\n\n    node.default['fb_tmpclean']['directories']['/home/zuck'] = 1\n    node.default['fb_tmpclean']['extra_lines'] << \"LINE\"\n\n### remove_special_files\n\nA boolean value which determines whether or not tmpwatch will remove special\nfiletypes.\n\nDefaults:\n\n* `default_files` = 240 hours\n* excludes are set per-platform based on the tool's defaults. See\n  `attributes/default.rb'\n* `remove_special_files` defaults to false to avoid a default case that may be\n  dangerous\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

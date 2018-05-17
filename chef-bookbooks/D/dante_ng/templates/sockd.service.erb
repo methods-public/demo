@@ -1,0 +1,15 @@
+# Maintained by Chef.  Local changes will be overwritten
+
+[Unit]
+Description=Dante Socks5 Daemon
+ConditionPathExists=<%= node['dante_ng']['config_path'] %>
+
+[Service]
+ExecStart=<%= node['dante_ng']['path'] %>/sbin/sockd -f <%= node['dante_ng']['config_path'] %>
+ExecReload=/bin/kill -HUP $MAINPID
+PIDFile=/var/run/sockd.pid
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

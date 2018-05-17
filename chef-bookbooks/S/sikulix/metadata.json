@@ -1,0 +1,45 @@
+{
+  "name": "sikulix",
+  "description": "Installs/Configures SikuliX",
+  "long_description": "# SikuliX Cookbook\n\n[![Cookbook Version](http://img.shields.io/cookbook/v/sikulix.svg?style=flat-square)][cookbook]\n[![Build Status](http://img.shields.io/travis/dhoer/chef-sikulix.svg?style=flat-square)][travis]\n\n[cookbook]: https://supermarket.chef.io/cookbooks/sikulix\n[travis]: https://travis-ci.org/dhoer/chef-sikulix\n\nInstalls SikuliX 1.1.0 (http://www.sikulix.com/).\n\n## Requirements\n\n- Java (not installed by this cookbook)\n- Chef 11+\n\n### Platforms\n\n- Mac OS X\n- Ubuntu\n- Windows\n\n### Cookbooks\n\n- apt\n- windows\n\n## Usage\n\nInclude the sikulix default recipe in your run list or recipe.\n\n**IMPORTANT!** Since there are a variety of setup options to choose from, all option attributes default to `false`. You \nmust select at least one setup option to install by setting its corresponding attribute to `true`.\n\nExample\n\n```ruby\n\"override_attributes\": {\n  \"sikulix\": {\n    \"setup\": {\n      \"java_api\": true\n    }\n  }\n}\n```\n\n## Attributes\n\nPack1: I want SikuliX, containing the Sikuli IDE and allowing to run Sikuli scripts from commandline.\n\n- `node['sikulix']['setup']['ide_jython']` - Python language level 2.7. Default `false`.\n- `node['sikulix']['setup']['ide_jruby']` - Ruby language level 1.9 and 2.0. Default `false`.\n\nPack2: I want to develop in Java, Jython or other Java aware scripting language using NetBeans, Eclipse, or other IDE's.\n\n- `node['sikulix']['setup']['java_api']` - Default `false`.  \n\nI want to use the Tesseract based OCR features (You Should know what you are doing!).\n\n- `node['sikulix']['setup']['tesseract_ocr']` - Default `false`. \n\nI want the packages to be usable on Windows, Mac, Linux (they contain the stuff for all systems - one pack for all).\nWith these options not selected, the setup process will only add system specific native stuff (Windows: support for\nboth Java 32-Bit and Java 64-Bit is added).\n\n- `node['sikulix']['setup']['system_all']` - Default `false`. \n\nOther:\n\n- `node['sikulix']['setup']['buildv']` - Build libVisionProxy.so. Default `false`.\n- `node['sikulix']['setup']['notest']` - Skip validation after install. Default `false`.\n- `node['sikulix']['setup']['clean']` - Clean directory. Default `false`.\n\n## Getting Help\n\n- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/sikulix).\n- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-sikulix/issues).\n\n## Contributing\n\nPlease refer to [CONTRIBUTING](https://github.com/dhoer/chef-sikulix/blob/master/CONTRIBUTING.md).\n\n## License\n\nMIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-sikulix/blob/master/LICENSE.md) file for details.\n",
+  "maintainer": "Dennis Hoer",
+  "maintainer_email": "dennis.hoer@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": "~> 2.6",
+    "windows": "~> 1.34"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.1.0",
+  "source_url": "https://github.com/dhoer/chef-sikulix",
+  "issues_url": "https://github.com/dhoer/chef-sikulix/issues",
+  "privacy": false
+}

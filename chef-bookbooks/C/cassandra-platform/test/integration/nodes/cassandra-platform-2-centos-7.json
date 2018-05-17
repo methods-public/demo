@@ -1,0 +1,8 @@
+{
+  "id": "cassandra-platform-02-centos-7",
+  "run_list": [ "role[cassandra-platform-kitchen]" ],
+  "automatic": {
+    "fqdn": "cassandra-platform-02-centos-7",
+    "roles": ["cassandra-platform-kitchen"]
+  }
+}

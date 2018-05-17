@@ -1,0 +1,8 @@
+.vagrant
+*.swp
+VERSION
+Berksfile.lock
+Gemfile.lock
+vagrant-cookbooks
+.kitchen/
+.kitchen.local.yml

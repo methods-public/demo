@@ -1,0 +1,7 @@
+#%PAM-1.0
+# This file is handled by Chef, any local change will be
+# overwritten during the next chef-run, do not edit manually...
+
+<%- @lines.each do |line| %>
+<%= line['mechanism'] %> <%= line['flag'] %> <%= line['module'] %> <%= line['arguments'] %>
+<%- end %>

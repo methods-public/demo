@@ -1,0 +1,72 @@
+{
+  "name": "os_floating_lo",
+  "description": "Add system-level visibility into OpenStack floating IPs",
+  "long_description": "# os_floating_lo\n\nAdd system-level visibility into OpenStack floating IPv4 addresses.\n\nThis cookbook lights up an OpenStack instance's floating IPv4 address on a loopback alias interface. System resources which cannot leverage Ohai can now gain insight into floating IPs.\n\n## Supported Platforms\n\n- Centos\n- Debian\n- Fedora\n- Debian\n\n## Attributes\n\n| Attribute | Default | Description |\n| --- | --- | --- |\n|`['device']`|`'lo:0'`|Device on which to apply the floating IP|\n|`['mask']`|`'255.255.255.255'`|Netmask for the floating IP. Do not change unless absolutely required.|\n\n## Usage\n\nInclude `os_floating_lo` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[os_floating_lo]\"\n  ]\n}\n```\n\n## License and Authors\n\nAuthor:: John Bartko (<jbartko@gmail.com>)\n\nLicense:: [MIT License](LICENSE)\n",
+  "maintainer": "John Bartko",
+  "maintainer_email": "jbartko@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "ohai": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "os_floating_lo/device": {
+      "default": "lo:0",
+      "description": "Device on which to apply the floating IP.",
+      "display_name": "Floating Loopback Device",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "os_floating_lo/mask": {
+      "default": "255.255.255.255",
+      "description": "Netmask for the floating IP. Do not change unless absolutely required.",
+      "display_name": "Floating Loopback Netmask",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.2",
+  "source_url": "https://github.com/jbartko/chef-os_floating_lo",
+  "issues_url": "https://github.com/jbartko/chef-os_floating_lo/issues",
+  "privacy": false
+}

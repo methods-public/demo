@@ -1,0 +1,14 @@
+DEPENDENCIES
+  test_user
+    path: test/fixtures/cookbooks/test_user
+  users_sshkeys
+    path: .
+    metadata: true
+
+GRAPH
+  test_user (0.0.1)
+    users (>= 0.0.0)
+    users_sshkeys (>= 0.0.0)
+  users (1.7.0)
+  users_sshkeys (0.1.0)
+    users (>= 0.0.0)

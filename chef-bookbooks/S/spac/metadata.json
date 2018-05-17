@@ -1,0 +1,42 @@
+{
+  "name": "spac",
+  "description": "Installs/Configures the spac service",
+  "long_description": "SPAC Cookbook\n=============\nThis cookbook will install the spac service and applies the configuration.\nFor more information about spac, please read:\nhttps://github.com/sbotman/spac/blob/master/README.md\n\n\nAttributes\n----------\nConfiguration of the spac service can be done by setting attributes.  \n\n#### spac::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['spac']['server']</tt></td>\n    <td>String</td>\n    <td>IP Address to listen on.</td>\n    <td><tt>0.0.0.0</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['spac']['port']</tt></td>\n    <td>Integer</td>\n    <td>Port to listen on.</td>\n    <td><tt>9000</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['spac']['apps']</tt></td>\n    <td>Hash</td>\n    <td>Applications and ports.</td>\n    <td></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### spac::default\nAdd the spac cookbook as dependency to your cookbook.  \nUse the spac resource to install and configure the service.  \n  \ne.g.\n\n```ruby\nspac 'exe' do\n  url node['spac']['url']\n  version node['spac']['version']\n  checksum node['spac']['checksum']\nend\n```\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: Sander Botman\n",
+  "maintainer": "Sander Botman",
+  "maintainer_email": "sander.botman@gmail.com",
+  "license": "Apache License 2.0",
+  "platforms": {
+    "linux": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/sbotman/spac_cookbook",
+  "issues_url": "https://github.com/sbotman/spac_cookbook/issues"
+}

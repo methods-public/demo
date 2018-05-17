@@ -1,0 +1,56 @@
+{
+  "name": "zookeeper-grid",
+  "description": "Installs/Configures Apache Zookeeper",
+  "long_description": "zookeeper Cookbook\n==================\n\nThis cookbook sets up Zookeeper ensemble (cluster).\n\n## Contents\n\n- [Requirements](#requirements)\n    - [cookbooks](#cookbooks)\n    - [packages](#packages)\n- [Attributes](#attributes)\n- [Usage](#usage)\n    - [Recipes](#recipes)\n        - [zookeeper::default](#zookeeperdefault)\n    - [Role examples](#role-examples)\n- [License and Authors](#license-and-authors)\n\n## Requirements\n\n### cookbooks\n- grid\n- java\n\n### packages\nnone.\n\n## Attributes\n\n|Key|Type|Description (with examples)|Default|\n|:--|:--|:--|:--|\n|`['zookeeper']['install_flavor']`|String|distribution.|`'apache'`|\n|`['zookeeper']['version']`|String|Zookeeper's version.|`'3.4.5'`|\n|`['zookeeper']['archive_url']`|String|archive URL.|`'http://archive.apache.org/dist/zookeeper'`|\n|`['zookeeper']['colo_name']`|String|colocation name|`'localhost'`|\n|`['zookeeper']['member_of_hadoop']`|Boolean|whether a member of hadoop or not.|`false`|\n|`['zookeeper']['run_mode']`|String|`'standalone'`, `'pseudo-replicated'`, `'full-replicated'`|`'standalone'`|\n|`['zookeeper']['with_security']`|Boolean|work with security.|`false`|\n|`['zookeeper']['realm']`|String|Kerberos realm.|`'LOCALDOMAIN'`|\n|`['zookeeper']['keytab_dir']`|String|keytab stored directory.|`\"#{node['grid']['etc_root']}/keytabs/#{node['zookeeper']['colo_name']}\"`|\n|`['zookeeper']['ZOOKEEPER_PREFIX']`|String|property in the zookeeper-env.sh file.|`\"#{node['grid']['app_root']}/zookeeper\"`|\n|`['zookeeper']['ZOO_LOG_DIR_PREFIX']`|String||`\"#{node['grid']['vol_root']}/0/var/log/zookeeper\"`|\n|`['zookeeper']['dataDirPrefix']`|String|property in the zoo.cfg file.|`\"#{node['grid']['vol_root']}/0/var/lib/zookeeper\"`|\n|`['zookeeper']['dataLogDir']`|String||`nil`|\n|`['zookeeper']['clientPort']`|String||`'2181'`|\n|`['zookeeper']['ensemble']`|Hash|see attributes/default.rb|`{}` (empty)|\n|`['zookeeper']['tickTime']`|String||`'2000'`|\n|`['zookeeper']['initLimit']`|String||`'10'`|\n|`['zookeeper']['syncLimit']`|String||`'5'`|\n|`['zookeeper']['authProvider']['0']`|String|if it works with_security, the following properties are activated.|`'org.apache.zookeeper.server.auth.SASLAuthenticationProvider'`|\n|`['zookeeper']['jaasLoginRenew']`|String||`'3600000'`|\n|`['zookeeper']['kerberos.removeHostFromPrincipal']`|String||`'true'`|\n|`['zookeeper']['kerberos.removeRealmFromPrincipal']`|String||`'true'`|\n|`['zookeeper']['extra_configs']['zookeeper-env.sh']`|Hash|extra properties. key and value pairs|`{}` (empty)|\n|`['zookeeper']['extra_configs']['zoo.cfg']`|Hash|extra properties. key and value pairs|`{}` (empty)|\n|`['zookeeper']['extra_configs']['java.env']`|Hash|extra properties. key and value pairs|`{}` (empty)|\n\n## Usage\n\n### Recipes\n\n#### zookeeper::default\n- installs Zookeeper and sets up ensemble's nodes.\n\n### Role examples\n\n- `roles/zookeeper.rb`\n\n```ruby\nname 'zookeeper'\ndescription 'ZooKeeper node'\n\nrun_list(\n  'recipe[grid]',\n  'recipe[java]',\n  'recipe[zookeeper]'\n)\n\ndefault_attributes(\n  'java' => {\n    'install_flavor' => 'oracle',\n    'jdk_version' => '7',\n    'java_home' => '/usr/local/jvm/java-7-ora',\n    'oracle' => {\n      'accept_oracle_download_terms' => true,\n    },\n  }\n)\n\noverride_attributes(\n  'java' => {\n    'jdk' => {\n      '7' => {\n        # no update-alternatives\n        'bin_cmds' => [],\n      },\n    },\n  }\n)\n```\n\n- `roles/zookeeper-standalone.rb`\n\n```ruby\nname 'zookeeper-standalone'\ndescription 'ZooKeeper standalone mode'\n\nrun_list(\n  'role[zookeeper]'\n)\n\ndefault_attributes(\n  'zookeeper' => {\n    'run_mode' => 'standalone',\n    'member_of_hadoop' => true,\n  }\n)\n```\n\n- `roles/zookeeper-pseudo-replicated.rb`\n\n```ruby\nname 'zookeeper-pseudo-replicated'\ndescription 'ZooKeeper pseudo replicated mode'\n\nrun_list(\n  'role[zookeeper]'\n)\n\ndefault_attributes(\n  'zookeeper' => {\n    'run_mode' => 'pseudo-replicated',\n    'member_of_hadoop' => true,\n    'clientPort' => '2180',\n  }\n)\n```\n\n- `roles/zookeeper-colo00.rb`\n\n```ruby\nname 'zookeeper-colo00'\ndescription 'ZooKeeper colo00 node'\n\nrun_list(\n  'role[zookeeper]'\n)\n\nensemble = {\n  '0' => {\n    :hostname => 'zk00.grid.example.com',\n    :leader_port => '2888',\n    :election_port => '3888',\n  },\n  '1' => {\n    :hostname => 'zk01.grid.example.com',\n    :leader_port => '2888',\n    :election_port => '3888',\n  },\n  '2' => {\n    :hostname => 'zk02.grid.example.com',\n    :leader_port => '2888',\n    :election_port => '3888',\n  }\n}\n\ndefault_attributes(\n  'zookeeper' => {\n    'run_mode' => 'full-replicated',\n    'colo_name' => 'colo00',\n    'dataLogDir' => '/grid/vol/1/var/lib/zookeeper',\n    'ensemble' => ensemble,\n  }\n)\n```\n\n## License and Authors\n\n- Author:: whitestar at osdn.jp\n\n```text\nCopyright 2013-2017, whitestar\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "whitestar",
+  "maintainer_email": "",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "grid": ">= 0.0.0",
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "http://scm.osdn.jp/gitroot/metasearch/grid-chef-repo.git",
+  "issues_url": "https://osdn.jp/projects/metasearch/ticket",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

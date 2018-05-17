@@ -1,0 +1,17 @@
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%i": ()
+    "%w": ()
+    "%W": ()
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false

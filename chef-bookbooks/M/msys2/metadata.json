@@ -1,0 +1,51 @@
+{
+  "name": "msys2",
+  "description": "Installs/Configures MSYS2",
+  "long_description": "Installs/Configures MSYS2",
+  "maintainer": "Brian Holtkamp",
+  "maintainer_email": "brholtkamp@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.3",
+  "source_url": "https://www.github.com/brholtkamp/msys2-cookbook",
+  "issues_url": "https://www.github.com/brholtkamp/msys2-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

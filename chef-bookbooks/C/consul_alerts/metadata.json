@@ -1,0 +1,33 @@
+{
+  "name": "consul_alerts",
+  "version": "1.0.0",
+  "description": "Installs/Configures consul-alerts",
+  "long_description": "Installs/Configures consul-alerts",
+  "maintainer": "The Authors",
+  "maintainer_email": "davidpetzel@gmail.com",
+  "license": "apache2",
+  "platforms": {
+    "redhat": "~> 5.0",
+    "centos": "~> 5.0"
+  },
+  "dependencies": {
+    "service_factory": "~> 0.1.4",
+    "consul_kv": "~> 1.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

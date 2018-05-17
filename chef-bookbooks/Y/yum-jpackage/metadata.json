@@ -1,0 +1,32 @@
+{
+  "name": "yum-jpackage",
+  "description": "Installs/Configures yum-jpackage",
+  "long_description": "[![Build Status](https://travis-ci.org/psyreactor/yum-jpackage-cookbook.svg?branch=master)](https://travis-ci.org/psyreactor/yum-jpackage-cookbook)\n\nYum JPackage Cookbook\n===============\n\nThis cookbook jpackage repo Enterprise Linux.\n\n####[JPackage Repo](http://www.jpackage.org)\n\"The JPackage Project has two primary goals:\n\n    To provide a coherent set of Java software packages for Linux, satisfying all quality requirements of other applications.\n    To establish an efficient and robust policy for Java software packaging and installation.\n\nWe focus on free and open source software whenever possible. For convenience, we also provide non-free packages without the restricted source code. \"\n\nRequirements\n------------\n#### Cookbooks:\n\n- yum - https://github.com/opscode-cookbooks/yum\n\nThe following platforms and versions are tested and supported using Opscode's test-kitchen.\n\n- CentOS 6.x \n- Red Hat 6.x\n\nThe following platform families are supported in the code, and are assumed to work based on the successful testing on CentOS.\n\n- Amazon Linux\n\n#### jpackage:default\n##### Basic Config\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>node[:yum][:jpackage][:managed]</tt></td>\n    <td>Boolean</td>\n    <td>Instal Repo</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node[:yum][:jpackage][:enabled]</tt></td>\n    <td>Boolean</td>\n    <td>Enable/Disable Repo</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node[:yum][:jpackage][:gpgcheck]</tt></td>\n    <td>Boolean</td>\n    <td>check GPG Cert</td>\n    <td><tt>false</tt></td>\n  </tr>\n</table>\n\n\nUsage\n-----\n#### yum-jpackage::default\nJust include `yum-jpackage` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[yum-jpackage]\"\n  ]\n}\n```\n\nExample local copy if repocitory\n\n```json\n\"default_attributes\": {\n  \"yum\": {\n    \"jpackage\": {\n      \"repositoryid\": \"jpackage\",\n      \"description\": \"JPackage 6 generic\",\n      \"baseurl\": \"http://localip/repo/jpackage\",\n      \"gpgcheck\": false,\n      \"managed\": true,\n      \"enabled\": true\n    }\n  }\n}\n```\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n[More details](https://github.com/psyreactor/yum-jpackage-cookbook/blob/master/CONTRIBUTING.md)\n\nLicense and Authors\n-------------------\nAuthors:\nLucas Mariani (Psyreactor)\n- [marianiluca@gmail.com](mailto:marianiluca@gmail.com)\n- [https://github.com/psyreactor](https://github.com/psyreactor)\n- [http://blog.psyreactor.com.ar](http://blog.psyreactor.com.ar)\n\n",
+  "maintainer": "Mariani Lucas",
+  "maintainer_email": "marianilucas@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 6.0",
+    "redhat": ">= 6.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1"
+}

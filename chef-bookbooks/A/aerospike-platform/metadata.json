@@ -1,0 +1,39 @@
+{
+  "name": "aerospike-platform",
+  "description": "Install/Configure an aerospike cluster",
+  "long_description": "Aerospike Platform\n=============\n\nDescription\n-----------\n\nAerospike is a Flash, in-memory high perf NoSQL database & key-value store.\n\nThis cookbook is designed to install and configure an Aerospike cluster.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\nA *systemd* managed distribution:\n- RHEL Family 7, tested on Centos\n\nUsage\n-----\n\n### Test\n\nThis cookbook is fully tested through the installation of a working 3-nodes\ncluster in docker hosts. This uses kitchen, docker and some monkey-patching.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\n### Easy Setup\n\nSet `node['aerospike-platform']['hosts']` to an array containing the\nhostnames of the nodes of the Aerospike cluster.\n\n### Search\n\nThe recommended way to use this cookbook is through the creation of a role per\n**Aerospike** cluster. This enables the search by role feature, allowing a\nsimple service discovery.\n\nIn fact, there are two ways to configure the search:\n\n1. With a static configuration through a list of hostnames (attributes `hosts`\n   that is `node['aerospike-platform']['hosts']`) for nodes belonging to\n   Aerospike cluster).\n2. With a real search, performed on a role (attributes `role` and `size`\n   like in `node['aerospike-platform']['role']`).\n   The role should be in the run-list of all nodes of the cluster.\n   The size is a safety and should be the number of nodes of this role.\n\nIf hosts is configured, `role` and `size` are ignored\n\nSee [roles](test/integration/roles) for some examples and\n[Cluster Search][cluster-search] documentation for more information.\n\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in:\n\n[attributes/default.rb](attributes/default.rb),\n[attributes/config.rb](attributes/config.rb),\n[attributes/systemd.rb](attributes/systemd.rb).\n\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude `search`, `user`, `install`, `config` and `systemd` recipes.\n\n### search\n\nSearch Aerospike nodes that should join the cluster using\n[Cluster Search][cluster-search].\n\n### user\n\nCreate user/group used by Aerospike.\n\n### install\n\nInstall and initialize Aerospike.\n\n### config\n\nGenerate and deploy Aerospike config.\n\n### systemd\n\nCreate systemd unit for Aerospike.\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n- Author:: Florian Philippon (<florian.philippon@@gmail.com>)\n\n```text\nCopyright (c) 2016 Sam4Mobile, 2018 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[cluster-search]: https://supermarket.chef.io/cookbooks/cluster-search\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "ark": ">= 0.0.0",
+    "cluster-search": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "https://gitlab.com/chef-platform/aerospike-platform",
+  "issues_url": "https://gitlab.com/chef-platform/aerospike-platform/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.19"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,88 @@
+ <% node['bird'].each do |k, v| -%>
+   <% case k -%>
+     <% when "log" -%>
+<%= k -%>
+       <% v.each do |lk, lv| -%>
+         <% case lk -%>
+              <% when "syslog" -%>
+ <%= lk -%>
+           <% when "stderr" -%>
+ <%= lk -%>
+      <% else -%>
+ "<%= lk -%>"
+         <% end -%>
+    <% case lv -%>
+      <% when String -%>
+ <%= lv %>;
+           <% else -%>
+ { <%= lv.to_a.join(', ') %> };
+         <% end -%>
+       <% end -%>
+
+     <% when "router id" -%>
+<%= k -%> <%= v %>;
+
+     <% when "table" -%>
+       <% v.each do |t| -%>
+table <%= t %>;
+       <% end -%>
+
+     <% when "include" -%>
+       <% Array(v).each do |f| -%>
+include "<%= f %>"; 
+       <% end -%>
+
+     <% when "protocol" -%>
+       <% v.each do |pk, pv| -%>
+protocol <%= pk -%> {
+     <% pv.each do |psk, psv| -%>
+  <%= psk -%>
+            <% case psv -%>
+	      <% when Array -%>
+ <%= psv.map {|x| "\"#{x}\""} * ', ' -%>;
+              <% when Mash, Hash -%>
+  {
+                <% psv.each do |pssk, pssv| -%>
+                <% case pssk -%>
+                <% when Mash, Hash -%>
+    <%= pssk -%> {
+                <% else -%>
+                <% case pssv -%>
+                     <% when Array -%>
+  <% pssv.each do |el| -%>
+    <%= pssk -%> <%= el -%>;
+<% end -%>
+   <% next -%>
+                <% else -%>
+    <%= pssk -%>
+                <% end -%>
+                  <% case pssv -%>
+               <% when Mash, Hash -%>
+ {
+               <% pssv.each do |psssk, psssv| -%>
+      <%= psssk -%>
+<% case psssv -%>
+<% when Mash, Hash, Array -%>
+<% psssv.each do |el| -%>
+<%= el -%>;
+<% end -%>
+<% else -%>
+ <%= psssv %>;
+<% end -%>
+     	       <% end -%>
+    };
+                <% else -%>
+ <%= pssv %>;
+             <% end -%>
+             <% end -%>
+            <% end -%>
+  };
+              <% else -%>
+ <%= psv %>;
+            <% end -%>
+          <% end -%>
+}
+
+    <% end -%>
+   <% end -%>
+ <% end -%>

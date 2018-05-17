@@ -1,0 +1,45 @@
+{
+  "name": "jpegoptim",
+  "description": "Installs jpegoptim",
+  "long_description": "",
+  "maintainer": "Zoocha",
+  "maintainer_email": null,
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "jpegoptim": "Installs jpegoptim"
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/Alexj12/jpegoptim-chef",
+  "issues_url": "https://github.com/Alexj12/jpegoptim-chef/issues",
+  "privacy": false
+}

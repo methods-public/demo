@@ -1,0 +1,36 @@
+{
+  "name": "dante_ng",
+  "description": "Installs/Configures dante",
+  "long_description": "# dante_ng Cookbook\n\nInstall dante on your server.\n\nThis cookbook will create a system service \"dante\", while the configuration file is in `/etc/sockd.conf`.\n\n\n## Requirements\n\n### Platforms\n\n- CentOS\n\n### Chef\n\n- Chef 12.0 or later\n\n## Attributes\n\n### dante_ng::default\n\n## Usage\n\n### dante_ng::default\n\nJust include `dante_ng` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[dante_ng]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\n- Authors:: merqlove\n",
+  "maintainer": "Alexander Merkulov",
+  "maintainer_email": "sasha@merqlove.ru",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.2",
+  "source_url": "https://github.com/merqlove-cookbooks/chef-dante_ng",
+  "issues_url": "https://github.com/merqlove-cookbooks/chef-dante_ng/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

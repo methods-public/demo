@@ -1,0 +1,10 @@
+.vagrant
+.kitchen/
+.kitchen.local.yml
+README.html
+Gemfile.lock
+Berksfile.lock
+.ruby-version
+.ruby-gemset
+.bundle/
+.idea/

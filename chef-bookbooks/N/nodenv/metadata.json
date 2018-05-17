@@ -1,0 +1,44 @@
+{
+  "name": "nodenv",
+  "description": "Installs/Configures nodenv",
+  "long_description": "Installs/Configures nodenv",
+  "maintainer": "Alvaro Faundez",
+  "maintainer_email": "alvaro@faundez.net",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "git": "~> 8.0.0",
+    "node_build": "~> 1.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/afaundez/nodenv-cookbook",
+  "issues_url": "https://github.com/afaundez/nodenv-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

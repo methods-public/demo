@@ -1,0 +1,44 @@
+{
+  "name": "node_build",
+  "description": "Installs/Configures node-build",
+  "long_description": "Installs/Configures node-build",
+  "maintainer": "Alvaro Faundez",
+  "maintainer_email": "alvaro@faundez.net",
+  "license": "MIT",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "opensuseleap": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "git": "~> 8.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/afaundez/node-build-cookbook",
+  "issues_url": "https://github.com/afaundez/node-build-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

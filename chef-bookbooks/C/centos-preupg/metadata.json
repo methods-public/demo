@@ -1,0 +1,39 @@
+{
+  "name": "centos-preupg",
+  "description": "Installs/Configures centos-preupg",
+  "long_description": "Installs and runs the Centos 6 to Centos 7 upgrade preparation tool",
+  "maintainer": "North County Tech Center, LLC",
+  "maintainer_email": "kkeane@4nettech.com",
+  "license": "GNU Public License 3.0",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0"
+}

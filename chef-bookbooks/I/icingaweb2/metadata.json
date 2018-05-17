@@ -1,0 +1,60 @@
+{
+  "name": "icingaweb2",
+  "description": "Installs/Configures IcingaWeb2",
+  "long_description": "Installs/Configures IcingaWeb2",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apache2": "~> 3.3.0",
+    "yum-epel": ">= 2.1.1",
+    "apt": ">= 5.0.1",
+    "icinga2repo": ">= 1.0.0",
+    "icinga2": ">= 4.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/Icinga/chef-icingaweb2",
+  "issues_url": "https://github.com/Icinga/chef-icingaweb2/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

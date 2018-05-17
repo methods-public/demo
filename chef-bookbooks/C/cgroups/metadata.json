@@ -1,0 +1,29 @@
+{
+  "name": "cgroups",
+  "description": "Installs and conigures Cgroups",
+  "maintainer": "Eugenio Marzo",
+  "maintainer_email": "eugenio.marzo@yahoo.it",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat" :  [ "6.2" ]
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}

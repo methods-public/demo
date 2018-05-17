@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+<<<<<<< HEAD
+source 'http://repo.release.cerner.corp/internal/rubygems/'
+=======
+>>>>>>> 5475ed6... Open Source Version Databag
+
+gem 'berkshelf', '~> 4.0'
+gem 'chef', '~> 12.3'
+gem 'chefspec', '~> 4.2'
+gem 'rspec', '~> 3.0'
+gem 'foodcritic'
+gem 'rdoc'
+<<<<<<< HEAD
+gem 'roll_out', '~> 1.5'
+gem 'roll_out-foodcritic', '~> 1.0'
+=======
+>>>>>>> 5475ed6... Open Source Version Databag

@@ -1,0 +1,53 @@
+{
+  "name": "fb_sysfs",
+  "description": "Installs/Configures fb_sysfs",
+  "long_description": "fb_sysfs Cookbook\n=================\nThis cookbook provides a resource for managing settings in sysfs\n\nRequirements\n------------\n\nAttributes\n----------\n\nUsage\n-----\nThis cookbook provides a single resource: `fb_sysfs`, it's usage is:\n\n```ruby\nfb_sysfs '/sys/block/sda/queue/scheduler' do\n  type :list\n  value 'cfq'\nend\n```\n\n### Types\nNot all sysfs files are as simple as the value you write being the value you can\nread back out of it. Therefore the `types` tell Chef how to do the idempotency\ncheck:\n\n* `:string` (default) - Compare values as strings, but `chomp` first.\n* `:list` - For sysfs files where the output is a list of possible options but\n  the 'enabled' one is in brackets. This is common for schedulers. For example,\n  on any block device, if you look at the the `scheduler` file for it, you'll\n  see something like: `noop deadline [cfq]`. If set to `:list`, then `fb_sysfs`\n  will understand this value is `cfq`, and only update it if `value` is\n  something else.\n* `:int` - Interpret the value is an integer and compare appropriately.\n\n### Value\nValue, as you'd expect, is the value to be set.\n\n### Path\n`path` is the name property, but you may specify it directly should you need to\nevaluate it lazily:\n\n```\nfb_sysfs \"Set some stuff\" do\n  path lazy { node['fb_foo']['bar'] }\n  value 'food'\nend\n```\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

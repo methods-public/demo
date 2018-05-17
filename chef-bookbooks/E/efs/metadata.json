@@ -1,0 +1,56 @@
+{
+  "name": "efs",
+  "description": "Installs/Configures Amazon Elastic Filesystem mounts",
+  "long_description": "# efs Cookbook\n\nCookbook to mount Elastic Filesystem endpoints in Amazon Web Services.\n\nYou just configure global defaults (presently the recommended values from Amazon) and individual mounts through node attributes. You also have the option of using the `mount_efs` resource within your own recipes.\n\n## Requirements\n\n- NFS\n\n### Platforms\n\n- Ubuntu 16.04\n- Centos 7.2\n- RHEL 7.2\n- Debian (untested)\n\n## Attributes\n\n### efs::default\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['efs']['mounts']</tt></td>\n    <td>hash of hashes</td>\n    <td>Keys are mount point paths, values can be any of the keys below. The <tt>fsid</tt> key is required. Any other optional keys will use global defaults from the attributes below.</td>\n    <td><tt>{}</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['mounts'][mount point]['fsid']</tt></td>\n    <td>string (required)</td>\n    <td>FSID of the Elastic Filesystem (e.g. fs-1234abcd)</td>\n    <td></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['mounts'][mount point]['region']</tt></td>\n    <td>string</td>\n    <td>Override AWS region for the mount</td>\n    <td>derived from node['ec2']['placement_availability_zone']</td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['mounts'][mount point]['options']</tt></td>\n    <td>string</td>\n    <td>Override mount options string</td>\n    <td>generated from attributes of mount and global below</td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['rsize']</tt></td>\n    <td>int</td>\n    <td>maximum read size in bytes</td>\n    <td><tt>1048576</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['wsize']</tt></td>\n    <td>int</td>\n    <td>maximum write size in bytes</td>\n    <td><tt>1048576</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['timeout']</tt></td>\n    <td>int</td>\n    <td>timeout between retries in deciseconds</td>\n    <td><tt>600</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['retrans']</tt></td>\n    <td>int</td>\n    <td>number of retries before further action</td>\n    <td><tt>2</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['behavior']</tt></td>\n    <td>string</td>\n    <td>determines timeout behavior (hard or soft)</td>\n    <td><tt>hard</tt></td>\n  </tr>\n  <tr>\n    <td><tt>['efs']['remove_unspecified_mounts']</tt></td>\n    <td>boolean</td>\n    <td>Unmount and remove any EFS mount in fstab that is not specified by <tt>['efs']['mounts']</tt></td>\n    <td><tt>false</tt></td>\n  </tr>\n</table>\n\n## Usage\n\n### efs::default\n\nConfigure any desired mounts under `node['efs']['mounts']` and include `efs` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[efs]\"\n  ]\n}\n```\n\n### mount_efs\n\nThis cookbook is implemented with a custom resource so you can use `mount_efs` in your cookbook recipes as well with the same available attributes as the `node['efs']['mounts']` structure.\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: Matt Kulka <matt@lqx.net>\n",
+  "maintainer": "Matt Kulka",
+  "maintainer_email": "matt@lqx.net",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "https://github.com/mattlqx/cookbook-efs",
+  "issues_url": "https://github.com/mattlqx/cookbook-efs/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

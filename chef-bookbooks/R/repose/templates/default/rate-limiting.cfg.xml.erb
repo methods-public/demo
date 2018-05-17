@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<% if !@version.nil? && @version.split('.')[0].to_i < 7 %>
+<rate-limiting xmlns="http://docs.rackspacecloud.com/repose/rate-limiting/v1.0">
+<% else %>
+<rate-limiting <% if !@datastore.nil? %>datastore="<%= @datastore %>" <% end %><% if !@datastore_warn_limit.nil? %>datastore-warn-limit="<%= @datastore_warn_limit %>" <% end %><% if !@overlimit_429_responsecode.nil? %>overLimit-429-responseCode="<%= @overlimit_429_responsecode %>" <% end %><% if !@use_capture_groups.nil? %>use-capture-groups="<%= @use_capture_groups %>" <% end %>xmlns="http://docs.openrepose.org/repose/rate-limiting/v1.0">
+<% end %>
+
+<!-- http://wiki.openrepose.org/display/REPOSE/Rate+Limiting+Filter -->
+
+    <!--
+        Defines an endpoint with a matching regex to bind GET requests for
+        returning live rate limiting information.
+    -->
+    <request-endpoint uri-regex="<%= @uri_regex %>" include-absolute-limits="<%= @include_absolute_limits %>"/>
+
+    <% unless @global_limits.empty? %>
+    <global-limit-group>
+      <% @global_limits.each do |global_limit| %>
+      <!-- Limits for <%= global_limit['id'] %> -->
+      <limit id="<%= global_limit['id'] %>" uri="<%= global_limit['uri'] %>" uri-regex="<%= global_limit['uri-regex'] %>" http-methods="<%= global_limit['http-methods'] %>" unit="<%= global_limit['unit'] %>" value="<%= global_limit['value'] %>" />
+
+      <% end %>
+    </global-limit-group>
+    <% end %>
+
+    <% @limit_groups.each do |limit_group| %>
+    <!-- Limits for <%= limit_group['id'] %> -->
+    <limit-group id="<%= limit_group['id'] %>" groups="<%= limit_group['groups'] %>" default="<%= limit_group['default'] %>">
+        <% limit_group['limits'].each do |limit| %>
+        <limit id="<%= limit['id'] %>" uri="<%= limit['uri'] %>" uri-regex="<%= limit['uri_regex'] %>" http-methods="<%= limit['http_methods'] %>" unit="<%= limit['unit'] %>" value="<%= limit['value'] %>" />
+        <% end %>
+    </limit-group>
+
+    <% end %>
+</rate-limiting>

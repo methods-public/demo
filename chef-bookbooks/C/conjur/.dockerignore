@@ -1,0 +1,7 @@
+.git
+Gemfile.lock
+jenkins.sh
+.bundle/
+vendor/
+ci/output
+!ci/output/conjur.tar.gz

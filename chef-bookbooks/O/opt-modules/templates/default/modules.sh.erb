@@ -1,0 +1,11 @@
+trap "" 1 2 3
+case "$0" in
+    -bash|bash|*/bash) . <%= @modules_home %>/Modules/<%= @modules_version %>/init/bash ;; 
+       -ksh|ksh|*/ksh) . <%= @modules_home %>/Modules/<%= @modules_version %>/init/ksh ;; 
+          -sh|sh|*/sh) . <%= @modules_home %>/Modules/<%= @modules_version %>/init/sh ;; 
+                    *) . <%= @modules_home %>/Modules/<%= @modules_version %>/init/sh ;;        # default for scripts
+esac
+ 
+trap 1 2 3
+ 
+. <%= @modules_home %>/Modules/<%= @modules_version %>/modulefiles/.defaultmodules

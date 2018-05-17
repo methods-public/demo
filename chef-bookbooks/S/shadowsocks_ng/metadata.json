@@ -1,0 +1,40 @@
+{
+  "name": "shadowsocks_ng",
+  "description": "Installs/Configures shadowsocks",
+  "long_description": "# shadowsocks_ng Cookbook\n\nInstall shadowsocks on your server.\n\nThis cookbook will create a system service \"ssserver\", while the configuration file is in `/etc/shadowsocks.json`.\n\n\n## Requirements\n\n### Platforms\n\n- Ubuntu\n- Debian\n- CentOS\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `poise-service` - for create a system service\n- `poise-python` - for python packages management\n\n## Attributes\n\n### shadowsocks_ng::default\n\n## Usage\n\n### shadowsocks_ng::default\n\nJust include `shadowsocks_ng` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[shadowsocks_ng]\"\n  ]\n}\n```\n\n## Thanks\n\n`jccode` for initial cookbook\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\n- Authors:: merqlove\n",
+  "maintainer": "Alexander Merkulov",
+  "maintainer_email": "sasha@merqlove.ru",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "poise-service": "~> 1.5.1",
+    "poise-python": ">= 0.0.0",
+    "build-essential": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.5",
+  "source_url": "https://github.com/merqlove-cookbooks/chef-shadowsocks_ng",
+  "issues_url": "https://github.com/merqlove-cookbooks/chef-shadowsocks_ng/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

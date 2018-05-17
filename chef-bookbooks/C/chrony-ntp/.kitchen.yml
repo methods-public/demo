@@ -1,0 +1,74 @@
+#
+# Copyright (c) 2017 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Create kitchen network if missing
+# <% net_test = '! docker network ls | grep "kitchen" >/dev/null 2>&1' %>
+# <% net_create = 'docker network create --driver bridge kitchen' %>
+# <% `if #{net_test}; then #{net_create}; fi` %>
+
+driver:
+  name: docker_cli
+  volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+  command: /sbin/init
+  network: kitchen --cap-add SYS_TIME
+  security_opt: seccomp=unconfined
+  skip_preparation: true
+  require_chef_omnibus: false
+  instance_host_name: true
+  instance_container_name: true
+  build_pull: true
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+  - name: debian-8
+    driver_config:
+      image: sbernard/debian-systemd-kitchen
+
+suites:
+  - name: chrony-ntp
+    run_list:
+      - recipe[test-chrony-ntp::selinux]
+      - recipe[prometheus-platform]
+      - recipe[chrony-ntp]
+      - recipe[chrony-ntp::exporter]
+    attributes:
+      prometheus-platform:
+        components:
+          node_exporter:
+            install?: true
+            cli_opts:
+              collector.textfile.directory: |
+                /var/opt/node_exporter
+      chrony-ntp:
+        config:
+          maxclockerror: '5'
+          manual: ''
+          server:
+           - 0.europe.pool.ntp.org
+           - 1.europe.pool.ntp.org
+        exporter:
+          timer_unit:
+            Timer:
+              OnCalendar: '*:0/1'

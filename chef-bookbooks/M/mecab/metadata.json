@@ -1,0 +1,53 @@
+{
+  "name": "mecab",
+  "description": "Installs MeCab and its well-known dictionary.",
+  "long_description": "MeCab Chef Cookbook\n=======================\n\n[![Circle CI](https://circleci.com/gh/kogecoo/chef-mecab.svg?style=svg)](https://circleci.com/gh/kogecoo/chef-mecab)\n\nInstalls MeCab, its program language bindings, and its well-known dictionary.\n\n\n Currently installing MeCab with Cef has some difficulty:\n\n* MeCab binary is hosted at Google Drive.\n* MeCab source hosted at GitHub is huge.\n\nThis recipe is implemented in a somewhat forcible manner, so there are some problems remains:\n* It takes long running time because it checks out huge git repository of MeCab from github.\n* Immutability\n\nBecause of above intractability, it is a good idea to use package manager like `apt` or `yum` alternative of this cookbook.\n\nPlatforms\n---------\nThe following platforms and versions are tested and supported using test-kitchen\n\n* Ubuntu (14.04)\n* Debian (8.0)\n* CentOS (7.0)\n\nAttributes\n-----\nSee [source](attributes/default.rb) for default values.\n\n## Configurations of MeCab itself\n* `node['mecab']['version']` - Flavor of the version you would like to install. Following values are available: \n  * `0.996`\n  * `0.995`\n  * `0.994`\n  * `0.993`\n  * `0.991`\n  * `0.99`\n  * `HEAD` - use the latest commit of MeCab's repository\n* `node['mecab']['git_repos']` - Repository to use.\n* `node['mecab']['prefix']` - Prefix of path to install built binaries.\n* `node['mecab']['utf8-only']` - Enable UTF-8 only mode if its value is true.\n* `node['mecab']['clone_timeout']` - Timeout for cloning repository from github.\n* `node['mecab']['charset']` - Charset of dictionary. Following values are available:\n  * `utf8`\n  * `shift-jis`\n  * `euc`\n\n## Configurations of dictionaries\n\n### IPADic\n* `node['ipadic']['version']` - Flavor of the version of ipadic you would like to install.\n  * `2.7.0-20070801`\n  * `2.7.0-20070610`\n  * `2.7.0-20060707`\n  * `2.7.0-20051110`\n  * `HEAD` - use the latest commit of MeCab's repository\n\n### JumanDic\n* `node['jumandic']['version']` - Flavor of the version of jumandic you would like to install.\n  * `7.0-20130310`\n  * `5.1-20070304`\n  * `HEAD` - use the latest commit of MeCab's repository\n\n### UniDic\n* `node['unidic']['version']` - Flavor of the version iof unidic you would like to install.\n  * `2.1.2`\n  * `2.1.1`\n  * `HEAD` - use the latest commit of MeCab's repository\n\n### NaistJDic\n* `node['naistjdic']['version']` - Flavor of the version iof naistjdic you would like to install.\n  * `0.6.3b-20111013`\n  * `0.6.3-20100801`\n  * `0.6.2-20100208`\n  * `0.6.1-20090630`\n  * `0.6.0-20090616`\n  * `0.5.0-20090512`\n  * `HEAD` - use the latest commit of MeCab's repository\n\n## Configurations of program language bindings\n\n### Java binding\n\nThis recipe just build binding and copy it to `node['mecab-java']['install_to']`. You need to place the built resuilts to `java.library.path` to use it.\n\n* `node['mecab-java']['version']` - Flavor of the version of Java binding you would like to install. It requires the same value with MeCab itself.\n* `node['mecab-java']['install_to']` - A path to install `MeCab.jar` and `libMeCab.so`. Perhaps\n\n### Perl binding\n* `node['mecab-perl']['version']` -  Flavor of the version of Perl binding you would like to install. It requires the same value with MeCab itself.\n* `node['mecab-perl']['perl_path']` - Path to perl executable.\n\n### Python binding\n\n* `node['mecab-python']['version']` - Flavor of the version of Python binding you would like to install. It requires the same value with MeCab itself.\n* `node['mecab-python']['prefix']` - A prefix of path to install to.\n\n\n### Perl binding\n\n* `node['mecab-perl']['version']` -  Flavor of the version of Perl binding you would like to install. It requires the same value with MeCab itself.\n* `node['mecab-perl']['perl_path']` - Path to perl executable.\n\n### Ruby binding\n\n* `node['mecab-perl']['version']` -  Flavor of the version of Ruby binding you would like to install. It requires the same value with MeCab itself.\n\n\n\nRecipes\n----------\n### Installing MeCab Binary with its dictionary\n* `recipe[mecab]` or `recipe[mecab::default]` - Install MeCab and IPA Dictionary. (default)\n* `recipe[mecab::ipadic]` - Install MeCab and IPA Dictionary.\n* `recipe[mecab::jumandic]` - Install MeCab and Juman Dictionary.\n* `recipe[mecab::unidic]` - Install MeCab and Unidic Dictionary.\n* `recipe[mecab::naistjdic]` - Install MeCab and NAIST-JDIC Dictionary.\n\n### Installing program language binding of MeCab\n* `recipe[mecab::mecab-java]` - Install Java binding\n* `recipe[mecab::mecab-perl]` - Install Perl binding\n* `recipe[mecab::mecab-python]` - Install Python binding\n* `recipe[mecab::mecab-ruby]` - Install Ruby binding\n\nUsage\n-----\nJust include `mecab` in your node's `run_list`:\n\n* Install MeCab binaries, ipadic, and python binding\n```json\n{\n  \"run_list\": [\n    \"recipe[mecab]\"\n    \"recipe[mecab:::mecab-python]\n  ]\n}\n```\n* Install MeCab binaries, unidic, and ruby binding\n```json\n{\n  \"run_list\": [\n    \"recipe[mecab::unidic]\"\n    \"recipe[mecab:::mecab-ruby]\n  ]\n}\n```\n\nMisc\n----\n[GitHub Repository](http://github.com/kogecoo/chef-mecab)\n\nLicense and Author\n-------------------\n- Author: [kogecoo](http://github.com/kogecoo)\n- License: Apache License, Version 2.0 (see [LICENSE](LICENSE))\n",
+  "maintainer": "kogecoo",
+  "maintainer_email": "kogecoo@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

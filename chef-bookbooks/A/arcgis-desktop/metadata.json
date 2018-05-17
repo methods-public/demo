@@ -1,0 +1,40 @@
+{
+  "name": "arcgis-desktop",
+  "description": "Installs and configures ArcGIS Desktop",
+  "long_description": "arcgis-desktop cookbook\n===============\n\nThis cookbook installs and configures ArcGIS Desktop.\n\nRequirements\n------------\n### Supported ArcGIS versions\n* 10.4\n* 10.4.1\n* 10.5\n* 10.5.1\n* 10.6\n\n### Supported ArcGIS software\n* ArcGIS Desktop (Windows only)\n* ArcGIS License Manager \n\n### Platforms\n* Windows 7\n* Windows 8 (8.1)\n* Windows 10\n* Windows Server 2008 (R2)\n* Windows Server 2012 (R2)\n* Windows Server 2016\n\n### Dependencies\nThe following cookbooks are required:\n* windows\n\nAttributes\n----------\n* `node['arcgis']['version']` = ArcGIS version. Default value is `10.5`.\n* `node['arcgis']['desktop']['setup']` = The location of ArcGIS Desktop setup executable. Default location is `C:\\Temp\\ArcGISDesktop\\Setup.exe`.\n* `node['arcgis']['desktop']['lp-setup']` = The location of language pack for ArcGIS Desktop. Default location is `nil`.\n* `node['arcgis']['desktop']['install_dir']` = ArcGIS Desktop installation directory. By default, ArcGIS Desktop is installed to `%ProgramFiles(x86)%\\ArcGIS`.\n* `node['arcgis']['desktop']['install_features']` = Comma-separated list of ArcGIS Desktop features to install. Default value is `ALL`.\n* `node['arcgis']['desktop']['authorization_file']` = ArcGIS Desktop authorization file path. Default location and file name are `C:\\\\Temp\\\\license.ecp`.\n* `node['arcgis']['desktop']['authorization_file_version']` = ArcGIS Desktop authorization file version. Default value is `10.4`.\n* `node['arcgis']['desktop']['esri_license_host']` = Hostname of ArcGIS License Manager. Default hostname is `%COMPUTERNAME%`.\n* `node['arcgis']['desktop']['software_class']` = ArcGIS Desktop software class <Viewer|Editor|Professional>. Default value is `Viewer`.\n* `node['arcgis']['desktop']['seat_preference']` = ArcGIS Desktop license seat preference <Fixed|Float>. Default value is `Fixed`.\n* `node['arcgis']['licensemanager']['setup']` = The location of ArcGIS License Manager setup executable. Default location is `C:\\Temp\\ArcGISLicenseManager\\Setup.exe` on Windows, `/tmp/licensemanager-cd/Setup` on Linux.\n* `node['arcgis']['licensemanager']['lp-setup']` = The location of language pack for ArcGIS License Manager. Default location is `nil`.\n* `node['arcgis']['licensemanager']['install_dir']` = ArcGIS License Manager installation directory. By default, the license manager is installed to `%ProgramFiles(x86)%\\ArcGIS` on Windows and `/` on Linux.\n\n\nRecipes\n-------\n### arcgis-desktop::default\nInstalls and configures ArcGIS Desktop.\n\n### arcgis-desktop::licensemanager\nInstalls and configures ArcGIS License Manager.\n\n### arcgis-desktop::lp-install\nInstalls language packs for ArcGIS Desktop and ArcGIS License Manager.\n\n### arcgis-desktop::uninstall\nUninstalls ArcGIS Desktop and ArcGIS License Manager.\n\nUsage\n-----\nSee [wiki](https://github.com/Esri/arcgis-cookbook/wiki) pages for more information about using ArcGIS cookbooks.\n\n## Issues\n\nFind a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/Esri/arcgis-cookbook/issues).\n\n## Contributing\n\nEsri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).\n\nLicensing\n---------\n\nCopyright 2018 Esri\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nA copy of the license is available in the repository's [License.txt](https://github.com/Esri/arcgis-cookbook/blob/master/License.txt?raw=true) file.\n\n[](Esri Tags: ArcGIS Desktop Chef Cookbook)\n[](Esri Language: Ruby)\n",
+  "maintainer": "Esri",
+  "maintainer_email": "contracts@esri.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0",
+    "limits": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "arcgis-desktop::default": "Installs ArcGIS Desktop",
+    "arcgis-desktop::licensemanager": "Installs ArcGIS License Manager",
+    "arcgis-desktop::lp-install": "Installs language packs for ArcGIS Desktop and ArcGIS License Manager.",
+    "arcgis-desktop::uninstall": "Uninstalls ArcGIS Desktop and ArcGIS License Manager."
+  },
+  "version": "3.2.0",
+  "source_url": "https://github.com/Esri/arcgis-cookbook",
+  "issues_url": "https://github.com/Esri/arcgis-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

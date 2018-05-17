@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6-vbox
+    driver:
+      box: chef/centos-6.6
+      box_url: chef/centos-6.6
+      provider: virtualbox
+  - name: centos-6.6-vmware
+    driver:
+      box: chef/centos-6.6
+      box_url: chef/centos-6.6
+      provider: vmware_fusion
+
+suites:
+  - name: default
+    run_list:
+      - recipe[netcdf::default]
+    attributes:

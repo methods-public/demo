@@ -1,0 +1,57 @@
+{
+  "name": "keycloak",
+  "description": "Installs/Configures keycloak",
+  "long_description": "# Keycloak Cookbook\nCookbook to deploy Keycloak - Open Source Identity and Access Management\nThis cookbook is based on the wildlfy cookbook (https://github.com/bdwyertech/chef-wildfly) by Brian Dwyer (https://github.com/bdwyertech)\n\n[![Build Status](https://travis-ci.org/jschwellach/chef-keycloak.svg?branch=master)](https://travis-ci.org/jschwellach/chef-keycloak)\n\n# Requirements\n- Chef Client 11+\n- Wildfly Cookbook (0.4.2)\n- Java Cookbook (ignored if node['wildfly']['install_java'] is false)\n\n# Platform\n- CentOS, Red Hat\n- Amazon Linux, Amazon\n\nTested on:\n- CentOS 6.7\n- Amazon Linux\n\n# Usage\nPlease refer to the underlying Wildfly cookbook for all parameters. \nThis cookbook overwrites the template used in the Wildfly cookbook to use the configuration coming from Keycloak\n\n\n# Authors\nAuthor:: Janos Schwellach\n",
+  "maintainer": "Janos Schwellach",
+  "maintainer_email": "jschwellach@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 6.2",
+    "amazon": ">= 2016.09"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "java": "~> 1.22",
+    "wildfly": "~> 0.4.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "3.4.0",
+  "source_url": "https://github.com/jschwellach/chef-keycloak",
+  "issues_url": "https://github.com/jschwellach/chef-keycloak/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

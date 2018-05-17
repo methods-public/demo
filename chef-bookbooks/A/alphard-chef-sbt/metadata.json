@@ -1,0 +1,56 @@
+{
+  "name": "alphard-chef-sbt",
+  "description": "Installs/Configures SBT",
+  "long_description": "[![Cookbook Version](https://img.shields.io/cookbook/v/alphard-chef-sbt.svg)](https://supermarket.chef.io/cookbooks/alphard-chef-sbt)\n[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Build Status](https://travis-ci.org/hydra-technologies/alphard-chef-sbt.svg?branch=master)](https://travis-ci.org/hydra-technologies/alphard-chef-sbt)\n[![Coverage Status](https://coveralls.io/repos/github/hydra-technologies/alphard-chef-sbt/badge.svg?branch=master)](https://coveralls.io/github/hydra-technologies/alphard-chef-sbt?branch=master)\n\n# Chef SBT Cookbook\n\nThis cookbook installs SBT (http://www.scala-sbt.org/).\n\n## Requirements\n\n### Platforms\n\n- Ubuntu 14.04\n- Ubuntu 16.04\n- CentOS 6\n- CentOS 7\n- Fedora\n- Debian 8\n\n### Chef\n\n- Chef 12.0 or later\n\n### Cookbooks\n\n- `java` - Java is needed to launch sbt. It sets the default java version to 8.\n\n## Attributes\n\n### alphard-chef-sbt::default\n\n- `['alphard-chef-sbt']['user']` - The user used to create files, directories and execute commands.\n- `['alphard-chef-sbt']['group']` - The group used to create files, directories and execute commands.\n- `['alphard-chef-sbt']['home']` - The SBT home location.\n- `['alphard-chef-sbt']['version']` - The SBT version.\n\n## Usage\n\n### alphard-chef-sbt::default\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[alphard-chef-sbt]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License\n\nCopyright 2009-2016, Hydra Technologies, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n## Authors\n\n- Frédéric Nowak - frederic.nowak@hydra-technologies.net\n",
+  "maintainer": "Hydra Technologies, Inc",
+  "maintainer_email": "chef@hydra-technologies.net",
+  "license": "apachev2",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 1.40.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "alphard-chef-sbt::default": "Installs/Configures SBT"
+  },
+  "version": "0.2.2",
+  "source_url": "https://github.com/hydra-technologies/alphard-chef-sbt",
+  "issues_url": "https://github.com/hydra-technologies/alphard-chef-sbt/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

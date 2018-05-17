@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# If there is an old RUNNING_PID file, we need to clear it out if the task isn't active
+if PID=`cat <%= @options['home'] %>/RUNNING_PID` > /dev/null
+then
+    if ! ps -p $PID > /dev/null
+    then
+        rm -f <%= @options['home'] %>/RUNNING_PID
+    fi
+fi
+
+exec 2>&1
+
+exec chpst -u <%= @options['user'] %> <%= @options['home'] %>/bin/cerebro

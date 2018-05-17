@@ -1,0 +1,44 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  data_path: test/fixtures
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+  - name: debian-7.8
+  - name: debian-8.1
+  - name: ubuntu-12.04
+    run_list:
+    - recipe[apt]
+    - recipe[curl]
+  - name: ubuntu-14.10
+    run_list:
+    - recipe[apt]
+    - recipe[curl]
+  - name: ubuntu-15.04
+    run_list:
+    - recipe[apt]
+    - recipe[curl]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[thruk_test::default]
+    attributes:
+  - name: ssl
+    run_list:
+      - recipe[fqdn]
+      - recipe[thruk_test::default]
+    attributes:
+      machine_fqdn: "monitor.example.com"
+      machine_fqdn_as_hostname: true
+      thruk:
+        use_ssl: true
+        server_name: "monitor.example.com"
+        cert_name: "_.example.com"
+        cert_cookbook: "thruk_test"
+        icon_cookbook: "thruk_test"

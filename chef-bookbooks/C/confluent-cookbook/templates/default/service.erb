@@ -1,0 +1,78 @@
+#!/bin/sh
+#
+# chkconfig: 345 99 01
+# description: <%= @name %>
+#
+# File : <%= @name %>
+#
+# Description: Starts and stops confluent <%= @name %>
+#
+
+USER=confluent
+
+pid(){
+    local s=`ps -ef | grep <%= @process %> | grep -v grep | awk '{print $2}'`
+    echo "$s"
+}
+
+start(){
+    pid=`pid`
+
+    if [ $pid ] ; then
+        echo "<%= @name %> already running: $pid"
+    else
+        echo -n "Starting <%= @name %>:"
+        su -s /bin/bash -c "nohup <%= @start_script %> /etc/kafka/<%= @configuration %> > /var/log/kafka/<%= @name %>.out 2> /var/log/kafka/<%= @name %>.err &" $USER
+        echo " done."
+    fi
+}
+
+stop(){
+    pid=`pid`
+
+    if ! [ $pid ] ; then
+        echo "<%= @name %> already stopped"
+    else
+        echo -n "Stopping <%= @name %>:"
+        su -s /bin/bash -c "ps -ef | grep <%= @process %> | grep -v grep | awk '{print \$2}' | xargs kill -SIGTERM" $USER
+        echo " done."
+    fi
+}
+
+status(){
+    pid=`pid`
+    if [ "$pid" = "" ] ; then
+        echo "Stopped"
+        exit 3
+    else
+        echo "Running $pid"
+        exit 0
+    fi
+}
+
+case "$1" in
+
+  start)
+    start
+    ;;
+
+  stop)
+    stop
+    ;;
+
+  status)
+    status
+    ;;
+
+  restart)
+    stop
+    sleep 2s
+    start
+    ;;
+
+  *)
+    echo "Usage: <%= @name %> {start|stop|status|restart}"
+    exit 1
+    ;;
+
+esac

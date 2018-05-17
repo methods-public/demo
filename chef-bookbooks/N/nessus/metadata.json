@@ -1,0 +1,115 @@
+{
+  "name": "nessus",
+  "description": "Installs/Configures nessus",
+  "long_description": "nessus Cookbook\n===============\nThis cookbook installs [Tenable Nessus](http://www.tenable.com/products/nessus)\nand does some initial setup. Currently it can enable the service and\nactivate your feed subscription.\n\nRequirements\n------------\n\nTenable does not seem to offer direct download of the Nessus installer\nso currently we have to rely on it being somewhere on the filesystem.\nThis can be accomplished with another cookbook, shared directory, etc.\n\nAttributes\n----------\n\n * installer_file - Where to find the installer file.\n * enable - Boolean - Whether to enable/start the service\n * activate - Boolean - Whether to activate the subscription\n * activation_code - String - Nessus Feed activation code\n\nUsage\n-----\n#### nessus::default\n\nJust include `nessus` in your node's `run_list` to install and start:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[nessus]\"\n  ]\n}\n```\n\nTo activate as well:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[nessus]\"\n  ],\n  \"default_attributes\": {\n    \"nessus\":{\n      \"installer_file\":\"/vagrant/installers/Nessus-*\",\n      \"activation_code\":\"FFFF-AAAA-BBBB-CCCC-DDDD\"\n    }\n  }\n}\n```\n\n#### nessus::users\n\nWill automatically be included if you configure a `chef-vault` item\nwith Nessus users.\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[nessus]\"\n  ],\n  \"default_attributes\": {\n    \"nessus\":{\n      \"installer_file\":\"/vagrant/installers/Nessus-*\",\n      \"activation_code\":\"FFFF-AAAA-BBBB-CCCC-DDDD\"\n      \"vault\":\"nessus\",\n      \"vault_users_item\":\"users\"\n    }\n  }\n}\n```\n\nCreating the vault might look something like this:\n```\nbin/knife vault create nessus users \\\n '{\"bob\":\"thebuilder\",\"diego\":\"theDESTROYER\"}' \\ \n --search \"role:some_role\" \\\n --admin some_guy\n```\n\nWith each pair being `user:password`.\n\nContributing\n------------\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: Jason Rohwedder <jro@risk.io>\n",
+  "maintainer": "Risk I/O",
+  "maintainer_email": "jro@risk.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-vault": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "installer_file": {
+      "display_name": "Installer File",
+      "description": "Path to Nessus installer file",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "enable": {
+      "display_name": "Enable",
+      "description": "Enable and start NessusD",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "activate": {
+      "display_name": "Activate",
+      "description": "Activate Nessus subscription",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "activation_code": {
+      "display_name": "Activation Code",
+      "description": "Nessus subscription activation code",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "vault": {
+      "display_name": "Vault",
+      "description": "Vault containing sensitive data",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "vault_users_item": {
+      "display_name": "Vault Users Item",
+      "description": "Vault Item containing Nessus Users",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1"
+}

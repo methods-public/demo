@@ -1,0 +1,410 @@
+Bringing machine 'default' up with 'virtualbox' provider...
+[default] Importing base box 'opscode-ubuntu-14.04'...
+Progress: 40%Progress: 90%[default] Matching MAC address for NAT networking...
+[default] Setting the name of the VM...
+[default] Clearing any previously set forwarded ports...
+[default] Clearing any previously set network interfaces...
+[default] Preparing network interfaces based on configuration...
+[default] Forwarding ports...
+[default] -- 22 => 2222 (adapter 1)
+[default] -- 3306 => 13009 (adapter 1)
+[default] Running 'pre-boot' VM customizations...
+[default] Booting VM...
+[default] Waiting for machine to boot. This may take a few minutes...
+[default] Machine booted and ready!
+[default] Setting hostname...
+[default] Mounting shared folders...
+[default] -- /vagrant
+[default] -- /tmp/vagrant-chef-1/chef-solo-1/cookbooks
+[default] Installing Chef 12.4.3 Omnibus package...
+[default] ubuntu 14.04 x86_64
+[default] Getting information for chef stable 12.4.3 for ubuntu...
+[default] downloading https://omnitruck-direct.chef.io/stable/chef/metadata?v=12.4.3&p=ubuntu&pv=14.04&m=x86_64
+[default]   to file /tmp/install.sh.1901/metadata.txt
+[default] trying wget...
+[default] sha1	f4e5203c1c0964e026eed7dc9d23a193a30a5c4e
+sha256	de772b659e09b0ead5a116585f0f610ab74c82cb313a7bf7c747a6eb94db59df
+url	https://packages.chef.io/stable/ubuntu/14.04/chef_12.4.3-1_amd64.deb
+version	12.4.3
+[default] 
+[default] downloaded metadata file looks valid...
+[default] downloading https://packages.chef.io/stable/ubuntu/14.04/chef_12.4.3-1_amd64.deb
+[default]   to file /tmp/install.sh.1901/chef_12.4.3-1_amd64.deb
+[default] trying wget...
+[default] Comparing checksum with sha256sum...
+[default] Installing chef 12.4.3
+[default] installing with dpkg...
+[default] (Reading database ... 62994 files and directories currently installed.)
+[default] Preparing to unpack .../chef_12.4.3-1_amd64.deb ...
+[default]  * Stopping chef-client chef-client
+[default]    ...done.
+[default] Unpacking chef (12.4.3-1) over (11.8.2-2) ...
+[default] dpkg: warning: unable to delete old directory '/var/log/chef': Directory not empty
+[default] dpkg: warning: unable to delete old directory '/etc/chef': Directory not empty
+[default] Setting up chef (12.4.3-1) ...
+[default] Thank you for installing Chef!
+[default] Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+[default] Running provisioner: chef_solo...
+Generating chef JSON and uploading...
+Running chef-solo...
+stdin: is not a tty
+[2016-07-31T08:46:24+00:00] INFO: Forking chef instance to converge...
+[2016-07-31T08:46:24+00:00] INFO: *** Chef 12.4.3 ***
+[2016-07-31T08:46:24+00:00] INFO: Chef-client pid: 2603
+[2016-07-31T08:46:25+00:00] INFO: Setting the run_list to ["recipe[kagent::install]", "recipe[ndb::install]", "recipe[ndb::mgmd]", "recipe[ndb::ndbd]", "recipe[ndb::mysqld]"] from CLI options
+[2016-07-31T08:46:25+00:00] INFO: Run List is [recipe[kagent::install], recipe[ndb::install], recipe[ndb::mgmd], recipe[ndb::ndbd], recipe[ndb::mysqld]]
+[2016-07-31T08:46:25+00:00] INFO: Run List expands to [kagent::install, ndb::install, ndb::mgmd, ndb::ndbd, ndb::mysqld]
+[2016-07-31T08:46:25+00:00] INFO: Starting Chef Run for default-ubuntu-1404
+[2016-07-31T08:46:25+00:00] INFO: Running start handlers
+[2016-07-31T08:46:25+00:00] INFO: Start handlers complete.
+[2016-07-31T08:46:26+00:00] WARN: Cloning resource attributes for hostsfile_entry[10.0.2.15] from prior resource (CHEF-3694)
+[2016-07-31T08:46:26+00:00] WARN: Previous hostsfile_entry[10.0.2.15]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/kagent/recipes/install.rb:211:in `from_file'
+[2016-07-31T08:46:26+00:00] WARN: Current  hostsfile_entry[10.0.2.15]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/kagent/recipes/install.rb:216:in `from_file'
+[2016-07-31T08:46:26+00:00] WARN: Cloning resource attributes for user[root] from prior resource (CHEF-3694)
+[2016-07-31T08:46:26+00:00] WARN: Previous user[root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/kagent/recipes/install.rb:36:in `from_file'
+[2016-07-31T08:46:26+00:00] WARN: Current  user[root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/recipes/install.rb:6:in `from_file'
+[2016-07-31T08:46:26+00:00] INFO: Downloading mysql cluster binaries from http://193.10.67.171/hops/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:46:26+00:00] INFO: Into file mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:46:26+00:00] INFO: You should find mysql cluster binaries it in:  /tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:46:26+00:00] INFO: Unzipping mysql cluster binaries into:  mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:46:26+00:00] INFO: Moving mysql cluster binaries to:  /usr/local/mysql-7.5.3
+[2016-07-31T08:46:26+00:00] INFO: Found matching IP address in the list of mgmd nodes: 10.0.2.15. ID= 49
+[2016-07-31T08:46:26+00:00] INFO: Found ID IS: 49
+[2016-07-31T08:46:26+00:00] INFO: Ndapi Addrs untrimmed are: 10.0.2.15,10.0.2.15
+[2016-07-31T08:46:26+00:00] INFO: Ndapi Addrs trimmed are: 10.0.2.15,10.0.2.15
+[2016-07-31T08:46:26+00:00] INFO: Home dir is /root. Generating ssh keys...
+[2016-07-31T08:46:26+00:00] WARN: Cloning resource attributes for kagent_keys[/root] from prior resource (CHEF-3694)
+[2016-07-31T08:46:26+00:00] WARN: Previous kagent_keys[/root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/recipes/mgmd.rb:143:in `from_file'
+[2016-07-31T08:46:26+00:00] WARN: Current  kagent_keys[/root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/recipes/mgmd.rb:149:in `from_file'
+[2016-07-31T08:46:26+00:00] INFO: Hostname is: default-ubuntu-1404
+[2016-07-31T08:46:26+00:00] INFO: IP address is: 10.0.2.15
+[2016-07-31T08:46:26+00:00] INFO: Found matching IP address in the list of data nodes: 10.0.2.15. ID= 1
+[2016-07-31T08:46:26+00:00] INFO: ID IS: 2
+[2016-07-31T08:46:26+00:00] WARN: Cloning resource attributes for kagent_keys[/root] from prior resource (CHEF-3694)
+[2016-07-31T08:46:26+00:00] WARN: Previous kagent_keys[/root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/recipes/mgmd.rb:149:in `from_file'
+[2016-07-31T08:46:26+00:00] WARN: Current  kagent_keys[/root]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/recipes/ndbd.rb:211:in `from_file'
+[2016-07-31T08:46:26+00:00] INFO: Installing libaio1 to /var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb
+[2016-07-31T08:46:26+00:00] INFO: Found matching IP address in the list of nodes: 10.0.2.15 . ID= 52
+[2016-07-31T08:46:39+00:00] INFO: bash[apt_update_install_build_tools] ran successfully
+[2016-07-31T08:46:42+00:00] INFO: apt_package[python-dev] installed python-dev at 2.7.5-5ubuntu3
+[2016-07-31T08:46:43+00:00] INFO: cookbook_file[/var/chef/cache/get-pip.py] created file /var/chef/cache/get-pip.py
+[2016-07-31T08:46:43+00:00] INFO: cookbook_file[/var/chef/cache/get-pip.py] updated file contents /var/chef/cache/get-pip.py
+[2016-07-31T08:46:43+00:00] INFO: cookbook_file[/var/chef/cache/get-pip.py] mode changed to 644
+[2016-07-31T08:46:44+00:00] INFO: execute[install-pip] ran successfully
+[2016-07-31T08:46:45+00:00] INFO: Upgrading python_pip[setuptools] version from uninstalled to latest
+[2016-07-31T08:46:46+00:00] INFO: Upgrading python_pip[virtualenv] version from uninstalled to latest
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/inifile-2.0.2.gem] created file /tmp/inifile-2.0.2.gem
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/inifile-2.0.2.gem] updated file contents /tmp/inifile-2.0.2.gem
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/inifile-2.0.2.gem] owner changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/inifile-2.0.2.gem] group changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/inifile-2.0.2.gem] mode changed to 755
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/requests-1.0.3.tar.gz] created file /tmp/requests-1.0.3.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/requests-1.0.3.tar.gz] updated file contents /tmp/requests-1.0.3.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/requests-1.0.3.tar.gz] owner changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/requests-1.0.3.tar.gz] group changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/requests-1.0.3.tar.gz] mode changed to 755
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/bottle-0.11.4.tar.gz] created file /tmp/bottle-0.11.4.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/bottle-0.11.4.tar.gz] updated file contents /tmp/bottle-0.11.4.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/bottle-0.11.4.tar.gz] owner changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/bottle-0.11.4.tar.gz] group changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/bottle-0.11.4.tar.gz] mode changed to 755
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/CherryPy-3.2.2.tar.gz] created file /tmp/CherryPy-3.2.2.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/CherryPy-3.2.2.tar.gz] updated file contents /tmp/CherryPy-3.2.2.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/CherryPy-3.2.2.tar.gz] owner changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/CherryPy-3.2.2.tar.gz] group changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/CherryPy-3.2.2.tar.gz] mode changed to 755
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/pyOpenSSL-0.13.tar.gz] created file /tmp/pyOpenSSL-0.13.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/pyOpenSSL-0.13.tar.gz] updated file contents /tmp/pyOpenSSL-0.13.tar.gz
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/pyOpenSSL-0.13.tar.gz] owner changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/pyOpenSSL-0.13.tar.gz] group changed to 0
+[2016-07-31T08:46:47+00:00] INFO: cookbook_file[/tmp/pyOpenSSL-0.13.tar.gz] mode changed to 755
+[2016-07-31T08:46:48+00:00] INFO: apt_package[python-mysqldb] installed python-mysqldb at 1.2.3-2ubuntu1
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/netifaces-0.8.tar.gz] created file /tmp/netifaces-0.8.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/netifaces-0.8.tar.gz] updated file contents /tmp/netifaces-0.8.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/netifaces-0.8.tar.gz] owner changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/netifaces-0.8.tar.gz] group changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/netifaces-0.8.tar.gz] mode changed to 755
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/IPy-0.81.tar.gz] created file /tmp/IPy-0.81.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/IPy-0.81.tar.gz] updated file contents /tmp/IPy-0.81.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/IPy-0.81.tar.gz] owner changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/IPy-0.81.tar.gz] group changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/IPy-0.81.tar.gz] mode changed to 755
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/pexpect-2.3.tar.gz] created file /tmp/pexpect-2.3.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/pexpect-2.3.tar.gz] updated file contents /tmp/pexpect-2.3.tar.gz
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/pexpect-2.3.tar.gz] owner changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/pexpect-2.3.tar.gz] group changed to 0
+[2016-07-31T08:46:48+00:00] INFO: cookbook_file[/tmp/pexpect-2.3.tar.gz] mode changed to 755
+[2016-07-31T08:46:54+00:00] INFO: bash[install_python] ran successfully
+[2016-07-31T08:46:54+00:00] INFO: bash[make_gemrc_file] ran successfully
+[2016-07-31T08:46:54+00:00] INFO: gem_package[inifile] installed inifile at 2.0.2
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent] created directory /var/lib/kagent
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent] owner changed to 0
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent] group changed to 0
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent] mode changed to 755
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent/keystores] created directory /var/lib/kagent/keystores
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent/keystores] owner changed to 0
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent/keystores] group changed to 0
+[2016-07-31T08:46:54+00:00] INFO: directory[/var/lib/kagent/keystores] mode changed to 755
+[2016-07-31T08:46:54+00:00] INFO: file[/var/lib/kagent/services] created file /var/lib/kagent/services
+[2016-07-31T08:46:54+00:00] INFO: file[/var/lib/kagent/services] owner changed to 0
+[2016-07-31T08:46:54+00:00] INFO: file[/var/lib/kagent/services] group changed to 0
+[2016-07-31T08:46:54+00:00] INFO: file[/var/lib/kagent/services] mode changed to 755
+[2016-07-31T08:46:54+00:00] INFO: file[/etc/hosts] backed up to /var/chef/backup/etc/hosts.chef-20160731084654.433519
+[2016-07-31T08:46:54+00:00] INFO: file[/etc/hosts] updated file contents /etc/hosts
+[2016-07-31T08:46:54+00:00] INFO: hostsfile_entry[10.0.2.15] content already matches - nothing to do.
+[2016-07-31T08:46:56+00:00] INFO: apt_package[ntp] installed ntp at 1:4.2.6.p5+dfsg-3ubuntu2.14.04.8
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] created file /etc/ntp.leapseconds
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] updated file contents /etc/ntp.leapseconds
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] owner changed to 0
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] mode changed to 644
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/apparmor.d/usr.sbin.ntpd] backed up to /var/chef/backup/etc/apparmor.d/usr.sbin.ntpd.chef-20160731084656.319258
+[2016-07-31T08:46:56+00:00] INFO: cookbook_file[/etc/apparmor.d/usr.sbin.ntpd] updated file contents /etc/apparmor.d/usr.sbin.ntpd
+[2016-07-31T08:46:56+00:00] INFO: template[/etc/ntp.conf] backed up to /var/chef/backup/etc/ntp.conf.chef-20160731084656.345578
+[2016-07-31T08:46:56+00:00] INFO: template[/etc/ntp.conf] updated file contents /etc/ntp.conf
+[2016-07-31T08:46:56+00:00] INFO: template[/etc/ntp.conf] not queuing delayed action restart on service[ntp] (delayed), as it's already been queued
+[2016-07-31T08:46:56+00:00] INFO: user[mysql] created
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb-7.5.3] created directory /var/lib/mysql-cluster/ndb-7.5.3
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb-7.5.3] owner changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb-7.5.3] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb-7.5.3] mode changed to 755
+[2016-07-31T08:46:56+00:00] INFO: link[/var/lib/mysql-cluster/ndb] created
+[2016-07-31T08:46:56+00:00] INFO: link[/var/lib/mysql-cluster/ndb] owner changed to 0
+[2016-07-31T08:46:56+00:00] INFO: link[/var/lib/mysql-cluster/ndb] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/scripts/util] created directory /var/lib/mysql-cluster/ndb/scripts/util
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/scripts/util] owner changed to 999
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/scripts/util] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/scripts/util] mode changed to 755
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/log] created directory /var/lib/mysql-cluster/log
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/log] owner changed to 999
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/log] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/var/lib/mysql-cluster/log] mode changed to 755
+[2016-07-31T08:46:56+00:00] INFO: directory[/usr/local/mysql-7.5.3] created directory /usr/local/mysql-7.5.3
+[2016-07-31T08:46:56+00:00] INFO: directory[/usr/local/mysql-7.5.3] owner changed to 999
+[2016-07-31T08:46:56+00:00] INFO: directory[/usr/local/mysql-7.5.3] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/usr/local/mysql-7.5.3] mode changed to 755
+[2016-07-31T08:46:56+00:00] INFO: directory[/tmp/ndb] created directory /tmp/ndb
+[2016-07-31T08:46:56+00:00] INFO: directory[/tmp/ndb] owner changed to 999
+[2016-07-31T08:46:56+00:00] INFO: directory[/tmp/ndb] group changed to 0
+[2016-07-31T08:46:56+00:00] INFO: directory[/tmp/ndb] mode changed to 755
+[2016-07-31T08:47:19+00:00] INFO: remote_file[/tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz] created file /tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:47:23+00:00] INFO: remote_file[/tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz] updated file contents /tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz
+[2016-07-31T08:47:26+00:00] INFO: remote_file[/tmp/ndb/mysql-cluster-gpl-7.5.3-linux-glibc2.5-x86_64.tar.gz] mode changed to 755
+[2016-07-31T08:48:10+00:00] INFO: bash[unpack_mysql_cluster] ran successfully
+[2016-07-31T08:48:10+00:00] INFO: link[/usr/local/mysql] created
+[2016-07-31T08:48:10+00:00] INFO: link[/usr/local/mysql] owner changed to 999
+[2016-07-31T08:48:10+00:00] INFO: link[/usr/local/mysql] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/profile.d/mysql_bin_path.sh] created file /etc/profile.d/mysql_bin_path.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/profile.d/mysql_bin_path.sh] updated file contents /etc/profile.d/mysql_bin_path.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/profile.d/mysql_bin_path.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/profile.d/mysql_bin_path.sh] mode changed to 755
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh] created file /var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/util/kill-process.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: directory[/var/lib/mysql-cluster/mgmd] created directory /var/lib/mysql-cluster/mgmd
+[2016-07-31T08:48:10+00:00] INFO: directory[/var/lib/mysql-cluster/mgmd] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: directory[/var/lib/mysql-cluster/mgmd] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: directory[/var/lib/mysql-cluster/mgmd] mode changed to 755
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh] created file /var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/enter-singleuser-mode.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-client.sh] created file /var/lib/mysql-cluster/ndb/scripts/mgm-client.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-client.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mgm-client.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-client.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-client.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-client.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh] created file /var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-start.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh] created file /var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-stop.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh] created file /var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mgm-server-restart.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh] created file /var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-shutdown.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-init.sh] created file /var/lib/mysql-cluster/ndb/scripts/cluster-init.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-init.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/cluster-init.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-init.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-init.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-init.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh] created file /var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/cluster-start-with-recovery.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh] created file /var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/exit-singleuser-mode.sh] mode changed to 655
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/init.d/ndb_mgmd] created file /etc/init.d/ndb_mgmd
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/init.d/ndb_mgmd] updated file contents /etc/init.d/ndb_mgmd
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/init.d/ndb_mgmd] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/init.d/ndb_mgmd] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/etc/init.d/ndb_mgmd] mode changed to 754
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] created file /var/lib/mysql-cluster/config.ini
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] updated file contents /var/lib/mysql-cluster/config.ini
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] owner changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] group changed to 0
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] mode changed to 644
+[2016-07-31T08:48:10+00:00] INFO: template[/var/lib/mysql-cluster/config.ini] sending restart action to service[ndb_mgmd] (immediate)
+[2016-07-31T08:48:10+00:00] INFO: service[ndb_mgmd] restarted
+[2016-07-31T08:48:10+00:00] INFO: bash[start-if-not-running-ndb_mgmd] ran successfully
+[2016-07-31T08:48:10+00:00] INFO: bash[generate-ssh-keypair-for-/root] ran successfully
+[2016-07-31T08:48:10+00:00] INFO: Public key read is: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6lf5WK1ItbnfQ9V26/ILNoR9H8cn3VoxwLXGWLU1c2djzGO7/9d7LZX6ZD9+O90r2pgCwPhLw9J/YYRnLD8D10qwbWPfjRpvEON7SyMEx4Umg99/Nhv7HfDxOMvXdxfspnZceauRMTttkosK7I6KsDnLIWeZz+wgNxx0yHXq3VUikVEFw6/8goYWKd89nJjjR6gpNlH9HyxkKqdBpvur4idjGs7mHxIzrBgGmPtlhv+7nkmLeIEu3lW7fKzMq3S4ssxpfAM8CRdSdHFdKLGBssZJ2WBSZE+TjvEvcdBFjhvzXlW9vtPmz4AJMzn3No7zpXSRtcLGdQIQc8exjBgKR root@default-ubuntu-1404
+
+[2016-07-31T08:48:11+00:00] INFO: template[/root/.ssh/config] created file /root/.ssh/config
+[2016-07-31T08:48:11+00:00] INFO: template[/root/.ssh/config] updated file contents /root/.ssh/config
+[2016-07-31T08:48:11+00:00] INFO: template[/root/.ssh/config] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/root/.ssh/config] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/root/.ssh/config] mode changed to 600
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data] created directory /var/lib/mysql-cluster/ndb_data
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data] mode changed to 755
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data/1] created directory /var/lib/mysql-cluster/ndb_data/1
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data/1] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data/1] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: directory[/var/lib/mysql-cluster/ndb_data/1] mode changed to 755
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-start.sh] created file /var/lib/mysql-cluster/ndb/scripts/backup-start.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-start.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/backup-start.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-start.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-start.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-start.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-restore.sh] created file /var/lib/mysql-cluster/ndb/scripts/backup-restore.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-restore.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/backup-restore.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-restore.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-restore.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/backup-restore.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh] created file /var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-start.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh] created file /var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-init.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh] created file /var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-stop.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh] created file /var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/ndbd-restart.sh] mode changed to 655
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] created file /etc/init.d/ndbmtd
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] updated file contents /etc/init.d/ndbmtd
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] mode changed to 754
+[2016-07-31T08:48:11+00:00] INFO: template[/etc/init.d/ndbmtd] sending restart action to service[ndbmtd] (immediate)
+[2016-07-31T08:48:11+00:00] INFO: service[ndbmtd] restarted
+[2016-07-31T08:48:11+00:00] INFO: bash[add_ndb_mgmd_public_key] ran successfully
+[2016-07-31T08:48:11+00:00] INFO: bash[start-if-not-running-start-ndbd-sysv] ran successfully
+[2016-07-31T08:48:11+00:00] INFO: cookbook_file[/var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb] created file /var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb
+[2016-07-31T08:48:11+00:00] INFO: cookbook_file[/var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb] updated file contents /var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb
+[2016-07-31T08:48:11+00:00] INFO: cookbook_file[/var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb] owner changed to 0
+[2016-07-31T08:48:11+00:00] INFO: cookbook_file[/var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb] group changed to 0
+[2016-07-31T08:48:11+00:00] INFO: cookbook_file[/var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb] mode changed to 755
+[2016-07-31T08:48:11+00:00] INFO: apt_package[libaio1_0.3.109-2ubuntu1_amd64.deb] installing /var/chef/cache/libaio1_0.3.109-2ubuntu1_amd64.deb
+[2016-07-31T08:48:17+00:00] INFO: apt_package[libaio1_0.3.109-2ubuntu1_amd64.deb] installed libaio1_0.3.109-2ubuntu1_amd64.deb at 0.3.109-2ubuntu1
+[2016-07-31T08:48:17+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/mysql] created directory /var/lib/mysql-cluster/ndb/mysql
+[2016-07-31T08:48:17+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/mysql] owner changed to 999
+[2016-07-31T08:48:17+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/mysql] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: directory[/var/lib/mysql-cluster/ndb/mysql] mode changed to 755
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh] created file /var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-socket.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh] created file /var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/get-mysql-port.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh] created file /var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-start.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh] created file /var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-stop.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh] created file /var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-server-restart.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh] created file /var/lib/mysql-cluster/ndb/scripts/mysql-client.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh] updated file contents /var/lib/mysql-cluster/ndb/scripts/mysql-client.sh
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh] owner changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh] mode changed to 775
+[2016-07-31T08:48:17+00:00] INFO: template[/etc/init.d/mysqld] created file /etc/init.d/mysqld
+[2016-07-31T08:48:17+00:00] INFO: template[/etc/init.d/mysqld] updated file contents /etc/init.d/mysqld
+[2016-07-31T08:48:17+00:00] INFO: template[/etc/init.d/mysqld] owner changed to 999
+[2016-07-31T08:48:17+00:00] INFO: template[/etc/init.d/mysqld] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[/etc/init.d/mysqld] mode changed to 755
+[2016-07-31T08:48:17+00:00] INFO: template[mysql.cnf] created file /var/lib/mysql-cluster/my.cnf
+[2016-07-31T08:48:17+00:00] INFO: template[mysql.cnf] updated file contents /var/lib/mysql-cluster/my.cnf
+[2016-07-31T08:48:17+00:00] INFO: template[mysql.cnf] owner changed to 999
+[2016-07-31T08:48:17+00:00] INFO: template[mysql.cnf] group changed to 0
+[2016-07-31T08:48:17+00:00] INFO: template[mysql.cnf] mode changed to 644
+[2016-07-31T08:48:22+00:00] INFO: bash[mysql_install_db_7_5] ran successfully
+[2016-07-31T08:48:22+00:00] INFO: template[/var/chef/cache/grants.sql] created file /var/chef/cache/grants.sql
+[2016-07-31T08:48:22+00:00] INFO: template[/var/chef/cache/grants.sql] updated file contents /var/chef/cache/grants.sql
+[2016-07-31T08:48:22+00:00] INFO: template[/var/chef/cache/grants.sql] owner changed to 0
+[2016-07-31T08:48:22+00:00] INFO: template[/var/chef/cache/grants.sql] mode changed to 600
+[2016-07-31T08:48:22+00:00] INFO: template[/var/chef/cache/grants.sql] sending install_grants action to ndb_mysql_basic[install] (immediate)
+[2016-07-31T08:48:22+00:00] INFO: bash[wait_ndb_started] ran successfully
+[2016-07-31T08:48:22+00:00] INFO: MySQL Server has started.
+[2016-07-31T08:48:22+00:00] INFO: bash[remove_mycnf_mysqld_start_grants] ran successfully
+[2016-07-31T08:48:28+00:00] INFO: bash[wait_mysqld_started] ran successfully
+[2016-07-31T08:48:28+00:00] INFO: bash[run_grants] ran successfully
+[2016-07-31T08:48:28+00:00] INFO: bash[wait_mysql_started] ran successfully
+[2016-07-31T08:48:28+00:00] WARN: Cloning resource attributes for bash[wait_mysqld_started] from prior resource (CHEF-3694)
+[2016-07-31T08:48:28+00:00] WARN: Previous bash[wait_mysqld_started]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/providers/mysql_basic.rb:45:in `block in class_from_file'
+[2016-07-31T08:48:28+00:00] WARN: Current  bash[wait_mysqld_started]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/providers/mysql_basic.rb:45:in `block in class_from_file'
+[2016-07-31T08:48:28+00:00] INFO: MySQL Server has started.
+[2016-07-31T08:48:28+00:00] INFO: bash[create_distributed_privileges] ran successfully
+[2016-07-31T08:48:28+00:00] WARN: Cloning resource attributes for bash[wait_mysqld_started] from prior resource (CHEF-3694)
+[2016-07-31T08:48:28+00:00] WARN: Previous bash[wait_mysqld_started]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/providers/mysql_basic.rb:45:in `block in class_from_file'
+[2016-07-31T08:48:28+00:00] WARN: Current  bash[wait_mysqld_started]: /tmp/vagrant-chef-1/chef-solo-1/cookbooks/ndb/providers/mysql_basic.rb:45:in `block in class_from_file'
+[2016-07-31T08:48:28+00:00] INFO: MySQL Server has started.
+[2016-07-31T08:48:29+00:00] INFO: bash[install_memcached_tables] ran successfully
+[2016-07-31T08:48:29+00:00] INFO: bash[start-if-not-running-mysqld] ran successfully
+[2016-07-31T08:48:29+00:00] INFO: cookbook_file[/etc/ntp.leapseconds] sending restart action to service[ntp] (delayed)
+[2016-07-31T08:48:31+00:00] INFO: service[ntp] restarted
+[2016-07-31T08:48:31+00:00] INFO: cookbook_file[/etc/apparmor.d/usr.sbin.ntpd] sending restart action to service[apparmor] (delayed)
+[2016-07-31T08:48:33+00:00] INFO: service[apparmor] restarted
+[2016-07-31T08:48:33+00:00] INFO: template[/etc/init.d/ndb_mgmd] sending enable action to service[ndb_mgmd] (delayed)
+[2016-07-31T08:48:33+00:00] INFO: service[ndb_mgmd] enabled
+[2016-07-31T08:48:33+00:00] INFO: template[/etc/init.d/ndbmtd] sending enable action to service[ndbmtd] (delayed)
+[2016-07-31T08:48:33+00:00] INFO: service[ndbmtd] enabled
+[2016-07-31T08:48:33+00:00] INFO: template[mysql.cnf] sending enable action to service[mysqld] (delayed)
+[2016-07-31T08:48:33+00:00] INFO: service[mysqld] enabled
+[2016-07-31T08:48:33+00:00] INFO: Chef Run complete in 128.201836637 seconds
+[2016-07-31T08:48:33+00:00] INFO: Skipping removal of unused files from the cache
+[2016-07-31T08:48:33+00:00] INFO: Running report handlers
+[2016-07-31T08:48:33+00:00] INFO: Report handlers complete

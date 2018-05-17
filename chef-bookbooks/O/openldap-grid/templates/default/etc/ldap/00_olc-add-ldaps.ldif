@@ -1,0 +1,13 @@
+<%
+#Dev. Note: *_path helpers are in SSLCert::Helper, see openldap-grid::server recipe.
+-%>
+# $ sudo ldapmodify -QY EXTERNAL -H ldapi:/// -f 00_olc-add-ldaps.ldif
+dn: cn=config
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: <%= ca_cert_path(node['openldap']['ssl_cert']['ca_name']) %>
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: <%= server_key_path(node['openldap']['ssl_cert']['common_name']) %>
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: <%= server_cert_path(node['openldap']['ssl_cert']['common_name']) %>

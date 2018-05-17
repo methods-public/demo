@@ -1,0 +1,142 @@
+# LDAP server properties
+# This should be edited by the configuration tool and not by hand
+ldap.enabled=false
+ldap.cache=true
+#URL of LDAP server
+ldap.url=ldap://localhost:389
+
+# BASE DN of LDAP
+ldap.base.dn=
+
+# ---------------------------------------------------------------------------
+
+# DN and password of User who has right to search LDAP
+ldap.user.dn=
+ldap.user.password=
+
+# ---------------------------------------------------------------------------
+
+# a list of partial Distinguished name (DN) under which user and group searches are made
+# the base DN will be appended so do not add base DN with this attribute
+# empty means search under base.dn
+ldap.search.dns=
+
+
+# The following defaults are the generally used defaults for Active Directory
+
+# ---------------------------------------------------------------------------
+
+# LDAP class that can be FM users
+ldap.class.user=organizationalPerson
+
+# LDAP attribute for EXACT searching username
+ldap.attribute.username=sAMAccountName
+
+# LDAP attribute for storing user password
+ldap.attribute.password=userPassword
+
+# LDAP attributes for FUZZY searching user group
+ldap.attribute.firstname=givenName
+ldap.attribute.lastname=sn
+# LDAP email
+ldap.attribute.email=mail
+
+# ---------------------------------------------------------------------------
+
+# LDAP class that provide group information of FM user
+ldap.class.group=group
+
+# LDAP attribute for searching group
+ldap.attribute.groupname=cn
+
+# LDAP attribute of a group. It contains a list of members of that group
+ldap.attribute.member=member
+
+ldap.class.orgunit=container
+ldap.attribute.orgunitname=cn
+
+ldap.attribute.objectclass=objectClass
+ldap.attribute.distinguishedname=distinguishedName
+# Unique LDAP entity ID in LDAP directory. Default value for MS AD is objectSid
+ldap.attribute.objectSid=objectSid
+# Base part of LDAP object's SIDs for all objects located in this LDAP directory
+ldap.base.object.sid=
+
+#the name of the attribute to look for the byte stream of the users photo
+ldap.attribute.thumbnailPhoto=thumbnailPhoto
+#the name of the default mime type to use if we can't figure it out from the stream
+ldap.attribute.thumbnailMimeDefault=image/png
+#enabled the ldap user photo in SSC
+ldap.enable.user.photo=true
+
+ldap.nestedgroups=false
+
+# LDAP cache manager
+
+# Maximum number of threads for cache asynchronous task (update task for example)
+ldap.cache.max.threads.per.cache=4
+# Task Executor pool size
+ldap.cache.executor.pool.size=4
+# Maximum Task Executor pool size
+ldap.cache.executor.pool.size.max=12
+
+#The maximum number of milliseconds that an object may sit in the cache before it is eligible for eviction.
+# When non-positive, object will not be evicted.
+ldap.cache.evictionTime=-1
+
+#The time limit of the LDAP directory context validation in milliseconds.
+# When non-positive, validation will not be run.
+ldap.validation.timeLimit=5000
+
+#The minimum number of milliseconds between context validation runs when LDAP is inaccessible.
+#The idle time is necessary to avoid delays in iteratively access to LDAP.
+#I.e. if the first validation was invalid then the next call within that idle time will also deemed invalid without LDAP accessibility validation
+ldap.validation.idleTime=5000
+
+
+# LDAP referrals processing strategy.
+# Some LDAP servers can use a special feature called referrals. There is a short description taken from Oracle documentation
+# (http://docs.oracle.com/javase/jndi/tutorial/ldap/referral/overview.html) :
+# In many ways, a referral is a generalization of an alias, which is discussed in the Miscellaneous (in the Tips for LDAP Users trail) lesson.
+# An alias contains the DN of another object, whereas a referral contains one or more URLs of objects. The URLs are usually, but not necessarily,
+# LDAP URLs. The LDAP URL contains the server's host/port and an object's DN. The host/port information can point to a directory server that differs
+# from the one that returned the referral. Whereas an alias is dereferenced and processed by the server, a referral is returned to the client, which
+# is responsible for processing it.
+# Uses:
+# Like an alias, a referral is useful for allowing an object to be identified by different names. Referrals can be used, for example, to accommodate
+# the namespace changes and mergers that are inevitable as organizations evolve. In addition, they allow directory administrators to set up "search paths"
+# for collecting results from multiple servers. They also can be used to deploy cache or read-only server replicas that return referrals for all update requests.
+# Use of a read-only replica is among the many different load balancing strategies that can be implemented by using referrals. ()
+# So, when LDAP client application like SSC requests some LDAP object and this object is a referral, it makes the LDAP client application to request some additional
+# information about the requested LDAP object from another server which address is returned in REF object attribute. Of course these additional requests can decrease
+# the LDAP communication speed. But we have found one more peculiarity in Spring LDAP library that is used by SSC for LDAP communications. Even if referrals feature
+# is not used on LDAP server, Spring library can perform some additional operations for supporting this feature.
+# This property has 2 possible values:
+# - ignore - ignore referrals. This value should be used if your LDAP server does not use this feature, or there is not need to process referral links.
+# - follow - all referral links must be  processed.
+ldap.referrals.processing.strategy=ignore
+
+# True if paged queries are enabled for LDAP server that is used by SSC.
+# Some LDAP servers don't support paged queries, so this option is FALSE by default.
+# If this option is FALSE ldap.pageSize value is not taken into account.
+ldap.paging.enabled=false
+
+# Page size of LDAP search request results.
+ldap.pageSize=999
+
+# Type of the used LDAP authenticator.
+# Supported values are:
+# BIND_AUTHENTICATOR - use LDAP bind operation to authenticate users.
+# PASSWORD_COMPARISON_AUTHENTICATOR - use password compare operation to authenticaate users.
+ldap.authenticator.type=BIND_AUTHENTICATOR
+
+# Password encoder algorithm
+# This property value is used only if ldap.authenticator.type = PASSWORD_COMPARISON_AUTHENTICATOR
+# Possibel values:
+#   NOT_SET - if this value is selected, default SHA_PASSWORD_ENCODER is used.
+#   LDAP_SHA_PASSWORD_ENCODER
+#   MD4_PASSWORD_ENCODER
+#   MD5_PASSWORD_ENCODER
+#   SHA_PASSWORD_ENCODER
+ldap.password.encoder.type=NOT_SET
+# ---------------------------------------------------------------------------

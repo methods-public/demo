@@ -1,0 +1,31 @@
+{
+  "name": "ec2configservice",
+  "version": "0.1.2",
+  "description": "Installs/Configures EC2 Config Service",
+  "long_description": "# EC2 Config Service Cookbook\n[![Cookbook](http://img.shields.io/cookbook/v/ec2configservice.svg)](https://github.com/base2Services/ec2configservice_cookbook)\n\nInstalls and Configures the EC2 config services\n\n0.1.2 - Currently only supports:\n  * Installation of the latest EC2 config service\n  * Wallpaper Settings config\n\n## Supported Platforms\n\n * Windows\n\n## Attributes\n\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['ec2config']['wallpaper']['default']</tt></td>\n    <td>Array</td>\n    <td>array of settings to add to the wallpaper</td>\n    <td>\n      <tt>[{\n            name: 'Hostname',\n            source: 'built-in',\n            identifier: 'hostname',\n            value: nil\n          },\n          .......\n      </tt>\n    </td>\n  </tr>\n</table>\n\n## Usage\n\n### ec2configservice::default\n\nInclude `ec2configservice` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[ec2configservice::default]\"\n  ]\n}\n```\n\n## License and Authors\nLicense:: Apache License, Version 2.0\n\nAuthors::\n * Aaron Walker - base2Services\n",
+  "maintainer": "base2Services",
+  "maintainer_email": "a.walker@base2services.com",
+  "license": "Apache License, Version 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

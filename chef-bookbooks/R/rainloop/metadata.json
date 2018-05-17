@@ -1,0 +1,55 @@
+{
+  "name": "rainloop",
+  "description": "Installs/Configures rainloop",
+  "long_description": "Installs/Configures rainloop",
+  "maintainer": "Luckysideburn",
+  "maintainer_email": "eugenio.marzo@yahoo.it",
+  "license": "all_rights",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "php": ">= 0.0.0",
+    "openssl": ">= 0.0.0",
+    "apache2": ">= 0.0.0",
+    "ark": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "Rainloop": "Installs and configures Rainloop"
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

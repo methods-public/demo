@@ -1,0 +1,12 @@
+# !!! WARNING !!!
+#
+# This file is managed using Chef. Any changes will be overwritten.
+#
+# !!! WARNING !!!
+#
+
+<% @partials.each do |partial, to_render| -%>
+	<% if to_render == true %>
+<%= render partial %>
+	<% end %>
+<% end %>

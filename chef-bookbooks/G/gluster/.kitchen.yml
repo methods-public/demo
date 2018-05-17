@@ -1,0 +1,684 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: centos-6.8
+  - name: centos-7.2
+
+suites:
+  - name: shareddisk-replicated1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              options:
+                network.ping-timeout: 20
+
+  - name: shareddisk-replicated2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              options:
+                network.ping-timeout: 20
+
+  - name: replicated1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/replicated1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/replicated1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: replicated2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/replicated2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/replicated2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/distributed1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/distributed2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed-repl1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/distributed-repl1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-repl1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-replicated"
+              size: "5G"
+
+  - name: distributed-repl2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/distributed-repl2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-repl2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-replicated"
+              size: "5G"
+
+  - name: distributed-repl3
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.30
+      vm_hostname: gluster3
+      customize:
+        createhd:
+          filename: ./tmp/distributed-repl3.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-repl3.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-replicated"
+              size: "5G"
+
+  - name: distributed-repl4
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.40
+      vm_hostname: gluster4
+      customize:
+        createhd:
+          filename: ./tmp/distributed-repl4.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-repl4.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-replicated"
+              size: "5G"
+
+  - name: striped1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/striped1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/striped1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: striped2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/striped2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/striped2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          disks:
+            - /dev/sdb
+          brick_mount_path: "/data"
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed-striped1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/distributed-striped1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-striped1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed-striped2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/distributed-striped2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-striped2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed-striped3
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.30
+      vm_hostname: gluster3
+      customize:
+        createhd:
+          filename: ./tmp/distributed-striped3.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-striped3.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: distributed-striped4
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.40
+      vm_hostname: gluster4
+      customize:
+        createhd:
+          filename: ./tmp/distributed-striped4.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/distributed-striped4.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster4"
+                - "gluster3"
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "distributed-striped"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: client1
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.10
+      vm_hostname: gluster1
+      customize:
+        createhd:
+          filename: ./tmp/client1.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/client1.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+
+  - name: client2
+    driver:
+      network:
+        private_network:
+          ip: 192.168.10.20
+      vm_hostname: gluster2
+      customize:
+        createhd:
+          filename: ./tmp/client2.vmdk
+          size: 10240
+        storageattach:
+          storagectl: SATA Controller
+          port: 1
+          device: 0
+          type: hdd
+          medium: ./tmp/client2.vmdk
+    run_list:
+      - recipe[testcookbook::set_hostname]
+      - recipe[gluster::server]
+      - recipe[gluster::client]
+    attributes:
+      gluster:
+        server:
+          brick_mount_path: "/data"
+          disks:
+            - /dev/sdb
+          volumes:
+            gv0:
+              peers:
+                - "gluster2"
+                - "gluster1"
+              replica_count: 2
+              volume_type: "replicated"
+              lvm_volumes:
+                - sdb
+              size: "5G"
+              filesystem: "xfs"
+              disks:
+                - sdb
+        client:
+          volumes:
+            gv0:
+              mount_point: "/mnt/gv0"
+              server: "gluster2"
+              backup_server: "gluster1"

@@ -1,0 +1,56 @@
+{
+  "name": "alphard-chef-newrelic-infrastructure",
+  "description": "Installs/Configures alphard-chef-newrelic-infrastructure",
+  "long_description": "[![Cookbook Version](https://img.shields.io/cookbook/v/alphard-chef-alphard-chef-newrelic-infrastructurestructure.svg)](https://supermarket.chef.io/cookbooks/alphard-chef-alphard-chef-newrelic-infrastructurestructure)\n[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Build Status](https://travis-ci.org/hydra-technologies/alphard-chef-alphard-chef-newrelic-infrastructurestructure.svg?branch=master)](https://travis-ci.org/hydra-technologies/alphard-chef-alphard-chef-newrelic-infrastructurestructure)\n[![Coverage Status](https://coveralls.io/repos/github/hydra-technologies/alphard-chef-alphard-chef-newrelic-infrastructurestructure/badge.svg?branch=master)](https://coveralls.io/github/hydra-technologies/alphard-chef-alphard-chef-newrelic-infrastructurestructure?branch=master)\n\n# Cookbook 'alphard-chef-alphard-chef-newrelic-infrastructurestructure'\n\nThis cookbook installs and configures the New Relic Infrastructure agent.\n\n## Requirements\n\n### Platforms\n\n- RHEL\n  - CentOS 7\n  - CentOS 6\n  - Amazon Linux (all versions)\n- Ubuntu\n  - 16 Xenial\n  - 14 Trusty\n  - 12 Precise\n- Debian\n  - 10 Buster\n  - 9 Stretch\n  - 8 Jessie\n  - 7 Wheezy\n\n### Chef\n\n- Chef 12+\n\n### Cookbooks\n\n- none\n\n## Recipes\n\n### default\nInclude the default recipe to install and configure the New Relic Infrastructure agent.\n\n### agent\nThe `agent` recipe will validate required attributes and do basic platform detection to decide which platform specific recipe to include.\n\n### agent_linux\nThe `agent_linux` recipe:\n\n1. Adds the `alphard-chef-newrelic-infrastructure` package repository source\n1. Installs|upgrades|removes `alphard-chef-newrelic-infrastructure` package\n1. Sets up the `alphard-chef-newrelic-infrastructure` agent service\n1. Sets the `alphard-chef-newrelic-infrastructure.yml` config file\n\n### agent_windows\n(Available in the future)\n\n## Attributes\n\nSee `attributes/defaults.rb` for default values.\n\n- `node['alphard']['newrelic']['infrastructure']['license_key']` - Your New Relic license key.\n- `node['alphard']['newrelic']['infrastructure']['log_file']` - Override system log file location by providing Log path and file name.\n- `node['alphard']['newrelic']['infrastructure']['verbose']` - Log verbosity setting. Type: String\n- `node['alphard']['newrelic']['infrastructure']['proxy']` - Your proxy url if required.\n- `node['alphard']['newrelic']['infrastructure']['agent_action']` - `alphard-chef-newrelic-infrastructure` package actions. Values:\n  - `'install'`: _(Default)_ Installs package. If `'agent_version'` is specified, installs specific version.\n  - `'upgrade'`: Installs package and/or ensures it's the latest version.\n  - `'remove'`:  Removes the package.\n- `node['alphard']['newrelic']['infrastructure']['agent_version']` - Specify `alphard-chef-newrelic-infrastructure` package version to pin.\n\n## Usage\n\n1. Add the `alphard-chef-newrelic-infrastructure` cookbook dependency to your `metadata.rb` or `Berksfile`\n1. Set `node['alphard']['newrelic']['infrastructure']['license_key']` attribute with your New Relic license key\n1. Include `default` recipe or add it to your run list\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License\n\nCopyright 2009-2016, Hydra Technologies, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n## Authors\n\n- Frédéric Nowak - frederic.nowak@hydra-technologies.net\n\n",
+  "maintainer": "Hydra Technologies, Inc",
+  "maintainer_email": "chef@hydra-technologies.net",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "alphard-chef-newrelic-infrastructure::default": "Installs/Configures New Relic infrastructure agent"
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/hydra-technologies/alphard-chef-newrelic-infrastructure",
+  "issues_url": "https://github.com/hydra-technologies/alphard-chef-newrelic-infrastructure/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.5"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

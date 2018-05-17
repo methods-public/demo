@@ -1,0 +1,42 @@
+{
+  "name": "remote_file_s3",
+  "description": "Provides remote_file_s3 resource",
+  "long_description": "Provides remote_file_s3 resource that can idempotently download a file from an AWS S3 bucket",
+  "maintainer": "Matt Kulka",
+  "maintainer_email": "matt@lqx.net",
+  "license": "MIT",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "windows": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "mac_os_x": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.5",
+  "source_url": "https://github.com/mattlqx/cookbook-remote_file_s3",
+  "issues_url": "https://github.com/mattlqx/cookbook-remote_file_s3/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,30 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  data_bags_path: test/shared/data_bags
+
+platforms:
+  - name: ubuntu-14.04
+  - name: centos-6.6
+  - name: windows-2012R2
+    transport:
+      name: winrm
+
+suites:
+  - name: default
+    run_list:
+      - recipe[bacula_test::default]
+    excludes:
+      - windows-2012R2
+    attributes:
+
+  - name: windows
+    run_list:
+      - recipe[bacula_test::windows]
+    excludes:
+      - centos-6.6
+      - ubuntu-14.04
+    attributes:

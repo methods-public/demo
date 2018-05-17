@@ -1,0 +1,42 @@
+{
+  "name": "rustlang",
+  "description": "Installs/Configures rustlang",
+  "long_description": "# chef-rustlang\n\nThis cookbook installs [Mozilla's cool new programming language: Rust](http://www.rust-lang.org). It installs using the binary distribution from the Rust homepage using their installer script.\n\nIt can install either a named version or just the Rust nightly. You can control this with attributes: The defaults defined in the recipe are:\n\n    default['rustlang']['version'] = \"1.0.0-alpha\"\n\tdefault['rustlang']['installation_prefix'] = '/opt'\n\nTo install the nightly version just change the `version` attribute to `\"nightly\"`\n\n",
+  "maintainer": "Matt Valentine-House",
+  "maintainer_email": "matt@eightbitraptor.com",
+  "license": "GPL v3",
+  "platforms": {
+    "ubuntu": ">= 12.04",
+    "centos": ">= 5.11"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.3",
+  "source_url": "https://github.com/eightbitraptor/chef-rustlang",
+  "issues_url": "https://github.com/eightbitraptor/chef-rustlang/issues"
+}

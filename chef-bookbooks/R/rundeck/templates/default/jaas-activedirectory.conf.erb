@@ -1,0 +1,39 @@
+activedirectory {
+    com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule sufficient
+    debug="<%=@ldap[:debug].to_s%>"
+    contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
+    providerUrl="<%=@ldap[:provider]%>"
+<% if !@ldap[:binddn].nil? -%>
+    bindDn="<%=@binddn%>"
+    bindPassword="<%=@bindpwd%>"
+<% end -%>
+    authenticationMethod="<%=@ldap[:authenticationmethod]%>"
+    forceBindingLogin="<%=@ldap[:forcebindinglogin]%>"
+    userBaseDn="<%=@ldap[:userbasedn]%>"
+    userRdnAttribute="<%=@ldap[:userrdnattribute]%>"
+    userIdAttribute="<%=@ldap[:useridattribute]%>"
+    userPasswordAttribute="<%=@ldap[:userpasswordattribute]%>"
+    userObjectClass="<%=@ldap[:userobjectclass]%>"
+    roleBaseDn="<%=@ldap[:rolebasedn]%>"
+    roleNameAttribute="<%=@ldap[:rolenameattribute]%>"
+<% if @ldap[:roleusernamememberattribute] -%>
+    roleUsernameMemberAttribute="<%=@ldap[:roleusernamememberattribute]%>"
+<% else -%>
+    roleMemberAttribute="<%=@ldap[:rolememberattribute]%>"
+<% end -%>
+    roleObjectClass="<%=@ldap[:roleobjectclass]%>"
+    rolePrefix="<%=@ldap[:roleprefix]%>"
+    cacheDurationMillis="<%=@ldap[:cachedurationmillis]%>"
+<% if @ldap[:supplementalroles] -%>
+    supplementalRoles="<%=@ldap[:supplementalroles]%>"
+<% end -%>
+    reportStatistics="<%=@ldap[:reportstatistics]%>";
+
+    <% if Gem::Requirement.new('< 2.7.0').satisfied_by?(Gem::Version.new(@rundeck_version)) %>
+    org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule sufficient
+    <% else %>
+    org.eclipse.jetty.jaas.spi.PropertyFileLoginModule sufficient
+    <% end %>
+    debug="<%=@ldap[:debug].to_s%>"
+    file="<%=@configdir%>/realm.properties";
+};

@@ -1,0 +1,46 @@
+{
+  "name": "auditbeat",
+  "description": "Installs/Configures Elastic Auditbeat",
+  "long_description": "auditbeat Cookbook\n================\n\n[![Cookbook](https://img.shields.io/github/tag/vkhatri/chef-auditbeat.svg)](https://github.com/vkhatri/chef-auditbeat) [![Build Status](https://travis-ci.org/vkhatri/chef-auditbeat.svg?branch=master)](https://travis-ci.org/vkhatri/chef-auditbeat)\n\nThis is a [Chef] cookbook to manage [auditbeat].\n\n\n>> For Production environment, always prefer the [most recent release](https://supermarket.chef.io/cookbooks/auditbeat).\n\n\n## Most Recent Release\n\n```ruby\ncookbook 'auditbeat', '~> 0.0.2'\n```\n\n\n## From Git\n\n```ruby\ncookbook 'auditbeat', github: 'vkhatri/chef-auditbeat',  tag: 'v0.0.2'\n```\n\n\n## Repository\n\n```\nhttps://github.com/vkhatri/chef-auditbeat\n```\n\n\n## Supported OS\n\n- CentOS 6, 7\n- Ubuntu 14\n- Amazon Linux\n\n\n## Supported Chef\n\n- Chef 12 (last tested on 12.21.3)\n\n- Chef 13 (last tested on 13.2.20)\n\n## Major Changes\n\n\n## Cookbook Dependency\n\n- windows\n- apt\n- yum\n- yum-plugin-versionlock\n\n\n## Recipes\n\n- `auditbeat::attributes` - cookbook derived default attributes\n\n- `auditbeat::config` - configure auditbeat\n\n- `auditbeat::default` - default recipe (use it for run_list)\n\n- `auditbeat::install_package` - install auditbeat package for linux platform\n\n- `auditbeat::install_package_preview` - install auditbeat preview (alpha/beta) package for linux platform\n\n- `auditbeat::install_windows` - install auditbeat for windows platform\n\n\n## Core Attributes\n\n\n* `default['auditbeat']['version']` (default: `6.0.0-beta1`): auditbeat version\n\n* `default['auditbeat']['ignore_version']` (default: `false`): ignore auditbeat version for `package` install\n\n* `default['auditbeat']['setup_repo']` (default: `true`): setup `apt` or `yum` repository if set to `true`\n\n* `default['auditbeat']['release']` (default: `1`): auditbeat release for yum package\n\n* `default['auditbeat']['package_url']` (default: `auto`): package url for windows installation\n\n* `default['auditbeat']['conf_dir']` (default: `/etc/auditbeat`): auditbeat yaml configuration file directory\n\n* `default['auditbeat']['conf_file']` (default: `/etc/auditbeat/auditbeat.yml`): auditbeat configuration file\n\n* `default['auditbeat']['notify_restart']` (default: `true`): whether to restart auditbeat service on configuration file change\n\n* `default['auditbeat']['disable_service']` (default: `false`): whether to stop and disable auditbeat service\n\n\n## Configuration File auditbeat.yml Attributes\n\n* `default['auditbeat']['config']['auditbeat.modules']` (default: `[]`): auditbeat modules\n\n* `default['auditbeat']['config']['auditbeat']['registry_file']` (default: `/var/lib/auditbeat/registry`): auditbeat registry location\n\n* `default['auditbeat']['config']['output']` (default: `{}`): configure elasticsearch. logstash, file etc.  output\n\nFor more attribute info, visit below links:\n\nhttps://github.com/elastic/beats/blob/master/auditbeat/auditbeat.reference.yml\nhttps://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-overview.html\n\n\n## auditbeat YUM/APT Repository Attributes\n\n* `default['auditbeat']['yum']['description']` (default: ``): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['gpgcheck']` (default: `true`): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['enabled']` (default: `true`): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['baseurl']` (default: `https://packages.elastic.co/beats/yum/el/$basearch`): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['gpgkey']` (default: `https://packages.elasticsearch.org/GPG-KEY-elasticsearch`): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['metadata_expire']` (default: `3h`): beats yum reporitory attribute\n\n* `default['auditbeat']['yum']['action']` (default: `:create`): beats yum reporitory attribute\n\n\n* `default['auditbeat']['apt']['description']` (default: `calculated`): beats apt reporitory attribute\n\n* `default['auditbeat']['apt']['components']` (default: `['stable', 'main']`): beats apt reporitory attribute\n\n* `default['auditbeat']['apt']['uri']` (default: `https://packages.elastic.co/beats/apt`): beats apt reporitory attribute\n\n* `default['auditbeat']['apt']['key']` (default: `http://packages.elasticsearch.org/GPG-KEY-elasticsearch`): beats apt reporitory attribute\n\n* `default['auditbeat']['apt']['action']` (default: `:add`): auditbeat apt reporitory attribute\n\n\n## Other Attributes\n\n* `default['auditbeat']['service']['name']` (default: `auditbeat`): auditbeat service name\n\n* `default['auditbeat']['service']['retries']` (default: `:0`): auditbeat service resource attribute\n\n* `default['auditbeat']['service']['retry_delay']` (default: `:2`): auditbeat service resource attribute\n\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests (`rake & rake knife`), ensuring they all pass\n6. Write new resource/attribute description to `README.md`\n7. Write description about changes to PR\n8. Submit a Pull Request using Github\n\n\n## Copyright & License\n\nAuthors:: Virender Khatri and [Contributors]\n\n<pre>\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n</pre>\n\n\n[Chef]: https://www.chef.io/\n[auditbeat]: https://www.elastic.co/guide/en/beats/auditbeat/6.0/auditbeat-overview.html\n[Contributors]: https://github.com/vkhatri/chef-auditbeat/graphs/contributors\n",
+  "maintainer": "Virender Khatri",
+  "maintainer_email": "vir.khatri@gmail.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0",
+    "apt": ">= 0.0.0",
+    "yum": ">= 5.0.1",
+    "yum-plugin-versionlock": ">= 0.1.2"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.2",
+  "source_url": "https://github.com/vkhatri/chef-auditbeat",
+  "issues_url": "https://github.com/vkhatri/chef-auditbeat/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

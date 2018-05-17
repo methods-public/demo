@@ -1,0 +1,23 @@
+# This file is managed by Chef, using the chef_server_omnibus cookbook.
+# Editing this file by hand is highly discouraged!
+
+analytics_fqdn '<%= node['chef_server_omnibus']['analytics']['analytics_fqdn'] %>'
+<% if node['chef_server_omnibus']['topology'] -%>
+topology '<%= node['chef_server_omnibus']['analytics']['topology'] %>'
+<% end -%>
+<%
+node['chef_server_omnibus']['analytics']['config'].sort.each do |component, config|
+  config.sort.each do |key, raw_value|
+    value = if raw_value.is_a?(String)
+              "'#{raw_value}'"
+            elsif raw_value.nil?
+              'nil'
+            else
+              raw_value
+            end
+-%>
+<%= component %>['<%= key %>'] = <%= value %>
+<%
+  end
+end
+-%>

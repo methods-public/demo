@@ -1,0 +1,15 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:<% %w{ubuntu-14.04 ubuntu-12.04 centos-6.5 centos-5.11 }.each do |p| %>
+  - name: <%= p %><% end %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[vpnc::default]
+    attributes:

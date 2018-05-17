@@ -1,0 +1,31 @@
+{
+  "name": "virtualenvwrapper",
+  "version": "0.1.1",
+  "description": "Installs/Configures virtualenv",
+  "long_description": "Installs/Configures virtualenv",
+  "maintainer": "Patrick Ayoup",
+  "maintainer_email": "patrick.ayoup@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": "= 6.5"
+  },
+  "dependencies": {
+    "python": "~> 1.4.6"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

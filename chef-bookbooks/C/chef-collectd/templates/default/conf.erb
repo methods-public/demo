@@ -1,0 +1,15 @@
+<%
+def gen(conf, i = 0)
+  conf.map do |k, v|
+    case v
+    when Hash
+      "#{' ' * i}<#{k}>\n" + gen(v, i + 2) + "#{' ' * i}</#{k.split(' ').first}>\n"
+    when Array
+      v.map { |t| gen({ k => t }, i) }.join
+    else
+      "#{' ' * i}#{k} #{v}\n"
+    end
+  end.join
+end
+%>
+<%= gen(@conf) %>

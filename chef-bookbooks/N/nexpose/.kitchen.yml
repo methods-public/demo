@@ -1,0 +1,29 @@
+---
+driver:
+  name: docker
+
+driver_config:
+  forward:
+    - 8080:8080
+    - 3780:3780
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: centos-7
+
+suites:
+  - name: console
+    run_list:
+      - recipe[nexpose::default]
+    attributes:
+
+  - name: engine
+    run_list:
+      - recipe[nexpose::default]
+    attributes:
+      nexpose:
+        component_type: engine

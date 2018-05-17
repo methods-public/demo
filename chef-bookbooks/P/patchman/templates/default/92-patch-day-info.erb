@@ -1,0 +1,19 @@
+-----------------------------------------------------------
+Chef managed patch management system in place on this node.
+
+Node set to patch for:
+<% if node['patchman']['debian']['test']['security_only'] || node['patchman']['debian']['prod']['security_only']-%>
+  ** Security updates ONLY
+<% else -%>
+  ** Security updates and Stable patches
+<% end %>
+
+<% day = { '0' => 'Sunday', '1' => 'Monday', '2' => 'Tuesday', '3' => 'Wednesday', '4' => 'Thursday', '5' => 'Friday', '6' => 'Saturday'} %>
+<% if node['patchman']['environment'] == 'prod' -%>
+<% num = node['patchman']['prod']['day'] %>
+Node scheduled to patch on: <%= day[num] %> at <%= node['patchman']['prod']['time']['hour']%>:<%= node['patchman']['prod']['time']['minute']%>
+<% else -%>
+<% num = node['patchman']['test']['day'] %>
+Node scheduled to patch on: <%= day[num] %> at <%= node['patchman']['test']['time']['hour']%>:<%= node['patchman']['test']['time']['minute']%>
+<% end %>
+-----------------------------------------------------------

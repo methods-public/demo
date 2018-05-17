@@ -1,0 +1,9 @@
+dependencies: 
+  - recipe: epipe::install
+    global:  
+      - hopsworks::default
+      - elastic::install
+  - recipe: epipe::default
+    global:  
+      - elastic::default
+      - hops::dn

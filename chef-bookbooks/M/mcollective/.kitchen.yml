@@ -1,0 +1,51 @@
+---
+driver:
+  name: vagrant
+
+driver_config:
+  provider: vmware_fusion
+  customize:
+    memory: 512
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+  - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mcollective::default]
+    attributes:
+  - name: activemq
+    excludes:
+      - centos-6.4
+    run_list:
+      - recipe[mcollective_test::activemq]
+      - recipe[mcollective::default]
+    attributes:
+      mcollective:
+        users: kitchen
+        psk: testkitchen
+  - name: rabbitmq
+    excludes:
+      - ubuntu-12.04
+    run_list:
+      - recipe[mcollective_test::rabbitmq]
+      - recipe[mcollective::default]
+    attributes:
+      mcollective:
+        users: kitchen
+        connector: rabbitmq
+  - name: redis
+    excludes:
+      - ubuntu-12.04
+    run_list:
+      - recipe[mcollective_test::redis]
+      - recipe[mcollective::default]
+    attributes:
+      mcollective:
+        users: kitchen
+        connector: redis

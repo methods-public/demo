@@ -1,0 +1,35 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  # tested out with 12.5.1, 13.0.118, 13.1.31 (for more version check here: https://downloads.chef.io/chef)
+  # require_chef_omnibus: 13.1.31
+  environments_path: environments
+  client_rb:
+    environment: development
+  roles_path: roles
+
+platforms:
+  - name: ubuntu-14.04
+  - name: centos-6.6
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+      - recipe[curl]
+      - recipe[uptime_cloud_monitor::default]
+    attributes:
+      copperegg:
+        apikey: ''
+        label: 'NewServer'
+        use_fqdn: true
+        create_sshprobe: true
+        include_env_astag: false
+        uninstall_collector: false
+        update_latest: false
+        remove_on_uninstall: false
+      ec2:
+        public_hostname: 'test_server'

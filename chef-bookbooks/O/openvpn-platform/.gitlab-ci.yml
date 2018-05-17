@@ -1,0 +1,24 @@
+# Template chef 20170731
+image: sbernard/arch-kitchen-docker
+
+before_script:
+  - bundle install
+
+variables:
+  CHECKS_REPO: https://gitlab.com/samuel.bernard/checks/raw/master
+
+foodcritic:
+  script:
+    - foodcritic -f any .
+
+rubocop:
+  script:
+    - rubocop
+
+lines_length:
+  script:
+    - curl -s $CHECKS_REPO/check_lines_length.sh | bash
+
+git_history:
+  script:
+    - curl -s $CHECKS_REPO/check_git_history.sh | bash

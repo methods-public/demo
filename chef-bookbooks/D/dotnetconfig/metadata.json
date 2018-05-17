@@ -1,0 +1,51 @@
+{
+  "name": "dotnetconfig",
+  "description": "Installs/Configures dotnetconfig",
+  "long_description": "dotnetconfig Cookbook\n=====================\n\n##NET configuration file editor. Provides functionality to update a .NET app / web configuration file with values from a chef run.\n\nWORK IN PROGRESS - Currently in Alpha, feel free to test it out but don't use in production until this message is removed or we have hit V1.0.0.\n\n##Open the file for editing, non locking\n```ruby\ndocumentPath = 'C:\\\\Config\\\\' + 'app.config'\ndocument = config_getxml(documentPath)\n```\n\n##Set app settings within the config file<\nArguments:\n  Document: Pass document which was fetched from config_getxml\n  SettingName: The setting to update\n  SettingValue: The new value to apply to the configuration\n\n```ruby\nconfig_set_app_setting(document, 'fix-gateways', 'Replaced')\nconfig_set_app_setting(document, 'service-installer-service-name', 'Edit2')\nconfig_set_app_setting(document, 'service-installer-service-description', 'Edit3')\nconfig_set_app_setting(document, 'log-fixmessage-to-db', 'Edit4')\nconfig_set_app_setting(document, 'default-version', 'Edit5')\nconfig_set_app_setting(document, 'fix-service-test-file-name', 'Edit6')\n```\n\n##Setting custom elements\nSet an element's content using an xPath query, Example:\n\n```xml\n<custom>\n  <user>AValue1</user>\n  <password>AValue2</password>\n  <host>AValue3</host>\n  <port>AValue4</port>\n</custom>\n```\n\nThis block would find the first occurrence of the 'custom' element and set the content of each of its elements to a new value.\n\n```ruby\nconfig_set_element_content(document, '//configuration/custom/user', 'Edit8')\nconfig_set_element_content(document, '//configuration/custom/password', 'Edit9')\nconfig_set_element_content(document, '//configuration/custom/host', 'Edit10')\nconfig_set_element_content(document, '//configuration/custom/port', 'Edit11')\n```\n\n##Setting the content of a specific element using xPath\nThis would find the first log4net appender called MyAppender\n\n```ruby\nconfig_set_element_content(document, '//configuration/log4net/appender[@name=\"MyAppender\"]/hostName', 'NewValue1')\nconfig_set_element_content(document, '//configuration/log4net/appender[@name=\"MyAppender\"]/userName', 'NewValue2')\nconfig_set_element_content(document, '//configuration/log4net/appender[@name=\"MyAppender\"]/password', 'NewValue3')\n```\n\n##Connection strings\n\nSet the the entire content of a connection string\n```ruby\nconfig_set_connection_string(document, 'Database1', 'Database=Partial;User Id=Replacement;Password=PasswordChanged;CommandTimeout=30;MinPoolSize=0')\n```\n\nSet an individual property within a connection string\n\n```ruby\nconfig_set_connection_string_property(document, 'Database2', 'password', 'NewValue123654')\n```\n\nSaving changes made to the file\n\n```ruby\nconfig_writexml(document, outputPath)\n```\n",
+  "maintainer": "Adam ONeil",
+  "maintainer_email": "adam@altispartners.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "nokogiri": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.4",
+  "source_url": "https://github.com/jerseyfoxcom/dotnetconfig",
+  "issues_url": "https://github.com/jerseyfoxcom/dotnetconfig/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

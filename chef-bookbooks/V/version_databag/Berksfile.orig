@@ -1,0 +1,7 @@
+source 'https://supermarket.chef.io'
+<<<<<<< HEAD
+source 'http://repo.release.cerner.corp/supermarket/'
+=======
+>>>>>>> 5475ed6... Open Source Version Databag
+
+metadata

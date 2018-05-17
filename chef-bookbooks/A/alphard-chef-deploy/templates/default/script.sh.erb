@@ -1,0 +1,78 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          <%= @name %>
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: <%= @description %>
+### END INIT INFO
+
+NAME='<%= @name %>'
+COMMAND='java <%= @java_options %> <%= @main_class %> <%= @main_arguments %>'
+LOG_FILE='<%= @log_file %>'
+PID_FILE='<%= @pid_file %>'
+PID=""
+
+if [[ -f ${PID_FILE} ]]; then
+  PID=$(cat ${PID_FILE})
+fi
+
+if ! ([[ ! -z ${PID} ]] && $(kill -0 ${PID})); then
+  # Add checks to be sure the process was launched by this script
+  # ex: [[ -r /prod/$pid/cmdline ]] && xargs -0l echo < /proc/$pid/cmdline | grep -q "your_program_name"
+  PID=""
+fi
+
+function start() {
+
+  if [[ -z ${PID} ]]; then
+      nohup ${COMMAND} &>> ${LOG_FILE} & echo $! > ${PID_FILE}
+      echo "$NAME started!"
+  else
+      echo "$NAME is already running!"
+  fi
+
+}
+
+function stop() {
+
+  if ! [[ -z ${PID} ]]; then
+      rm ${PID_FILE}
+      kill ${PID}
+      echo "$NAME stopped!"
+  else
+      echo "$NAME is not running!"
+  fi
+
+}
+
+function status() {
+
+  if ! [[ -z ${PID} ]]; then
+      echo "$NAME ($PID) is running"
+  else
+      echo "$NAME is not running"
+  fi
+
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        stop
+        start
+    ;;
+    status)
+        status
+    ;;
+    *)
+        echo "usage: $NAME {start|stop|restart|status}" >&2
+        exit 3
+    ;;
+esac

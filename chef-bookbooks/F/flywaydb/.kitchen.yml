@@ -1,0 +1,139 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: '12.10'
+
+platforms:
+  - name: centos-7.1
+    driver_config:
+      network:
+        - ["forwarded_port", {guest: 3306, host: 3306, auto_correct: true}]
+  - name: windows-2012r2
+    driver:
+      box: dhoer/windows-2012r2
+
+suites:
+  - name: default
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::default
+    attributes:
+      flywaydb_test:
+        parameters:
+          password: mysql
+          placeholders.test_password: test
+        flyway_conf:
+          user: notset
+          url: jdbc:mysql://notset/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        alt_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+        mysql_driver: true
+        sensitive: false
+    excludes:
+      - windows-2012r2
+
+  - name: timeout
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::timeout
+    attributes:
+      flywaydb:
+        timeout: 10 # seconds
+      flywaydb_test:
+        parameters:
+          password: mysql
+          placeholders.test_password: test
+        flyway_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        sensitive: false
+    includes:
+      - centos-7.1
+
+  - name: nil_flyway_conf
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::default
+    attributes:
+      flywaydb_test:
+        parameters:
+          password: mysql
+          placeholders.test_password: test
+        alt_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        sensitive: false
+    includes:
+      - centos-7.1
+
+  - name: conf_file
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::default
+    attributes:
+      flywaydb_test:
+        parameters:
+          user: root
+          password: mysql
+          placeholders.test_password: test
+        flyway_conf: /tmp/conf/ext.conf
+        sensitive: false
+    includes:
+      - centos-7.1
+
+  - name: 3.2.1
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::default
+    attributes:
+      flywaydb:
+        url: https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz
+        sha256: 8b9ba320a69b8cdef6de60118e312d3cbe96ca37a24b8aec7be4cdf4950bb5fe
+      flywaydb_test:
+        parameters:
+          user: root
+          password: mysql
+          placeholders.test_password: test
+        alt_conf: /tmp/conf/ext.conf
+    includes:
+      - centos-7.1
+
+  - name: win # converge default-centos-7.1 before converging win-windows-2012r2
+    run_list:
+      - flywaydb_test::default
+    attributes:
+      flywaydb:
+        group: Administrators
+      flywaydb_test:
+        parameters:
+          password: test
+        flyway_conf:
+          user: notset
+          url: jdbc:mysql://notset/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+        alt_conf:
+          user: test
+          url: jdbc:mysql://10.0.0.3/mysql # change ip
+        sensitive: false
+        password: 84aXPZugs8xR7xTz # required by windows
+        mysql_driver: true
+    includes:
+      - windows-2012r2

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description><%= @description %></description>
+<% unless @display_name.nil? -%>
+  <displayName><%= @display_name %></displayName>
+<% end -%>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+<% @properties.each do |property, options| %>
+<%= partial_template(property, 'property', options, @cookbook, @include_templates) %>
+<% end %>
+  </properties>
+<% if @scm.empty? -%>
+  <scm class="hudson.scm.NullSCM"/>
+<% else -%>
+<%= partial_template(@scm.keys[0], 'scm', @scm.values[0], @cookbook, @include_templates) %>
+<% end %>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+<% @triggers.each do |trigger, options| %>
+<%= partial_template(trigger, 'trigger', options, @cookbook, @include_templates) %>
+<% end %>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+<% @builders.each do |builder, options| %>
+<%= partial_template(builder, 'builder', options, @cookbook, @include_templates) %>
+<% end %>
+  </builders>
+  <publishers>
+<% @publishers.each do |publisher, options| %>
+<%= partial_template(publisher, 'publisher', options, @cookbook, @include_templates) %>
+<% end %>
+  </publishers>
+  <buildWrappers>
+<% @wrappers.each do |wrapper, options| %>
+<%= partial_template(wrapper, 'wrapper', options, @cookbook, @include_templates) %>
+<% end %>
+  </buildWrappers>
+</project>

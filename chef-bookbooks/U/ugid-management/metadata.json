@@ -1,0 +1,38 @@
+{
+  "name": "ugid-management",
+  "description": "Library cookbook to manage user and group ids",
+  "long_description": "UGId Management\n===============\n\nDescription\n-----------\n\nLibrary cookbook to manage user and group ids. More specifically, it can\napply and check that all listed uids and gids are synchronized between servers.\n\nMoreover, it is also a wrapper around [users cookbook][users_cookbook] to\ncreate users and groups with specified uids/gids.\n\nRequirements\n------------\n\n### Cookbooks and gems\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\n- RHEL Family 7, tested on Centos\n\nNote: it should work on any Linux system but it is only tested on Centos 7.\n\nUsage\n-----\n\n### Quick Start\n\nBasically, this cookbook need two data bags:\n\n1. one for specifying uids and gids (grouped under the name ugid) named *ugids*\n2. one to override user creation in packages named *packages*\n\nYou can find example of theses data bags in\n[test/data\\_bags/ugids](test/data_bags/ugids) directory.\n\n#### ugids\n\nSo in *ugids*, you can find the list of forced ugids. It has a simple format:\n\n```json\n{\n  \"id\": \"ugids\",\n  \"ugids\": {\n    \"a_given_username\": \"its_uid:its_gid\",\n    \"examble\": \"123:234\",\n    \"an_integer_is_also_accepted_for_specifying_both\": 234,\n    \"if_you_only_want_a_gid\": \":234\"\n  }\n}\n```\n\nEach time a Chef resource user or group is used, it got extended with these\nuids and gids. If no ugid are defined, an exception is thrown, failing the\nChef run.\n\n#### packages\n\nThe role of *packages* is to override the user creations performed in\ndistribution packages (like deb/rpm). Its format is:\n\n```json\n{\n  \"id\": \"packages\",\n  \"packages\": {\n    \"package_name\": {\n      \"username\": \"username\",\n      \"user_opts\": {\n        \"extra_key\": \"extra_value\"\n      },\n      \"group_opts\": {\n        \"extra_key\": \"extra_value\"\n      }\n    },\n    \"example\": {\n      \"username\": \"username_to_create\",\n      \"user_opts\": {\n        \"home\": \"/var/lib/specific_home\",\n        \"shell\": \"/sbin/typically-nologin\"\n      },\n      \"group_opts\": {\n        \"append\": true\n      }\n    }\n  }\n}\n```\n\nWarning: if a package does not have an user defined in this package, it is\nuntouched by Chef. This could lead to uncontrolled users. That is why you can\nactivate the verification (active in default recipe).\n\n#### Verification\n\n**check** recipe uses *ugids* data bag to verify if each user/group with a\nuid/gid greater than 200 (non system-reserved) has the correct uid/gid.\n\nBy default, all users/groups must have an *ugid* defined but it is possible to\ndeactivate this behavior with `node[cookbook_name]['enforce']`\nattribute. It is also possible to defined a whitelist (like for systemd users)\nwith `node[cookbook_name]['whitelist']` (applicable for both users and groups).\n\n### logindefs\n\nThis cookbook can also configure `/etc/login.defs` with values defined from\nattributes.\n\n### Users creation\n\nRecipe [create](recipes/create.rb) is a wrapper around users cookbook. To use\nit, create a data bag *users* containing your users, as specified by the\n[users cookbook][users_cookbook]. Then declare the groups you want to install\nin `node['ugid-management']['users_manage']` attribute, as an array. Of course,\n*ugids* data bag should also include the correct information.\n\n### Test\n\nThis cookbook is fully tested through the installation of a working node in\ndocker.\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\nRecipes\n-------\n\n### default\n\nInclude *logindefs*, *create*, *manage\\_before*, *manage\\_after* and\n*check* (only if check is activated) in this order.\n\n### create\n\nUse users cookbook (as dependency) to create groups and their associated users.\nUser creation is controled by `users_manage` attribute which lists all groups\nthat will be installed. Users should be listed in *users* data bag. See\n[users cookbook][users_cookbook] for more information.\n\n### logindefs\n\nManage `/etc/login.defs` with values defined in attributes.\n\n### manage\\_before and manage\\_after\n\nManage users (extending user/group resources with defined ugids) and\npackages (creating package user/group before the package to control their\nattributes).\n\nThe difference between *manage\\_before* and *manage\\_after* is that\n*manage\\_before* manages all resources which are executed before in the Chef\nrun while *manage\\_after* managers the resources after. Combining them, like\nin *default* recipe, allows you to manage all resources independently of\ntheir positions in the run list.\n\n### check\n\nCheck if all users and groups are correctly defined on the system. Raise an\nexception and fail the Chef run if it is not the case.\n\nResources/Providers\n-------------------\n\nNone.\n\nLibraries\n---------\n\n### default\n\nDefine all methods needed for user management.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG.md](CHANGELOG.md).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2016 Sam4Mobile, 2017-2018 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[users_cookbook]: https://github.com/chef-cookbooks/users\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.1"
+  },
+  "dependencies": {
+    "users": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.5.0",
+  "source_url": "https://gitlab.com/chef-platform/ugid-management",
+  "issues_url": "https://gitlab.com/chef-platform/ugid-management/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

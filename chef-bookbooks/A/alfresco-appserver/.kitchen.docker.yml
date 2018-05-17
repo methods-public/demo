@@ -1,0 +1,67 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  log_level: info
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.2
+    driver:
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.2_chef-provisionerless.box
+
+suites:
+  - name: tomcat-multi
+    run_list:
+      - recipe[alfresco-appserver::default]
+      - recipe[alfresco-utils::node_json]
+    verifier:
+      inspec_tests:
+        - name: chef-alfresco-inspec-tomcat
+          git: https://github.com/Alfresco/chef-alfresco-inspec-tomcat
+          tag: v0.1
+        - name: utils
+          git: https://github.com/Alfresco/chef-alfresco-inspec-utils
+          tag: v0.1
+    data_bags_path: "test/integration/data_bags"
+    attributes: {
+      "appserver": {
+        "download_artifacts" : true,
+        "install_java" : true,
+        "install_maven" : true,
+        "run_single_instance" : false
+      },
+      "tomcat": {
+        "memcached_nodes": "192.168.33.23"
+      }
+     }
+  - name: tomcat-single
+    run_list:
+      - recipe[alfresco-appserver::default]
+      - recipe[alfresco-utils::node_json]
+    verifier:
+      inspec_tests:
+      - name: chef-alfresco-inspec-tomcat
+        git: https://github.com/Alfresco/chef-alfresco-inspec-tomcat
+        tag: v0.1
+      - name: utils
+        git: https://github.com/Alfresco/chef-alfresco-inspec-utils
+        tag: v0.1
+    data_bags_path: "test/integration/data_bags"
+    attributes: {
+      "appserver": {
+        "download_artifacts" : true,
+        "install_java" : true,
+        "install_maven" : true,
+        "run_single_instance" : true,
+      },
+      "tomcat": {
+        "memcached_nodes": "192.168.33.23"
+      }
+     }

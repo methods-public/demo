@@ -1,0 +1,38 @@
+{
+  "name": "kea-dhcp",
+  "description": "Install and Configure ISC Kea DHCP server",
+  "long_description": "Kea DHCP\n========\n\nDescription\n-----------\n\nInstall and configure [**ISC Kea**](https://www.isc.org/kea/), a Modern Open\nSource DHCPv4 & DHCPv6 Server.\n\nCan also:\n- configure network interfaces by the use of cookbook\n[**network_interfaces_v2**][ni], for instance to\nset a static address at the server and dhcp for the clients.\n\n- configure an exporter script to expose DHCP client metrics\nfollowing [Prometheus format][ef]. Only IP lifetime validity\nof dynamically assigned network interface currently reported.\n\nRequirements\n------------\n\n### Cookbooks\n\nDeclared in [metadata.rb](metadata.rb) and in [Gemfile](Gemfile).\n\n### Platforms\n\n- RHEL Family 7, tested on Centos\n\nIt should be easy to add a new platform.\n\nUsage\n-----\n\n### Easy Setup\n\nAdd `recipe[kea-dhcp::server]` in your run-list to install and configure\n**Kea**. Configuration will be fetched from attributes\n`node['kea-dhcp']['kea-conf']`. It directly follows '/etc/kea/kea.conf' format.\nSee official documentation for more help.\n\nAdd `recipe[kea-dhcp::client]` to install a dhcp client.\n\nAdd `recipe[kea-dhcp::network_interface]` to configure your network\ninterfaces. Configuration is fetched from attributes\n`node['kea-dhcp']['network-interface']` which should match those of\nprovider [**network_interface**][ni].\n\nTo see examples, look at [.kitchen.yml](.kitchen.yml).\n\n### Test\n\nThis cookbook is fully tested through the installation of a server and a node\nin docker hosts. This uses kitchen, docker and some monkey-patching.\n\nIf you run kitchen list, you will see 2 suites, Each corresponds to a different\nserver:\n\n- server-centos-7: Kea server listening on eth1\n- node-centos-7: generic node with eth1 configured in dhcp\n\nFor more information, see [.kitchen.yml](.kitchen.yml) and [test](test)\ndirectory.\n\nAttributes\n----------\n\nConfiguration is done by overriding default attributes. All configuration keys\nhave a default defined in [attributes/default.rb](attributes/default.rb).\nPlease read it to have a comprehensive view of what and how you can configure\nthis cookbook behavior.\n\n### Specific configuration (client or server)\n\nTo allow clients and servers to share a same role, it is possible to define\nspecific configuration keys applicable to one of the status (client or server).\n\nSpecific configurations can be any of the attributes defined in\n[attributes/default.rb](attributes/default.rb) but in either \"client-config\"\nor \"server-config\" sub-tree.\n\nA node is declared as server if its FQDN is included in attribute\n`node['kea-dhcp']['servers']` defined as an array. Else, it is considered\nas a client.\n\nRecipes\n-------\n\n### default\n\nCall **init** and then, following the node status, call **client** or\n**server** recipe.\n\n### init\n\nDetermine if the current machine is a server or a client by looking if current\nfqdn is included in `node['kea-dhcp']['servers']` (empty by default). Write the\nresult in `run_state['kea-dhcp']['status']`. Then merge default and specific\n(client or server) configurations and store the result in\n`run_state['kea-dhcp']['config']`.\n\nNote: **init** is included in all recipes.\n\n### client\n\nInstall **dhclient** package.\n\n### server\n\nMeta recipe which includes **server_install**, **server_config** and\n**server_service**.\n\n### server\\_install\n\nInstall **Kea** by from EPEL repository.\n\n### server\\_config\n\nSet `/etc/kea/kea.conf` from attributes `kea-conf`.\n\n### server\\_service\n\nStart and enable Kea services (like dhcp4, dhcp6, dhcp-ddns) if enabled in\nattributes `services`.\n\n### network\\_interface\n\nCall **network_interface_rhel** provider based on\nattributes `node['kea-dhcp']['network-interface']`.\nSee [.kitchen.yml](.kitchen.yml) and cookbook\n[**network_interface_v2**][ni] for more information.\n\nCreate static routes based on `node['kea-dhcp']['routes']` attribute.\n\n### exporter\n\nInstall metrics exporter dhcp-client_exporter.sh as a systemd timer unit.\n\nResources/Providers\n-------------------\n\nNone.\n\nChangelog\n---------\n\nAvailable in [CHANGELOG](CHANGELOG).\n\nContributing\n------------\n\nPlease read carefully [CONTRIBUTING.md](CONTRIBUTING.md) before making a merge\nrequest.\n\nLicense and Author\n------------------\n\n- Author:: Samuel Bernard (<samuel.bernard@gmail.com>)\n\n```text\nCopyright (c) 2015-2016 Sam4Mobile, 2017 Make.org\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n\n[ni]: https://supermarket.chef.io/cookbooks/network_interfaces_v2\n[ef]: https://prometheus.io/docs/instrumenting/exposition_formats/\n",
+  "maintainer": "Make.org",
+  "maintainer_email": "sre@make.org",
+  "license": "Apache-2.0",
+  "platforms": {
+    "centos": ">= 7.3"
+  },
+  "dependencies": {
+    "network_interfaces_v2": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.0",
+  "source_url": "https://gitlab.com/chef-platform/kea-dhcp",
+  "issues_url": "https://gitlab.com/chef-platform/kea-dhcp/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.14"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,25 @@
+---
+driver:
+  name: vagrant 
+
+provisioner:
+  name: chef_solo
+
+platforms:
+- name: centos-6.7
+- name: centos-7.2
+
+suites:
+- name: default
+  run_list:
+  - recipe[yum-dell::default]
+  attributes:
+    yum:
+      dell:
+        enabled: true
+- name: undo
+  run_list: [ "recipe[yum-dell::default]", "recipe[yum-dell::undo]" ]
+  attributes:
+  yum:
+    dell:
+      enabled: true 

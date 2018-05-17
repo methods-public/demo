@@ -1,0 +1,41 @@
+{
+  "id": "standalone",
+  "clusters": {
+    "test": {
+      "user_admin_login": "siteRootAdmin",
+      "user_admin_password": "pass",
+      "databases": [
+        {
+          "name": "database1",
+          "users": [
+            {
+              "login": "user1",
+              "password": "pass1",
+              "roles": ["readWrite"]
+            },
+            {
+              "login": "user3",
+              "password": "pass3",
+              "roles": ["read"]
+            }
+          ]
+        },
+        {
+          "name": "database2",
+          "users": [
+            {
+              "login": "user2",
+              "password": "pass2",
+              "roles": ["dbAdmin"]
+            },
+            {
+              "login": "user3",
+              "password": "pass3",
+              "roles": ["readWrite"]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

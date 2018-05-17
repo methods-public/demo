@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.1.0
+sudo: required
+
+before_install:
+- curl -lkO https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.10.0-1_amd64.deb
+- sudo dpkg -i chefdk_0.10.0-1_amd64.deb
+
+before_script: berks install
+script: bundle exec rake travis
+

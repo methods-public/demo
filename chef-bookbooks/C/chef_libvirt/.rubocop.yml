@@ -1,0 +1,6 @@
+Encoding:
+  Enabled: False
+LineLength:
+  Max: 200
+AbcSize:
+  Max: 30

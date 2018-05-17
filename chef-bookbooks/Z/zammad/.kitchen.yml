@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cableconnected1: 'on'
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+
+verifier:
+  name: inspec
+
+
+platforms:
+  - name: centos-7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[zammad::default]

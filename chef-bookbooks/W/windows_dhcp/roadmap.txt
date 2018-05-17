@@ -1,0 +1,34 @@
+service
+	Add-DhcpServerInDC
+	Add-DhcpServerSecurityGroup
+	Add-DhcpServerv4Failover
+	Add-DhcpServerv4FailoverScope
+	
+	Add-DhcpServerv6Class
+Scope
+	Add-DhcpServerv4ExclusionRange
+	Add-DhcpServerv4MulticastExclusionRange
+	Add-DhcpServerv4MulticastScope
+	Add-DhcpServerv4OptionDefinition
+	Add-DhcpServerv4Policy
+	Add-DhcpServerv4PolicyIPRange
+	Add-DhcpServerv4Reservation
+	#Add-DhcpServerv4Scope
+	Add-DhcpServerv4Superscope
+	
+	Add-DhcpServerv6ExclusionRange
+	Add-DhcpServerv6Scope
+	
+	type :scope, :superscope
+Client
+	Add-DhcpServerv4Lease
+	Add-DhcpServerv4Filter
+	
+	Add-DhcpServerv6Lease
+	Add-DhcpServerv6OptionDefinition
+	Add-DhcpServerv6Reservation
+	
+	
+	http://www.ipamworldwide.com/dhcp-options/isc-dhcpv4-options.html
+
+	

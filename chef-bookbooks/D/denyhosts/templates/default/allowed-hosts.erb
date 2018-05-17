@@ -1,0 +1,12 @@
+#
+# This file is managed by Chef, using the denyhosts cookbook.
+# Editing this file by hand is highly discouraged!
+#
+
+# We mustn't block localhost
+127.0.0.1
+
+<% node['denyhosts']['allowed-hosts'].each do |ip| %>
+<%= ip %>
+<% end %>
+

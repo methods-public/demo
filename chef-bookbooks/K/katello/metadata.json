@@ -1,0 +1,37 @@
+{
+  "name": "katello",
+  "description": "Installs and configures Katello",
+  "long_description": "# Katello Chef Cookbook\n\n[![Build Status](https://travis-ci.org/juliandunn/katello.svg?branch=master)](https://travis-ci.org/juliandunn/katello)\n\nThis cookbook configures a system to be a [Katello](http://www.katello.org/) server.\n\nHaven't heard of Katello? If you know [Spacewalk](http://spacewalk.redhat.com/) -- Katello\nis the next version of that, and will eventually also become the next major version of\n[RedHat Satellite Server](http://www.redhat.com/products/enterprise-linux/satellite/).\n\n## Supported Platforms\n\n* Fedora 19+\n* CentOS 6+\n* RedHat 6+\n\n## Usage\n\n### katello::default\n\nInclude `katello` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[katello::default]\"\n  ]\n}\n```\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (i.e. `add-new-recipe`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass. This cookbook is also continuously tested with [Travis](http://travis-ci.org/juliandunn/katello).\n6. Submit a pull request.\n\n## License and Authors\n\n* Author:: Julian C. Dunn (<jdunn@getchef.com>)\n\n```text\nCopyright:: 2014, Chef Software, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Chef Software, Inc.",
+  "maintainer_email": "jdunn@getchef.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "openssl": ">= 0.0.0",
+    "selinux": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "lastrun_handler",
+  "description": "Installs and enables lastrun chef_handler.",
+  "long_description": "",
+  "maintainer": "The Wharton School - The University of Pennsylvania",
+  "maintainer_email": "bflad@wharton.upenn.edu",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef_handler": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "lastrun_handler": "Installs and enables lastrun chef_handler."
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false
+}

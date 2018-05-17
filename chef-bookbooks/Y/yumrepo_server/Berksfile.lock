@@ -1,0 +1,11 @@
+DEPENDENCIES
+  yumrepo_server
+    path: .
+    metadata: true
+
+GRAPH
+  apache2 (3.2.2)
+  logrotate (1.9.2)
+  yumrepo_server (0.3.0)
+    apache2 (~> 3.2.0)
+    logrotate (>= 0.0.0)

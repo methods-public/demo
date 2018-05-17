@@ -1,0 +1,64 @@
+# See default at https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+
+AllCops:
+  Exclude:
+    - 'recipes/*'
+    - 'examples/*'
+    - 'bin/*'
+
+######### RUBY 2.4 ###########
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+##############################
+
+Layout/EndOfLine:
+  Enabled: false
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 50
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 25
+
+Metrics/ModuleLength:
+  Max: 210
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Exclude:
+    - 'libraries/matchers.rb'
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false

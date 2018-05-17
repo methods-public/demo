@@ -1,0 +1,52 @@
+{
+  "name": "xenserver-tools",
+  "description": "Installs the XenServer Tools",
+  "long_description": "XenServer Tools Cookbook\n========================\nInstalls the XenServer Tools packages provided by Citrix.\n\nRequirements\n------------\nThis cookbook has been tested on:\n\n- CentOS 7\n- Debian 8\n- Chef 12.16\n\nUsage\n-----\n#### xenserver-tools::default\nInstalls the appropriate packages for the OS and starts the xe-linux-distribution service.\n\nContributing\n------------\nYou know what to do. ;)\n\nLicense and Authors\n-------------------\n- Author:: James Le Cuirot (<james.le-cuirot@yakara.com>)\n\n```text\n# Copyright (C) 2016 Yakara Ltd\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n```\n\nThe packages found in the files directory are verbatim copies of those found on the guest tools ISO bundled with XenServer. I could not find them elsewhere. They are BSD licensed and therefore safe to redistribute.\n",
+  "maintainer": "James Le Cuirot",
+  "maintainer_email": "james.le-cuirot@yakara.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+    "systemd": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "https://github.com/yakara-ltd/chef-xenserver-tools",
+  "issues_url": "https://github.com/yakara-ltd/chef-xenserver-tools/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

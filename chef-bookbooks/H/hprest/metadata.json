@@ -1,0 +1,54 @@
+{
+  "name": "hprest",
+  "description": "cookbook for installing and using hprest to configure and manage server settings",
+  "long_description": "# hprest Cookbook\n\n#### Table of Contents\n1. [Description](#description)\n1. [Requirements](#requirements)\n1. [Platforms - which platforms are supported](#platforms)\n    * [Which Chef version is compatible?](#chef)\n1. [Usage](#usage)\n1. [How to contribute](#contributing)\n\n## Description\n\n**hprest** is a Chef cookbook that installs the Hewlett-Packard RESTful Interface Tool, and provides \nrecipes to use Chef to manage your node's settings\n\n### What does hprest do?\n\n**hprest** installs the hprest (RESTful Interface Tool) on your node, and provides custom resources \nto send valid hprest commands\n\n## Requirements\n\n**hprest** has no dependencies, and only requires the node to be able to access Hewlett-Packard Enterprise's \nrepositories.\n\nIt is strongly suggested by Chef and us that chef-client be run as root or administrator, to ensure that everything is working properly. If root/administrator is not used, **hprest** may fail.\n\n### Platforms\n\n- Windows Server 2012, Ubuntu, Debian, Red Hat Linux\n\n### Chef\n\n- Chef 12.0 or later\n\n## Usage\n\n### hprest::default\n\ninclude `hprest` in your node's `run_list` to install hprest.\n\n### Custom Resources\n\n`hprest` includes an 'hprest' resource that is used to provide valid hprest commands to the node.\n\nThis can be used by adding in commands you wish to use in the service.rb file\n\n**Example service.rb file**\n\n```ruby\nhprest 'login 10.0.0.100 -u admin -p password'\nhprest 'types'\nhprest 'select HpBios.'\nhprest 'set AdminName=\"John Doe\"'\nhprest 'get AdminName'\nhprest 'commit'\n```\n\n## Contributing\n\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: TODO: List authors\n\n",
+  "maintainer": "lumbajack",
+  "maintainer_email": "jack.g.garcia@hpe.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/HewlettPackard/chef-hprest-module",
+  "issues_url": "https://github.com/HewlettPackard/chef-hprest-module/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

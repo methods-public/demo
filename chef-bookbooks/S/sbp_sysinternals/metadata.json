@@ -1,0 +1,39 @@
+{
+  "name": "sbp_sysinternals",
+  "description": "Installs/Configures Sysinternals and BGInfo",
+  "long_description": "sbp_sysinternals Cookbook\n=========================\nThis cookbook will deploy the Sysinternals Suite and configure (if the correct attributes are set) BGInfo\n\n\nRequirements\n------------\nThe cookbook depends on the windows cookbook\n\n\nAttributes\n----------\nThe attribute default['sysinternals']['bginfo_config_url'] expects a download location for a zipfile containing the config.bgi. We choose this solution because\nif we would include the config.bgi directly file in the cookbook, every user of the cookbook should have to either alter or wrap the cookbook in order to provide\nhis/her own version of the config.bgi file.\n\ndefault['sysinternals']['url']               = 'http://download.sysinternals.com/files/SysinternalsSuite.zip'\ndefault['sysinternals']['install_dir']       = \"#{ENV['SYSTEMDRIVE']}\\\\SysinternalsSuite\"\ndefault['sysinternals']['bginfo_config_url'] = 'http://local_http_repo/BgInfo.zip'\ndefault['sysinternals']['bginfo_config_dir'] = \"#{ENV['SYSTEMDRIVE']}\\\\BgInfo\"\n\n\nUsage\n-----\nJust include `sbp_sysinternals` in your node's `run_list`\n\n\nContributing\n------------\n  1. Fork the repository on Github\n  2. Create a named feature branch (i.e. `add-new-recipe`)\n  3. Write you change\n  4. Write tests for your change (if applicable)\n  5. Run the tests, ensuring they all pass\n  6. Submit a Pull Request\n\n\nLicense and Authors\n-------------------\nAuthors: Sander van Harmelen, Mark Reijn\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n",
+  "maintainer": "Sander van Harmelen",
+  "maintainer_email": "svanharmelen@schubergphils.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 1.3.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1"
+}

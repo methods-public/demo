@@ -1,0 +1,7 @@
+# This configuration is managed by Chef.
+# Do not edit manually! Local changes will be overwritten!
+
+[/settings/external scripts/wrapped scripts]
+<% node['nscp']['checks'].each do |name, check_hash| %>
+<%= name %> = scripts\<%= check_hash['command'] %> <%= check_hash['arguments'].empty? ? '' : '$ARGS$' %>
+<% end %>

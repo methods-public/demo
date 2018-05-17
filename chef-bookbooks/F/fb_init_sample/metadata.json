@@ -1,0 +1,86 @@
+{
+  "name": "fb_init_sample",
+  "description": "Setup a base runlist for using Facebook cookbooks",
+  "long_description": "fb_init Cookbook\n====================\nThis is a sample - you almost certainly want to fork this and adjust it to\ntaste. The rest of the Facebook suite of cookbooks are designed to not be\nlocally modified.\n\nRequirements\n------------\n\nAttributes\n----------\n\nUsage\n-----\nThis cookbook includes all of the opensource Facebook cookbooks. You may not be\nready to use them all, or you may want to include additional stuff, so adjust to\ntaste.\n\nWe've gone ahead and included some extra \"HERE: \" comments on where we've put\nother cookbooks that are internal to give you a better idea of our full\nrunlist. We hope to be able to release more of these as time allows and where\nappropriate.\n\nIt is highly recommended you read through the\n[README.md](https://github.com/facebook/chef-cookbooks/blob/master/README.md)\nin the root of GitHub repo as well as\n[Philosophy.md](https://github.com/facebook/chef-utils/blob/master/Philosophy.md).\nThe general idea though is that cookbooks are\nordered least specific to most specific. This allows a small core team to make\nAPIs and defaults and then let individual service owners' cookbooks at the end\noverwrite whatever they ened to. This also ensures that all things the service\nowner chooses not to bother with are setup to sane settings by the core group\nat your site.\n\nThe idea is that your runlists will look include this first, then everything\nelse. This cookbook should be every \"core cookbook\" that provides APIs for\neveryone else.\n\nIt's useful to think of things in a 3-pass system:\n  * Setup APIs\n    This is what we do in attributes files. Create the structure in the\n    node object for people to append to or modify.\n  * Use APIs\n    In recipes any cookbook can use those APIs by simply writing to the node\n    object. The cookbooks in question can set things, but it can all be\n    overwritten by \"owners\" later. This is where the ordering of our model is\n    different from other models - we start with the most generic stuff - the\n    cookbooks the core OS team writes that should be applicable in general to\n    all machines unless someone has a more specific desire. Owners then can\n    include other cookbooks that are more specific - maybe for a specific\n    cluster, location, type of service. Finally the last cookbooks should be the\n    most specific ones for that service or machine which gets the final say.\n    Anytime someone removes a node assignment the next-most-specific setting\n    will take precdent.\n  * Consume APIs\n    Everyone who uses any API is generally the cookbook that provides that API,\n    so APIs must be consumed only at runtime: templates, ruby_blocks, providers,\n    etc.\n\nWe have provided an early recipe called `site-settings.rb` in which you can set\nthe defaults for your organization for all settings Facebook cookbooks provide.\nFor example, setting all the most reasonable sysctl settings here is advisable\n- then let others override them in their later cookbooks. Assuming `fb_init` is\nthe first thing in your runlist, this is basically the first thing, so any\nother cookbooks in your runlist will have time to overwrite them.\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_apt": ">= 0.0.0",
+    "fb_apcupsd": ">= 0.0.0",
+    "fb_collectd": ">= 0.0.0",
+    "fb_cron": ">= 0.0.0",
+    "fb_dnsmasq": ">= 0.0.0",
+    "fb_dracut": ">= 0.0.0",
+    "fb_ebtables": ">= 0.0.0",
+    "fb_ethers": ">= 0.0.0",
+    "fb_fstab": ">= 0.0.0",
+    "fb_grub": ">= 0.0.0",
+    "fb_hdparm": ">= 0.0.0",
+    "fb_hddtemp": ">= 0.0.0",
+    "fb_helpers": ">= 0.0.0",
+    "fb_hostconf": ">= 0.0.0",
+    "fb_hosts": ">= 0.0.0",
+    "fb_ipset": ">= 0.0.0",
+    "fb_iptables": ">= 0.0.0",
+    "fb_iproute": ">= 0.0.0",
+    "fb_limits": ">= 0.0.0",
+    "fb_logrotate": ">= 0.0.0",
+    "fb_modprobe": ">= 0.0.0",
+    "fb_motd": ">= 0.0.0",
+    "fb_nsswitch": ">= 0.0.0",
+    "fb_postfix": ">= 0.0.0",
+    "fb_rpm": ">= 0.0.0",
+    "fb_rsync": ">= 0.0.0",
+    "fb_swap": ">= 0.0.0",
+    "fb_securetty": ">= 0.0.0",
+    "fb_sysctl": ">= 0.0.0",
+    "fb_syslog": ">= 0.0.0",
+    "fb_systemd": ">= 0.0.0",
+    "fb_timers": ">= 0.0.0",
+    "fb_tmpclean": ">= 0.0.0",
+    "fb_vsftpd": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

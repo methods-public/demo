@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+
+Style/FileName:
+  Exclude:
+    - '**/Gemfile'
+    - '**/Berksfile'
+
+Metrics/LineLength:
+  Max: 150
+
+Style/RegexpLiteral:
+  Exclude:
+    - '**/Guardfile'

@@ -1,0 +1,20 @@
+---
+driver:
+  name: digitalocean
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14-04-x64
+    driver_config:
+      size: 2gb
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mule-test::default]
+    attributes:
+      aws:
+        access_key: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+        secret: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>

@@ -1,0 +1,83 @@
+{
+  "name": "tensorflow",
+  "description": "Installs/Configures/Runs tensorflow",
+  "long_description": "",
+  "maintainer": "Jim Dowling",
+  "maintainer_email": "jdowling@kth.se",
+  "license": "Apache v2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "rhel": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "kagent": ">= 0.0.0",
+    "java": ">= 0.0.0",
+    "bazel": ">= 0.0.0",
+    "magic_shell": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+    "tensorflow/group": {
+      "description": "group parameter value",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "tensorflow/user": {
+      "description": "user parameter value",
+      "type": "string",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "tensorflow::install": "Download and compile and install tensorflow",
+    "tensorflow::default": "Setup tensorflow",
+    "tensorflow::distributed": "Setup distributed tensorflow",
+    "tensorflow::purge": "Uninstall tensorflow and cuda"
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

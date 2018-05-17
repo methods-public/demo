@@ -1,0 +1,9 @@
+{
+  "id": "superadmin",
+  "comment": "Super Admin",
+  "groups": [ "sysadmin" ],
+  "uid": 2000,
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAw== superadmin_fakekey"
+  ]
+}

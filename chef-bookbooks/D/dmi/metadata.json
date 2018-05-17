@@ -1,0 +1,41 @@
+{
+  "name": "dmi",
+  "description": "Installs/Configures dmi",
+  "long_description": "Installs/Configures dmi",
+  "maintainer": "Criteo",
+  "maintainer_email": "sre-core-infra@criteo.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.14.2"
+}

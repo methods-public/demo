@@ -1,0 +1,19 @@
+#
+# This configuration file is managed by chef
+# Do not edit by hand.  Your changes will be overwritten
+#
+#
+# Java wrapper.java.additional settings
+
+<% Hash[@config.sort].each do |key, value| -%>
+<% if key -%>
+<% if key == 'wrapper.java.additional' -%>
+<% value.each do |o| -%>
+wrapper.java.additional=<%= o %>
+<% end -%>
+<% elsif !value.nil? -%>
+<%= key %>=<%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+wrapper.java.additional=-Dneo4j.ext.udc.source=<%= node['platform_family'] == 'rhel' ? 'rpm' : 'debian' %>

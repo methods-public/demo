@@ -1,0 +1,53 @@
+{
+  "name": "yacc",
+  "description": "YACC (Yet Another Chocolatey Cookbook), Manages many chocolatey packages through attributes.",
+  "long_description": "# YACC (Yet Another Chocolatey Cookbook)\n\nManages chocolatey packages through attributes.\n\n## Requirements\n\n### Depends\n\n- [chocolatey](https://supermarket.chef.io/cookbooks/chocolatey) ~> 1.2.0\n\n### Platforms\n\n- Windows\n\n### Chef\n\n- Chef 12.0 or later\n\n## Attributes\n\nSet the chocolatey default sources: \n\nDefault: \n```json\n{\n  \"chocolatey\": {\n    \"source\": \"https://chocolatey.org/api/v2/\",\n    \"action\": \"present\",\n    \"priority\": 0\n  }\n}\n```\n\nExample:\n\n```json\n{\n  \"yacc\" : {\n    \"default_sources\" : {\n      \"private\": {\n        \"source\": \"https://repo.private.com/api/v2/\",\n        \"action\": \"present\",\n        \"user\": \"some_user\",\n        \"password\": \"some_password\",\n        \"priority\": 1\n      },\n      \"private2\": {\n        \"source\": \"https://repo2.private.com/api/v2/\",\n        \"action\": \"disabled\",\n        \"priority\": 99\n      },\n      \"private3\": {\n        \"source\": \"https://repo3.private.com/api/v2/\",\n        \"action\": \"absent\",\n        \"priority\": 100\n      },\n      \"chocolatey\": {\n        \"source\": \"https://chocolatey.org/api/v2/\",\n        \"action\": \"present\",\n        \"priority\": 0\n      }\n    }\n  }\n}\n```\n\n\nSet config options(Default: `{}`):\n\nValid actions: `set|unset`\n\nExample:\n\n```json\n{\n  \"yacc\" : {\n    \"config\" : {\n      \"cacheLocation\": {\n        \"action\": \"set\",\n        \"value\": \"C:\\\\tmp\"\n      }\n    }\n  }\n}\n```\n\n\nDetermine if failures should be ignored(Default: `false`):\n\n```json\n{\n  \"yacc\" : {\n    \"ignore_failure\" : true\n  }\n}\n```\n\nGlobal install options that will be run with each choco install (Default: `{}`)\n\n```json\n{\n  \"yacc\" : {\n    \"install_options\" : [\n      \"--cachelocation C:\\\\tmp\"\n    ]\n  }\n}\n```\n\nDefine packages:\n\n```json\n{\n  \"yacc\" : {\n    \"packages\" : {\n      \"googlechrome\": {\n        \"action\": \"56.0.2924.76\",\n        \"install_options\": [\n          \"--ignorechecksum\",\n          \"--allow-downgrade\"\n        ]\n      },\n      \"firefox\": {\n        \"action\": \"upgrade\"\n      },\n      \"chocolateygui\": {\n        \"action\": \"purge\"\n      }\n    }\n  }\n}\n```\n\nThe `action` field follows the same actions as [this documentation](https://docs.chef.io/resource_chocolatey_package.html), it also can take a version number.\n\n## Usage\n\n### yacc::default\n\nJust include `yacc` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[yacc]\"\n  ]\n}\n```\n\n",
+  "maintainer": "Alex Markessinis",
+  "maintainer_email": "markea125@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chocolatey": "~> 1.2.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.8.2",
+  "source_url": "https://github.com/MelonSmasher/chef_yet_another_chocolatey_cookbook",
+  "issues_url": "https://github.com/MelonSmasher/chef_yet_another_chocolatey_cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Managed by Chef
+# inspired from https://github.com/sharadchhetri/scripts/
+
+if [ $# -ne 2 ]; then
+  echo "$0 <backup dir> <host>"
+  exit 1
+fi
+
+BACKUP_DIR=$1
+HOST=$2
+DATA_DIR=<%= @data_dir %>
+BIN_DIR=<%= @bin_dir %>
+NODETOOL=<%= @nodetool %>
+
+SAVE_NAME=cassandra-backup_$(date +%F_%H%M%S)
+TMP_DIR=/tmp/backup
+TMP_BACKUP_DIR="$TMP_DIR/$SAVE_NAME"
+BACKUP_SNAPSHOT_DIR="$TMP_BACKUP_DIR/SNAPSHOTS"
+BACKUP_SCHEMA_DIR="$TMP_BACKUP_DIR/SCHEMA"
+SNAPSHOT_NAME=snp-$(date +%F-%H%M-%S)
+DATE_SCHEMA=$(date +%F-%H%M-%S)
+TMP_DIR=/tmp/backup
+
+# Create backup directories (-p no error if exist)
+mkdir -p "$BACKUP_SCHEMA_DIR"
+mkdir -p "$BACKUP_SNAPSHOT_DIR"
+mkdir -p "$BACKUP_DIR"
+
+# List All Keyspaces
+$BIN_DIR/cqlsh $HOST -e "DESC KEYSPACES" \
+  | perl -pe 's/\e([^\[\]]|\[.*?[a-zA-Z]|\].*?\a)//g' \
+  | sed '/^$/d' \
+  > "$TMP_BACKUP_DIR/keyspace_name_schema.cql"
+
+# Take SCHEMA Backup - All Keyspace and All tables
+for VAR_KEYSPACE in $(cat "$TMP_BACKUP_DIR/keyspace_name_schema.cql"); do
+  $BIN_DIR/cqlsh $HOST -e "DESC KEYSPACE $VAR_KEYSPACE" \
+    > "${BACKUP_SCHEMA_DIR}/${VAR_KEYSPACE}_schema-${DATE_SCHEMA}".cql
+done
+
+# Create snapshots for all keyspaces
+$NODETOOL snapshot -t $SNAPSHOT_NAME
+
+# List all tables for each keyspace
+# Create directories and copy datas into it
+for keyspace in $(cat "$TMP_BACKUP_DIR/keyspace_name_schema.cql"); do
+  for table in $($BIN_DIR/cqlsh $HOST -e "use $keyspace; DESCRIBE TABLES;"); do
+    # Special case IndexInfo is double quoted, see:
+    # https://docs.datastax.com/en/cql/3.3/cql/cql_using/useQuerySystem.html
+    table=$(sed -e 's/^"//' -e 's/"$//' <<< "$table")
+    mkdir -p $BACKUP_SNAPSHOT_DIR/$keyspace/$table
+    cp -prf $DATA_DIR/$keyspace/$table-*/snapshots/$SNAPSHOT_NAME/* \
+      $BACKUP_SNAPSHOT_DIR/$keyspace/$table/
+  done
+done
+
+# Compress backups and delete source
+tar -C $TMP_DIR -czf "$TMP_DIR/$SAVE_NAME.tar.gz" "$SAVE_NAME" \
+  && rm -fr "$TMP_BACKUP_DIR" \
+  && mv "$TMP_DIR/$SAVE_NAME.tar.gz" "$BACKUP_DIR/."
+
+# cleaning
+$NODETOOL clearsnapshot -t $SNAPSHOT_NAME

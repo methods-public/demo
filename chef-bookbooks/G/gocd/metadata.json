@@ -1,0 +1,65 @@
+{
+  "name": "gocd",
+  "description": "Installs/Configures Go servers and agents",
+  "long_description": "",
+  "maintainer": "GoCD Contributors",
+  "maintainer_email": "go-cd@googlegroups.com",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 3.0.0",
+    "java": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+    "gocd::server": "Installs and configures a Go server",
+    "gocd::agent": "Installs and configures a Go agent",
+    "gocd::repository": "Installs the go yum/apt repository",
+    "gocd::agent_windows": "Installs and configures Windows Go agent",
+    "gocd::server_windows": "Installs and configures Windows Go server",
+    "gocd::agent_linux": "Install and configures Linux Go agent",
+    "gocd::server_linux": "Install and configures Linux Go server"
+  },
+  "version": "3.0.1",
+  "source_url": "https://github.com/gocd/go-cookbook",
+  "issues_url": "https://github.com/gocd/go-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

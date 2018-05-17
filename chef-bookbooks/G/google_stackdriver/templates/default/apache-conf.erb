@@ -1,0 +1,12 @@
+# Managed by Chef.  Local changes will be overwritten.
+LoadPlugin "apache"
+<Plugin "apache">
+   <Instance "localhost">
+       URL "<%= @url %>"
+# If you restricted access with auth, specify it here
+<% if @user %>
+		User <%= @user %>
+		Password <%= @password %>
+<% end %>
+   </Instance>
+</Plugin>

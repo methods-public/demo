@@ -1,0 +1,27 @@
+#!/bin/bash
+# chkconfig: 2345 90 10
+# description: newrelic-sysmond-policy start<F2>stop script
+
+. /etc/init.d/functions
+stdout_log="/var/log/newrelic-sysmond-policy.log"
+stderr_log="/var/log/newrelic-sysmond-policy.err"
+
+case "$1" in
+        stop)
+        if [ -d /var/lock/subsys ] && [ -f /var/lock/subsys/newrelic-sysmond-policy ]
+        then
+            rm /var/lock/subsys/newrelic-sysmond-policy
+        fi
+        /usr/bin/newrelic-sysmond-policy -k <%= node[:newrelic][:apikey] %> -p "<%= node[:newrelic][:server_monitoring][:shutdown_policy] %>" >> "$stdout_log" 2>> "$stderr_log"
+        ;;
+        start)
+        if [ -d /var/lock/subsys ]
+        then
+            touch /var/lock/subsys/newrelic-sysmond-policy
+        fi
+        /usr/bin/newrelic-sysmond-policy -k <%= node[:newrelic][:apikey] %> -p "<%= node[:newrelic][:server_monitoring][:startup_policy] %>" >> "$stdout_log" 2>> "$stderr_log"
+        ;;
+*)
+        echo $"Usage: $0 {start|stop}"
+        exit
+esac

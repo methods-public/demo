@@ -1,0 +1,14 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: freebsd-10.1
+
+suites:
+  - name: default
+    run_list: ["sanoid::default"]
+    attributes:

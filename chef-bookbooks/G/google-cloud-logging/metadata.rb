@@ -1,0 +1,13 @@
+name             'google-cloud-logging'
+maintainer       'vipinthomas'
+maintainer_email 'vipinthomaskc@gmail.com'
+license          'All rights reserved'
+description      'Installs/Configures google-cloud-logging'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.7'
+supports	 'amazonlinux'
+supports	 'debian'
+supports	 'ubuntu','>=12.04'
+supports	 'redhat'
+supports	 'centos'
+source_url 	 'https://github.com/vipinthomas/google-cloud-logging'

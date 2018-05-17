@@ -1,0 +1,39 @@
+{
+  "name": "aerospike",
+  "description": "Installs/Configures aerospike",
+  "long_description": "# aerospike cookbook\n\nThis cookbook installs and configures the Aerospike Server with a default\nin-memory namespace called \"test\". It is highly recommended to modify the\nattributes according to your environment and Aerospike recommendations.\n\n## Enterprise edition\n\nThis cookbook supports installing Aerospike's Enterprise Edition, but you will\nhave to override some attributes. The recommended way is to use a wrapper\ncookbook and define the following:\n\n```ruby\ndefault['aerospike']['server']['edition']         = 'enterprise'\ndefault['aerospike']['server']['pkg']['url']      = 'https://www.aerospike.com/enterprise/download/server/VERSION/artifact/PLATFORM'\ndefault['aerospike']['server']['pkg']['headers']  = { 'Authorization' => \"Basic #{Base64.encode64('USER:PASSWORD').strip}\" }\ndefault['aerospike']['server']['pkg']['checksum'] = 'SHA256CHECKSUM'\n```\n\n## Requirements\n\nThe cookbook is tested on the following platforms:\n\n* Centos 6, 7\n* Debian 7, 8\n* Ubuntu 12.04, 14.04, 16.04\n\n## Recipes\n\n### default\n\nThis recipe will call: install, conf, service (in that order).\n\n### install\n\nThis recipe will download the Aerospike Server archive, extract it, and install\nthe rpm or deb package (depending on the platform).\n\n### service\n\nThis recipe will declare the Aerospike Server service (it is installed and\nconfigured by the package).\n\n### conf\n\nThis recipe will generate tne Aerospike Server configuration from attributes.\n",
+  "maintainer": "Vlad Gorodetsky",
+  "maintainer_email": "v@gor.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "tar": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0",
+  "source_url": "https://github.com/bai/cookbook-aerospike",
+  "issues_url": "https://github.com/bai/cookbook-aerospike/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

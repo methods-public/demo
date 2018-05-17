@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!--<jmxConfigurator/>-->
+  <% if @config.logback_stdout_flag == true -%>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{ISO8601} %-5level [%thread] %logger{0}: %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+<% end -%>
+
+  <appender name="CYCLIC" class="ch.qos.logback.core.read.CyclicBufferAppender">
+    <MaxSize><%= @config.logback_cyclic_maxsize %></MaxSize>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file><%= @config.logback_file %></file>
+    <append>true</append>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern><%= @config.logback_file %>.%i</fileNamePattern>
+      <minIndex><%= @config.logback_file_minindex %></minIndex>
+      <maxIndex><%= @config.logback_file_maxindex %></maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize><%= @config.logback_file_maxfilesize %></maxFileSize>
+    </triggeringPolicy>
+
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level [%logger{0}.%M] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.apache.zookeeper" level="INFO"/>
+  <logger name="org.hbase.async" level="INFO"/>
+  <logger name="com.stumbleupon.async" level="INFO"/>
+  <root level="<%= @config.logback_level %>">
+  <% if @config.logback_stdout_flag  == true -%>
+    <appender-ref ref="STDOUT"/>
+<% end -%>
+    <appender-ref ref="CYCLIC"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>

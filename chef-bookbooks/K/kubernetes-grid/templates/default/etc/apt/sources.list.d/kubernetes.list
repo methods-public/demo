@@ -1,0 +1,12 @@
+<%
+override_apt_line = node['kubernetes-grid']['apt_repo']['override_apt_line']
+if !override_apt_line.nil? && !override_apt_line.empty?
+-%>
+<%= override_apt_line %>
+<%
+else
+-%> 
+deb <%= node['kubernetes-grid']['apt_repo']['url'] %> kubernetes-<%= node['lsb']['codename'] %> main
+<%
+end
+-%>

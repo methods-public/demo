@@ -1,0 +1,12 @@
+# Rubocop configuration file
+# - overriding the any defaults.
+Metrics/LineLength:
+  Max: 300
+  
+# Disabling due to it being a pita on windows
+Layout/EndOfLine:
+  Enabled: false
+
+Lint/AmbiguousOperator:
+  Exclude:
+    - 'test/smoke/default/*_test.rb'

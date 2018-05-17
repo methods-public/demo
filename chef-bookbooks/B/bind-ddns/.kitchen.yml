@@ -1,0 +1,170 @@
+#
+# Copyright (c) 2015-2017 Sam4Mobile, 2017-2018 Make.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Customize Kitchen with some monkey patching:
+# - Suites scheduler
+#   <% require "#{File.dirname(__FILE__)}/test/kitchen_command.rb" %>
+# - Alias to have shorter lines
+#   <% ip_of = "docker inspect --format '{{.NetworkSettings.IPAddress}}'" %>
+#   <% grep = "grep '^nameserver' /etc/resolv.conf | grep -v 127.0.0.1" %>
+#   <% grep = "#{grep} | grep -v '%'" %> IPV6 with iface
+#   <% nameservers = `#{grep} | cut -d" " -f2`.lines.map(&:chomp) %>
+#   <% forwarders = "{ #{nameservers.map { |n| "#{n};" }.join(' ')} }"%>
+
+driver:
+  name: docker_cli
+  volume: /sys/fs/cgroup:/sys/fs/cgroup:ro
+  command: /sbin/init
+  security_opt: seccomp=unconfined
+  skip_preparation: true
+  build_pull: true
+
+transport:
+  name: docker_cli
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  product_name: chef
+  install_strategy: skip
+  client_rb:
+    file_atomic_update: false
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: sbernard/centos-systemd-kitchen
+
+suites:
+  # Install a ddns server
+  - name: server
+    driver:
+      hostname: server-ddns.chef.kitchen
+      container_name: server-ddns
+    run_list:
+      - recipe[bind-ddns]
+    attributes:
+      bind-ddns:
+        package_retries: 1
+        servers: [ server-ddns.chef.kitchen ]
+        set_resolv_conf: true
+        server: localhost
+        secondary_servers: <%= nameservers %>
+        search: chef.kitchen
+        sysconfig_config:
+          OPTIONS: "-4"
+        server-config: # Should be used
+          options:
+            listen-on: "port 53 { localnets; };\n
+              listen-on port 553 { localnets; }"
+            allow-query: "{ localnets; }"
+            forwarders: "<%= forwarders %>"
+        client-config: # Should not be used
+          options:
+            listen-on: "port 57"
+            allow-query: "{ any; }"
+        zones:
+          - name: chef.kitchen
+            config:
+              type: master
+              file: dynamic/db-chef-kitchen
+              allow-update: "{ key chef.kitchen; }"
+            ns: [ ns.chef.kitchen. ]
+            a:
+              ns.chef.kitchen.: eth0
+          - name: forward.kitchen
+            config:
+              type: forward
+              forward: only
+              forwarders: "{ 127.0.0.1; }"
+          - name: 0.17.172.in-addr.arpa
+            config:
+              type: master
+              file: dynamic/0.17.172.in-addr.arpa
+              allow-update: "{ key reverse-key; }"
+              notify: yes
+            ns: [ ns.chef.kitchen. ]
+            ptr:
+              '2': server-ddns.chef.kitchen.
+            contact: "reversemaster"
+        keys:
+          - name: chef.kitchen
+            secret: 9ZDQZxLEBuho4+O0EuGOYA==
+        records:
+          # bind hostname.#{zone} to eth0
+          - data: eth0
+          # Create an entry to be deleted by the client
+          - domain: test-delete.chef.kitchen
+            data: "1.2.3.4"
+
+  - name: client
+    driver:
+      hostname: client-ddns.chef.kitchen
+      container_name: client-ddns
+      dns: $(<%= ip_of %> server-ddns)
+    run_list:
+      - recipe[bind-ddns]
+    attributes:
+      bind-ddns:
+        package_retries: 1
+        servers: [ server-ddns.chef.kitchen ]
+        port: 553
+        keys:
+          - name: chef.kitchen
+            secret: 9ZDQZxLEBuho4+O0EuGOYA==
+        client-config: # Should be used
+          records:
+            # bind hostname.#{zone} to eth0
+            - zone: chef.kitchen
+            # Add 2 A entries
+            - domain: test-multiple-a.chef.kitchen
+              data: 13.12.11.10
+              zone: chef.kitchen
+              uniq: false
+            - domain: test-multiple-a.chef.kitchen.
+              data: 10.11.12.13
+              zone: chef.kitchen
+              uniq: false
+            # Delete a previously entered entry
+            - domain: test-delete.chef.kitchen
+              zone: chef.kitchen.
+              keyname: chef.kitchen
+              secret: 9ZDQZxLEBuho4+O0EuGOYA==
+              action: delete
+            # Test unicity on A entries
+            - zone: chef.kitchen
+              domain: test-uniq.chef.kitchen
+              data: 20.21.22.23
+              uniq: false
+            - zone: chef.kitchen
+              domain: test-uniq.chef.kitchen.
+              data: 30.31.32.33
+            # Test CNAME with unicity
+            - zone: chef.kitchen
+              domain: test-cname.chef.kitchen
+              data: test-multiple-a.chef.kitchen
+              type: CNAME
+            - zone: chef.kitchen
+              domain: test-cname.chef.kitchen
+              data: client-ddns.chef.kitchen # hostname
+              type: CNAME
+              uniq: true
+        server-config: # Should not be used
+          set_resolv_conf: true
+          server: localhost
+          keys:
+            - name: chef.kitchen
+              secret: fakekey

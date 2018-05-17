@@ -1,0 +1,54 @@
+{
+  "name": "chef-maven",
+  "description": "Installs/Configures maven",
+  "long_description": "# chef-maven Cookbook\n\n[![Build Status](https://travis-ci.org/trueCii/chef-maven.svg?branch=master)](https://travis-ci.org/trueCii/chef-maven)\n\nInstalls and configures Apache Maven. This cookbook doesn't install Java. Make sure to install java for this cookbook to work properly. Look the public [Java Cookbook](https://supermarket.chef.io/cookbooks/java) for more details\n\n## Requirements\n\nRequires Java\n\n### Platforms Supported\n\nThe following platforms have been tested with kitchen\n\n- CentOS 6+\n- Ubuntu 14.04+\n\n### Chef\n\n- Chef 12.1 or later\n\n### Cookbooks\n\nThis cookbook is dependent on [tar](https://supermarket.chef.io/cookbooks/tar)\n\n## Attributes\n\n- ` node['maven']['version']` - specifies the version [Check for available versions](https://maven.apache.org/download.cgi)\n- ` default['maven']['checksum']` - specifies the checksum for the tar file (shasum -a 256 filename)\n- ` node['maven']['settings_file']` - maven settings.xml file. Override this attribute to use your custom file\n- ` node['maven']['user']` - user that maven will run as\n- ` node['maven']['group']` - group for maven\n- ` node['maven']['dir_perm']` - permission for maven folder\n- ` node['maven']['m2_home']` - defaults to /usr/local/apache-maven-#{node['maven']['version']}\n- ` node['maven']['maven_opts']` - value of MAVEN_OPTS\n- ` node['maven']['url']` - maven download url\n\n## Usage\n\n### chef-maven::install\n\nInstalls the specified version of maven `node['maven']['version']` at the specified home directory ` node['maven']['m2_home']`\n\n## Contributing\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n## License and Authors\n\nAuthors: trueCii\n",
+  "maintainer": "trueCii",
+  "maintainer_email": "sck049@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "tar": "~> 2.1.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.6",
+  "source_url": "https://github.com/trueCii/chef-maven",
+  "issues_url": "https://github.com/trueCii/chef-maven/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12.1"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

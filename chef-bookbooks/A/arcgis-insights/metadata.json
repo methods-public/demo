@@ -1,0 +1,39 @@
+{
+  "name": "arcgis-insights",
+  "description": "Installs and configures Insights for ArcGIS",
+  "long_description": "arcgis-insights cookbook\n===============\n\nThis cookbook installs and configures Insights for ArcGIS.\n\nRequirements\n------------\n\n### Supported Insights for ArcGIS versions\n\n* 1.0\n* 1.1\n* 1.2\n* 2.0\n* 2.1\n\n### Platforms\n\n* Windows 7\n* Windows 8 (8.1)\n* Windows 10\n* Windows Server 2008 (R2)\n* Windows Server 2012 (R2)\n* Windows Server 2016\n* Ubuntu 14.04 \n* Ubuntu 16.04\n* Rhel 6.5, 7.0\n\n### Dependencies\nThe following cookbooks are required:\n\n* arcgis-enterprise\n\nAttributes\n----------\n\n* `node['arcgis']['insights']['version']` = Insights for ArcGIS version. Default version is `1.0`\n* `node['arcgis']['insights']['setup']` = The location of Insights for ArcGIS setup executable. Default location is `%USERPROFILE%\\Documents\\Insights <version>\\Insights\\setup.exe` on Windows and `/opt/arcgis/Insights/Insights-Setup.sh` on Linux.\n* `node['arcgis']['insights']['setup_archive']` = Path to Insights for ArcGIS setup archive. Default value depends on `node['arcgis']['insights']['version']` attribute value.\n\n\nRecipes\n-------\n\n### arcgis-insights::default\nInstalls and configures Insights for ArcGIS.\n\n### arcgis-insights::uninstall\nUninstalls Insights for ArcGIS.\n\nUsage\n-----\n\nSee [wiki](https://github.com/Esri/arcgis-cookbook/wiki) pages for more information about using ArcGIS cookbooks.\n\n## Issues\n\nFind a bug or want to request a new feature?  Please let us know by submitting an [issue](https://github.com/Esri/arcgis-cookbook/issues).\n\n## Contributing\n\nEsri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).\n\nLicensing\n---------\n\nCopyright 2018 Esri\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nA copy of the license is available in the repository's [License.txt](https://github.com/Esri/arcgis-cookbook/blob/master/License.txt?raw=true) file.\n\n[](Esri Tags: ArcGIS Insights Chef Cookbook)\n[](Esri Language: Ruby)\n",
+  "maintainer": "Esri",
+  "maintainer_email": "contracts@esri.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "windows": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "redhat": ">= 0.0.0"
+  },
+  "dependencies": {
+    "arcgis-enterprise": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "arcgis-insights::default": "Installs and configures Insights for ArcGIS",
+    "arcgis-insights::uninstall": "Uninstalls Insights for ArcGIS"
+  },
+  "version": "3.2.0",
+  "source_url": "https://github.com/Esri/arcgis-cookbook",
+  "issues_url": "https://github.com/Esri/arcgis-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

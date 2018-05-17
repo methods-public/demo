@@ -1,0 +1,24 @@
+language: c
+compiler:
+  - gcc
+  - clang
+sudo: true
+addons:
+  apt:
+    packages:
+      - gcc-4.6
+      - libcurl4-openssl-dev
+      - libjansson-dev
+      - linux-libc-dev
+      - libtool
+      - make
+      - autoconf
+      - git
+      - bzip2
+      - clang-format-3.4
+script:
+  - sudo make test
+  - sudo make format
+  - sudo make integration_test
+notifications:
+  slack: linyows:2oeZ2qcLnaMjbnEYodwEXKTr

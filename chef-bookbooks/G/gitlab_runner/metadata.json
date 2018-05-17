@@ -1,0 +1,33 @@
+{
+  "name": "gitlab_runner",
+  "description": "Depecrated in favor of gitlab-ci-runner",
+  "long_description": "# gitlab_runner\n\nChef cookbook to install and configure GitLab Runner.\nDEPRECATED in favor of [aegir-ci-runner](https://supermarket.chef.io/cookbooks/gitlab-ci-runner)\n\n## License and (original) Authors\n\nAuthor:: Matt Thomson (mattjohnthomson@gmail.com)\n\n[gitlab-ci-runner]:https://supermarket.chef.io/cookbooks/gitlab-ci-runner\n",
+  "maintainer": "Dieter Blomme",
+  "maintainer_email": "info@picabit.be",
+  "license": "MIT",
+  "platforms": {
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/daften/cookbook-gitlab_runner",
+  "issues_url": "https://github.com/daften/cookbook-gitlab_runner/issues"
+}

@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: fedora-19
+    attributes:
+      java:
+        jdk_version: 7
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list:
+      - recipe[katello]
+    attributes:

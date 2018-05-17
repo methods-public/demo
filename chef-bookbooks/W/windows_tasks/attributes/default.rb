@@ -1,0 +1,1 @@
+default['windows_tasks']['ignore_failures'] = false

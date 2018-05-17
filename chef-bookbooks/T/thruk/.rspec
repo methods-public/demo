@@ -1,0 +1,4 @@
+--default-path ./test/unit
+--color
+--format documentation
+--require spec_helper

@@ -1,0 +1,40 @@
+{
+  "name": "grubby",
+  "description": "Installs/Configures grubby",
+  "long_description": "Installs/Configures grubby",
+  "maintainer": "Criteo",
+  "maintainer_email": "j.mauro@criteo.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "rhel": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1"
+}

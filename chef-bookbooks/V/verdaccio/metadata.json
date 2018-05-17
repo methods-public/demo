@@ -1,0 +1,57 @@
+{
+  "name": "verdaccio",
+  "description": "Install a verdaccio NPM server (cache & private repo)\nSee : https://github.com/verdaccio/verdaccio/",
+  "long_description": "# Verdaccio Cookbook\n\n[![CK Version](http://img.shields.io/cookbook/v/verdaccio.svg)](https://supermarket.getchef.com/cookbooks/verdaccio) [![Build Status](https://travis-ci.org/kgrubb/verdaccio-cookbook.svg?branch=master)](https://travis-ci.org/kgrubb/verdaccio-cookbook)\n\n[Verdaccio Project](https://github.com/verdaccio/verdaccio/)\n\n[Original Sinopia cookbook](https://github.com/BarthV/sinopia-cookbook)\n\n## Description\n\nVerdaccio is a fork of sinopia. It is a private/caching npm repository server.\n\nIt allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.\n\n## Supported Platforms\n\nTested on:\n\n* Ubuntu 12.04\n* Ubuntu 14.04\n* Centos 6\n* Centos 7\n\n# Usage\n\nInclude `verdaccio` in your node's `run_list`:\n\n```json\n{\n  \"run_list\": [\n    \"recipe[verdaccio::default]\"\n  ]\n}\n```\n\n### chef-mailcatcher::default\n- Configures verdaccio folders (in /etc, /var & /var/log)\n- Installs node + npm from the official repo at the latest version\n- Creates a passwordless verdaccio user who will run the service\n- Installs the latest version of verdaccio from npmjs.org\n- Configures log rotation to 30d\n- Configures and starts verdaccio service\n\n### Default Configuration\n* Verdaccio will bind to `127.0.0.1:4873`, so you probably need to setup a web frontend.\n* Access to the npm service is allowed to everyone.\n* All desired packages are cached from https://registry.npmjs.org/\n* A single npm account is provisionned to publish private packages with :\n * login : `admin`\n * passw : `admin`\n\n# Attributes\nEvery single Verdaccio configuration item can be managed from node attributes.\nDefault values are specified each time.\n\n## System Configuration\n\n| Key | Type | Description | Default |\n|:----|:-----|:------------|:--------|\n| ['verdaccio']['user'] | String | The default user running verdaccio | verdaccio |\n| ['verdaccio']['confdir'] | String | The config.yaml file location | /etc/verdaccio |\n| ['verdaccio']['datadir'] | String | The verdaccio cache & private stores location | /var/lib/verdaccio |\n| ['verdaccio']['logdir'] | String | The verdaccio.log file location | /var/log/verdaccio |\n| ['verdaccio']['logdays'] | Integer | The log retention policy (days) | 30 |\n| ['verdaccio']['loglevel'] | String | The log level. Can be `trace`, `debug`, `info`, `http`, `warn`, `error`, or `fatal` | warn |\n\n## Verdaccio Global Configuration\n\n| Key | Type | Description | Default |\n|:----|:-----|:------------|:--------|\n| ['verdaccio']['version'] | String | The verdaccio npm package version. Use `nil` for latest | nil |\n| ['verdaccio']['admin']['pass'] | String | The verdaccio admin account clear password | admin |\n| ['verdaccio']['public_url'] | String | The verdaccio rewrite url, url prefix for provided links | nil |\n| ['verdaccio']['timeout'] | Integer | The cached repo timeout in ms | 30000 |\n| ['verdaccio']['maxage'] | Integer | The verdaccio metadata cache max age in sec | 120 |\n| ['verdaccio']['max_body_size'] | String | The maximum size of uploaded json document, software default is 1mb | nil |\n\n## Users and Permissions\n\nNo users are created by default.\n\n* You can set user list with a hash under `default['verdaccio']['users']`, you need to specify a password for each user\n* You can give admin permissions to a specific user with `user['admin'] = true` hash\n\nExample:\n```ruby\nnode['verdaccio']['users']['bob']['pass'] = 'incredible'\nnode['verdaccio']['users']['bob']['admin'] = true\n\nnode['verdaccio']['users']['andy']['pass'] = 'toys'\nnode['verdaccio']['users']['andy']['admin'] = true\n\nnode['verdaccio']['users']['woody']['pass'] = 'buzz'\n```\n\n## NPM Registry\n\nYou can store a list of available npm repositories in `node['verdaccio']['repos']` following {'name' => 'url'} syntax.\n\nDefault hash is loaded with official npmjs repo : `default['verdaccio']['repos'] = {'npmjs' => 'https://registry.npmjs.org/'}`\n\nExample :\n```ruby\nnode['verdaccio']['repos'] = {\n  'npmjs' => 'https://registry.npmjs.org/', # official npmjs repo\n  'myrepo' => 'https://myrepo.local/',\n  'other' => 'https://third-party-repo.com'\n}\n```\n\n`node['verdaccio']['mainrepo']` : (npmjs) Caching repository name selected from available repos list\n\n## Filters\n\n- `default['verdaccio']['strict_access']` : When set to `true`, this only allow admin and admin users to access verdaccio repos, default is `false`\n- You can define access & publish filters based on package name under `default['verdaccio']['filters']`\n- Filter format is an Array with one Hash for one rule  \n- Wildcard is accepted in the filter name rule\n- Access can be provided to :\n * Default (all)\n * Specified available users : `['user1', 'user2']`\n * admin account + all admin user : '@admins'\n- publish can be provided to :\n * Default (admin account only)\n * Specified available users + admin : `['user1', 'user2']`\n * admin account + all admin user : '@admins'\n- Storage value is the name of the folder where filtered packages will be set.\n\nExample :\n```ruby\nnode['verdaccio']['filters'] = [\n  {\n    'name' => 'private-*',\n    'storage' => 'private-repo'\n  },\n  {\n    'name' => 'admin-*',\n    'access' => ['andy', 'woody']\n  },\n  {\n    'name' => 'test-*',\n    'access' => '@admins'\n  }\n]\n```\n\n## Logging\n\nThis cookbook is reusing specific logging format of Verdaccio :\n\n```\ntype: file | stdout | stderr\nlevel: trace | debug | info | http (default) | warn | error | fatal\n\n{type: 'file', path: 'verdaccio.log', level: 'debug'},\n\nparameters for stdout and stderr: format: json | pretty\n{type: 'stdout', format: 'pretty', level: 'debug'}\n```\n\nYou can add as much logger as you want (including '{}') in `default['verdaccio']['logs']` Array\n\nDefault value is :\n```ruby\nnode['verdaccio']['logs'] = [\n  \"{type: file, path: '/var/log/verdaccio/verdaccio.log', level: warn}\"\n]\n```\n\n## Proxy\n\nSee `attributes/default.rb` to view how to configure `node['verdaccio']['use_proxy']` and `node['verdaccio']['proxy']`.\n\n## NPM\n\nSee `attributes/default.rb` to view Node & npm install options (version, source/package, ...)\n\n# Recipes\n\n`verdaccio::default` recipe includes :\n- `verdaccio::users` : creates users\n- `verdaccio::verdaccio` : install verdaccio, directories, conf and start service\n\n# Testing\n\nVerdaccio cookbook is bundled with a Vagrantfile. If you have virtualbox and vagrant ready, just fire a `vagrant up` and this will setup a box running Verdaccio and listening 0.0.0.0:4873. Port 4873 is forwaded to your 127.0.0.1:4873 for test purposes.\n\n# License and Authors\n\nAuthors: Barthelemy Vessemont (<bvessemont@gmail.com>), Keli Grubb (<keligrubb324@gmail.com>)\n\n```text\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Keli Grubb",
+  "maintainer_email": "keligrubb324@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 12.04",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "nodejs": "~> 2.4",
+    "user": ">= 0.0.0",
+    "logrotate": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.2",
+  "source_url": "https://github.com/kgrubb/verdaccio-cookbook",
+  "issues_url": "https://github.com/kgrubb/verdaccio-cookbook/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

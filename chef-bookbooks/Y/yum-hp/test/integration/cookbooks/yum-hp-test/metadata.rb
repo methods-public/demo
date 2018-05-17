@@ -1,0 +1,7 @@
+name             'yum-hp-test'
+maintainer       'Nerijus Bendziunas'
+maintainer_email 'nerijus.bendziunas@gmail.com'
+license          'Apache 2.0'
+description      'Trys to use yum-hp'
+version          '0.0.1'
+depends          'yum-hp'

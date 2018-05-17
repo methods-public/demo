@@ -1,0 +1,48 @@
+{
+  "name": "fish-shell",
+  "description": "Installs/Configures fish-shell",
+  "long_description": "Description\n===========\n\nInstalls or compiles/installs fish-shell; a command line shell for the 90s\n\nRequirements\n============\n\n## Platform:\n\n* FreeBSD\n* Red Hat/CentOS/Fedora/Scientific\n* ArchLinux\n\nAttributes\n==========\n\n## Default recipe attributes:\n\n* `node['fish-shell']['extra_packages']` - An array of extra packages related to vim to install (like plugins). Empty array by default.\n\n* `node['fish-shell']['install_method']` - Sets the install method, choose from the various install recipes. This attribute is set to 'package' by default.\n\n\n## Source recipe attributes:\n\n* `node['fish-shell']['source']['version']` -  The version of fish-shell to compile, 2.1.2 by default.\n* `node['fish-shell']['source']['checksum']` -  The source file checksum.\n\n\nUsage\n=====\n\nPut `recipe[fish-shell]` in a run list, or `include_recipe 'fish-shell'` to ensure that fish is installed on your systems.\n\nLicense and Author\n==================\n\nAuthor:: David tBunnyMan Aronsohn <tbunnyman@me.com>\n\n```text\nCopyright (c) 2015 ChefFurs\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n```\n",
+  "maintainer": "David Aronsohn",
+  "maintainer_email": "WagThatTail@Me.com",
+  "license": "BSD",
+  "platforms": {
+    "mac_os_x": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "arch": ">= 0.0.0",
+    "openbsd": ">= 0.0.0"
+  },
+  "dependencies": {
+    "build-essential": ">= 0.0.0",
+    "yum": ">= 0.0.0",
+    "ark": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.1",
+  "source_url": "",
+  "issues_url": ""
+}

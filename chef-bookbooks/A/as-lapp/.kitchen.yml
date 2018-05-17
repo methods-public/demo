@@ -1,0 +1,18 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+
+suites:
+  - name: default
+    run_list:
+      - recipe[as-lapp::default]
+#    attributes:
+#      lapp:
+#        develop: true

@@ -1,0 +1,44 @@
+{
+  "name": "r1337-linux-base",
+  "description": "Confgure basic settings, packages and services on Linux servers",
+  "long_description": "This Chef cookbook will configure some basic system settings, add/remove some common packages, and deploy standard configurations for some common services",
+  "maintainer": "Matthew Ahrenstein",
+  "maintainer_email": "matthew@route1337.com",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+    "r1337-linux-base::default": "Call this recipe to run the various tweaks from the cookbook",
+    "r1337-linux-base::prereqs": "Called by default. Run all the prerequisites to system management",
+    "r1337-linux-base::bash": "Called by default. Configures the custom bash profile",
+    "r1337-linux-base::thefuck": "Called by default. Installs and configures thefuck",
+    "r1337-linux-base::ntp": "Called by default. Installs and configures ntp for the New York timezone"
+  },
+  "version": "0.1.6",
+  "source_url": "https://github.com/route1337/chef-cookbook-linuxbase",
+  "issues_url": "https://github.com/route1337/chef-cookbook-linuxbase/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.6.4"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

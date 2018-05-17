@@ -1,0 +1,37 @@
+driver:
+  name: vagrant
+  customize:
+      memory: 1024
+  #network:
+  #   - ["forwarded_port", {guest: 8065, host: 8065}]
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntudb-14.04
+    driver_config:
+      box: trusty-server-cloudimg-amd64-vagrant-disk1
+      box_url: https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+  - name: ubuntu-12.04
+  - name: ubuntu-16.04
+  - name: centos-5.11
+    run_list:
+      - recipe[selinux::disabled]
+  - name: centos-6.8
+    run_list:
+      - recipe[selinux::disabled]
+  - name: centos-7.2
+    run_list:
+      - recipe[selinux::disabled]
+  - name: debian-7.11
+  - name: debian-8.5
+  - name: fedora-24
+    run_list:
+      - recipe[selinux::disabled]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mattermost::default]
+    attributes:

@@ -1,0 +1,51 @@
+{
+  "name": "test_kitchen_ad_helpers",
+  "description": "Facilitates the setup of a multi-node test setup using Active Directory in Test Kitchen",
+  "long_description": "# test_kitchen_ad_helpers [![Build Status](https://travis-ci.org/Sam-Martin/test_kitchen_ad_helpers.svg?branch=master)](https://travis-ci.org/Sam-Martin/test_kitchen_ad_helpers)\nA cookbook helper with a kitchen example for multi-node AD integration testing for Test Kitchen.  \nThis example creates two instances:  \n\n1. A domain controller `default-windows-domaincontroller`\n2. A member server `default-windows-2012r2`\n\n# Scenario  \nYou want to test a cookbook/PowerShell script/etc using test-kitchen, but it requires that the server it's running on is joined to an AD domain.\n\n# Setup  \nCopy the following files from this repository into your cookbook's repo (merging files as necessary):  \n\n1. `kitchen.yml`  \n2. `test/*`  \n3. `Berksfile`   \n\nAdd `test_kitchen_ad_helpers` to the `Berksfile`\n\n# Usage\nUse the platform named `windows-2012r2` as your test bed. Replace or add to the existing tests in the `default` suite and add a run_list that specifies your cookbook or other kitchen provisioners as you desire!\n\n# Requires\n`gem install kitchen-nodes`  \n\n# Author\n\nAuthor:: Sam Martin (<samjackmartin@gmail.com>)",
+  "maintainer": "Sam Martin",
+  "maintainer_email": "samjackmartin@gmail.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "windows_ad": ">= 0.5.1"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.1",
+  "source_url": "https://github.com/Sam-Martin/test_kitchen_ad_helpers",
+  "issues_url": "https://github.com/Sam-Martin/test_kitchen_ad_helpers/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

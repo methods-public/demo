@@ -1,0 +1,57 @@
+---
+driver_plugin: docker
+
+platforms:
+- name: ubuntu-12.10
+- name: debian-6.0.7
+  driver_config:
+    image: tianon/debian:6.0.7
+    platform: debian
+  run_list:
+  - recipe[apt]
+- name: centos-6.4
+
+suites:
+- name: from_package
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+      install_type: "package"
+
+
+- name: ldap_auth
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody::ldap]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "package"
+      authentication: "ldap"
+#      catchall: "myCatchall"
+
+- name: from_source_webgz
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "source"
+      source:
+        origin: "web"
+
+- name: from_source_mercurial
+  run_list:
+  - recipe[prosody]
+  - recipe[prosody-test]
+  - recipe[minitest-handler]
+  attributes:
+    prosody:
+      install_type: "source"
+      source:
+        origin: "mercurial"
+

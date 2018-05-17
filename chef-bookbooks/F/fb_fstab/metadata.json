@@ -1,0 +1,54 @@
+{
+  "name": "fb_fstab",
+  "description": "Installs/Configures mounts and /etc/fstab",
+  "long_description": "fb_fstab coookbook\n============\nSupport for full mount/fstab control.\n\nRequirements\n------------\n\nAttributes\n----------\n* node['fb_fstab']['enable_remount']\n* node['fb_fstab']['enable_unmount']\n* node['fb_fstab']['allow_lazy_umount']\n* node['fb_fstab']['type_normalization_map']\n* node['fb_fstab']['ignorable_opts']\n* node['fb_fstab']['umount_ignores']['devices']\n* node['fb_fstab']['umount_ignores']['device_prefixes']\n* node['fb_fstab']['umount_ignores']['types']\n* node['fb_fstab']['umount_ignores']['mount_points']\n* node['fb_fstab']['umount_ignores']['mount_point_prefixes']\n* node['fb_fstab']['mounts'][$NAME]['device']\n* node['fb_fstab']['mounts'][$NAME]['mount_point']\n* node['fb_fstab']['mounts'][$NAME]['type']\n* node['fb_fstab']['mounts'][$NAME]['opts']\n* node['fb_fstab']['mounts'][$NAME]['dump']\n* node['fb_fstab']['mounts'][$NAME]['pass']\n* node['fb_fstab']['mounts'][$NAME]['only_if']\n* node['fb_fstab']['mounts'][$NAME]['mp_owner']\n* node['fb_fstab']['mounts'][$NAME]['mp_group']\n* node['fb_fstab']['mounts'][$NAME]['mp_perms']\n* node['fb_fstab']['mounts'][$NAME]['remount_with_umount']\n* node['fb_fstab']['mounts'][$NAME]['enable_remount']\n* node['fb_fstab']['mounts'][$NAME]['allow_mount_failure']\n* node['fb_fstab']['mounts'][$NAME]['lock_file']\n\nUsage\n-----\n`fb_fstab` will manage all mounts on a system. The primary mechanism for\ninteracting with it is through the `node['fb_fstab']['mounts']` hash which\nallows you to specify mounts you want. For each entry in the hash, fb_fstab\nwill:\n* populate `/etc/fstab` for you\n* create the `mount_point` (but not parents) if it doesn't exist\n* mount the filesystem\n\nFor \"base mounts\", i.e. the mounts that the machine came with from installation,\n`fb_fstab`, will include them if a hint file is provided, or attempt to do an\neducated guess - see \"Base-OS Filesystems\" below. Note that any entry in\n`node['fb_fstab']['mounts']` with a matching `device` will override anything\nfound in \"base mounts.\"\n\n### Global Options\n\n`node['fb_fstab']['enable_remount']` controls whether `fb_fstab` will ever\nattempt to remount filesystems to update options (defaults to `false`). If this\nis `false`, no remounts will ever be attempted. If this is `true`, we will\nattempt to remount filesystems as necessary unless a given `mounts` entry sets\n`enable_remount` to `false`. In other words both\n`node['fb_fstab']['enable_remount']` *and*\n`node['fb_fstab']['mounts'][$NAME']['enable_remount']` must be true for\n`fb_fstab` to remount.\n\n`node['fb_fstab']['enable_unmount']` controls whether `fb_fstab` will\never attempt to unmount filesystems that are no longer represented in\nthe `node['fb_fstab']['mounts']` structure. The default is `false`.\n\n`node['fb_fstab']['allow_lazy_umount']` controls whether `fb_fstab` will try\nlazy unmount with `umount -l` after failing to unmount normally. This is\nintended to be used on systems that may have long-running jobs holding\nfilesystems busy. The default is `false`.\n\nLazy unmounts are inherently unsafe and should be used with caution. The\nrecommendation is to use this attribute only temporarily, to facilitate a mount\nchange and then turn in off. You should also refrain from using lazy unmounts\nif you intend to mount a different filesystem under the same mountpoint. You\nmay end up in a situation when different processes see different devices\nunder the same filesystem path which becomes a troubleshooting nightmare at\nbest, and can easily blossom into a corruption / dataloss scenario.\n\n`node['fb_fstab']['umount_ignores']` is a hash of things to ignore\non unmounting, even if unmounting is enabled. A list of defaults is in\nattributes, you may add or remove from this as you see fit. For example, you\nmay want:\n\n    node.default['fb_fstab']['umount_ignores']['devices'] << '/dev/sdb'\n\n### Filesystem Options\nThe following options map directly to their `/etc/fstab` counterparts, so see\nthe man page for further information on them:\n  * `mount_point`\n  * `device`\n  * `type` (defaults to `auto` if you do not specify)\n  * `opts` (defaults to `default` if you don't specify)\n  * `dump` (defaults to `0` if you don't specify)\n  * `pass` (defaults to `2` if you don't specify)\n\nThe following are additional per-mount flags to `fb_fstab`:\n  * `remount_with_umount` - by default, we remount with `mount -o remount`, but\n                            if this is set, we will `umount` and `mount`\n  * `lock_file` - a lock file to take when performing operations on this mount.\n                  Useful for mounts that are also managed dynamically by others\n                  on the system.\n  * `enable_remount` - defaults to `false`, set to `true` if this FS should\n                       be remounted\n  * `mp_owner` - mountpoint owner\n  * `mp_group` - mountpoint group owner\n  * `mp_perms` - mountpoint permission mode\n  * `only_if` - this takes a Proc to test at runtime much like typical\n                Chef resources, except it only takes a Proc.\n  * `allow_mount_failure` - Allow failure to mount this disk. It will still\n    show up in `/etc/fstab`, but Chef will not crash if mounting fails. This\n    option is designed for teams who can handle data-disk failures gracefully\n    and don't want it to bother Chef.\n\nExample:\n\n    node.default['fb_fstab']['mounts']['foobar'] = {\n      'device' => 'foobar-tmpfs',\n      'type' => 'tmpfs',\n      'opts' => 'size=36G',\n      'mount_point' => '/mnt/foobar-tmpfs',\n    }\n\nNote that you may override an existing 'core' mount by simply specifying\nit in your `node['fb_fstab']['mounts']` structure with the same device\nand mount point.\n\nSince we must make the mountpoint for you, due to ordering, you may specify\n`mp_owner`, `mp_group`, and `mp_perms` in the hash as well. We will not enforce\nthese on an ongoing basis (partly becuase you can't change things under mounts,\nand partly because you can do this on your own), but we will ensure if we\nneed to create the directory for you, we make it the way you want.\n\nUsing `only_if` is slightly different than with resources, and looks like this:\n\n    node.default['fb_fstab']['mounts']['foobar'] = {\n      'only_if' => proc { foo == bar },\n      'device' => 'foobar-tmpfs',\n      'type' => 'tmpfs',\n      'opts' => 'size=36G',\n      'mount_point' => '/mnt/foobar-tmpfs',\n    }\n\nThings that fail the `only_if` will not show up in `/etc/fstab` or be mounted.\n\n### type_normalization_map\nIn order to allow filesystems that report differently from the kernel than what\nwe request there is a user-modifiable mapping fb_fstab uses to normalize the\ntypes it compares. The default includes `'fuse.gluster' => 'gluster'`. You may\nadd other normalizations into this map. They are exact-string matches. Do not\noverwrite the hash or you will lose the pre-populated entries, instead\nadd/modify:\n\n```\nnode.default['fb_fstab']['fs_type_normalization_map']['fuse.gluster'] = 'gluster'\n```\n\n### ignorable_opts\nOptions that should be dropped from the mount-options when comparing for\nequality. For example we drop 'nofail' because while we may want to set that in\n`/etc/fstab`, it's never passed to the kernel and thus never in the visible\noptions for a mounted filesystem. The entries can either be strings or regexes.\nAdd to this list like so:\n\n```\nnode.default['fb_fstab']['ignorable_opts'] << 'ignore_me'\n```\n\n### Base-OS filesystems\n`fb_fstab` determines the base filesystems (root, boot, swap, etc.) that would\ncome from the original installation from `/etc/.fstab.chef`. It is recommended\nyou have your instalation system create this file (e.g in an Anaconda\npost-script) with something like:\n\n    grep -v '^#' /etc/fstab > /etc/.fstab.chef\n    chmod 444 /etc/.fstab.chef\n\nIf such a file does not exist, `fb_fstab` will do it's best to generate one by\npulling things it believes are \"system filesystems\" from `/etc/fstab`.\n\nOnce this file exists it is considered a source of truth and will not be\nmodified.\n\nThis means if you need to do crazy things like modify the UUID or LABEL of your\nroot filesystem, you must either:\n* Update `/etc/.fstab.chef` to reflect these changes and re-run Chef\n* Populate `node['fb_fstab']['mounts']` with an entry that overrides that\n  entry\n\n### Handling online disk repair\nChef will read a file `/var/chef/in_maintenance_disks` to determine any disks\ncurrently being repaired online and skip mounting them. The format of the file\nis one device, ala:\n\n  /dev/sdd1\n  /dev/sdq2\n\nIf this file has not been touched in 7 days it will be assumed to be stale and\nwill be removed. This is designed for online _repair_ not ignoring disks\npermanently.\n\n",
+  "maintainer": "Facebook",
+  "maintainer_email": "noreply@facebook.com",
+  "license": "BSD-3-Clause",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "fb_swap": ">= 0.0.0",
+    "fb_helpers": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.0.1",
+  "source_url": "https://github.com/facebook/chef-cookbooks/",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

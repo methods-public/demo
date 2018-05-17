@@ -1,0 +1,19 @@
+def moombot()
+{
+  'name' => '<%= node['moombot']['name'] %>',
+  'home' => '<%= node['moombot']['home'] %>',
+  'cinch' => <%= node['moombot']['cinch'] %>,
+  'plugins' => <%= node['moombot']['plugin_list'] %>,
+  'loggers' => <%= node['moombot']['loggers'] %>
+}
+end
+
+plugins_path = File.expand_path('plugins', File.dirname(__FILE__))
+<% node['moombot']['plugin_list'].each do |plugin| %>
+<% if node['moombot']["plugin_#{plugin}"] %>
+def moombot_<%= plugin %>()
+<%= node['moombot']["plugin_#{plugin}"] %>
+end
+<% end %>
+load File.expand_path('<%= plugin %>.rb', plugins_path)
+<% end %>

@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# chkconfig: 345 90 60
+# Source function library.
+. <%=@init_function%>
+
+SERVICE_USER=<%=@user%>
+SERVICE_NAME=minecraft_<%=@name%>
+SERVICE_PATH=<%=@directory%>
+PID_PATH_NAME=/tmp/$SERVICE_NAME-pid
+
+start () {
+  if [ ! -f $PID_PATH_NAME ]; then
+    #runuser -l $SERVICE_USER -c "cd \"$SERVICE_PATH\" && screen -S $SERVICE_NAME -d -m \"/bin/sh\" -c \"echo \"\$\$\" > $PID_PATH_NAME && exec java -Xms2G -Xmx4G -jar <%=@jar_name%> nogui<%=@add_cmd%>\""
+    cd $SERVICE_PATH && sudo -u $SERVICE_USER bash -c "screen -S $SERVICE_NAME -d -m '/bin/sh' -c 'java -Xms2G -Xmx4G -jar <%=@jar_name%> nogui $SERVICE_NAME<%=@add_cmd%>'"
+    echo "$SERVICE_NAME started..."
+  else
+    echo "$SERVICE_NAME is already running..."
+  fi
+}
+
+stop () {
+  if [ status = 1 ]; then
+    echo "$SERVICE_NAME is not running..."
+  else
+    sudo -u $SERVICE_USER bash -c "screen -S $SERVICE_NAME -p 0 -X stuff \"<%=@stop_command%>$(printf "\\r")\""
+  fi
+}
+
+status () {
+  TOMATCH="[0-9]*:[0-9]*:[0-9]* java -Xms2G -Xmx4G -jar <%=@jar_name%> nogui $SERVICE_NAME"
+  TEMP=$(ps -fu $SERVICE_USER | grep "$TOMATCH")
+  if [ ! "$TEMP" = "" ]; then
+    echo "$SERVICE_NAME is running with the id $(echo $TEMP | awk '{print $2}')..."
+  else
+    echo "$SERVICE_NAME is not running..."
+    exit 1
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+esac

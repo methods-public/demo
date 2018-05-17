@@ -1,0 +1,44 @@
+# This file is managed by Chef, using the chef_server_omnibus cookbook.
+# Editing this file by hand is highly discouraged!
+
+role :<%= node['chef_server_omnibus']['sync']['role'].to_sym %>
+<%
+if node['chef_server_omnibus']['sync']['role'] == :replica ||
+  node['chef_server_omnibus']['sync']['role'] == :master_and_replica
+-%>
+master '<%= node['chef_server_omnibus']['sync']['master'] %>'
+<%# The following strange looking code is because Chef transforms the hash keys to strings and we need symbols -%>
+organizations <%=node['chef_server_omnibus']['sync']['organizations'].map { |h| Hash[h.map { |k,v| [k.to_sym, v] } ]}.inspect %>
+<% end -%>
+<%
+if node['chef_server_omnibus']['sync']['bootstrap'].is_a?(TrueClass) ||
+  node['chef_server_omnibus']['sync']['bootstrap'].is_a?(FalseClass)
+-%>
+bootstrap <%= node['chef_server_omnibus']['sync']['bootstrap'] %>
+<% end -%>
+<% if node['chef_server_omnibus']['sync']['chef_base_path'] -%>
+chef_base_path '<%= node['chef_server_omnibus']['sync']['chef_base_path'] %>'
+<% end -%>
+<% if node['chef_server_omnibus']['sync']['install_path'] %>
+install_path '<%=node['chef_server_omnibus']['sync']['install_path'] %>'
+<% end -%>
+<% if node['chef_server_omnibus']['sync']['name'] -%>
+name '<%=node['chef_server_omnibus']['sync']['name'] %>'
+<% end -%>
+
+<%
+node['chef_server_omnibus']['sync']['config'].sort.each do |component, config|
+  config.sort.each do |key, raw_value|
+    value = if raw_value.is_a?(String)
+              "'#{raw_value}'"
+            elsif raw_value.nil?
+              'nil'
+            else
+              raw_value
+            end
+-%>
+<%= component %>['<%= key %>'] = <%= value %>
+<%
+  end
+end
+-%>

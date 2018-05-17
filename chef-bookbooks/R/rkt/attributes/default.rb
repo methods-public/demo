@@ -1,0 +1,14 @@
+default['rkt']['install']['type'] = 'tgz'
+default['rkt']['install']['tgz']['version'] = '1.10.1'
+default['rkt']['install']['tgz']['target_dir'] = '/opt/rkt'
+default['rkt']['install']['tgz']['target_bin'] = '/usr/bin/rkt'
+default['rkt']['install']['tgz']['etc_dir'] = '/etc/rkt'
+default['rkt']['install']['tgz']['usr_dir'] = '/usr/lib/rkt'
+default['rkt']['install']['tgz']['var_dir'] = '/var/lib/rkt'
+default['rkt']['install']['tgz']['group_name'] = 'rkt'
+default['rkt']['install']['tgz']['sudo'] = true
+default['rkt']['install']['package']['manage_repository'] = true
+default['rkt']['install']['package']['repository_base_location'] = 'http://download.opensuse.org/repositories/home:/artem_sidorenko:/rkt'
+default['rkt']['install']['package']['name'] = 'rkt'
+default['rkt']['install']['kernel_check'] = true
+default['rkt']['conf']['net_conf_dir'] = '/etc/rkt/net.d'

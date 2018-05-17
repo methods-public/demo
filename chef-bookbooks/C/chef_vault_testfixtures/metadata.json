@@ -1,0 +1,31 @@
+{
+  "name": "chef_vault_testfixtures",
+  "version": "0.2.0",
+  "description": "Sets up testing fixtures for cookbooks using chef-vault",
+  "long_description": "",
+  "maintainer": "Nordstrom, Inc.",
+  "maintainer_email": "james.i.fitzgibbon@nordstrom.com",
+  "license": "apache2",
+  "platforms": {
+    "ubuntu": "= 14.04",
+    "centos": "= 7.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

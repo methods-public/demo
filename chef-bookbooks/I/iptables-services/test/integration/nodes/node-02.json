@@ -1,0 +1,9 @@
+{
+  "id": "node-02.json",
+  "run_list": [ "role[iptables-services-kitchen]" ],
+  "automatic": {
+    "fqdn": "node-02",
+    "ipaddress": "192.168.255.254",
+    "roles": ["iptables-services-kitchen"]
+  }
+}

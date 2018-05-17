@@ -1,0 +1,53 @@
+{
+  "name": "octopus_ssh_tentacle_registration",
+  "description": "handle tentacle registration for linux ssh servers",
+  "long_description": "# SSH Octopus Tentacle Registration\n\nThe goal of this LWRP is to register an octopus tentacle connecting via SSH.\n\nAlways looking for help.\n\n## What it does\n\nIt registers a Linux agent with the Octopus Server via the API. To handle registration, the following occurs:\n\n1. Looks for a file that contains the Octopus machine id (stored in step #3)\n    * If file is found, it will not try to register machine (i.e. good for repeated chef runs)\n2. Registers machine with Octopus Server\n3. Stores resulting `Id` for use in step #1\n\n## Usage\n\n### Installation\n\nAdd to your metadata.rb and use whatever package manager to install.\n\n```ruby\ndepends 'octopus_ssh_tentacle_registration'\n```\n\n### In recipe\n\n```ruby\nregister_ssh_octopus_tenacle 'sample-server' do\n  server_url 'https://my.octopus.server.me'\n  api_key 'Octopus API Key'\n  ssh_account_id 'Account ID of SSH user being used to connect to the boxes'\n  environments ['environments', 'to put this', 'box in']\n  roles ['roles this', 'box has']\n  dotnet_core_platform 'linux-x64' # or osx-x64, not required\nend\n```\n\n## Testing this cookbook\n\n### Rspec\n\n```\nrspec spec --col\n```\n\n### Kitchen\n\n1. You should replace the values in the [register recipe](./test/cookbooks/octopus-tentacle-registration-test/recipes/register.rb) with those are specific to you\n2. `kitchen converge`\n",
+  "maintainer": "Alex Vernacchia",
+  "maintainer_email": "alvernacchia@gmail.com",
+  "license": "All rights reserved",
+  "platforms": {
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.3.2",
+  "source_url": "https://github.com/vernak2539/octopus-ssh-tentacle-registration",
+  "issues_url": "https://github.com/vernak2539/octopus-ssh-tentacle-registration/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 12"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

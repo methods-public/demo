@@ -1,0 +1,9 @@
+init_config:
+  min_collection_interval: <%= @couchbase_collection_interval %>
+instances:
+  - server: <%= @couchbase_server %>
+    user: <%= @couchbase_user %>
+    password: <%= @couchbase_password %>
+<% if @couchbase_timeout %>
+    timeout: <%= @couchbase_timeout %>
+<% end %>

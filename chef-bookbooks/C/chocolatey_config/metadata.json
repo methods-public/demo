@@ -1,0 +1,38 @@
+{
+  "name": "chocolatey_config",
+  "description": "Provides a chocolatey_config resource for managing Chocolatey sources.",
+  "long_description": "# chocolatey_config Cookbook\n\n[![Cookbook Version](https://img.shields.io/cookbook/v/chocolatey_config.svg)](https://supermarket.chef.io/cookbooks/chocolatey_config)\n\nProvides a chocolatey_config resource for managing Chocolatey configs.\n\n## Requirements\n\n### Platforms\n\n- Windows 7\n- Windows Server 2008 R2\n- Windows 8, 8.1\n- Windows Server 2012 (R1, R2)\n- Windows Server 2016\n\n### Chef\n\n- Chef 13+\n\n## Resources\n\n### chocolatey_config\n\n#### Actions\n\n- `:set` - Sets a Chocolatey config\n- `:unset` - Unsets a Chocolatey config\n\n#### Properties\n\n- `config_key` - Name property. The name of the config.\n- `value` - the value to set (required for :set action)\n\n#### Examples\n\nAdd a new config\n\n```ruby\nchocolatey_config 'cacheLocation' do\n  value 'c:\\temp\\choco'\nend\n```\n\nUsing a descriptive resource name and providing the config with config_key property\n\n```ruby\nchocolatey_config 'Set the Chocolatey config path' do\n  config_key 'cacheLocation'\n  value 'c:\\temp\\choco'\nend\n```\n\nUnset a config\n\n```ruby\nchocolatey_config 'cacheLocation' do\n  action :unset\nend\n```\n\n## License & Authors\n\n- Author:: Tim Smith([tsmith@chef.io](mailto:tsmith@chef.io))\n\n```text\nCopyright 2018, Chef Software, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n`\n```\n",
+  "maintainer": "Chef Software, Inc.",
+  "maintainer_email": "cookbooks@chef.io",
+  "license": "Apache-2.0",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "attributes": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/chef-cookbooks/chocolatey_config",
+  "issues_url": "https://github.com/chef-cookbooks/chocolatey_config/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 13.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

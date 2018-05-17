@@ -1,0 +1,38 @@
+{
+  "name": "boundary_meter",
+  "version": "0.2.4",
+  "description": "Installs/Configures boundary_meter",
+  "long_description": "Installs/Configures boundary_meter",
+  "maintainer": "Nolan Davidson",
+  "maintainer_email": "nolan.davidson@gmail.com",
+  "license": "MIT",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "chef-sugar": ">= 0.0.0",
+    "yum": "> 3.0",
+    "apt": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}
