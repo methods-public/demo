@@ -1,0 +1,67 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "encrypted": true
+        }
+      ],
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "eu-west-1",
+      "force_deregister": true,
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": [
+          "099720109477"
+        ],
+        "most_recent": true
+      },
+      "instance_type": "t2.large",
+      "ssh_username": "ubuntu",
+      "ami_name": "ecs-agent-ubuntu-16.04-latest"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get update",
+        "sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common python-minimal",
+        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
+        "sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'",
+        "sudo apt-get update",
+        "sudo apt-get -y install docker-ce",
+        "sudo sh -c 'echo 'net.ipv4.conf.all.route_localnet = 1' >> /etc/sysctl.conf'",
+        "sudo sysctl -p /etc/sysctl.conf",
+        "sudo iptables -t nat -A PREROUTING -p tcp -d 169.254.170.2 --dport 80 -j DNAT --to-destination 127.0.0.1:51679",
+        "sudo iptables -t nat -A OUTPUT -d 169.254.170.2 -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 51679",
+        "sudo mkdir -p /etc/ecs",
+        "sudo mkdir -p /var/log/ecs /var/lib/ecs/data",
+        "sudo chmod 0777 /etc/ecs"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "ecs-files/ecs.config",
+      "destination": "/etc/ecs/ecs.config"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo chmod 0755 /etc/ecs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_security_token": "{{env `AWS_SESSIONTOKEN`}}"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "token":                    "{{user `aws_session_token`}}",
+    "region": "eu-west-1",
+    "force_deregister": true,
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.medium",
+    "ssh_username": "ubuntu",
+    "ami_name": "gocd-agent-latest"
+  }],
+    "provisioners": [
+      {
+        "type": "file",
+        "source": "ansible-files/ansible.cfg",
+        "destination": "/home/ubuntu/ansible.cfg"
+        },
+        {
+          "type": "file",
+          "source": "ansible-files/ec2.ini",
+          "destination": "/home/ubuntu/ec2.ini"
+        },
+        {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "echo 'deb https://download.gocd.org /' | sudo tee /etc/apt/sources.list.d/gocd.list",
+        "curl https://download.gocd.org/GOCD-GPG-KEY.asc | sudo apt-key add -",
+        "sudo apt-get -y update",
+        "sudo apt-add-repository ppa:ansible/ansible",
+        "sudo apt-get -y install nano python-minimal default-jre go-agent apache2-utils python-pip python-passlib python-setuptools software-properties-common ansible",
+        "sudo pip install bcrypt",
+        "sudo pip install credstash",
+        "sudo pip install boto",
+        "sudo mkdir /etc/ansible/inventory",
+        "sudo chown root:root /etc/ansible/inventory",
+        "cd /etc/ansible/inventory",
+        "sudo wget https://raw.github.com/ansible/ansible/devel/contrib/inventory/ec2.py",
+        "sudo mv ec2.py hosts",
+        "sudo chmod +x /etc/ansible/inventory/hosts",
+        "sudo cp /home/ubuntu/ec2.ini /etc/ansible/inventory/",
+        "sudo cp /home/ubuntu/ansible.cfg /etc/ansible/",
+        "sudo ansible-galaxy install Datadog.datadog"
+
+      ]
+     }
+
+     ]
+}

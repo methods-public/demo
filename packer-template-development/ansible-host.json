@@ -1,0 +1,69 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "eu-west-1",
+    "force_deregister": true,
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.nano",
+    "ssh_username": "ubuntu",
+    "ami_name": "ansible-host-latest"
+  }],
+    "provisioners": [{
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get -y update",
+        "sudo apt-get -y install software-properties-common",
+        "sudo apt-add-repository -y ppa:ansible/ansible",
+        "sudo apt-get -y update",
+        "sudo apt-get -y install ansible",
+        "sudo apt-get -y install git",
+        "sudo apt-get -y install nano",
+        "sudo apt-get install -y python-pip python-dev build-essential",
+        "sudo pip install --upgrade pip",
+        "sudo pip install --upgrade virtualenv",
+        "sudo pip install boto"
+       ]
+     },
+     {
+         "type": "file",
+         "source": "/Users/johnh/.ssh/core_instances.pem",
+         "destination": "/home/ubuntu/.ssh/"
+      },
+      {
+         "type": "file",
+         "source": "/Users/johnh/parliament/packer/ansible-files",
+         "destination": "/home/ubuntu/"
+      },
+      {
+         "type": "shell",
+         "inline": [
+         "sudo chmod 0400 /home/ubuntu/.ssh/core_instances.pem",
+         "sudo cp /home/ubuntu/ansible-files/hosts /etc/ansible/",
+         "sudo cp /home/ubuntu/ansible-files/ec2.ini /etc/ansible/",
+         "sudo chmod +x /etc/ansible/hosts",
+         "sudo rm -rf /home/ubuntu/ansible-files",
+         "sudo mkdir /home/ubuntu/ansible",
+         "sudo chown ubuntu:ubuntu /home/ubuntu/ansible",
+         "sudo ssh-agent bash",
+         "sudo ssh-add /home/ubuntu/.ssh/core-instances.pem"
+   
+         ]
+      }
+
+]
+}
